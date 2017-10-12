@@ -1,1 +1,58 @@
-<?php require_once("../include/sessions.php"); ?><?php require_once("../include/court.php"); ?><?php require_once("../include/functions.php"); ?><?php require_once("../include/header.php"); ?><body>	<div id="home_page" class="container">		<?php 			include("e2w_modals.php"); 			include("east2west_contacts.html"); 			include("east2west_about_us.html"); 			include("question_suggestion_form.php"); 		?>		<div class="pictures_east_and_west_btns">			<p>Check out some of the pictures from where we've been. Click on the location of the pictures you want to see.</p>			<?php $getAllLocations = find_all_events(); ?>			<?php while($showLocation = mysqli_fetch_assoc($getAllLocations)) { ?>				<?php if($showLocation["show_trip"] == "Y") { ?>					<div class="picturesBtnLinks">						<a href="index.php?view_gallery=<?php echo strtolower(str_ireplace(" ", "_", $showLocation["trip_location"])); ?>" id="<?php echo strtolower(str_ireplace(" ", "_", $showLocation["trip_location"])); ?>" class="pictureButton"><?php echo $showLocation["trip_location"]; ?></a>					</div>				<?php } ?>			<?php } ?>		</div>		<div id="main_content" class="main_content_class">				<div id="header">				<p>East Coast West Coast Travel</p>			</div>			<div id="action_btns">				<button id="home_btn" class="actionBtns" disabled>Home</button>				<button id="question_btn" class="actionBtns">Ask A Question</button>				<button id="suggestion_btn" class="actionBtns">Suggestions</button>				<button id="contact_us_btn" class="actionBtns">Contact Us</button>				<button id="about_us_btn" class="actionBtns">About Us</button>				<button id="admin_page_btn" class="actionBtns">Admin</button>			</div>			<div id="mobile_action_btns">				<div class="mobileMenuBtn">					<a href="#" class="mobileMenuLink">Menu</a>					<img src="images/menu.png" class="menuImg" />				</div>				<div class="mobileBtns">					<button id="home_btn_mobile" class="actionBtnsMobile">Home</button>					<button id="question_btn_mobile" class="actionBtnsMobile">Ask A Question</button>					<button id="suggestion_btn_mobile" class="actionBtnsMobile">Suggestion</button>					<button id="contact_us_btn_mobile" class="actionBtnsMobile">Contact Us</button>					<button id="about_us_btn_mobile" class="actionBtnsMobile">About Us</button>					<button id="photos_btn_mobile" class="actionBtnsMobile">Photos</button>				</div>			</div>			<div class="upcomingVacationsHeader">				<h3 class="">---- Upcoming Vacations ----</h3>			</div>			<?php $getLocations = find_all_events(); ?>			<?php while($showLocations = mysqli_fetch_assoc($getLocations)) { ?>				<?php $pictureCheck = find_all_pictures_by_id($showLocations["trip_id"]); ?>				<?php if($showLocations["show_trip"] == "Y" && $showLocations["trip_complete"] == "N" && (mysqli_num_rows($pictureCheck) < 1 || mysqli_num_rows($pictureCheck) > 0)) { ?>					<div id="<?php echo str_ireplace(" ", "_", strtolower($showLocations["trip_location"])) . "_link"; ?>" class="whats_next_w upcomingTrip">							<div class="individualEvent eventDiv" id="<?php echo str_ireplace(" ", "_", strtolower($showLocations["trip_location"])) . "_event"; ?>" style="background-image:url(images/<?php echo $showLocations["trip_photo"] != "" ? $showLocations["trip_photo"] : "skyline.jpg"; ?>);">							<a href="<?php echo str_ireplace(" ", "_", strtolower($showLocations["trip_location"])) . $showLocations["trip_year"]; ?>.php">								<p class="event_header"><?php echo ucwords($showLocations["trip_location"]); ?></p>								<p class="event_date"><?php echo $showLocations["trip_month"] . " ". $showLocations["trip_year"]; ?></p>								<p class="more_info">Click for more information</p>								<table class="west_calendar">									<tr>										<th class="header_data" id="date_data">Date</th>										<th class="header_data" id="middle_th_data">Location</th>										<th class="header_data" id="event_data">Event</th>									</tr>									<?php $getActivities = find_activities_by_trip_id($showLocations["trip_id"]); ?>									<?php if(mysqli_num_rows($getActivities) > 0) { ?>										<?php while($showActivities = mysqli_fetch_assoc($getActivities)) { ?>											<?php if($showActivities["show_activity"] == "Y") { ?>																						<tr>													<td><?php echo datetime_to_us($showActivities["activity_date"]); ?></td>													<td class="middle_data"><?php echo $showActivities["activity_location"]; ?></td>													<td><?php echo $showActivities["trip_event"]; ?></td>												</tr>											<?php } ?>											<?php } ?>									<?php } else { ?>										<tr>											<td colspan="3">No Actitivies Added For This Trip Yet</td>										</tr>									<?php } ?>								</table>							</a>						</div>					</div>				<?php } elseif($showLocations["show_trip"] == "Y" && $showLocations["trip_complete"] == "Y") { ?>					<div id="<?php echo str_ireplace(" ", "_", strtolower($showLocations["trip_location"])) . "_link"; ?>" class="whats_next_w">						<div class="individualEvent eventDiv" id="<?php echo str_ireplace(" ", "_", strtolower($showLocations["trip_location"])) . "_event"; ?>" style="background-image:url(images/<?php echo $showLocations["trip_photo"]; ?>);">							<a href="index.php?view_gallery=<?php echo strtolower(str_ireplace(" ", "_", $showLocations["trip_location"])); ?>">								<p class="event_header"><?php echo ucwords($showLocations["trip_location"]); ?></p>								<p class="event_date"><?php echo $showLocations["trip_month"] . " ". $showLocations["trip_year"]; ?></p>								<p class="more_info">Click for more information</p>								<table class="west_calendar">									<tr>										<th class="header_data" id="date_data">Date</th>										<th class="header_data" id="middle_th_data">Location</th>										<th class="header_data" id="event_data">Event</th>									</tr>									<?php $getActivities = find_activities_by_trip_id($showLocations["trip_id"]); ?>									<?php if(mysqli_num_rows($getActivities) > 0) { ?>										<?php while($showActivities = mysqli_fetch_assoc($getActivities)) { ?>											<?php if($showActivities["show_activity"] == "Y") { ?>																						<tr>													<td><?php echo datetime_to_us($showActivities["activity_date"]); ?></td>													<td class="middle_data"><?php echo $showActivities["activity_location"]; ?></td>													<td><?php echo $showActivities["trip_event"]; ?></td>												</tr>											<?php } ?>										<?php } ?>									<?php } else { ?>										<tr>											<td colspan="3">No Actitivies Added For This Trip Yet</td>										</tr>									<?php } ?>								</table>							</a>						</div>					</div>				<?php } ?>			<?php } ?>		</div>	</div>		<?php require_once("../include/footer.php"); ?></body>	</html>
+<?php
+
+/**
+ * Laravel - A PHP Framework For Web Artisans
+ *
+ * @package  Laravel
+ * @author   Taylor Otwell <taylor@laravel.com>
+ */
+
+/*
+|--------------------------------------------------------------------------
+| Register The Auto Loader
+|--------------------------------------------------------------------------
+|
+| Composer provides a convenient, automatically generated class loader for
+| our application. We just need to utilize it! We'll simply require it
+| into the script here so that we don't have to worry about manual
+| loading any of our classes later on. It feels great to relax.
+|
+*/
+
+require __DIR__.'/../bootstrap/autoload.php';
+
+/*
+|--------------------------------------------------------------------------
+| Turn On The Lights
+|--------------------------------------------------------------------------
+|
+| We need to illuminate PHP development, so let us turn on the lights.
+| This bootstraps the framework and gets it ready for use, then it
+| will load up this application so that we can run it and send
+| the responses back to the browser and delight our users.
+|
+*/
+
+$app = require_once __DIR__.'/../bootstrap/app.php';
+
+/*
+|--------------------------------------------------------------------------
+| Run The Application
+|--------------------------------------------------------------------------
+|
+| Once we have the application, we can handle the incoming request
+| through the kernel, and send the associated response back to
+| the client's browser allowing them to enjoy the creative
+| and wonderful application we have prepared for them.
+|
+*/
+
+$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
+
+$response = $kernel->handle(
+    $request = Illuminate\Http\Request::capture()
+);
+
+$response->send();
+
+$kernel->terminate($request, $response);
