@@ -1,0 +1,20 @@
+2016-08-20 08:54:15 | Login | tramaine logged in
+2016-08-20 20:35:00 | Login: tramaine logged in
+2016-08-21 16:35:06 | Login: tramaine logged in
+2016-08-22 01:26:03 | Logout: tramaine logged out
+2016-08-26 20:06:34 | Login: tramaine logged in
+2016-08-27 11:04:06 | Login: tramaine logged in
+2016-08-28 13:08:28 | Login: Incorrect login information.
+2016-08-28 13:08:39 | Login: tramaine logged in
+2016-08-31 21:35:02 | Login: tramaine logged in
+2016-08-31 21:35:08 | Logout: tramaine logged out
+2016-08-31 21:50:30 | Login: tramaine logged in
+2016-09-03 11:23:30 | Login: tramaine logged in
+2016-09-05 01:08:00 | Login: tramaine logged in
+2016-09-05 10:23:20 | Login: tramaine logged in
+2016-09-06 11:59:52 | Login: tramaine logged in
+2016-09-06 12:12:32 | Logout: tramaine logged out
+2017-01-11 20:49:29 | Login: Incorrect login information.
+2017-01-11 20:49:32 | Login: Incorrect login information.
+2017-01-11 20:49:40 | Login: tramaine logged in
+2017-01-12 18:55:57 | Login: tramaine logged in

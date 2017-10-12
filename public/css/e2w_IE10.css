@@ -1,0 +1,10 @@
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+table#suggestions_table {
+    width: 60%;
+    max-height: 800px;
+    overflow: auto;
+    display: -webkit-inline-box;
+    padding: 0% 0% 0% 23%;
+}
+
+}
