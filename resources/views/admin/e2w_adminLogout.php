@@ -1,0 +1,1 @@
+<?php require_once("../include/initialize.php"); ?><?php		if(!empty($_SESSION["loggedIn"])) {		log_action("Logout", $_SESSION["loggedIn"] . " logged out");				$_SESSION["loggedIn"] = null;				redirect_to("index.php");		} else {		log_action("Logout", "Logged in session was empty when logged out");		redirect_to("index.php");	}?>

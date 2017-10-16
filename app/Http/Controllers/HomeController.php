@@ -27,8 +27,17 @@ class HomeController extends Controller
     public function index()
     {
 		$trips = TripLocations::all();
+		$activeTrips = TripLocations::where([
+			['show_trip', 'Y'],
+			['trip_complete', 'N'],
+		])
+		->get();
+		$inactiveTrips = TripLocations::where([
+			['show_trip', 'Y'],
+			['trip_complete', 'Y'],
+		])
+		->get();
 		$tripsPics = TripPictures::all();
-		$tripsActivities = TripActivities::all();
-        return view('welcome', compact('trips', 'tripsPics', 'tripsActivities'));
+        return view('welcome', compact('trips', 'inactiveTrips', 'tripsPics', 'activeTrips'));
     }
 }

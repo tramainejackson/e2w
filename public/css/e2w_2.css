@@ -1,19 +1,23 @@
 @import url(https://fonts.googleapis.com/css?family=Lato|Trocchi|Oswald|Special+Elite|Slabo+27px|Raleway|PT+Sans+Narrow|PT+Serif|Indie+Flower|Bitter|Playfair+Display|Arvo|Lobster|Bree+Serif|Shadows+Into+Light|Orbitron|Pacifico|Rokkitt|Sigmar+One|Amatic+SC|Dancing+Script|Bangers);
-@import "normalize.css";
 body {
 	position: relative;
 	margin: 0 auto;
 	padding: 0% 0%;
 }
-#home_page.container {
-	background-image: url("/e2w/public/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg");
-	background-color: black;
-	background-size: contain;
-	background-position: 100% 10%;
+div#app:after {
+	content: "";
+	position: fixed;
+	background-image: url("/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg");
+	background-size:100% 100%;
+	background-position: center center;
+	background-repeat:no-repeat;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: -1;
 }
 .container {
-	background-repeat:no-repeat;
-	background-size:100% 25%;
 	position: relative;
 }
 #return_messages {
@@ -22,6 +26,10 @@ body {
     right: 1%;
     top: 1%;
     width: 25%;
+}
+.pastVacations {
+        background: linear-gradient(white, #868686 3%, #868686, whitesmoke);
+	margin-top: 75px;
 }
 #mobile_action_btns {
 	display: none;
@@ -140,6 +148,13 @@ h1#admin_page_header {
 div#admin_page * {
     font-family: Trocchi;
 }
+
+#about_us_div, .panel-body {
+    background: cadetblue;
+	color: whitesmoke;
+    padding: 15% 10%;
+	font-size: 115%;
+}
 p.noValueMessage {
     padding: 0% 0% 0% 3%;
 }
@@ -148,7 +163,7 @@ footer {
 }
 a {
 	display: inline-block;
-	text-decoration: none;
+	text-decoration: none !important;
 }
 button:focus {
 	outline:0 !important;
@@ -158,7 +173,7 @@ button:hover {
 }
 .maine_overlay, .maine_modal, .maine_modal_confirmation_box, #terms_and_conditions, #cruise_page_terms_and_conditions, 
 #london_page_terms_and_conditions, #disney_page_terms_and_conditions, .cruise_page_additions, #loading_image,
-.disney_page_additions, #question_form, #suggestion_form, #home_content, #contact {
+.disney_page_additions, #question_form, #suggestion_form, #home_content {
 	display: none;
 }
 .modal_confirm {
@@ -189,8 +204,6 @@ div.maine_modal #registration_form label, div.maine_modal #registration_form inp
     text-align: left;
 }
 #main_content {
-	width: 70%;
-	margin: 0% 0% 2% 0.5%;
 	display: inline-block;
 }
 div#cruise_content_info {
@@ -320,9 +333,7 @@ button.inclusionsBtn {
     max-width: 65%;
 }
 .pastVacationsHeader, .upcomingVacationsHeader {
-    margin: 30px 0px 20px;
-    background: cadetblue;
-    color: white;
+    margin: 75px 0px;
 }
 .pastVacationsHeader h3, .upcomingVacationsHeader h3 {
     margin: 0 auto;
@@ -1510,17 +1521,10 @@ p#signup_ny, p#signup_cruise, p#signup_cali{
 	top: 55.8%;
 }
 .actionBtns {
-	position: fixed;
-	width: 10%;
-	right: 1%;
-	border-radius: 15px;
-	height: 10%;
-	font-size: 80%;
-	font-weight: bold;
+	width: 100%;
 	opacity: 0.9;
 	border: outset 2px cadetblue;
 	background: linear-gradient(rgba(245, 245, 245, 0), whitesmoke 75%, cadetblue);
-	z-index: 2;
 	transition: .5s;
 }
 .actionBtns:hover {
@@ -2806,7 +2810,7 @@ input.adminPin {
     right: 5%;
 }
 #main_content {
-    min-height: 1040px;
+    /* min-height: 1040px; */
 }
 #suggestion_btn {
     top: 27.5%;
@@ -2827,7 +2831,6 @@ input.adminPin {
 	top: 63%;
 }
 .actionBtns {
-	height: 12%;
 }
 .pictures_east_and_west_btns a {
     width: 100%;

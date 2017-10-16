@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Trip_Locations;
+use App\User;
 use Illuminate\Http\Request;
 
-class TripLocationsController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,8 @@ class TripLocationsController extends Controller
      */
     public function index()
     {
-        
+		$getAllusers = User::all();
+        return view('admin.users.index', compact('getAllusers'));
     }
 
     /**
@@ -24,7 +25,8 @@ class TripLocationsController extends Controller
      */
     public function create()
     {
-        //
+        $getAllusers = User::all();
+        return view('admin.users.create', compact('getAllusers'));
     }
 
     /**
@@ -41,10 +43,10 @@ class TripLocationsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Trip_Locations  $trip_Locations
+     * @param  \App\Trip_Pictures  $trip_Pictures
      * @return \Illuminate\Http\Response
      */
-    public function show(Trip_Locations $trip_Locations)
+    public function show()
     {
         //
     }
@@ -52,10 +54,10 @@ class TripLocationsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Trip_Locations  $trip_Locations
+     * @param  \App\Trip_Pictures  $trip_Pictures
      * @return \Illuminate\Http\Response
      */
-    public function edit(Trip_Locations $trip_Locations)
+    public function edit()
     {
         //
     }
@@ -64,10 +66,10 @@ class TripLocationsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Trip_Locations  $trip_Locations
+     * @param  \App\Trip_Pictures  $trip_Pictures
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Trip_Locations $trip_Locations)
+    public function update(Request $request)
     {
         //
     }
@@ -75,11 +77,34 @@ class TripLocationsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Trip_Locations  $trip_Locations
+     * @param  \App\Trip_Pictures  $trip_Pictures
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Trip_Locations $trip_Locations)
+    public function destroy()
     {
         //
     }
+	
+	/**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Trip_Pictures  $trip_Pictures
+     * @return \Illuminate\Http\Response
+     */
+    public function questions()
+    {
+        return view('admin.questions');
+    }
+	
+	/**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Trip_Pictures  $trip_Pictures
+     * @return \Illuminate\Http\Response
+     */
+    public function suggestions()
+    {
+        return view('admin.suggestions');
+    }
 }
+
