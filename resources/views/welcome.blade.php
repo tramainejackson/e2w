@@ -1,16 +1,10 @@
 @extends('layouts.app')
 	@section('styles')
-		<!-- Bootstrap core CSS -->
-		<link href="/css/app.css" rel="stylesheet">
-		
-		<!-- Custom CSS -->
-		<link href="/css/e2w_2.css" rel="stylesheet">
+		@include('function.bootstrap_css')
 	@endsection
 	
 	@section('scripts')
-		<!-- Bootstrap core JS -->
-		<script src="/js/app.js"></script>
-		<script src="/js/eastwest_2.js"></script>
+		@include('function.bootstrap_js')
 	@endsection
 
 	@section('content')
@@ -116,7 +110,7 @@
 					<div id="" class="col-2 col-sm-2" style="position:fixed; right:0;">
 						<div class="actionBtnDiv d-flex flex-column justify-content-center">
 							<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
-								<a id="home_btn" class="btn btn-lg actionBtns py-3" disabled>Home</a>
+								<a href="#" id="home_btn" class="btn btn-lg actionBtns text-dark py-3" disabled>Home</a>
 							</div>
 							<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
 								<a id="question_btn" class="btn btn-lg actionBtns py-3">Ask A Question</a>
@@ -125,13 +119,13 @@
 								<a id="suggestion_btn" class="btn btn-lg actionBtns py-3">Suggestions</a>
 							</div>
 							<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
-								<a id="contact_us_btn" class="btn btn-lg actionBtns py-3">Contact Us</a>
+								<a href="{{ route('contact_us') }}" id="contact_us_btn" class="btn btn-lg actionBtns text-dark py-3">Contact Us</a>
 							</div>
 							<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
-								<a href="{{ route('about_us') }}" id="about_us_btn" class="btn btn-lg actionBtns py-3">About Us</a>
+								<a href="{{ route('about_us') }}" id="about_us_btn" class="btn btn-lg actionBtns text-dark py-3">About Us</a>
 							</div>
 							<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
-								<a id="admin_page_btn" class="btn btn-lg actionBtns py-3">Admin</a>
+								<a href="{{ route('login') }}" id="admin_page_btn" class="btn btn-lg actionBtns text-dark py-3">Admin</a>
 							</div>
 						</div>
 						<div id="mobile_action_btns">

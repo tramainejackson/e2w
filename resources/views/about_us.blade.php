@@ -1,16 +1,10 @@
 @extends('layouts.app')
 	@section('styles')
-		<!-- Bootstrap core CSS -->
-		<link href="/css/app.css" rel="stylesheet">
-		
-		<!-- Custom CSS -->
-		<link href="/css/e2w_2.css" rel="stylesheet">
+		@include('function.bootstrap_css')
 	@endsection
 	
 	@section('scripts')
-		<!-- Bootstrap core JS -->
-		<script src="/js/app.js"></script>
-		<script src="/js/eastwest_2.js"></script>
+		@include('function.bootstrap_js')
 	@endsection
 
 	@section('content')

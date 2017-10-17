@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Distribution_List;
+use App\DistributionList;
 use Illuminate\Http\Request;
 
 class DistributionListController extends Controller

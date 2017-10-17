@@ -5,8 +5,18 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UsersController extends Controller
 {
+	/**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+	
     /**
      * Display a listing of the resource.
      *
@@ -57,9 +67,10 @@ class UserController extends Controller
      * @param  \App\Trip_Pictures  $trip_Pictures
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(User $user, $id)
     {
-        //
+		$user = User::find($id);
+        return view('admin.users.edit', compact('user'));
     }
 
     /**

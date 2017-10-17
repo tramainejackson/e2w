@@ -1,16 +1,10 @@
 @extends('layouts.app')
 	@section('styles')
-		<!-- Bootstrap core CSS -->
-		<link href="/css/app.css" rel="stylesheet">
-		
-		<!-- Custom CSS -->
-		<link href="/css/e2w_2.css" rel="stylesheet">
+		@include('function.bootstrap_css')
 	@endsection
 	
 	@section('scripts')
-		<!-- Bootstrap core JS -->
-		<script src="/js/app.js"></script>
-		<script src="/js/eastwest_2.js"></script>
+		@include('function.bootstrap_js')
 	@endsection
 
 	@section('content')
@@ -23,24 +17,36 @@
 				</div>
 				<div class="newUser">
 					<form name="new_admin_user" class="" action="users_add.php" method="POST">
-						<div class="newAdminInput">
-							<input type="text" name="first_name" class="" placeholder="Firstname" />
+						<div class="form-group">
+							<label for="first_name">First Name</label>
+							<input type="text" name="first_name" class="form-control" placeholder="Firstname" />
 						</div>
-						<div class="newAdminInput">
-							<input type="text" name="last_name" class="" placeholder="Lastname" />
+						<div class="form-group">
+							<label for="last_name">Last Name</label>
+							<input type="text" name="last_name" class="form-control" placeholder="Lastname" />
 						</div>
-						<div class="newAdminInput">
-							<input type="text" name="username" class="" placeholder="Username" />
+						<div class="form-group">
+							<label for="username">Username</label>
+							<input type="text" name="username" class="form-control" placeholder="Username" />
+						</div><div class="form-group">
+							<label for="email">Username</label>
+							<input type="text" name="email" class="form-control" placeholder="Email Address" />
 						</div>
-						<div class="newAdminInput">
-							<input type="text" name="password" class="" placeholder="Password" />
+						<div class="form-group">
+							<label for="password">Password</label>
+							<input type="text" name="password" class="form-control" placeholder="Password" />
 						</div>
-						<div class="newAdminInput">
-							<select class="" name="active">
-								<option value="" selected disabled>---Make Account Active---</option>
-								<option value="Y">Yes</option>
-								<option value="N">No</option>
-							</select>
+						<div class="form-group">
+							<label for="active" class="d-block" >Active</label>
+							
+							<div class="btn-group">
+								<button type="button" class="btn" style="">
+									<input type="checkbox" name="active" value="Y" hidden />Yes
+								</button>
+								<button type="button" class="btn btn-danger active" style="">
+									<input type="checkbox" name="active" value="N" checked hidden />No
+								</button>
+							</div>
 						</div>
 						<div class="newAdminInput">
 							<input type="submit" name="submit" value="Add User" class="" />

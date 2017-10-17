@@ -140,7 +140,8 @@ $(document).ready(function() {
 			}
 		});
 	});
-//Bring up contact information	
+	
+	//Bring up contact information	
 	$("body").on("click", "#contact_us_btn", function(e)
 	{
 		$("p.modal_title").text("Contact Us");
@@ -152,14 +153,29 @@ $(document).ready(function() {
 		});
 	});		
 	
+	// Button toggle for PIF switch
+	$('body').on("click", "button", function(e) {
+		if(!$(this).hasClass('btn-primary') || !$(this).hasClass('btn-danger')) {
+			if($(this).children().val() == "Y") {
+				$(this).addClass('active btn-success').children().attr("checked", true);
+				$(this).siblings().removeClass('active btn-danger').children().removeAttr("checked");
+			} else if($(this).children().val() == 'N') {
+				$(this).addClass('active btn-danger').children().attr("checked", true);
+				$(this).siblings().removeClass('active btn-success').children().removeAttr("checked");
+			}
+		}	
+	});
+	
 //Home page redirect
-	$("body").on("click", "#home_btn", function(e) {
-		window.open("index.php", "_self");
-	});
+	// $("body").on("click", "#home_btn", function(e) {
+		// window.open("index.php", "_self");
+	// });
+	
 //Admin page redirect	
-	$("body").on("click", "#admin_page_btn", function(e) {
-		window.open("../admin/index.php", "_self");
-	});
+	// $("body").on("click", "#admin_page_btn", function(e) {
+		// window.open("../admin/index.php", "_self");
+	// });
+
 //Send suggestion form 
 	$("body").on("click", "#submit_suggestion", function(e)
 	{

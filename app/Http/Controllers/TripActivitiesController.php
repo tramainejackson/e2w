@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Trip_Activities;
+use App\TripActivities;
 use Illuminate\Http\Request;
 
 class TripActivitiesController extends Controller

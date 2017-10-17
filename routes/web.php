@@ -13,13 +13,15 @@
 
 Auth::routes();
 
+Route::get('/admin/questions', 'UsersController@questions')->name('admin.questions');
+
+Route::get('/admin/suggestions', 'UsersController@suggestions')->name('admin.suggestions');
+
+Route::resource('/admin', 'UsersController');
+
+Route::resource('/location', 'TripLocationsController');
+
 Route::get('/', 'HomeController@index')->name('welcome');
-
-Route::resource('/admin', 'UserController');
-
-Route::get('/admin/questions', 'UserController@questions')->name('admin.questions');
-
-Route::get('/admin/suggestions', 'UserController@suggestions')->name('admin.suggestions');
 
 Route::get('/about_us', function() {
 	return view('about_us');

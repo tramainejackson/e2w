@@ -2,11 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Trip_Locations;
+use App\DistributionList;
+use App\TripLocations;
+use App\TripActivities;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TripLocationsController extends Controller
 {
+	/**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+	
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +27,8 @@ class TripLocationsController extends Controller
      */
     public function index()
     {
-        
+        $getLocations = TripLocations::all();
+		return view('admin.locations.index', compact('getLocations'));
     }
 
     /**
@@ -24,7 +38,10 @@ class TripLocationsController extends Controller
      */
     public function create()
     {
-        //
+        $getYear = DB::table('vacation_year')->get();
+		$getMonth = DB::table('vacation_month')->get();
+		
+		return view('admin.locations.create', compact('getYear', 'getMonth'));
     }
 
     /**
@@ -55,9 +72,16 @@ class TripLocationsController extends Controller
      * @param  \App\Trip_Locations  $trip_Locations
      * @return \Illuminate\Http\Response
      */
-    public function edit(Trip_Locations $trip_Locations)
+    public function edit(TripLocations $tripLocations, $id)
     {
-        //
+		$showLocations = TripLocations::find($id);
+		$getCurrentEvents = TripActivities::where('trip_id', $id)->get();
+		$getEventUsers = DistributionList::where('trip_location', $id)->get();
+		$getLocations = TripLocations::all();
+        $getYear = DB::table('vacation_year')->get();
+		$getMonth = DB::table('vacation_month')->get();
+		
+		return view('admin.locations.edit', compact('getYear', 'getMonth', 'showLocations', 'getLocations', 'getCurrentEvents', 'getEventUsers'));
     }
 
     /**
