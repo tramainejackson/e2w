@@ -5,14 +5,13 @@
 			<ul>
 				<li><a href="{{ route('location.create') }}" <?php echo isset($_GET["add_trip"]) ? "style='font-weight:700; color:#8fba82;'" : ""; ?> >Add Trips</a></li>
 				<li><a href="{{ route('location.index') }}" <?php echo isset($_GET["trip_activities"]) ? "style='font-weight:700; color:#8fba82;'" : ""; ?> >Add/Edit Trip Events</a></li>				
-				<li><a href="{{ route('location.index') }}" <?php echo isset($_GET["add_person"]) ? "style='font-weight:700; color:#8fba82;'" : ""; ?> >Add/Edit Persons</a></li>
 			</ul>
 		</li>
 		<li>
-			<a href="pictures.php" id="" class="navi_option" <?php echo $_SERVER["SCRIPT_NAME"] == "/e2w/admin/pictures.php" && !isset($_GET["add_pictures"]) && !isset($_GET["remove_pictures"]) ? "style='font-weight:700; color:#8fba82;'" : ""; ?> >Trip Pictures</a>
+			<a href="{{ route('pictures.index') }}" id="" class="navi_option" <?php echo $_SERVER["SCRIPT_NAME"] == "/e2w/admin/pictures.php" && !isset($_GET["add_pictures"]) && !isset($_GET["remove_pictures"]) ? "style='font-weight:700; color:#8fba82;'" : ""; ?> >Trip Pictures</a>
 			<ul>
-				<li><a href="pictures.php?add_pictures=true" <?php echo isset($_GET["add_pictures"]) ? "style='font-weight:700; color:#8fba82;'" : ""; ?> >Add Pictures</a></li>
-				<li><a href="pictures.php?remove_pictures=true" <?php echo isset($_GET["remove_pictures"]) ? "style='font-weight:700; color:#8fba82;'" : ""; ?> >Remove Pictures</a></li>
+				<li><a href="{{ route('pictures.create') }}" <?php echo isset($_GET["add_pictures"]) ? "style='font-weight:700; color:#8fba82;'" : ""; ?> >Add Pictures</a></li>
+				<li><a href="{{ route('pictures.index') }}" <?php echo isset($_GET["remove_pictures"]) ? "style='font-weight:700; color:#8fba82;'" : ""; ?> >Remove Pictures</a></li>
 			</ul>
 		</li>
 		<li>

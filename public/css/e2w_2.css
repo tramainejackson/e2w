@@ -377,7 +377,7 @@ div.trip_location_div::after {
 	z-index: 0;
 	border-radius: inherit;
 }
-#trip_edit_div {
+.trip_edit_div {
     margin: 2% 0%;
     padding: 2% 3%;
     background-color: rgba(48, 48, 48, 0.35);
@@ -679,6 +679,7 @@ form.addUser, form.addActivity {
     margin: 2% 0% 2%;
     padding: 2% 10%;
     border-top: solid;
+    border-top-color: whitesmoke;
     position: relative;
 }
 .tripEvents .editActivity input {
@@ -707,7 +708,7 @@ form.addUser, form.addActivity {
     border: outset 2px;
 }
 .tripEvents .editActivity th:last-of-type {
-    padding: 0% 0% 0% 8%;
+    padding: 0% 0% 0% 0%;
 }
 .tripUsers {
     margin: 2% 0% 2%;
@@ -813,11 +814,11 @@ form.addUser, form.addActivity {
     position: relative;
 }
 .tripEvents table {
-    width: 80%;
+    width: 100%;
     table-layout: fixed;
     text-align: -webkit-center;
     text-align: center;
-    margin: 0% 10% 0%;
+    margin: 0% 0% 0%;
     font-size: 125%;
 }
 .tripUsers table {
@@ -2899,7 +2900,7 @@ div.trip_location_div {
     padding: 0% 3% 2%;
     margin: 0% 5% 0% 0%;
 }
-#trip_edit_div {
+.trip_edit_div {
     margin: 2% 0%;
     padding: 2% 3%;
 }
@@ -3041,7 +3042,7 @@ h1#admin_page_header {
 }
 .tripEvents {
     margin: 2% 0% 2%;
-    padding: 2% 5%;
+    padding: 2% 1%;
     border-top: solid;
 }
 .tripEvents .editActivity input[type="submit"] {
@@ -3110,10 +3111,10 @@ form.addUser input[type="submit"], form.addActivity input[type="submit"] {
 div.trip_location_div {
 	max-width: 80%;
 }
-#trip_edit_div {
+.trip_edit_div {
     padding: 2%;
 }
-#trip_edit_div div span {
+.trip_edit_div div span {
     width: 35%;
     display: inline-block;
     margin: 0.5% 0%;
@@ -3128,7 +3129,7 @@ div.trip_location_div {
     padding: 1% 0% 1% 3%;
     border: inset 2px;
 }
-#trip_edit_div input {padding: 1%;}
+.trip_edit_div input {padding: 1%;}
 input.tripFlyerChange + a {
     right: -16%;
 }

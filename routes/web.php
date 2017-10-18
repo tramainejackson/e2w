@@ -21,6 +21,8 @@ Route::resource('/admin', 'UsersController');
 
 Route::resource('/location', 'TripLocationsController');
 
+Route::resource('/pictures', 'TripPicturesController');
+
 Route::get('/', 'HomeController@index')->name('welcome');
 
 Route::get('/about_us', function() {

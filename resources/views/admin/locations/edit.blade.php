@@ -12,7 +12,7 @@
 			<h1 id="admin_page_header">Eastcoast to Westcoast Travel</h1>
 			
 			@include('layouts.admin_nav')
-			dd($showLocations);
+
 			<div class="adminDiv" id="">
 				<form id="" class="" action="location_update.php" method="POST" onsubmit="locationCheck();" enctype="multipart/form-data"> 
 					<div id="location_page_header" class="">
@@ -23,7 +23,7 @@
 							<h3>{{ $showLocations->trip_location }}</h3>
 							<input type="submit" name="submit" value="Update" />
 						</div>
-						<div id="trip_edit_div">
+						<div class="trip_edit_div">
 							<div class="trip_location_photo editTripInfo">
 								<span>Change Photo</span>
 								<input type="file" name="trip_photo" class="tripPhotoChange" value="" />
@@ -124,133 +124,133 @@
 							</div>
 							<input hidden name="trip_id" value="{{ $showLocations->trip_id }}" />
 						</div>
-					</div>
-					<div class="">
-						<div class="adminDiv" id="">
-							<form name="add_activity" class="addActivity" action="location_addActivity.php" method="POST" onsubmit="locationCheck();">
-								<div id="location_page_header" class="">
-									<h1 class="pageTopicHeader">Trip Activities</h1>
-								</div>
-							</form>
-						
-							<div class="tripEvents">
-								<form name="edit_activity" class="editActivity" action="location_editActivity.php" method="POST" onsubmit="locationCheck();">
-									<table>
-										<tr>
-											<th>Show Activity</th>
-											<th>Activity Name</th>
-											<th>Activity Location</th>
-											<th>Activity Date</th>
-										</tr>
-										@foreach($getCurrentEvents as $activity)
-											<tr>
-												<td>
-													<select name="show_activity[]" class="" id="">
-														@if($activity->show_activity == "Y")
-															<option value="Y" selected>Y</option>
-															<option value="N">N</option>
-														@else
-															<option value="Y">Y</option>
-															<option value="N" selected>N</option>
-														@endif
-													</select>
-												</td>
-												<td>
-													<input type="text" name="trip_event[]" class="" value="{{ $activity->trip_event }}" placeholder="Event Description" />
-													<input type="text" name="activity_id[]" class="" value="{{ $activity->activity_id }}" hidden />
-													<input type="text" name="trip_id" class="" value="{{ $activity->trip_id }}" hidden />
-												</td>
-												<td>
-													<input type="text" name="activity_location[]" class="" value="{{ $activity->activity_location }}" placeholder="Event Location" />
-												</td>
-												<td>
-													<input type="date" name="activity_date[]" class="" value="{{ $activity->activity_date }}" />
-												</td>
-											</tr>
-										@endforeach
-									</table>
-									<input type="submit" name="submit" class="" value="Update Events" />
-									<input type="submit" name="submit" value="Add Events"/>
+						<div class="trip_edit_div">
+							<div class="" id="">
+								<form name="add_activity" class="addActivity" action="location_addActivity.php" method="POST" onsubmit="locationCheck();">
+									<div id="location_page_header" class="">
+										<h1 class="pageTopicHeader text-white">Trip Activities</h1>
+									</div>
 								</form>
+							
+								<div class="tripEvents">
+									<form name="edit_activity" class="editActivity" action="location_editActivity.php" method="POST" onsubmit="locationCheck();">
+										<table>
+											<tr class="text-white">
+												<th>Show Activity</th>
+												<th>Activity Name</th>
+												<th>Activity Location</th>
+												<th>Activity Date</th>
+											</tr>
+											@foreach($getCurrentEvents as $activity)
+												<tr>
+													<td>
+														<select name="show_activity[]" class="" id="">
+															@if($activity->show_activity == "Y")
+																<option value="Y" selected>Y</option>
+																<option value="N">N</option>
+															@else
+																<option value="Y">Y</option>
+																<option value="N" selected>N</option>
+															@endif
+														</select>
+													</td>
+													<td>
+														<input type="text" name="trip_event[]" class="" value="{{ $activity->trip_event }}" placeholder="Event Description" />
+														<input type="text" name="activity_id[]" class="" value="{{ $activity->activity_id }}" hidden />
+														<input type="text" name="trip_id" class="" value="{{ $activity->trip_id }}" hidden />
+													</td>
+													<td>
+														<input type="text" name="activity_location[]" class="" value="{{ $activity->activity_location }}" placeholder="Event Location" />
+													</td>
+													<td>
+														<input type="date" name="activity_date[]" class="" value="{{ $activity->activity_date }}" />
+													</td>
+												</tr>
+											@endforeach
+										</table>
+										<input type="submit" name="submit" class="" value="Update Events" />
+										<input type="submit" name="submit" value="Add Events"/>
+									</form>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="tripUsers">
-						<form name="edit_user" class="editUser" action="location_editPerson.php" method="POST" onsubmit="locationCheck();">
-							<table>
-								<tr class="firstTableRow">
-									<th colspan="2">Name</th>
-									<th colspan="2">Contact Info</th>
-									<th colspan="1"></th>
-									<th colspan="1"></th>
-								</tr>
-								<tr>
-									<th>First</th>
-									<th>Last</th>
-									<th>Email</th>
-									<th>Phone</th>
-									<th>Notes</th>
-									<th>PIF</th>
-								</tr>
-								@foreach($getEventUsers as $user)
-									<tr>
-										<td>
-											<input type="text" name="first_name[]" class="" value="{{ $user->first_name }}" />
-											<input type="number" name="user_id[]" class="" value="{{ $user->user_id }}" hidden />
-											<input type="number" name="event_id" class="" value="{{ $user->trip_location }}" hidden />
-										</td>
-										<td>
-											<input type="text" name="last_name[]" class="" value="{{ $user->last_name }}" />
-										</td>
-										<td>
-											<input type="text" name="email[]" class="" value="{{ $user->email_address }}" />
-										</td>
-										<td>
-											<input type="text" name="phone[]" class="" value="{{ $user->phone }}" maxlength="10" />
-										</td>
-										<td>
-											<textarea name="notes[]" class="" maxlength="495" rows="1">{{ $user->notes }}</textarea>
-										</td>
-										<td>
-											<?php if($user["paid_in_full"] == "Y") { ?>
-												<input type="checkbox" name="paid_in_full[]" class="pifSwitch" value="Y" checked />
-											<?php } else { ?>
-												<input type="checkbox" name="paid_in_full[]" class="pifSwitch" value="N" />
-											<?php } ?>
-										</td>
+						<div class="trip_edit_div">
+							<form name="edit_user" class="editUser" action="location_editPerson.php" method="POST" onsubmit="locationCheck();">
+								<table class="mw-100">
+									<tr class="firstTableRow text-white">
+										<th colspan="2">Name</th>
+										<th colspan="2">Contact Info</th>
+										<th colspan="1"></th>
+										<th colspan="1"></th>
 									</tr>
-								@endforeach
-							</table>
-							<input type="submit" name="submit" class="" value="Edit Users" />
-						</form>
-					</div>
-					<div class="modal">
-						<div class="adminDiv" id="">
-							<div class="newUserHeader">
-								<h1 class="pageTopicHeader">Trip Users</h1>
+									<tr class="text-white">
+										<th>First</th>
+										<th>Last</th>
+										<th>Email</th>
+										<th>Phone</th>
+										<th>Notes</th>
+										<th>PIF</th>
+									</tr>
+									@foreach($getEventUsers as $user)
+										<tr>
+											<td>
+												<input type="text" name="first_name[]" class="" value="{{ $user->first_name }}" />
+												<input type="number" name="user_id[]" class="" value="{{ $user->user_id }}" hidden />
+												<input type="number" name="event_id" class="" value="{{ $user->trip_location }}" hidden />
+											</td>
+											<td>
+												<input type="text" name="last_name[]" class="" value="{{ $user->last_name }}" />
+											</td>
+											<td>
+												<input type="text" name="email[]" class="" value="{{ $user->email_address }}" />
+											</td>
+											<td>
+												<input type="text" name="phone[]" class="" value="{{ $user->phone }}" maxlength="10" />
+											</td>
+											<td>
+												<textarea name="notes[]" class="" maxlength="495" rows="1">{{ $user->notes }}</textarea>
+											</td>
+											<td>
+												<?php if($user["paid_in_full"] == "Y") { ?>
+													<input type="checkbox" name="paid_in_full[]" class="pifSwitch" value="Y" checked />
+												<?php } else { ?>
+													<input type="checkbox" name="paid_in_full[]" class="pifSwitch" value="N" />
+												<?php } ?>
+											</td>
+										</tr>
+									@endforeach
+								</table>
+								<input type="submit" name="submit" class="" value="Edit Users" />
+							</form>
+						</div>
+						<div class="modal">
+							<div class="adminDiv" id="">
+								<div class="newUserHeader">
+									<h1 class="pageTopicHeader">Trip Users</h1>
+								</div>
+								<div class="newUser">
+									<div class="newUserFirst">
+										<input type="text" name="first_name" class="" placeholder="Firstname" />
+									</div>
+									<div class="newUserLast">
+										<input type="text" name="last_name" class="" placeholder="Lastname" />
+									</div>
+									<div class="newUserEmail">
+										<input type="text" name="email" class="" placeholder="Email" />
+									</div>
+									<div class="newUserPhone">
+										<input type="text" name="phone[]" class="profileInput profileInputPhone1" placeholder="###" maxlength="3" />
+										<span class="phone_par_span">-</span>
+										<input type="text" name="phone[]" class="profileInput profileInputPhone2"  placeholder="###" maxlength="3" />
+										<span class="phone_par_span">-</span>
+										<input type="text" name="phone[]" class="profileInput profileInputPhone3"  placeholder="####" maxlength="4" />
+									</div>
+									<div class="newUserNotes">
+										<textarea type="text" name="notes" class="" placeholder="Notes"></textarea>
+									</div>
+								</div>
+								<input type="submit" name="submit" class="" value="Add Person" />
 							</div>
-							<div class="newUser">
-								<div class="newUserFirst">
-									<input type="text" name="first_name" class="" placeholder="Firstname" />
-								</div>
-								<div class="newUserLast">
-									<input type="text" name="last_name" class="" placeholder="Lastname" />
-								</div>
-								<div class="newUserEmail">
-									<input type="text" name="email" class="" placeholder="Email" />
-								</div>
-								<div class="newUserPhone">
-									<input type="text" name="phone[]" class="profileInput profileInputPhone1" placeholder="###" maxlength="3" />
-									<span class="phone_par_span">-</span>
-									<input type="text" name="phone[]" class="profileInput profileInputPhone2"  placeholder="###" maxlength="3" />
-									<span class="phone_par_span">-</span>
-									<input type="text" name="phone[]" class="profileInput profileInputPhone3"  placeholder="####" maxlength="4" />
-								</div>
-								<div class="newUserNotes">
-									<textarea type="text" name="notes" class="" placeholder="Notes"></textarea>
-								</div>
-							</div>
-							<input type="submit" name="submit" class="" value="Add Person" />
 						</div>
 					</div>
 				</form>

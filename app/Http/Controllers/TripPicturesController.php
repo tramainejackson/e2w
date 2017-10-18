@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Trip_Pictures;
+use App\TripPictures;
+use App\TripLocations;
 use Illuminate\Http\Request;
 
 class TripPicturesController extends Controller
@@ -14,7 +15,10 @@ class TripPicturesController extends Controller
      */
     public function index()
     {
-        //
+        $pictutes = TripPictures::all();
+		$getLocations = TripLocations::all();
+		
+		return view('admin.pictures.index', compact('pictures', 'getLocations'));
     }
 
     /**
@@ -24,7 +28,10 @@ class TripPicturesController extends Controller
      */
     public function create()
     {
-        //
+        $pictutes = TripPictures::all();
+		$getLocations = TripLocations::all();
+		
+		return view('admin.pictures.create', compact('pictures', 'getLocations'));
     }
 
     /**
