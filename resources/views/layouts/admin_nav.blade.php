@@ -4,7 +4,7 @@
 			<a href="{{ route('location.index') }}" id="" class="navi_option" <?php echo isset($_GET["edit_trip"]) || isset($_GET["locations"]) ? "style='font-weight:700; color:#8fba82;'" : ""; ?> >Trip Locations</a>
 			<ul>
 				<li><a href="{{ route('location.create') }}" <?php echo isset($_GET["add_trip"]) ? "style='font-weight:700; color:#8fba82;'" : ""; ?> >Add Trips</a></li>
-				<li><a href="{{ route('location.index') }}" <?php echo isset($_GET["trip_activities"]) ? "style='font-weight:700; color:#8fba82;'" : ""; ?> >Add/Edit Trip Events</a></li>				
+				<li><a href="{{ route('location.index') }}" <?php echo isset($_GET["trip_activities"]) ? "style='font-weight:700; color:#8fba82;'" : ""; ?> >Edit Trip Events</a></li>				
 			</ul>
 		</li>
 		<li>
@@ -23,6 +23,12 @@
 		</li>
 		<li><a href="{{ route('admin.questions') }}" class="navi_option" <?php echo $_SERVER["SCRIPT_NAME"] == "/e2w/admin/questions.php" ? "style='font-weight:700; color:#8fba82;'" : ""; ?> >Questions</a></li>
 		<li><a href="{{ route('admin.suggestions') }}" id="" class="navi_option" <?php echo $_SERVER["SCRIPT_NAME"] == "/e2w/admin/suggestions.php" ? "style='font-weight:700; color:#8fba82;'" : ""; ?> >Suggestions</a></li>
-		<li><a href="e2w_adminLogout.php" class="navi_option">Log Out</a></li>
+		<li>
+			<a href="{{ route('logout') }}" class="navi_option" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
+			
+			<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+				{{ csrf_field() }}
+			</form>
+		</li>
 	</ul>
 </div>

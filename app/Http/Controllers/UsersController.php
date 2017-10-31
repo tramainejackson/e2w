@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -47,7 +48,23 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+		$this->validate($request, [
+			'first_name' => 'required|max:30',
+			'last_name' => 'required|max:30',
+			'email' => 'required|max:50',
+			'password' => 'required|max:50',
+		]);
+		
+		$user = new User();
+        $user->first_name = $request->first_name;
+		$user->last_name = $request->last_name;
+		$user->email = strtolower($request->email);
+		$user->active = $request->active;
+		$user->password = Hash::make($request->password);
+		
+		$user->save();
+		
+		return redirect()->action('UsersController@edit', $user)->with('status', 'New User Successfully');
     }
 
     /**
@@ -80,9 +97,19 @@ class UsersController extends Controller
      * @param  \App\Trip_Pictures  $trip_Pictures
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        //
+		$user = User::find($id);
+		
+		$user->first_name = $request->first_name;
+		$user->last_name = $request->last_name;
+		$user->email = strtolower($request->email);
+		$user->active = $request->active;
+		$user->password = Hash::make($request->password);
+		
+		$user->save();
+		
+		return redirect()->action('UsersController@edit', $user)->with('status', 'User Updated Successfully');
     }
 
     /**

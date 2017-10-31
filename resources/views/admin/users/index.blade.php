@@ -18,11 +18,11 @@
 					<h1 class="pageTopicHeader">All Admins</h1>
 				</div>
 				<div id="all_users">
-					<ul>
-						@foreach($getAllusers as $user)
-							<li class=""><a href="/admin/{{ $user->id }}/edit" class="btn">Edit</a>&nbsp;{{ $user->first_name . " " . $user->last_name }}</li>
-						@endforeach
-					</ul>
+					@foreach($getAllusers as $user)
+						<div class="">
+							<h2 class="text-light"><a href="/admin/{{ $user->id }}/edit" class="btn btn-primary mr-2">Edit</a>&nbsp;{{ $user->first_name . " " . $user->last_name }}</h2>
+						</div>
+					@endforeach
 				</div>
 			</div>
 		</div>

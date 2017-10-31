@@ -16,7 +16,7 @@
 			<div class="adminDiv" id="">
 				<form id="" class="" action="location_update.php" method="POST" onsubmit="locationCheck();" enctype="multipart/form-data"> 
 					<div id="location_page_header" class="">
-						<h1 class="pageTopicHeader">Trip Locations</h1>
+						<h1 class="pageTopicHeader text-light">Trip Locations</h1>
 					</div>
 					<div class="trip_location_div" style="background-image:url(../public/images/{{ $showLocations->trip_photo != "" ? $showLocations->trip_photo : 'skyline.jpg' }} );">
 						<div class="trip_location_header">

@@ -99,6 +99,7 @@ div#app:after {
 }
 h1.pageTopicHeader {
     padding: 0% 1%;
+	color: whitesmoke;
 }
 #location_page_header h1 {
     margin: 2% 1%;

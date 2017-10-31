@@ -15,13 +15,13 @@
 
 			<div class="adminDiv" id="">
 				<div id="location_page_header" class="">
-					<h1 class="pageTopicHeader">Trip Locations</h1>
+					<h1 class="pageTopicHeader text-light">Trip Locations</h1>
 					
 					<ul class="">
 						@foreach($getLocations as $showLocations)
 							<li>
 								<div class="">
-									<h2><a href="/location/{{ $showLocations->id }}/edit" class="btn btn-primary">Edit</a>{{ $showLocations->trip_location }}</h2>
+									<h2 class="text-light"><a href="/location/{{ $showLocations->id }}/edit" class="btn btn-primary mr-2">Edit</a>{{ $showLocations->trip_location }}</h2>
 								</div>
 							</li>
 						@endforeach

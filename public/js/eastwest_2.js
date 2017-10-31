@@ -14,10 +14,6 @@ $(document).ready(function() {
 
 //Make Disney page min height equal to screen height
 	$('#disney_world.content_class .content_info').css({minHeight:screenHeight});
-	
-//Add Past Vacations Header
-	var newVacations = $(".whats_next_w.upcomingTrip").length;
-	$("<div class='pastVacationsHeader'><h3>---- Where We've Been ----</h3></div>").insertAfter($(".whats_next_w.upcomingTrip").eq(newVacations -1));
 	//Toggle mobile menubar	$("body").on("click", ".mobileMenuBtn a", function(e){		e.preventDefault();		$(".mobileBtns").slideToggle();	});	
 //Bring up already signed up users for specific trip
 	$("body").on("change", "#select_trip_for_new_user, #select_trip_for_new_activity, #select_trip_for_edit", function(e) {

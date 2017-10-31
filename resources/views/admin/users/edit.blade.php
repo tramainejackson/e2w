@@ -14,29 +14,33 @@
 			@include('layouts.admin_nav')
 			
 			<div class="adminDiv" id="all_users">
-				<form name="update_user" class="" action="user_update.php" method="POST">
+				<form name="update_user" class="" action="/admin/{{ $user->id }}" method="POST">
+					
+					{{ method_field('PATCH') }}
+					{{ csrf_field() }}
+					
 					<div id="pictures_page_header" class="">
 						<h1 class="pageTopicHeader">Edit Admin</h1>
 					</div>
 					<div class="newUser">
 						<div class="form-group">
-							<label class="first_name">Firstname</label>
+							<label class="first_name text-light">Firstname</label>
 							<input type="text" name="first_name" class="form-control" value="{{ $user->first_name }}" placeholder="Firstname" />
 						</div>
 						<div class="form-group">
-							<label class="last_name">Lastname</label>
+							<label class="last_name text-light">Lastname</label>
 							<input type="text" name="last_name" class="form-control" value="{{ $user->last_name }}" placeholder="Lastname" />
 						</div>
 						<div class="form-group">
-							<label class="username">Username</label>
-							<input type="text" name="username" class="form-control" value="{{ $user->username }}" placeholder="Enter A Username" />
+							<label class="username text-light">Email Address</label>
+							<input type="text" name="email" class="form-control" value="{{ $user->email }}" placeholder="Enter A Username" />
 						</div>
 						<div class="form-group">
-							<label class="password">New Password</label>
+							<label class="password text-light">New Password</label>
 							<input type="text" name="password" class="form-control" value="" placeholder="Enter A New Password" />
 						</div>
 						<div class="form-group">
-							<label class="d-block">Active User</label>
+							<label class="d-block text-light">Active User</label>
 							
 							<div class="btn-group">
 								<button type="button" class="btn {{ $user->active == 'Y' ? ' btn-success active' : '' }}" style="">
@@ -48,8 +52,8 @@
 							</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<input type="submit" name="submit" value="Update User" class="btn" />
+					<div class="newAdminInput">
+						<input type="submit" name="submit" value="Update User" class="" />
 					</div>
 				</form>
 			</div>
