@@ -20,7 +20,7 @@
 				<div id="all_users">
 					@foreach($getAllusers as $user)
 						<div class="">
-							<h2 class="text-light"><a href="/admin/{{ $user->id }}/edit" class="btn btn-primary mr-2">Edit</a>&nbsp;{{ $user->first_name . " " . $user->last_name }}</h2>
+							<h2 class="text-light"><a href="/admin/{{ $user->id }}/edit" class="btn btn-primary mr-2">Edit</a>&nbsp;{{ $user->first_name . " " . $user->last_name }}{{ Auth::id() == $user->id ? ' - currently logged in' : '' }}</h2>
 						</div>
 					@endforeach
 				</div>

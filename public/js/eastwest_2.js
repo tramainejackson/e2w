@@ -12,6 +12,11 @@ $(document).ready(function() {
 	var screenHeight = screen.availHeight;
 	var screenWidth = screen.availWidth;
 
+	$('#datetimepicker').datetimepicker({
+		timepicker:false,
+		format:'m/d/Y'
+	});
+	
 //Make Disney page min height equal to screen height
 	$('#disney_world.content_class .content_info').css({minHeight:screenHeight});
 	//Toggle mobile menubar	$("body").on("click", ".mobileMenuBtn a", function(e){		e.preventDefault();		$(".mobileBtns").slideToggle();	});	

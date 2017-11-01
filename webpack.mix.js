@@ -14,9 +14,9 @@ let mix = require('laravel-mix');
 mix.js([
 		'resources/assets/js/app.js',
 		'node_modules/jquery/dist/jquery.min.js',
+		'node_modules/jquery-datetimepicker/build/jquery.datetimepicker.full.min.js',
 		'node_modules/bootstrap/dist/js/bootstrap.js',
 	   ], 'public/js')
 	.js('node_modules/jquery/dist/jquery.min.js', 'public/js')
-	.js('node_modules/materialize-css/dist/js/materialize.js', 'public/js')
-	.sass('resources/assets/sass/app.scss', 'public/css')
-	.sass('node_modules/materialize-css/sass/materialize.scss', 'public/css');
+	// .js('node_modules/jquery-datetimepicker/build/jquery.datetimepicker.full.min.js', 'public/js')
+	.sass('resources/assets/sass/app.scss', 'public/css');

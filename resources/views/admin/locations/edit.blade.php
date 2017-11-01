@@ -42,6 +42,10 @@
 								<span>Trip Location</span>
 								<input name="trip_name" value="{{ $showLocations->trip_location }}"/>
 							</div>
+							<div class="trip_description editTripInfo">
+								<span>Trip Description</span>
+								<textarea name="description" class="px-2" placeholder="Trip Description">{{ $showLocations->description }}</textarea>
+							</div>
 							<div class="trip_location_month editTripInfo">
 								<span>Trip Month</span>
 								<select name="trip_month">
@@ -89,9 +93,9 @@
 							<div class="deposit_date_div editTripInfo">
 								<span>First Deposit Date</span>
 								@if($showLocations->deposit_date == null)
-									<input type="date" name="deposit_date" class="" />
+									<input type="date" name="deposit_date" id="datetimepicker" class="" />
 								@else
-									<input type="date" name="deposit_date" class="" value="{{ $showLocations->deposit_date }}" />
+									<input type="text" name="deposit_date" class="" id="datetimepicker" value="{{ $showLocations->deposit_date }}" />
 								@endif
 							</div>
 							<div class="balance_due_div editTripInfo">
@@ -118,10 +122,6 @@
 								<span>Terms and Conditions</span>
 								<input type="text" name="conditions" class="" value="{{ $showLocations->conditions }}" placeholder="Terms and Conditions" />
 							</div>
-							<div class="trip_description editTripInfo">
-								<span>Trip Description</span>
-								<textarea name="description" class="" placeholder="Trip Description">{{ $showLocations->description }}</textarea>
-							</div>
 							<input hidden name="trip_id" value="{{ $showLocations->trip_id }}" />
 						</div>
 						<div class="trip_edit_div">
@@ -129,6 +129,7 @@
 								<form name="add_activity" class="addActivity" action="location_addActivity.php" method="POST" onsubmit="locationCheck();">
 									<div id="location_page_header" class="">
 										<h1 class="pageTopicHeader text-white">Trip Activities</h1>
+										<button type="button" class="btn btn-primary">Add New Activity<button/>
 									</div>
 								</form>
 							
@@ -168,8 +169,6 @@
 												</tr>
 											@endforeach
 										</table>
-										<input type="submit" name="submit" class="" value="Update Events" />
-										<input type="submit" name="submit" value="Add Events"/>
 									</form>
 								</div>
 							</div>

@@ -26,18 +26,34 @@
 						<div class="form-group">
 							<label class="first_name text-light">Firstname</label>
 							<input type="text" name="first_name" class="form-control" value="{{ $user->first_name }}" placeholder="Firstname" />
+							
+							@if ($errors->has('first_name'))
+								<span class="text-danger">First Name cannot be empty</span>
+							@endif
 						</div>
 						<div class="form-group">
 							<label class="last_name text-light">Lastname</label>
 							<input type="text" name="last_name" class="form-control" value="{{ $user->last_name }}" placeholder="Lastname" />
+							
+							@if ($errors->has('last_name'))
+								<span class="text-danger">Last Name cannot be empty</span>
+							@endif
 						</div>
 						<div class="form-group">
 							<label class="username text-light">Email Address</label>
 							<input type="text" name="email" class="form-control" value="{{ $user->email }}" placeholder="Enter A Username" />
+							
+							@if ($errors->has('email'))
+								<span class="text-danger">Email cannot be empty</span>
+							@endif
 						</div>
 						<div class="form-group">
 							<label class="password text-light">New Password</label>
 							<input type="text" name="password" class="form-control" value="" placeholder="Enter A New Password" />
+							
+							@if ($errors->has('password'))
+								<span class="text-danger">Password must be at least 7 characters long</span>
+							@endif
 						</div>
 						<div class="form-group">
 							<label class="d-block text-light">Active User</label>
@@ -51,9 +67,9 @@
 								</button>
 							</div>
 						</div>
-					</div>
-					<div class="newAdminInput">
-						<input type="submit" name="submit" value="Update User" class="" />
+						<div class="newAdminInput">
+							<input type="submit" name="submit" value="Update User" class="" />
+						</div>
 					</div>
 				</form>
 			</div>
