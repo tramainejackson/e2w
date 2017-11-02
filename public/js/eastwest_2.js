@@ -12,9 +12,50 @@ $(document).ready(function() {
 	var screenHeight = screen.availHeight;
 	var screenWidth = screen.availWidth;
 
-	$('#datetimepicker').datetimepicker({
+	// Initialize the datetimepicker
+	$('.datetimepicker').datetimepicker({
 		timepicker:false,
 		format:'m/d/Y'
+	});
+	
+	// Add an additional input row when plus sign selected
+	$("body").on("click", ".oi-plus", function() {
+		var inputField = $(this).next().clone();
+		$(inputField).addClass("addInput").val("").appendTo($(this).parent());
+	});
+	
+	// Add a blank activity row to the current location edit form
+	$("body").on("click", ".newActivityBtn", function() {
+		var newActivityRow = $(".newActivityRow").clone();
+		$(".blankActivity").remove();
+		$(newActivityRow)
+			.find(".datetimepicker")
+			.datetimepicker({
+				timepicker:false,
+				format:'m/d/Y'
+			});
+		$(newActivityRow)
+			.removeClass("newActivityRow")
+			.appendTo($(".tripEvents table"))
+			.fadeIn()
+			.find("input").focus();
+	});
+	
+	// Add an blank participant row to the current location edit form
+	$("body").on("click", ".newParticipantBtn", function() {
+		var newParticipantRow = $(".newParticipantRow").clone();
+		$(".blankParticipant").remove();
+		$(newParticipantRow)
+			.find(".datetimepicker")
+			.datetimepicker({
+				timepicker:false,
+				format:'m/d/Y'
+			});
+		$(newParticipantRow)
+			.removeClass("newParticipantRow")
+			.appendTo($(".tripUsers table"))
+			.fadeIn()
+			.find("input").focus();
 	});
 	
 //Make Disney page min height equal to screen height
@@ -498,88 +539,3 @@ function scrollPics(direction) {
 	}
 }
 });
-function locationCheck() {
-	var errors = "<div class=\"errors\"><ul>";
-	errors += "<li class='errorItem'>Please select a trip before adding.</li>";
-	errors += "</ul></div>";
-	
-	if($(".activitySelect option:selected").val() == "blank") {
-		event.preventDefault();
-		$(errors).appendTo("#return_messages");
-	} else if($(".addUser option:selected").val() == "blank") {
-		event.preventDefault();
-		$(errors).appendTo("#return_messages");
-	} else if($(".pictureSelect option:selected").val() == "blank") {
-		event.preventDefault();
-		$(errors).appendTo("#return_messages");
-	}
-}
-	
-// alternative to DOMContentLoaded event
-// document.onreadystatechange = function () {
-  // if (document.readyState === "interactive") {
-    // $("#loading_image").fadeOut("slow");
-  // }
-// }
-// alternative to DOMContentLoaded event
-// document.onreadystatechange = function () {
-  // if (document.readyState === "complete") {
-    // console.log("The page is fully loaded");
-  // }
-// }
-// switch (document.readyState) {
-  // case "loading":
-    // The document is still loading.
-	// console.log("The document is still loading");
-    // break;
-  // case "interactive":
-    // The document has finished loading. We can now access the DOM elements.
-    // var span = document.createElement("span");
-    // span.textContent = "A <span> element.";
-    // document.body.appendChild(span);
-    // break;
-  // case "complete":
-    // The page is fully loaded.
-    // console.log("The page is fully loaded");
-    // break;
-// }
-//Chech to see if children are greater than 0 and if an age has been added for them
-// function checkChildren() {
-	// var errors = 0;
-	// if($(".li_childAge").length > 0)
-	// {
-		// $(".rfInput.childAge").each(function(){
-			// if($(this).val() == "")
-			// {
-				// $(this).addClass("errorBorder");
-				// errors++;
-			// }
-		// });
-	// }
-	// return errors;		
-// }
-//Send data to delete user
-	// $("body").on("click", "#delete_modal_yes_btn", function(e){
-		// e.preventDefault();
-		// var user_id = $(".delete_modal_content input").val();
-		// $.ajax({url: "deleteCurrent_e2w.php",
-				// cache: false,
-				// data: {user_id:user_id}
-		// })
-		// .done(function(data) {
-			// $(".maine_overlay, .maine_modal_delete").hide(function(){
-				// $(".delete_modal_content").empty();
-			// });
-			// $.ajax({url: "e2w_admin.php",
-					// cache: false,
-			// })
-			// .done(function(data){
-				// var disneyData = $(data).find("#disney_load");
-				// var cruiseData = $(data).find("#cruise_load");
-				// $("#confirmed_users_status2").html(disneyData);
-				// $("#confirmed_users_status1").html(cruiseData);
-				// $(".eUserFormC .updates_table").css({maxHeight:(window.innerHeight-150)+"px"});
-				// $(".eUserFormD .updates_table").css({maxHeight:(window.innerHeight-150)+"px"});
-			// });
-		// });
-	// });

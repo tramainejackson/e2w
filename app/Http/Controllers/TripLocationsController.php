@@ -7,6 +7,7 @@ use App\TripLocations;
 use App\TripActivities;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class TripLocationsController extends Controller
 {
@@ -52,7 +53,24 @@ class TripLocationsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+		$this->validate($request, [
+			'trip_name' => 'required|max:50|unique:trip_locations,trip_location',
+		]);
+		
+		if($request->hasFile('trip_photo')) {
+			$path = $request->file('trip_photo')->store('public/images');
+			$tripLocation->trip_photo = $path;
+		}
+		
+		$tripLocation = new TripLocations();
+
+        $tripLocation->trip_location = $request->trip_name;
+		$tripLocation->trip_month = $request->trip_month;
+		$tripLocation->trip_year = $request->trip_year;
+
+		$tripLocation->save();
+		
+		return redirect()->action('TripLocationsController@edit', $tripLocation)->with('status', 'New Trip Added Successfully');
     }
 
     /**
@@ -74,14 +92,14 @@ class TripLocationsController extends Controller
      */
     public function edit(TripLocations $tripLocations, $id)
     {
-		$showLocations = TripLocations::find($id);
+		$showLocation = TripLocations::find($id);
 		$getCurrentEvents = TripActivities::where('trip_id', $id)->get();
 		$getEventUsers = DistributionList::where('trip_location', $id)->get();
 		$getLocations = TripLocations::all();
         $getYear = DB::table('vacation_year')->get();
 		$getMonth = DB::table('vacation_month')->get();
 		
-		return view('admin.locations.edit', compact('getYear', 'getMonth', 'showLocations', 'getLocations', 'getCurrentEvents', 'getEventUsers'));
+		return view('admin.locations.edit', compact('getYear', 'getMonth', 'showLocation', 'getLocations', 'getCurrentEvents', 'getEventUsers'));
     }
 
     /**
@@ -91,9 +109,29 @@ class TripLocationsController extends Controller
      * @param  \App\Trip_Locations  $trip_Locations
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Trip_Locations $trip_Locations)
+    public function update(Request $request, $id)
     {
-        //
+		$tripLocation = TripLocations::find($id);
+		$getCurrentEvents = TripActivities::where('trip_id', $id)->get();
+		$getEventUsers = DistributionList::where('trip_location', $id)->get();
+		
+		$this->validate($request, [
+			'trip_location' => ['required', Rule::unique('trip_locations')->ignore($tripLocation->id), 'max:50']
+		]);
+        dd($tripLocation);
+		
+		if($request->hasFile('trip_photo')) {
+			$path = $request->file('trip_photo')->store('public/images');
+			$tripLocation->trip_photo = $path;
+		}
+
+        $tripLocation->trip_location = $request->trip_name;
+		$tripLocation->trip_month = $request->trip_month;
+		$tripLocation->trip_year = $request->trip_year;
+
+		$tripLocation->save();
+		
+		return redirect()->action('TripLocationsController@edit', $tripLocation)->with('status', 'New Trip Added Successfully');
     }
 
     /**

@@ -1,3 +1,6 @@
+<!-- Open Iconic icons -->
+<link href="/css/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+
 <!-- Bootstrap core CSS -->
 <link href="/css/app.css" rel="stylesheet">
 

@@ -59,10 +59,10 @@
 							<label class="d-block text-light">Active User</label>
 							
 							<div class="btn-group">
-								<button type="button" class="btn {{ $user->active == 'Y' ? ' btn-success active' : '' }}" style="">
+								<button type="button" class="btn{{ $user->active == 'Y' ? ' btn-success active' : '' }}" style="">
 									<input type="checkbox" name="active" value="Y" {{ $user->active == 'Y' ? 'checked' : '' }} hidden />Yes
 								</button>
-								<button type="button" class="btn {{ $user->active == 'N' ? ' btn-danger active' : '' }}" style="">
+								<button type="button" class="btn{{ $user->active == 'N' ? ' btn-danger active' : '' }}" style="">
 									<input type="checkbox" name="active" value="N" {{ $user->active == 'N' ? 'checked' : '' }} hidden />No
 								</button>
 							</div>

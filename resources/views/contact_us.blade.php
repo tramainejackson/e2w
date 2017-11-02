@@ -33,7 +33,7 @@
 						</div>
 						<div class="col-5 col-sm-5">
 							<div class="card" id="">
-								<img class="card-img-top" src="/images/RhondaLambert.png" />
+								<img class="card-img-top" src="/images/RhondaLambert2.png" />
 								<div class="card-body">
 									<p class="contact_name">Name: Rhonda Lambert</p>
 								</div>

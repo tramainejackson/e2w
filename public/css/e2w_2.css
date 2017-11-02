@@ -145,8 +145,16 @@ h1#admin_page_header {
 	font-size: 250%;
 	z-index: 2;
 }
-div#admin_page * {
+div#admin_page *:not(.oi) {
     font-family: Trocchi;
+}
+
+.oi {
+	width: initial !important;
+}
+
+.editTripInfo .oi {
+	margin: 0% 2% 0% -5%;
 }
 
 #about_us_div, .panel-body {
@@ -160,6 +168,10 @@ p.noValueMessage {
 }
 footer {
 	font-family: 'Lobster', cursive;
+}
+
+.card-img-top {
+	max-height: 350px;
 }
 a {
 	display: inline-block;
@@ -322,6 +334,10 @@ div#payment_instructions_disney {
     text-align: -webkit-auto;
     text-align: justify;
 }
+.addInput {
+	margin-left: 35.4%;
+	transition: .5s;
+}
 input[type="image"] {
     width: 35%;
     border: none;
@@ -457,15 +473,6 @@ div.trip_location_photo img {
 	min-height: 175px;
 	/* border-radius: 10px; */
 }
-.trip_location_photo {
-    /* max-width: 200px; */
-    /* max-height: 200px; */
-    /* float: left; */
-    /* min-height: 175px; */
-    /* position: relative; */
-    /* margin: 0% 5% 0% 5%; */
-    /* border-radius: 10px; */
-}
 .editTripInfo {
     display: -webkit-inline-box;
     display: inline-block;
@@ -473,14 +480,21 @@ div.trip_location_photo img {
     min-width: 100%;
     position: relative;
 }
-.tripPhotoChange {
-    /* position: absolute; */
-    /* bottom: 2px; */
-    /* width: 100%; */
-    /* left: 0; */
-    /* background-color: cadetblue; */
-    /* opacity: 0.8; */
-    /* border-bottom-left-radius: 5px !important; */
+
+.terms_cost_div.editTripInfo {
+    background: #00ffff47;
+    border-radius: 5px;
+}
+.terms_payment_div.editTripInfo {
+    background: rgba(95, 158, 160, 0.55);
+    border-radius: 5px;
+}.terms_inclusions_div.editTripInfo {
+    background: rgba(0, 255, 255, 0.55);
+	border-radius: 5px;
+}
+.terms_conditions_div.editTripInfo {
+    background: rgba(0, 191, 255, 0.55);
+    border-radius: 5px;
 }
 .allPicturesDiv {
     display: inline-block;
@@ -671,9 +685,6 @@ form.addUser, form.addActivity {
 .tripEvents {
     margin: 2% 0% 2%;
     padding: 2% 10%;
-    border-top: solid;
-    border-top-color: whitesmoke;
-    position: relative;
 }
 .tripEvents .editActivity input {
     text-align: -webkit-center;
@@ -682,31 +693,8 @@ form.addUser, form.addActivity {
     padding: 1.5% 0%;
     border: solid 1px;
 }
-.tripEvents .editActivity select {
-    border: solid 1px;
-    max-width: 90%;
-    width: 90%;
-    text-align: -webkit-center;
-    text-align: center;
-}
-.tripEvents .editActivity input[type="date"] {
-    padding: 0% 0% 0% 25%;
-    margin: 0% 0% 0% 5%;
-}
-.tripEvents .editActivity input[type="submit"] {
-    position: absolute;
-    top: 70px;
-    left: 2%;
-    padding: 0.5% 1%;
-    border: outset 2px;
-}
-.tripEvents .editActivity th:last-of-type {
-    padding: 0% 0% 0% 0%;
-}
 .tripUsers {
-    margin: 2% 0% 2%;
     padding: 2% 10% 2% 5%;
-    border-top: solid;
 }
 .pageConfirmationTable .tripUsers {
     max-width: 60%;
@@ -1517,6 +1505,7 @@ p#signup_ny, p#signup_cruise, p#signup_cali{
 .actionBtns {
 	width: 100%;
 	opacity: 0.9;
+	color: #343a40;
 	border: outset 2px cadetblue;
 	background: linear-gradient(rgba(245, 245, 245, 0), whitesmoke 75%, cadetblue);
 	transition: .5s;
@@ -3025,19 +3014,12 @@ h1#admin_page_header {
 .newUser {
     padding: 0% 20% 0%;
 }
-.tripEvents {
-    margin: 2% 0% 2%;
+.tripEvents, .tripUsers {
     padding: 2% 1%;
-    border-top: solid;
 }
 .tripEvents .editActivity input[type="submit"] {
     left: 1%;
     top: 65px;
-}
-.tripUsers {
-    margin: 2% 0% 2%;
-    padding: 2% 10%;
-    border-top: solid;
 }
 form.addUser input[type="submit"], form.addActivity input[type="submit"] {
     margin: 6.2% 10.2% 0% 0%;
@@ -3045,11 +3027,6 @@ form.addUser input[type="submit"], form.addActivity input[type="submit"] {
 }
 .editTripInfo input, .editTripInfo textarea {
 	width: 41.5%;
-}
-.trip_location_month select, 
-.trip_location_year select, 
-.trip_completed_div select, 
-.show_trip_div select {
 }
 .removeIndPicture {
     max-width: 30%;
@@ -3212,7 +3189,8 @@ input.tripFlyerChange + a {
     margin: 0.6% 0%;
 }
 .addNewTrip input:not([type="submit"]) {
-    width: 47.5%;
+    width: 50%;
+	border-radius: 5px;
 }
 .addNewTrip input[type="submit"] {
 }

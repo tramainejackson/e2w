@@ -64,7 +64,7 @@ class UsersController extends Controller
 		
 		$user->save();
 		
-		return redirect()->action('UsersController@edit', $user)->with('status', 'New User Successfully');
+		return redirect()->action('UsersController@edit', $user)->with('status', 'New User Added Successfully');
     }
 
     /**
