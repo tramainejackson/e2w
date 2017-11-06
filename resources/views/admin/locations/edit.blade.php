@@ -22,25 +22,16 @@
 					<div id="location_page_header" class="">
 						<h1 class="pageTopicHeader text-light">Trip Locations</h1>
 					</div>
-					<div class="trip_location_div" style="background-image:url(../public/images/{{ $showLocation->trip_photo != "" ? $showLocation->trip_photo : 'skyline.jpg' }} );">
+					<div class="trip_location_div">
 						<div class="trip_location_header">
 							<h3>{{ $showLocation->trip_location }}</h3>
 							<input type="submit" name="submit" value="Update" />
 						</div>
 						<div class="trip_edit_div">
 							<div class="trip_location_photo editTripInfo">
-								<span>Change Photo</span>
-								<input type="file" name="trip_photo" class="tripPhotoChange" value="" />
-							</div>
-							<div class="trip_flyer editTripInfo">
-								@if($showLocation->flyer_name == "")
-									<span>Add Flyer</span>
-									<input type="file" name="flyer_name" class="tripFlyerAdd" value="" />
-								@else
-									<span>Change Flyer</span>
-									<input type="file" name="flyer_name" class="tripFlyerChange" value="" />
-									<a href="../files/{{ $showLocation->flyer_name }}"> - See flyer</a>
-								@endif
+								<span>Trip Photo</span>
+								<img src="{{ $showLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $showLocation->trip_photo)) : '/images/skyline.jpeg' }}" class="" height="300" width="250" />
+								<input type="file" name="trip_photo" class="tripPhotoChange" value="" style="margin-left: 35%;" />
 							</div>
 							<div class="trip_name editTripInfo">
 								<span>Trip Location</span>
@@ -54,11 +45,7 @@
 								<span>Trip Month</span>
 								<select name="trip_month">
 									@foreach($getMonth as $showMonth)
-										@if($showMonth->month_name == $showLocation->trip_month)
-											<option class="" value="{{ $showMonth->month_name }}" selected>{{ $showMonth->month_name }}</option>
-										@else
-											<option class="" value="{{ $showMonth->month_name }}">{{ $showMonth->month_name }}</option>
-										@endif
+										<option class="" value="{{ $showMonth->month_name }}" {{ $showMonth->month_name == $showLocation->trip_month ? 'selected' : ''}}>{{ $showMonth->month_name }}</option>
 									@endforeach
 								</select>
 							</div>
@@ -66,41 +53,55 @@
 								<span>Trip Year</span>
 								<select name="trip_year">
 									@foreach($getYear as $showYear)
-										<option class="" value="{{ $showYear->year_num }}">{{ $showYear->year_num }}</option>
+										<option class="" value="{{ $showYear->year_num }}" {{ $showYear->year_num == $showLocation->trip_year ? 'selected' : ''}}>{{ $showYear->year_num }}</option>
 									@endforeach
 								</select>
 							</div>
+							<div class="trip_flyer editTripInfo">
+								@if($showLocation->flyer_name == "")
+									<span>Add Flyer</span>
+									<input type="file" name="flyer_name" class="tripFlyerAdd" value="" />
+								@else
+									<span>Change Flyer</span>
+									<input type="file" name="flyer_name" class="tripFlyerChange" value="" />
+									<a href="../files/{{ $showLocation->flyer_name }}"> - See flyer</a>
+								@endif
+							</div>
 							<div class="trip_completed_div editTripInfo">
 								<span>Trip Completed</span>
-								<select name="trip_completed">
-									@if($showLocation->trip_complete == "Y")
-										<option value="Y" selected>Yes</option>
-										<option value="N">No</option>
-									@else
-										<option value="Y">Yes</option>
-										<option value="N" selected>No</option>
-									@endif
-								</select>
+								<div class="btn-group">
+									<button type="button" class="btn{{ $showLocation->trip_complete == 'Y' ? ' btn-success active' : '' }}" style="">
+										<input type="checkbox" name="trip_completed[]" value="Y" {{ $showLocation->trip_complete == 'Y' ? 'checked' : '' }} hidden />Yes
+									</button>
+									<button type="button" class="btn{{ $showLocation->trip_complete == 'N' ? ' btn-danger active' : '' }}" style="">
+										<input type="checkbox" name="trip_completed[]" value="N" {{ $showLocation->trip_complete == 'N' ? 'checked' : '' }} hidden />No
+									</button>
+								</div>
 							</div>
 							<div class="show_trip_div editTripInfo">
 								<span>Show Trip</span>
-								<select name="show_trip">
-									@if($showLocation->show_trip == "Y")
-										<option value="Y" selected>Yes</option>
-										<option value="N">No</option>
-									@else
-										<option value="Y">Yes</option>
-										<option value="N" selected>No</option>
-									@endif
-								</select>
+								<div class="btn-group">
+									<button type="button" class="btn{{ $showLocation->show_trip == 'Y' ? ' btn-success active' : '' }}" style="">
+										<input type="checkbox" name="show_trip[]" value="Y" {{ $showLocation->show_trip == 'Y' ? 'checked' : '' }} hidden />Yes
+									</button>
+									<button type="button" class="btn{{ $showLocation->show_trip == 'N' ? ' btn-danger active' : '' }}" style="">
+										<input type="checkbox" name="show_trip[]" value="N" {{ $showLocation->show_trip == 'N' ? 'checked' : '' }} hidden />No
+									</button>
+								</div>
 							</div>
 							<div class="deposit_date_div editTripInfo">
+								@php 
+									$depositDate = explode('-', $showLocation->deposit_date);
+								@endphp
 								<span>First Deposit Date</span>
-								<input type="text" name="deposit_date" class="datetimepicker" id="" value="{{ $showLocation->deposit_date }}" placeholder="Deposit Date" />
+								<input type="text" name="deposit_date" class="datetimepicker" id="" value="{{ $showLocation->deposit_date!= null ? $depositDate[1] . "/" . $depositDate[2] . "/" . $depositDate[0] : '' }}" placeholder="Deposit Date" />
 							</div>
 							<div class="balance_due_div editTripInfo">
+								@php
+									$dueDate = explode('-', $showLocation->due_date);
+								@endphp
 								<span>Total Balance Due</span>
-								<input type="text" name="due_date" class="datetimepicker" id="" value="{{ $showLocation->due_date }}" placeholder="Due Date" />
+								<input type="text" name="due_date" class="datetimepicker" id="" value="{{ $showLocation->due_date != null ? $dueDate[1] . "/" . $dueDate[2] . "/" . $dueDate[0] : '' }}" placeholder="Due Date" />
 							</div>
 							<div class="terms_cost_div editTripInfo">
 								@php $costs = explode('; ', $showLocation->cost); @endphp
@@ -139,6 +140,8 @@
 								@endforeach
 							</div>
 						</div>
+						
+						<!-- Trip Events -->
 						<div class="trip_edit_div">
 							<div id="location_page_header" class="">
 								<h1 class="pageTopicHeader text-white">Trip Activities</h1>
@@ -159,10 +162,10 @@
 												<td>
 													<div class="btn-group">
 														<button type="button" class="btn{{ $activity->show_activity == 'Y' ? ' btn-success active' : '' }}" style="">
-															<input type="checkbox" name="activity_active[]" value="Y" {{ $activity->show_activity == 'Y' ? 'checked' : '' }} hidden />Yes
+															<input type="checkbox" name="show_activity[]" value="Y" {{ $activity->show_activity == 'Y' ? 'checked' : '' }} hidden />Yes
 														</button>
 														<button type="button" class="btn{{ $activity->show_activity == 'N' ? ' btn-danger active' : '' }}" style="">
-															<input type="checkbox" name="activity_active[]" value="N" {{ $activity->show_activity == 'N' ? 'checked' : '' }} hidden />No
+															<input type="checkbox" name="show_activity[]" value="N" {{ $activity->show_activity == 'N' ? 'checked' : '' }} hidden />No
 														</button>
 													</div>
 												</td>
@@ -173,7 +176,11 @@
 													<input type="text" name="activity_location[]" class="mw-100" value="{{ $activity->activity_location }}" placeholder="Event Location" />
 												</td>
 												<td>
-													<input type="text" name="activity_date[]" class="datetimepicker mw-100" value="{{ $activity->activity_date }}" />
+													@php
+														$activityDate = explode('-', $activity->activity_date);
+													@endphp
+													<input type="text" name="activity_date[]" class="datetimepicker mw-100" value="{{ $activityDate[1] . "/" . $activityDate[2] . "/" . $activityDate[0] }}" />
+													<input type="text" name="activity_id[]" value="{{ $activity->id }}" hidden />
 												</td>
 											</tr>
 										@endforeach
@@ -186,10 +193,10 @@
 										<td>
 											<div class="btn-group">
 												<button type="button" class="btn" style="">
-													<input type="checkbox" name="activity_active[]" value="Y" hidden />Yes
+													<input type="checkbox" name="show_activity[]" value="Y" hidden />Yes
 												</button>
 												<button type="button" class="btn btn-danger active" style="">
-													<input type="checkbox" name="activity_active[]" value="N" checked hidden />No
+													<input type="checkbox" name="show_activity[]" value="N" checked hidden />No
 												</button>
 											</div>
 										</td>
@@ -206,6 +213,8 @@
 								</table>
 							</div>
 						</div>
+						
+						<!-- Trip Participants -->
 						<div class="trip_edit_div">
 							<div id="location_page_header" class="">
 								<h1 class="pageTopicHeader text-white">Trip Participants</h1>
@@ -236,7 +245,7 @@
 													<input type="text" name="last_name[]" class="mw-100" value="{{ $user->last_name }}" placeholder="Enter Last Name" />
 												</td>
 												<td>
-													<input type="text" name="email[]" class="mw-100" value="{{ $user->email_address }}"placeholder="Enter Email Address"  />
+													<input type="text" name="email[]" class="mw-100" value="{{ $user->email }}"placeholder="Enter Email Address"  />
 												</td>
 												<td>
 													<input type="text" name="phone[]" class="mw-100" value="{{ $user->phone }}" maxlength="10" placeholder="Enter Phone Number" />
@@ -253,12 +262,13 @@
 															<input type="checkbox" name="pif[]" value="N" {{ $user->paid_in_full == 'N' ? 'checked' : '' }} hidden />No
 														</button>
 													</div>
+													<input type="text" name="participant_id[]" value="{{ $user->id }}" hidden />
 												</td>
 											</tr>
 										@endforeach
 									@else
 										<tr class="blankParticipant">
-											<td colspan="5" rowspan="2" class="text-light">No Participants Added Yet</td>
+											<td colspan="6" rowspan="2" class="text-light">No Participants Added Yet</td>
 										</tr>
 									@endif
 									<tr class="newParticipantRow" style="display:none">

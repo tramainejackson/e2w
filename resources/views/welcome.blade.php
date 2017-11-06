@@ -32,7 +32,7 @@
 								@foreach($activeTrips as $trip)
 									<div id="<?php echo str_ireplace(" ", "_", strtolower($trip->trip_location)) . "_link"; ?>" class="whats_next_w upcomingTrip">	
 										<div class="individualEvent eventDiv" id="<?php echo str_ireplace(" ", "_", strtolower($trip->trip_location)) . "_event"; ?>" style="background-image:url(images/<?php echo $trip->trip_photo != "" ? $trip->trip_photo : "skyline.jpg"; ?>);">
-											<a href="<?php echo str_ireplace(" ", "_", strtolower($trip->trip_location)) . $trip->trip_year; ?>.php">
+											<a href="/location/{{ $trip->id }}">
 												<p class="event_header"><?php echo ucwords($trip->trip_location); ?></p>
 												<p class="event_date"><?php echo $trip->trip_month . " ". $trip->trip_year; ?></p>
 												<p class="more_info">Click for more information</p>

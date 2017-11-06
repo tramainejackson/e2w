@@ -19,7 +19,6 @@
 				$query .= "show_activity = '".$showActivity[$i]."', ";
 				$query .= "user_updated = '".$_SESSION["loggedIn"]."' ";
 				$query .= "WHERE activity_id = '".$activityID[$i]."';";
-				mysqli_query($connect, $query);
 			}
 		}
 		

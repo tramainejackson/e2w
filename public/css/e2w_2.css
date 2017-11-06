@@ -19,6 +19,13 @@ div#app:after {
 .container {
 	position: relative;
 }
+
+.showTrip {
+	background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+}
 #return_messages {
     position: fixed;
     z-index: 3;
@@ -95,6 +102,12 @@ div#app:after {
 	padding: 5% 0% 2% 0%;
 	overflow: auto;
 	position: relative;
+}
+.divider {
+	width: 70%;
+    padding: 0px;
+    margin: 50px auto;
+    border: solid #c7c7c7 2px;
 }
 h1.pageTopicHeader {
     padding: 0% 1%;
@@ -218,37 +231,6 @@ div.maine_modal #registration_form label, div.maine_modal #registration_form inp
 #main_content {
 	display: inline-block;
 }
-div#cruise_content_info {
-	background-image: url("/e2w/public/images/cruise-liner.jpg");
-	background-repeat:no-repeat;
-	background-size:100% 100%;
-	background-position: center center;
-    position: relative;
-	font-family: 'Lobster', cursive;
-}
-div#cruise_background {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-div#cruise_content_info h1 {
-    margin: 0%;
-    text-align: center;
-    padding: 3% 0%;
-	font-size: 300%;
-	font-family: 'Lobster', cursive;
-}
-div#cruise_content_info *:not(#cruise_background) {
-    position: relative;
-    color: antiquewhite;
-}
-div#cruise_content_itinerary {
-    padding: 0% 20% 1%;
-    font-size: 125%;
-}
 #header {
 	font-family: 'Lobster', cursive;
 	text-align: center;
@@ -264,43 +246,6 @@ div#cruise_content_itinerary {
 	overflow:hidden;
 	opacity: 0.95;
 	padding: 0% 0% 1% 0%;
-}
-div#disney_content_info *:not(#disney_background) {
-    z-index: 1;
-    position: relative;
-	color: white;
-}
-#disney_content_info {
-    background-image: url("/e2w/public/images/disney_world.jpg");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    width: 100%;
-    overflow: hidden;
-    display: table;
-    padding: 0%;
-    background-position: center center;
-	position: relative;
-	font-family: 'Lobster', cursive;
-}
-#disney_background {
-    position: absolute;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-    background-color: rgba(0, 0, 0, 0.50);
-}
-div#payment_instructions_cruise, div#payment_instructions_disney {
-    width: 54.3%;
-    margin: 0% 20%;
-    border-radius: 5px;
-    padding: 0% 5%;
-	display: none;
-}
-div#payment_instructions_disney {
-    border: solid 2px #083E5B;
-    color: white;
-    background-color: steelblue;
 }
 .payPalBtnDiv {
     width: 30%;
@@ -465,13 +410,6 @@ input.tripFlyerChange + a {
 }
 .trip_location_header h2 {
     margin: 0%;
-}
-div.trip_location_photo img {
-	max-width: 100%;
-	max-height: 100%;
-	width: 100%;
-	min-height: 175px;
-	/* border-radius: 10px; */
 }
 .editTripInfo {
     display: -webkit-inline-box;
@@ -694,12 +632,12 @@ form.addUser, form.addActivity {
     border: solid 1px;
 }
 .tripUsers {
-    padding: 2% 10% 2% 5%;
+    /* padding: 2% 10% 2% 5%; */
 }
 .pageConfirmationTable .tripUsers {
-    max-width: 60%;
-    margin: 2% 20% 4%;
-    padding: 1% 0%;
+    /* max-width: 60%; */
+    /* margin: 2% 20% 4%; */
+    /* padding: 1% 0%; */
 }
 .pageConfirmationTable .tripUsers table {
     width: 70%;
@@ -813,22 +751,6 @@ form.addUser, form.addActivity {
 .tripUsers .editUser table {
     border-radius: 10px;
 }
-button.edit_cruise_user {
-    border: solid 1px darkgoldenrod;
-    color: white;
-    background-color: darkred;
-	width: 90%;
-}
-button.save_cruise_user {
-	background-color: darkgreen;
-    color: white;
-    border: solid 1px chartreuse;
-}
-button.delete_cruise_user {
-	border-radius: 5px;
-    border: outset 2px;
-    width: 98%;
-}
 button.cancelSave {
 	border-radius: 5px;
 	border: outset 2px;
@@ -836,69 +758,6 @@ button.cancelSave {
 	background-color: crimson;
 	color: white;
 	border-color: darkred;
-}
-button.edit_disney_user {
-    border: outset 2px darkgoldenrod;
-    border-radius: 5px;
-    color: white;
-    background-color: darkred;
-    width: 90%;
-}
-button.save_disney_user {
-	background-color: darkgreen;
-    color: white;
-    border: outset 2px chartreuse;
-	border-radius: 5px;
-	width: 90%;
-}
-button.delete_disney_user {
-	border-radius: 5px;
-    border: outset 2px;
-    width: 98%;
-}
-div#cruise_page_payment_plan p:first-of-type {
-    margin-top: 0;
-    padding-top: 2%;
-}
-.cali_content_class {
-	background-image: url("/images/Hollywood-Sign-at-Night.jpg");
-	background-repeat:no-repeat;
-	background-size:100% %;
-	overflow:hidden;	
-	height: 100%;
-}
-.london_content_class {
-	background-image: url("/e2w/public/images/london.jpg");
-	background-repeat:no-repeat;
-	background-size:100% 73%;
-	overflow:hidden;	
-	height: 100%;
-	padding-top: 2%;
-}
-.cali_page_signup_form, .cali_page_confirmation_table, .cruise_page_signup_form, .cruise_page_confirmation_table, 
-.london_page_signup_form, .london_page_confirmation_table, .disney_page_confirmation_table, .disney_page_signup_form {
-	display:inline-block;
-}
-.cali_page_form_table, .cruise_page_form_table, .london_page_form_table, .disney_page_form_table {
-	width: 100%;
-	padding: 0% 0% 0% 20%;
-}
-.cali_page_signup_form, .cruise_page_signup_form, .london_page_signup_form, .disney_page_signup_form {
-	margin: 2%;
-	width: 40%;
-	min-width: 40%;
-	font-size: 140%;
-	vertical-align: top;
-}
-.cali_page_confirmation_table, .cruise_page_confirmation_table, .disney_page_confirmation_table {
-	margin: 2%;
-	width: 40%;
-	min-width: 40%;
-	text-align: center;
-	vertical-align: top;
-}
-table#cruise_page_distribution_list_confirmed caption {
-    font-size: 125%;
 }
 .maine_overlay {
     position: absolute;
@@ -1165,64 +1024,8 @@ table#questions_table {
 	padding: 1% 0% 0% 2%;
 	color: whitesmoke;
 }
-#cruise_page_terms_and_conditions {
-    padding: 1% 12%;
-    font-size: 115%;
-}
-#disney_page_terms_and_conditions {
-	padding: 2% 2%;
-}
-div#disney_page_terms_and_conditions {
-    background-color: rgba(0, 0, 0, 0.29);
-}
-#terms_and_conditions {
-	padding: 3% 0% 1% 2%;
-}
-h1#disney_vacation_header {
-    text-align: center;
-	font-size: 300%;
-	font-family: 'Lobster', cursive;
-}
-div#disney_itenery {
-    font-size: 135%;
-}
-h2#disney_itenery_header {
-    padding: 0% 10%;
-}
-h2.disney_payment_headers {
-}
-div#disney_itenery ul {
-    list-style: none;
-}
-div#disney_itenery ul#disney_parks_list {
-    list-style: circle;
-}
-div.disney_trip_cost {
-    display: inline-block;
-	min-width: 35%;
-    font-size: 115%;
-	text-align: center;
-}
-div#disney_page_trip_cost {
-    margin-left: 13%;
-}
-div.disney_trip_cost ul {
-    list-style: none;
-}
-.london_page_add_terms a, .london_remove_terms a	{
-	color: rgb(8, 62, 90);
-}
-.disney_page_add_terms a, .disney_remove_terms a	{
-	color: rgb(8, 62, 90);
-}
-#terms_and_conditions p, #cruise_page_terms_and_conditions p, #london_page_terms_and_conditions p, 
-#disney_page_terms_and_conditions p {
+#terms_and_conditions p {
 	margin: 0.2% 0% 0% 0%;
-}
-#cali_page_distribution_list_confirmed, #cruise_page_distribution_list_confirmed, 
-#london_page_distribution_list_confirmed, #disney_page_distribution_list_confirmed  {
-	width: 100%;
-	font-size: 140%;
 }
 .terms {
 	text-align: center;
@@ -1230,83 +1033,16 @@ div.disney_trip_cost ul {
 	margin: 0%;
 	padding: 0.1% 0%;
 }
-.remove_terms, .add_terms, #cali_page_signup, .cruise_remove_terms, .cruise_page_add_terms, #cruise_page_signup, 
-#cali_page_signup, #london_page_signup, #disney_page_signup, .london_page_add_terms, 
-.london_remove_terms {
+.remove_terms, .add_terms {
 	text-align: center;
 	margin: 1% 0% 0%;
 	font-size: 125%;
 }
-div#disney_content_info  p.disney_page_add_terms {
-	text-align: center;
-	font-size: 175%;
-	cursor: pointer;
-}
-div#disney_content_info  p.disney_page_add_terms:hover {
-	color: whitesmoke;
-}
 .remove_terms {
 	padding: 3% 0%;
 }
-#cali_page_submit, #cali_page_pay_btn, #london_page_submit, #london_page_pay_btn, 
-#disney_page_submit, #disney_page_pay_btn {
-	border-radius: 5px;
-	padding: 1% 0%;
-	width: 50%;
-	margin: 2% 25% 0%;
-	font-size: initial;
-	border: solid 2px #083E5B;
-	color: white;
-	background-color: steelblue;
-}
-#cali_page_submit, #cali_page_pay_btn, #cruise_page_submit, #cruise_page_pay_btn {
-    border-radius: 5px;
-    padding: 1% 0%;
-    width: 75%;
-    margin: 2% 16% 0%;
-    font-size: initial;
-    border: solid 2px #FFA509;
-    color: darkred;
-    background-color: antiquewhite;
-}
-#london_page_pay_btn, #london_page_submit {
-	width: 75%;
-    margin: 2% 16% 0%;
-}	
-#disney_page_pay_btn, #disney_page_submit {
-	width: 75%;
-    margin: 2% 16% 0%;
-}
-button#cruise_page_pay_btn a {
-    color: darkred;
-}
-button#disney_page_pay_btn a {
-    color: white;
-}
-#cali_page_divider {
-	background-color: whitesmoke;
-	min-height: 400px;
-	position: relative;
-}
-#disney_page_divider {
-    background-color: whitesmoke;
-    width: 100%;
-	padding: 0% 0% 2%;
-}
 #payment_plan a, #terms_and_conditions a {
 	color: white;
-}
-#cruise_page_payment_plan  a, #cruise_page_terms_and_conditions a {
-	color: black;
-}
-#cruise_page_divider {
-	background-color: dimgray;
-	min-height: 400px;
-	position: relative;
-	padding-bottom: 2%;
-}
-.cruise_page_additions, .disney_page_additions {
-    padding: 1% 0% 10%;
 }
 div.eUser_form {
     display: none;
@@ -1318,66 +1054,6 @@ td.editNotes .eNotes {
     max-width: 95%;
     background-color: transparent;
     border: inset 2px;
-}
-button#addNewUser_cruise {
-    position: absolute;
-    bottom: 5px;
-    width: 50%;
-    left: 0px;
-    margin: 0% 25%;
-    font-size: 120%;
-    border-radius: 5px;
-    border: outset 3px;
-    background-color: darkorange;
-    color: whitesmoke;
-}
-button#addNewUser_disney {
-	position: absolute;
-    bottom: 5px;
-    width: 50%;
-    left: 0px;
-    margin: 0% 25%;
-    font-size: 120%;
-    border-radius: 5px;
-    border: outset 3px;
-    background-color: steelblue;
-    color: whitesmoke;
-}
-#addUserFormC input, #addUserFormD input {
-    width: 50%;
-    text-align: left;
-	margin: 0% 0% 0.5% 35%;
-	border-radius: 5px;
-	text-align: left;
-}
-#addUserFormC label, #addUserFormD label {
-    max-width: 40%;
-    position: absolute;
-    left: 10%;
-    text-align: left;
-}
-input.addNewUser_cruise {
-    position: absolute;
-    bottom: 26%;
-    right: 32%;
-    text-align: center;
-    padding: 0.5% 12%;
-    font-size: 110%;
-    font-weight: 600;
-    background-color: antiquewhite;
-    border: solid 2px orange;
-}
-input.addNewUser_disney {
-    position: absolute;
-    bottom: 26%;
-    right: 32%;
-    text-align: center;
-    padding: 0.5% 12%;
-    font-size: 110%;
-    font-weight: 600;
-    background-color: steelblue;
-    border: solid 2px #083E5A;
-    color: white;
 }
 .red {
 	border: solid 2px red;
@@ -1799,8 +1475,8 @@ th#date_data, th#event_data {
 	min-width: 125px;
 }
 .first_name_input, .last_name_input, .email_input {
-    margin: 0% 0%;
-    width: 70%;
+    /* margin: 0% 0%; */
+    /* width: 70%; */
     /* height: 100%; */
 }
 .form_table_ny, .form_table_cruise, .form_table_cali {
@@ -2257,7 +1933,7 @@ div#loading_image img {
     text-align: center;
     font-size: 175%;
 }
-.content_info::after {
+.showTrip::after {
 	content: "";
 	position: absolute;
 	top: 0;
@@ -2276,27 +1952,27 @@ div#loading_image img {
 	color: white;
 }
 .vacationItenerary, .vacationCost, .vacationPayments, .vacationInclusions {
-    padding: 0% 5%;
-    max-width: 25%;
-    font-size: 115%;
+    /* padding: 0% 5%; */
+    /* max-width: 25%; */
+    /* font-size: 115%; */
 }
 .vacationCost {
-    display: -webkit-inline-box;
-    display: inline-block;
-    vertical-align: top;
+    /* display: -webkit-inline-box; */
+    /* display: inline-block; */
+    /* vertical-align: top; */
 }
 #page_terms_and_conditions {
     padding: 1% 0%;
 }
 .formTable {
-    table-layout: fixed;
-    width: 30%;
-    margin: 0% 35%;
+    /* table-layout: fixed; */
+    /* width: 30%; */
+    /* margin: 0% 35%; */
     font-size: 150%;
 }
 .formTable input {
-    max-width: 100%;
-    width: 95%;
+    /* max-width: 100%; */
+    /* width: 95%; */
 }
 .formTable select {
     max-width: 100%;
@@ -2311,13 +1987,8 @@ div#loading_image img {
     color: white;
     border-color: #8eb9bb;
 }
-.formTable caption {
-    padding: 3% 0%;
-}
 .paymentInstructions {
-    text-align: -webkit-center;
-    text-align: center;
-    margin: 0% 20%;
+    /* margin: 0% 20%; */
 }
 /*Smartphones portrait*/
 @media only screen and (min-device-width:320px) and (max-device-width:767px){
@@ -3015,7 +2686,7 @@ h1#admin_page_header {
     padding: 0% 20% 0%;
 }
 .tripEvents, .tripUsers {
-    padding: 2% 1%;
+    /* padding: 2% 1%; */
 }
 .tripEvents .editActivity input[type="submit"] {
     left: 1%;
