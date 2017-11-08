@@ -8,7 +8,7 @@
 	@endsection
 
 	@section('content')
-		<div class="showTrip" style="background-image:url(/images/{{ $tripLocation->trip_photo != '' ? $tripLocation->trip_photo : 'skyline.jpg' }})">
+		<div class="showTrip" style="background-image:url({{ $tripLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $tripLocation->trip_photo)) : '/images/skyline.jpg' }})">
 			<div class="container-fluid text-light position-relative" style="z-index:1;">
 				<div class="row">
 					<div class="col">
@@ -115,23 +115,35 @@
 			<div class="container-fluid position-relative pt-2 pb-4 mt-5" style="z-index:1;">
 				<div class="row">
 					<div class="page_signup_form col-3 py-1">
-						<h3 class="text-center text-light">Sign Up</h3>
+						<h3 class="text-center text-light">Sign Me Up</h3>
 						<form class="signupForm" id="" action="user_signup.php" method="POST" enctype="multipart/form-data">
-							<table class="formTable">
+							<table class="table">
 								<tr>
-									<td><label for="first_name" class="text-light"><strong>First Name:</strong></label></td>
-									<td><input class="first_name_input rounded" type="text" name="first_name" /></td>
+									<td>
+										<div class="form-group">
+											<label for="first_name" class="text-light">First Name:</label>
+											<input class="form-control" type="text" name="first_name" />
+										</div>
+									</td>
 								</tr>
 								<tr>
-									<td><label for="last_name" class="text-light"><strong>Last Name:</strong></label></td>
-									<td><input class="last_name_input rounded" type="text" name="last_name" /></td>
+									<td>
+										<div class="form-group">
+											<label for="last_name" class="text-light">Last Name:</label>
+											<input class="form-control" type="text" name="last_name" />
+										</div>
+									</td>
 								</tr>
 								<tr>
-									<td><label for="email" class="text-light"><strong>Email:</strong></label></td>
-									<td><input class="email_input rounded" type="email" name="email" /></td>
+									<td>
+										<div class="form-group">
+											<label for="email" class="text-light">Email:</label>
+											<input class="form-control" type="email" name="email" />
+										</div>
+									</td>
 								</tr>
 								<tr>
-									<td colspan="2"><input type="submit" name="submit" class="pageSubmit" value="Send Me Info" /></td>
+									<td colspan="2"><input type="submit" name="submit" class="pageSubmit btn btn-success" value="Send Me Info" /></td>
 								</tr>
 							</table>
 							<input type="text" name="trip_id" class="" value="{{ $tripLocation->trip_id }}" hidden />
@@ -142,9 +154,9 @@
 					</div>
 					<div class="pageConfirmationTable col-6 py-1">
 						@php $getEventUsers = $tripLocation->participants; @endphp
-						<div class="tripUsers">
+						<div class="">
 							<h3 class="text-center text-light">See Who's Already Going</h3>
-							<table>
+							<table class="table table-striped table-dark table-hover text-center">
 								@if($getEventUsers->count() >= 1)
 									<tr>
 										<th>First</th>
@@ -158,7 +170,7 @@
 									@endforeach
 								@else
 									<tr>
-										<td colspan="2">No users have signed up for the trip yet</td>
+										<td colspan="2" class="text-light">No users have signed up for the trip yet</td>
 									</tr>
 								@endif
 							</table>

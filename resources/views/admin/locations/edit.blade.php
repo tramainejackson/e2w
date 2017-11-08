@@ -5,6 +5,9 @@
 	
 	@section('scripts')
 		@include('function.bootstrap_js')
+		<script type="text/javascript">
+			
+		</script>
 	@endsection
 
 	@section('content')
@@ -14,7 +17,7 @@
 			@include('layouts.admin_nav')
 
 			<div class="adminDiv" id="">
-				<form id="" class="" action="/location/{{ $showLocation->id }}" method="POST" enctype="multipart/form-data">
+				<form id="" class="locationEditForm" action="/location/{{ $showLocation->id }}" method="POST" enctype="multipart/form-data">
 				
 					{{ method_field('PATCH') }}
 					{{ csrf_field() }}
@@ -25,13 +28,12 @@
 					<div class="trip_location_div">
 						<div class="trip_location_header">
 							<h3>{{ $showLocation->trip_location }}</h3>
-							<input type="submit" name="submit" value="Update" />
 						</div>
 						<div class="trip_edit_div">
 							<div class="trip_location_photo editTripInfo">
 								<span>Trip Photo</span>
-								<img src="{{ $showLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $showLocation->trip_photo)) : '/images/skyline.jpeg' }}" class="" height="300" width="250" />
-								<input type="file" name="trip_photo" class="tripPhotoChange" value="" style="margin-left: 35%;" />
+								<img src="{{ $showLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $showLocation->trip_photo)) : '/images/skyline.jpg' }}" class="" height="300" width="250" />
+								<input type="file" name="trip_photo" class="tripPhotoChange addInput" value="" />
 							</div>
 							<div class="trip_name editTripInfo">
 								<span>Trip Location</span>
@@ -58,23 +60,20 @@
 								</select>
 							</div>
 							<div class="trip_flyer editTripInfo">
-								@if($showLocation->flyer_name == "")
-									<span>Add Flyer</span>
-									<input type="file" name="flyer_name" class="tripFlyerAdd" value="" />
-								@else
-									<span>Change Flyer</span>
-									<input type="file" name="flyer_name" class="tripFlyerChange" value="" />
-									<a href="../files/{{ $showLocation->flyer_name }}"> - See flyer</a>
+								<span>Change Flyer</span>
+								<input type="file" name="flyer_name" class="tripFlyerChange" value="" />
+								@if($showLocation->flyer_name != null)
+									<a href="{{ asset('storage/' . str_ireplace('public/', '', $showLocation->flyer_name)) }}" class="btn btn-primary addInput" download="{{ str_ireplace(' ', '_', ucwords($showLocation->trip_location)) . '_Flyer' }}">View Current Flyer</a>
 								@endif
 							</div>
 							<div class="trip_completed_div editTripInfo">
 								<span>Trip Completed</span>
 								<div class="btn-group">
 									<button type="button" class="btn{{ $showLocation->trip_complete == 'Y' ? ' btn-success active' : '' }}" style="">
-										<input type="checkbox" name="trip_completed[]" value="Y" {{ $showLocation->trip_complete == 'Y' ? 'checked' : '' }} hidden />Yes
+										<input type="checkbox" name="trip_completed" value="Y" {{ $showLocation->trip_complete == 'Y' ? 'checked' : '' }} hidden />Yes
 									</button>
 									<button type="button" class="btn{{ $showLocation->trip_complete == 'N' ? ' btn-danger active' : '' }}" style="">
-										<input type="checkbox" name="trip_completed[]" value="N" {{ $showLocation->trip_complete == 'N' ? 'checked' : '' }} hidden />No
+										<input type="checkbox" name="trip_completed" value="N" {{ $showLocation->trip_complete == 'N' ? 'checked' : '' }} hidden />No
 									</button>
 								</div>
 							</div>
@@ -82,10 +81,10 @@
 								<span>Show Trip</span>
 								<div class="btn-group">
 									<button type="button" class="btn{{ $showLocation->show_trip == 'Y' ? ' btn-success active' : '' }}" style="">
-										<input type="checkbox" name="show_trip[]" value="Y" {{ $showLocation->show_trip == 'Y' ? 'checked' : '' }} hidden />Yes
+										<input type="checkbox" name="show_trip" value="Y" {{ $showLocation->show_trip == 'Y' ? 'checked' : '' }} hidden />Yes
 									</button>
 									<button type="button" class="btn{{ $showLocation->show_trip == 'N' ? ' btn-danger active' : '' }}" style="">
-										<input type="checkbox" name="show_trip[]" value="N" {{ $showLocation->show_trip == 'N' ? 'checked' : '' }} hidden />No
+										<input type="checkbox" name="show_trip" value="N" {{ $showLocation->show_trip == 'N' ? 'checked' : '' }} hidden />No
 									</button>
 								</div>
 							</div>
@@ -301,6 +300,7 @@
 								</table>
 							</div>
 						</div>
+						<input type="submit" name="submit" class="btn btn-secondary" value="Update" />
 					</div>
 				</form>
 			</div>

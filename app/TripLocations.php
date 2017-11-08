@@ -21,4 +21,12 @@ class TripLocations extends Model
     {
         return $this->hasMany('App\DistributionList', 'trip_id');
     }
+	
+	/**
+     * Get the participants for the trip.
+     */
+    public function pictures()
+    {
+        return $this->hasMany('App\TripPictures', 'trip_id');
+    }
 }

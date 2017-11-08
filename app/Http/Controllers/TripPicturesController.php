@@ -8,6 +8,16 @@ use Illuminate\Http\Request;
 
 class TripPicturesController extends Controller
 {
+	/**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except('show');
+    }
+	
     /**
      * Display a listing of the resource.
      *
@@ -51,9 +61,9 @@ class TripPicturesController extends Controller
      * @param  \App\Trip_Pictures  $trip_Pictures
      * @return \Illuminate\Http\Response
      */
-    public function show(Trip_Pictures $trip_Pictures)
+    public function show(TripPictures $tripPictures, $id)
     {
-        //
+        return view('admin.pictures.show');
     }
 
     /**

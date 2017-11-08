@@ -11,7 +11,11 @@ $(document).ready(function() {
 	var winWidth = window.innerWidth;
 	var screenHeight = screen.availHeight;
 	var screenWidth = screen.availWidth;
-
+	
+	$("body").on('change', '.locationEditForm input, .locationEditForm textarea, .locationEditForm select', function() {
+		$('.locationEditForm input[type="submit"').addClass('btn-success btn-lg').removeClass('btn-secondary');
+	});
+	
 	// Initialize the datetimepicker
 	$('.datetimepicker').datetimepicker({
 		timepicker:false,
@@ -95,7 +99,7 @@ $(document).ready(function() {
 		}
 	});
 	
-//Bring up admin user for editing
+	//Bring up admin user for editing
 	$("body").on("change", "#select_user_for_edit", function(e) {
 		var newValue = $(this).val();
 		var usersName = $("#select_user_for_edit option:selected").text();
@@ -104,10 +108,10 @@ $(document).ready(function() {
 		window.open("e2w_admin.php?edit_users=true&user="+returnName+"&id="+newValue, "_self");
 	});	
 	
-//Transitions once once page loads
+	//Transitions once once page loads
 	$("#suggestion_form, #question_form, #contact, #home_content").appendTo(".maine_modal");
 	
-//Something with the mobile buttons	
+	//Something with the mobile buttons	
 	$("body").on("click", "#mobile_menu_btn", function() {
 		var actionBtns = $(".actionBtns");
 		var checkExist = $("#mobile_menu").has(".actionBtns").length ? "Yes" : "No";
@@ -125,7 +129,7 @@ $(document).ready(function() {
 		}
 	});
 	
-//Remove message from screen after 10 seconds
+	//Remove message from screen after 10 seconds
 	if($(".errors").length > 0 || $(".message").length > 0) {
 		setTimeout(function() {
 			$(".errors").fadeOut();
@@ -133,7 +137,7 @@ $(document).ready(function() {
 		}, 10000)
 	}
 	
-//Suggestion display box
+	//Suggestion display box
 	$("body").on("click", ".nextLocation, #other_option", function(e){
 		if($(this).attr("class") == "nextLocation")
 		{
@@ -143,56 +147,6 @@ $(document).ready(function() {
 		{
 			$("#other_location2").removeAttr("disabled");
 		}
-	});
-	$("body").on("click", "#suggestion_btn", function(e)
-	{
-		$("p.modal_title").text("Give us a Suggestion");
-		$("#suggestion_form, #question_form, #contact, #home_content").hide();
-		$("#suggestion_form").show("fast", function()
-		{ 
-			$(".maine_overlay, .maine_modal").fadeIn(); 
-		});
-	});	
-	
-//Question display box
-	$("body").on("click", "#question_btn", function(e)
-	{
-		$("p.modal_title").text("Ask us a Question");
-		$("#suggestion_form, #question_form, #contact, #home_content").hide();
-		$("#question_form").show("fast", function()
-		{ 
-			$(".maine_overlay, .maine_modal").fadeIn(); 
-		});
-	});		
-	
-//Bring up about us information	
-	$("body").on("click", "#about_us_btn", function(e)	{
-		$("p.modal_title").text("A Little Bit About Us");
-		$("#suggestion_form, #question_form, #contact, #home_content").hide();
-		$("#home_content").show("fast",	function()
-		{ 
-			if(window.outerWidth < 768)
-			{
-				$(".maine_overlay").css({margin:"0% 0% 0% -35%"}).fadeIn();
-				$(".maine_modal").fadeIn();
-			}
-			else
-			{
-				$(".maine_overlay, .maine_modal").fadeIn(); 
-			}
-		});
-	});
-	
-	//Bring up contact information	
-	$("body").on("click", "#contact_us_btn", function(e)
-	{
-		$("p.modal_title").text("Contact Us");
-		$("#suggestion_form, #question_form, #contact, #home_content").hide();
-		$("#contact").show("fast", function()
-		{ 
-			$(".maine_modal").css({"max-height":"65%"});
-			$(".maine_overlay, .maine_modal").fadeIn();
-		});
 	});		
 	
 	// Button toggle for PIF switch
@@ -207,18 +161,8 @@ $(document).ready(function() {
 			}
 		}	
 	});
-	
-//Home page redirect
-	// $("body").on("click", "#home_btn", function(e) {
-		// window.open("index.php", "_self");
-	// });
-	
-//Admin page redirect	
-	// $("body").on("click", "#admin_page_btn", function(e) {
-		// window.open("../admin/index.php", "_self");
-	// });
 
-//Send suggestion form 
+	//Send suggestion form 
 	$("body").on("click", "#submit_suggestion", function(e)
 	{
 		e.preventDefault();
@@ -244,7 +188,8 @@ $(document).ready(function() {
 				}, "10000");				
 			});	
 	});	
-//Send question form
+	
+	//Send question form
 	$("body").on("click", "#submit_question", function(e)
 	{
 		e.preventDefault();
@@ -276,7 +221,8 @@ $(document).ready(function() {
 			$(".maine_modal_error").show();
 		}
 	});
-//Bring up pictures
+	
+	//Bring up pictures
 	if($(".maine_modal_picture").length > 0) {
 		var $getPictures = $(".maine_modal_picture img");
 		var $getCaptions = $(".maine_modal_picture .pictureCaption");
@@ -284,13 +230,13 @@ $(document).ready(function() {
 		$getCaptions.not($getCaptions[0]).hide();
 	}
 	
-//Scroll through pictures
+	//Scroll through pictures
 	$("body").on("click", ".prevLeft, .nextRight", function(e){
 		var movePicture = $(this).attr("class");
 		scrollPics(movePicture);
 	});
 	
-//User Registration
+	//User Registration
 	/*$(".signupForm").submit(function(e) {
 		e.preventDefault();
 		var userFirstName = $(".first_name_input").val();
@@ -317,25 +263,8 @@ $(document).ready(function() {
 			$(".errors, .message").fadeOut();
 		}, 7000);
 	});*/
-//Cancel current update and enable button
-	$("body").on("click", ".name_data_rows_disney .cancelSave", function(e){
-		$(this).parent().prev().find(".save_disney_user").replaceWith("<button class='edit_disney_user'>Edit</button>");
-		$(this).parent().parent().find("input, textarea").css({backgroundColor:"transparent"}).attr("disabled", true);
-		$("button").removeAttr("disabled");
-		$(".edit_disney_user").css({backgroundColor:"darkred"});
-		$(".navScrollBtn").css({backgroundColor:"buttonface"});
-		$(this).replaceWith("<button class='delete_disney_user'>Delete</button>");
-	});
-	$("body").on("click", ".name_data_rows_cruise .cancelSave", function(e){
-		$(this).parent().prev().find(".save_cruise_user").replaceWith("<button class='edit_cruise_user'>Edit</button>");
-		$(this).parent().parent().find("input, textarea").css({backgroundColor:"transparent"}).attr("disabled", true);
-		$("button").removeAttr("disabled");
-		$(".edit_cruise_user").css({backgroundColor:"darkred"});
-		$(".navScrollBtn").css({backgroundColor:"buttonface"});
-		$(this).replaceWith("<button class='delete_cruise_user'>Delete</button>");
-	});
 	
-//Bring up warning modal before deleting users
+	//Bring up warning modal before deleting users
 	$("body").on("click", ".delete_disney_user, .delete_cruise_user", function(e){
 		e.preventDefault();
 		var firstName = $(this).parent().parent().find(".eFirstname").val();
@@ -346,7 +275,7 @@ $(document).ready(function() {
 		$(".delete_modal_content").append(deleteMsg);
 	});
 	
-//Close modal and remove overlay
+	//Close modal and remove overlay
 	$(".closeBtn, .maine_overlay, #delete_modal_no_btn").click(function()
 	{
 		$(".maine_overlay, .maine_modal_confirmation_box, .maine_modal, .maine_modal_error, .maine_modal_delete").fadeOut(function(){
@@ -368,25 +297,15 @@ $(document).ready(function() {
 		}
 	});
 	
-//Remove error modal
+	//Remove error modal
 	/*$("body").on("focus", ".first_name_input, .last_name_input, .email_input, #first_name, #last_name, #email_address, #question_text", function(e){
 		$("input, textarea").removeClass("errorBorder");
 		$(".maine_modal_error").fadeIn(function(){
 			$(".error_modal_content").empty();
 		});
 	});*/
-//Bring up trip inclusions
-	$("body").on("click", ".inclusionsBtn", function(){
-		var inclusions = $(".termsInclusions").clone();
-		$(inclusions).insertAfter(".maine_modal .modal_title");
-		$(".modal_title").text("Also Includes");
-		$(".maine_modal").addClass("addModalPic");
-		$(".maine_modal .termsInclusions").show(function(){ 
-			$(".maine_overlay, .maine_modal").fadeIn();
-		});
-	});
 	
-//Remove pictures modal
+	//Remove pictures modal
 	$("body").on("click", ".maine_overlay_pictures, .maine_overlay_pictures .closeBtn", function(){
 		var showingPics = $(".maine_modal_picture img");
 		var picsHomeDiv = $("#"+showingPics.attr("class")+"s");
@@ -397,7 +316,7 @@ $(document).ready(function() {
 		});
 	});
 	
-//Add loading GIF when form is submitted. Will remove once form is submitted to next pageX
+	//Add loading GIF when form is submitted. Will remove once form is submitted to next pageX
 	$("body").on("submit", "#add_picture_form", function(e) {
 		if($(".pictureSelect option:selected").val() != "blank") {
 			$("#loading_image").fadeIn("slow");
@@ -414,6 +333,23 @@ $(document).ready(function() {
 		$("#loading_image").fadeOut("slow");
 		console.log("AJAX Finished");
 	});
+});
+
+//Ajax request for photos of selected
+function getPictures(id) {
+	$.ajax({
+	  method: "GET",
+	  url: "/pictures/" + id
+	})
+	
+	.fail(function() {
+		alert( "Error: nothing returned");		
+	})
+	.done(function( msg ) {
+		alert( "Data Saved: " + msg );
+	});
+}
+
 //Check for missing information or errors on question form
 function checkErrors() {
 	var firstname = $("input#first_name");
@@ -538,4 +474,3 @@ function scrollPics(direction) {
 		}
 	}
 }
-});

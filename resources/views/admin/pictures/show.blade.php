@@ -13,40 +13,34 @@
 			
 			@include('layouts.admin_nav')
 			
-			<div class="adminDiv container" id="">
-				<form name="" class="pictureForm" action="picture_remove.php" method="POST" onsubmit="locationCheck();">
-					<div id="pictures_page_header" class="">
-						<h1 class="pageTopicHeader">Remove Pictures</h1>
-						<select name="trip_name_pictures" class="pictureSelect" id="select_trip_for_remove_pictures">
-							<option value="blank" selected disabled>--Select A Trip--</option>
-							<?php while($showLocations = mysqli_fetch_assoc($getLocations)) { ?>
-								<?php if(isset($_GET["location"]) && $_GET["location"] == $showLocations["trip_location"]) { ?>
-									<option value="<?php echo $showLocations["trip_location"]; ?>" selected><?php echo $showLocations["trip_location"]; ?></option>
-								<?php } else { ?>
-									<option value="<?php echo $showLocations["trip_location"]; ?>"><?php echo $showLocations["trip_location"]; ?></option>
+			<?php if(isset($_GET["view_gallery"])) { ?>
+				<div class="maine_overlay_pictures">
+					<button class="closeBtn">X</button>
+				</div>
+				<div class="maine_modal_picture">
+					<?php $getLocation = find_event_by_name(str_ireplace("_", " ", $_GET["view_gallery"])); ?>
+					<?php $getPictures = find_all_pictures_by_id($getLocation["trip_id"]); ?>
+					@if($getPictures->count() > 0)
+						<div class="picture_modal_content">
+							<div id="<?php echo str_ireplace(" ", "_", strtolower($getLocation["trip_location"])); ?>_pictures">
+								<?php while($showPicture = mysqli_fetch_assoc($getPictures)) { ?>
+									<h2 class="pictureCaption"><?php echo $showPicture["picture_caption"] ?></h2>
+									<img  src="images/<?php echo $showPicture["picture_name"] ?>" id="<?php echo $showPicture["picture_id"] ?>" class="<?php echo str_ireplace(" ", "_", strtolower($getLocation["trip_location"])); ?>_picture" />
 								<?php } ?>
-							<?php } ?>
-						</select>
-						<input type="submit" name="submit" value="Remove Pictures" class="" />
-					</div>
-					<?php if(isset($_GET["location"])) { ?>
-						<?php $eventID = find_event_by_name($_GET["location"]); ?>
-						<?php $getAllPictures = find_all_pictures_by_id($eventID["trip_id"]); ?>
-						<?php if(mysqli_num_rows($getAllPictures) < 1) { ?>
-							<div class="noPicturesDiv">
-								<p class="noValueMessage">There have been no pictures added yet for this location.&nbsp;<a href="pictures.php?add_pictures=true&location=<?php echo $_GET["location"]; ?>">Add New Pictures Now</a></p>
 							</div>
-						<?php } else { ?>
-							<?php while($showAllPictures = mysqli_fetch_assoc($getAllPictures)) { ?>	
-								<div class="removeIndPicture">
-									<h3 class=""><?php echo $showAllPictures["picture_caption"] == "" ? "No Caption" : $showAllPictures["picture_caption"]; ?></h3>
-									<input type="checkbox" name="remove_id[]" class="" value="<?php echo $showAllPictures["picture_id"]; ?>" />
-									<img src="../public/images/<?php echo $showAllPictures["picture_name"]; ?>" class="" />
-								</div>
-							<?php } ?>
-						<?php } ?>
+							<button class="prevLeft"><span class="spanArrow">&#8672;</span>Prev</button>
+							<button class="nextRight">Next<span class="spanArrow">&#8674;</span></button>
+							<p class="additionalPictures">If you have any pictures or videos that you want posted, please send them to <a class="mailToLink" href="mailto:administrator@eastcoast2westcoast.com?subject=<?php echo str_ireplace(" ", "_", ucwords($getLocation["trip_location"])); ?>_Pictures">administrator@eastcoast2westcoast.com</a></p>
+						</div>
+					<?php } else { ?>
+						<div class="pictureModalNoContent">
+							<div id="<?php echo str_ireplace(" ", "_", strtolower($getLocation["trip_location"])); ?>_pictures">
+								<h2>No pictures have been added yet for this trip</h2>
+							</div>
+							<p class="additionalPictures">If you have any pictures or videos that you want posted, please send them to <a class="mailToLink" href="mailto:administrator@eastcoast2westcoast.com?subject=<?php echo str_ireplace(" ", "_", ucwords($getLocation["trip_location"])); ?>_Pictures">administrator@eastcoast2westcoast.com</a></p>
+						</div>	
 					<?php } ?>
-				</form>
-			</div>
+				</div>
+			<?php } ?>
 		</div>
 	@endsection

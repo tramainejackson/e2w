@@ -115,7 +115,6 @@ class TripLocationsController extends Controller
 		$tripLocation = TripLocations::find($id);
 		$events = $tripLocation->activities;
 		$participants = $tripLocation->participants;
-		
 		$this->validate($request, [
 			'trip_location' => ['required', Rule::unique('trip_locations')->ignore($tripLocation->id), 'max:50']
 		]);
@@ -124,9 +123,14 @@ class TripLocationsController extends Controller
 			$path = $request->file('trip_photo')->store('public/images');
 			$tripLocation->trip_photo = $path;
 		}
+		
+		if($request->hasFile('flyer_name')) {
+		// dd($tripLocation);
+			$path = $request->file('flyer_name')->store('public/flyers');
+			$tripLocation->flyer_name = $path;
+		}
 
 		// Update trip location information
-		// $tripLocation->flyer_name = $request->trip_location;
 		$tripLocation->description = $request->description;
 		$tripLocation->cost = implode("; ", array_filter($request->cost));
 		$tripLocation->payments = implode("; ", array_filter($request->payments));
@@ -143,17 +147,21 @@ class TripLocationsController extends Controller
 		$tripParticipantCount = count($tripPartipantID);
 		
 		// Rearrange the requested dates
-		$depositDate = explode('/', $request->deposit_date);
-		$depositDateMonth = array_splice($depositDate, 1, 1);
-		$depositDate = array_reverse($depositDate);
-		array_push($depositDate, $depositDateMonth[0]);
-		$tripLocation->deposit_date = implode('-', $depositDate);
+		if($request->deposit_date != '') {
+			$depositDate = explode('/', $request->deposit_date);
+			$depositDateMonth = array_splice($depositDate, 1, 1);
+			$depositDate = array_reverse($depositDate);
+			array_push($depositDate, $depositDateMonth[0]);
+			$tripLocation->deposit_date = implode('-', $depositDate);
+		}
 		
-		$dueDate = explode('/', $request->due_date);
-		$dueDateMonth = array_splice($dueDate, 1, 1);
-		$dueDate = array_reverse($dueDate);
-		array_push($dueDate, $dueDateMonth[0]);
-		$tripLocation->due_date = implode('-', $dueDate);
+		if($request->due_date != '') {
+			$dueDate = explode('/', $request->due_date);
+			$dueDateMonth = array_splice($dueDate, 1, 1);
+			$dueDate = array_reverse($dueDate);
+			array_push($dueDate, $dueDateMonth[0]);
+			$tripLocation->due_date = implode('-', $dueDate);
+		}
 		
 		// Update active trip activities
 		for($i=0; $i < count($tripActivityID); $i++) {
