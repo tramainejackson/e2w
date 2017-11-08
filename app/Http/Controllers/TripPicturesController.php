@@ -25,7 +25,7 @@ class TripPicturesController extends Controller
      */
     public function index()
     {
-        $pictutes = TripPictures::all();
+        $pictures = TripPictures::all();
 		$getLocations = TripLocations::all();
 		
 		return view('admin.pictures.index', compact('pictures', 'getLocations'));
@@ -38,7 +38,7 @@ class TripPicturesController extends Controller
      */
     public function create()
     {
-        $pictutes = TripPictures::all();
+        $pictures = TripPictures::all();
 		$getLocations = TripLocations::all();
 		
 		return view('admin.pictures.create', compact('pictures', 'getLocations'));
@@ -63,7 +63,9 @@ class TripPicturesController extends Controller
      */
     public function show(TripPictures $tripPictures, $id)
     {
-        return view('admin.pictures.show');
+		$trip = TripLocations::find($id);
+		$getPictures = $trip->pictures;
+        return view('admin.pictures.show', compact('getPictures'));
     }
 
     /**

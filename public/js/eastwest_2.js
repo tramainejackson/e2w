@@ -1,5 +1,5 @@
 $(document).ready(function() {
-//Commonly user variables
+	//Commonly user variables
 	var errors;
 	var passwordAttempts = 0;
 	var adminDivs = $(".adminDiv");
@@ -61,11 +61,8 @@ $(document).ready(function() {
 			.fadeIn()
 			.find("input").focus();
 	});
-	
-//Make Disney page min height equal to screen height
-	$('#disney_world.content_class .content_info').css({minHeight:screenHeight});
-	//Toggle mobile menubar	$("body").on("click", ".mobileMenuBtn a", function(e){		e.preventDefault();		$(".mobileBtns").slideToggle();	});	
-//Bring up already signed up users for specific trip
+		//Toggle mobile menubar	$("body").on("click", ".mobileMenuBtn a", function(e){		e.preventDefault();		$(".mobileBtns").slideToggle();	});	
+	//Bring up already signed up users for specific trip
 	$("body").on("change", "#select_trip_for_new_user, #select_trip_for_new_activity, #select_trip_for_edit", function(e) {
 		var newValue = $(this).val();
 		console.log($(this).attr("class"));
@@ -78,7 +75,7 @@ $(document).ready(function() {
 		}
 	});
 	
-//Toggle value for checked item
+	//Toggle value for checked item
 	$("body").on("change", ".pifSwitch", function(e) {
 		console.log($(this).val());
 		if($(this).val() == "Y") {
@@ -87,7 +84,8 @@ $(document).ready(function() {
 			$(this).val("Y");
 		}
 	});
-//Bring up pictures to see before deleting or bring up all pictures
+	
+	//Bring up pictures to see before deleting or bring up all pictures
 	$("body").on("change", "#select_trip_for_remove_pictures, #select_trip_for_new_pictures, #select_trip_for_pictures", function(e) {
 		var newValue = $(this).val();
 		if($(this).attr("id") == "select_trip_for_remove_pictures") {
@@ -98,18 +96,6 @@ $(document).ready(function() {
 			window.open("pictures.php?location="+newValue, "_self");
 		}
 	});
-	
-	//Bring up admin user for editing
-	$("body").on("change", "#select_user_for_edit", function(e) {
-		var newValue = $(this).val();
-		var usersName = $("#select_user_for_edit option:selected").text();
-		var getName = usersName.slice(0, usersName.indexOf("("));
-		var returnName = getName.replace(/\s/, "");
-		window.open("e2w_admin.php?edit_users=true&user="+returnName+"&id="+newValue, "_self");
-	});	
-	
-	//Transitions once once page loads
-	$("#suggestion_form, #question_form, #contact, #home_content").appendTo(".maine_modal");
 	
 	//Something with the mobile buttons	
 	$("body").on("click", "#mobile_menu_btn", function() {
@@ -335,7 +321,7 @@ $(document).ready(function() {
 	});
 });
 
-//Ajax request for photos of selected
+//Ajax request for photos of selected trip
 function getPictures(id) {
 	$.ajax({
 	  method: "GET",
@@ -345,8 +331,8 @@ function getPictures(id) {
 	.fail(function() {
 		alert( "Error: nothing returned");		
 	})
-	.done(function( msg ) {
-		alert( "Data Saved: " + msg );
+	.done(function(data) {
+		$(data).appendTo($("#app"));
 	});
 }
 
