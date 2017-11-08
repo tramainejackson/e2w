@@ -33,8 +33,8 @@
 							</div>
 							@foreach($activeTrips as $trip)
 								@php $tripsActivities = $trip->activities; @endphp
-								<div id="<?php echo str_ireplace(" ", "_", strtolower($trip->trip_location)) . "_link"; ?>" class="whats_next_w upcomingTrip">	
-									<div class="individualEvent eventDiv" id="<?php echo str_ireplace(" ", "_", strtolower($trip->trip_location)) . "_event"; ?>" style="background:url({{ $trip->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }})">
+								<div id="{{ str_ireplace(' ', '_', strtolower($trip->trip_location)) . '_link' }}" class="whats_next_w upcomingTrip">	
+									<div class="individualEvent eventDiv" id="{{ str_ireplace(' ', '_', strtolower($trip->trip_location)) . '_event' }}" style="background:url({{ $trip->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }})">
 										<a href="/location/{{ $trip->id }}" class="w-100">
 											<p class="event_header">{{ ucwords($trip->trip_location) }}</p>
 											<p class="event_date">{{ $trip->trip_month . " ". $trip->trip_year }}</p>
@@ -73,10 +73,10 @@
 							@foreach($inactiveTrips as $trip)
 								@php $tripsActivities = $trip->activities; @endphp
 								<div id="<?php echo str_ireplace(" ", "_", strtolower($trip->trip_location)) . "_link"; ?>" class="whats_next_w">
-									<div class="individualEvent eventDiv" id="<?php echo str_ireplace(" ", "_", strtolower($trip->trip_location)) . "_event"; ?>" style="background-image:url({{ $trip->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }})">
-										<a href="index.php?view_gallery=<?php echo strtolower(str_ireplace(" ", "_", $trip->trip_location)); ?>" class="w-100">
-											<p class="event_header"><?php echo ucwords($trip->trip_location); ?></p>
-											<p class="event_date"><?php echo $trip->trip_month . " ". $trip->trip_year; ?></p>
+									<div class="individualEvent eventDiv" id="{{ str_ireplace(' ', '_', strtolower($trip->trip_location)) . '_event' }}" style="background-image:url({{ $trip->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }})">
+										<a href="#" class="w-100"  onclick="getPictures({{ $trip->id }})">
+											<p class="event_header">{{ ucwords($trip->trip_location) }}</p>
+											<p class="event_date">{{ $trip->trip_month . " ". $trip->trip_year }}</p>
 											<p class="more_info">Click to view photos</p>
 
 											@if($tripsActivities->count() > 0)
@@ -90,7 +90,7 @@
 													@foreach($tripsActivities as $activity)
 														@if($activity->show_activity == "Y")									
 															<tr>
-																<td>{{ $activity->activity_date }}td>
+																<td>{{ $activity->activity_date }}</td>
 																<td class="middle_data">{{ $activity->activity_location }}</td>
 																<td>{{ $activity->trip_event }}</td>
 															</tr>

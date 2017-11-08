@@ -19,21 +19,24 @@
 				</div>
 				@foreach($getLocations as $location)
 					<div class="currentPicturesDiv">
-						<div class="">
-							<h2 class="">{{ $location->trip_location }}</h2>
+						<div class="text-white">
+							<h2 class="display-3">{{ $location->trip_location }}</h2>
 						</div>
 						<div class="locationPictures">
 							@php $getAllPictures = \App\TripPictures::where('trip_id', $location->id)->get(); @endphp
 							@if($getAllPictures->count() < 1)
 								<div class="noPicturesDiv">
-									<p class="noValueMessage">There have been no pictures added yet for this location.&nbsp;<a href="{{ route('pictures.create') }}">Add New Pictures Now</a></p>
+									<p class="noValueMessage text-light">There have been no pictures added yet for this location.&nbsp;<a href="{{ route('pictures.create') }}">Add New Pictures Now</a></p>
 								</div>
 							@else
 								@foreach($getAllPictures as $showAllPicture)
 									<img src="/images/{{ $showAllPicture->picture_name }}" class="img-thumbnail" style="max-height:200px;" />
 								@endforeach
 							@endif
-						</div>	
+						</div>
+						@if(!$loop->last)
+							<div class="divider"></div>
+						@endif
 					</div>
 				@endforeach
 			</div>

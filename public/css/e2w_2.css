@@ -930,32 +930,6 @@ button.cancelSave {
   font-size: 350%;
   margin: 5% 0% 0% 0%;
 }
-button.nextRight {
-    position: fixed;
-    top: 40%;
-    right: 20%;
-}
-button.prevLeft {
-    position: fixed;
-    top: 50%;
-    right: 20%;
-}
-button.prevLeft, button.nextRight {
-    font-size: 125%;
-    padding: 1% 0.5%;
-    border-radius: 5px;
-    background-image: url("/e2w/public/images/button_color_gradient.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    color: white;
-    background-position: 100% 100%;
-}
-span.spanArrow {
-    border-radius: 20px;
-    border: solid 2px;
-    padding: 1px 3px 1px;
-    margin: 0% 2px 0px 10px;
-}
 div#suggestion_form ul {
     list-style: none;
 }
@@ -1914,17 +1888,6 @@ div#loading_image img {
     left: 10%;
     font-size: 300%;
 }
-button.nextRight {
-    font-size: 400%;
-    top: 80%;
-    right: 20%;
-}
-button.prevLeft {
-    font-size: 400%;
-    top: 80%;
-    right: 55%;
-    padding: 1% 1% 1% 0%;
-}
 #main_content {
     width: 100%;
     margin: 0%;
@@ -1974,9 +1937,6 @@ div#suggestion_form p {
 }
 #terms_and_conditions, #cruise_page_terms_and_conditions {
 	font-size: 230%;
-}
-.terms {
-	padding: 0% 0% 2% 0%;
 }
 .pictures_east_and_west_btns {
 	width: 100%;
@@ -2728,19 +2688,6 @@ form.addUser input[type="submit"] {
     top: 15%;
     margin: 0% 35%;
 }
-button.nextRight {
-    position: fixed;
-    top: 32%;
-    right: 27%;
-}
-button.prevLeft {
-    position: fixed;
-    top: 44%;
-    right: 27%;
-}
-button.delete_disney_user {
-    width: 95%;
-}
 #all_questions tr.name_data_rows_header th.question_data {
     min-width: 750px;
 }
@@ -2752,8 +2699,5 @@ button#prevCategory {
 }
 button#nextCategory {
     right: 150px;
-}
-button#addNewUserD, button#addNewUserC {
-    right: 350px;
 }
 }

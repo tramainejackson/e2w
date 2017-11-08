@@ -12,7 +12,13 @@
 			<div class="container-fluid text-light position-relative" style="z-index:1;">
 				<div class="row">
 					<div class="col">
-						<h1 class="vacation_header display-2">{{ $tripLocation->trip_location }}</h1>
+						<h1 class="vacation_header display-2">
+							{{ $tripLocation->trip_location }}
+							<a href="/" class="float-right btn btn-lg btn-secondary mt-5 mr-3">Home Page</a>
+						</h1>
+						@if($tripLocation->flyer_name != "")
+							<a href="{{ asset('storage/' . str_ireplace('public/', '', $tripLocation->flyer_name)) }}" class="btn btn-primary" download="{{ str_ireplace(' ', '_', ucwords($tripLocation->trip_location)) . '_Flyer' }}">Download Flyer</a>
+						@endif
 					</div>
 				</div>
 				<div class="row">
@@ -87,29 +93,39 @@
 							<div class="row">
 								<div class="col">
 									<div id="page_terms_and_conditions">
-										<p class="terms depositDate text-center" id="">Deposit is Due No Later Than <span class="text-warning">{{ $tripLocation->deposit_date != null ? $tripLocation->deposit_date : 'TBA' }}</span></p>
+										@php 
+											$depositDate = explode('-', $tripLocation->deposit_date);
+										@endphp
+										<p class="terms depositDate text-center" id="">Deposit is Due No Later Than <span class="text-warning">{{ $tripLocation->deposit_date!= null ? $depositDate[1] . "/" . $depositDate[2] . "/" . $depositDate[0] : 'TBA' }}</span></p>
 									</div>
 								</div>
 								<div class="col">
 									<div id="page_terms_and_conditions">
-										<p class="terms balanceDueDate text-center" id="">Total Balance Must Be Paid In Full <span class="text-warning">{{ $tripLocation->due_date != null ? $tripLocation->due_date : 'TBA' }}</span></p>
-										@if($tripLocation->conditions != null)
-											@php $conditionOption = explode("; ", $tripLocation->conditions); @endphp
-											@for($i=0; $i < count($conditionOption); $i++)
-												@if($conditionOption[$i] != null)
-													<p class="terms">{{ trim($conditionOption[$i]) }}</p>
-												@endif
-											@endfor
-										@endif
-										@if($tripLocation->flyer_name != "") { ?>
-											<p class="terms"><a href="../files/{{ $tripLocation->flyer_name }}" title="Click here to open the Flyer" target="_blank">Click Here For A Printable Flyer</a></p>
-										@endif
+										@php
+											$dueDate = explode('-', $tripLocation->due_date);
+										@endphp
+										<p class="terms balanceDueDate text-center" id="">Total Balance Must Be Paid In Full <span class="text-warning">{{ $tripLocation->due_date != null ? $dueDate[1] . "/" . $dueDate[2] . "/" . $dueDate[0] : 'TBA' }}</span></p>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				@if($tripLocation->conditions != null)
+					@php $conditionOption = explode("; ", $tripLocation->conditions); @endphp
+					<div class="row w-75 mx-auto progress-bar progress-bar-striped bg-warning py-5 rounded">
+						<div class="col-12">
+							<h2 class="text-center">Terms and Conditions</h2>
+						</div>
+						<div class="col">
+							@for($i=0; $i < count($conditionOption); $i++)
+								@if($conditionOption[$i] != null)
+									<p class="terms">{{ trim($conditionOption[$i]) }}</p>
+								@endif
+							@endfor
+						</div>
+					</div>
+				@endif
 			</div>
 			<div class="divider"></div>
 			<div class="container-fluid position-relative pt-2 pb-4 mt-5" style="z-index:1;">

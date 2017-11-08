@@ -17,7 +17,7 @@
 				<div id="location_page_header" class="">
 					<h1 class="pageTopicHeader text-light">Trip Locations</h1>
 					
-					<ul class="">
+					<ul class="list-unstyled">
 						@foreach($getLocations as $showLocations)
 							<li>
 								<div class="">

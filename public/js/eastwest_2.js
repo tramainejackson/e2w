@@ -333,6 +333,28 @@ function getPictures(id) {
 	})
 	.done(function(data) {
 		$(data).appendTo($("#app"));
+
+		$('.tripPictures').magnificPopup({
+			callbacks: {
+				open: function() {
+				  // Will fire when this exact popup is opened
+				  // this - is Magnific Popup object
+				},
+				close: function() {
+				  $('.picture_modal_content').remove();
+				}
+			},
+			gallery: {
+			  enabled: true
+			},
+			image: {
+				tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+				titleSrc: function(item) {
+					return item.el.attr('title');
+				}
+			},
+			type: 'image'
+		}).magnificPopup('open');
 	});
 }
 
