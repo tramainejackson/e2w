@@ -11,7 +11,7 @@
 			<a href="{{ route('pictures.index') }}" id="" class="navi_option" <?php echo $_SERVER["SCRIPT_NAME"] == "/e2w/admin/pictures.php" && !isset($_GET["add_pictures"]) && !isset($_GET["remove_pictures"]) ? "style='font-weight:700; color:#8fba82;'" : ""; ?> >Trip Pictures</a>
 			<ul>
 				<li><a href="{{ route('pictures.create') }}" <?php echo isset($_GET["add_pictures"]) ? "style='font-weight:700; color:#8fba82;'" : ""; ?> >Add Pictures</a></li>
-				<li><a href="{{ route('pictures.index') }}" <?php echo isset($_GET["remove_pictures"]) ? "style='font-weight:700; color:#8fba82;'" : ""; ?> >Remove Pictures</a></li>
+				<li><a href="{{ route('pictures.index') }}" <?php echo isset($_GET["add_pictures"]) ? "style='font-weight:700; color:#8fba82;'" : ""; ?> >Edit Pictures</a></li>
 			</ul>
 		</li>
 		<li>

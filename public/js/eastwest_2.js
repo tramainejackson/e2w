@@ -1,4 +1,10 @@
 $(document).ready(function() {
+	$.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
+
 	//Commonly user variables
 	var errors;
 	var passwordAttempts = 0;
@@ -12,8 +18,8 @@ $(document).ready(function() {
 	var screenHeight = screen.availHeight;
 	var screenWidth = screen.availWidth;
 	
-	$("body").on('change', '.locationEditForm input, .locationEditForm textarea, .locationEditForm select', function() {
-		$('.locationEditForm input[type="submit"').addClass('btn-success btn-lg').removeClass('btn-secondary');
+	$("body").on('change', '.locationEditForm input, .locationEditForm textarea, .locationEditForm select, #add_picture_form input', function() {
+		$('.locationEditForm input[type="submit"], #add_picture_form input[type="submit"]').addClass('btn-success btn-lg').removeClass('btn-secondary');
 	});
 	
 	// Initialize the datetimepicker
@@ -67,11 +73,11 @@ $(document).ready(function() {
 		var newValue = $(this).val();
 		console.log($(this).attr("class"));
 		if($(this).hasClass("personSelect")) {
-			window.open("locations.php?add_person=true&event_users="+newValue, "_self");	
+			// window.open("locations.php?add_person=true&event_users="+newValue, "_self");	
 		} else if($(this).hasClass("activitySelect")) {
-			window.open("locations.php?trip_activities=true&all_activities="+newValue, "_self");
+			// window.open("locations.php?trip_activities=true&all_activities="+newValue, "_self");
 		} else {
-			window.open("locations.php?edit_trip="+newValue, "_self");
+			// window.open("locations.php?edit_trip="+newValue, "_self");
 		}
 	});
 	
@@ -89,11 +95,11 @@ $(document).ready(function() {
 	$("body").on("change", "#select_trip_for_remove_pictures, #select_trip_for_new_pictures, #select_trip_for_pictures", function(e) {
 		var newValue = $(this).val();
 		if($(this).attr("id") == "select_trip_for_remove_pictures") {
-			window.open("pictures.php?remove_pictures=true&location="+newValue, "_self");	
+			// window.open("pictures.php?remove_pictures=true&location="+newValue, "_self");	
 		} else if($(this).attr("id") == "select_trip_for_new_pictures") {
-			window.open("pictures.php?add_pictures=&location="+newValue, "_self");
+			// window.open("pictures.php?add_pictures=&location="+newValue, "_self");
 		} else {
-			window.open("pictures.php?location="+newValue, "_self");
+			// window.open("pictures.php?location="+newValue, "_self");
 		}
 	});
 	
@@ -208,20 +214,6 @@ $(document).ready(function() {
 		}
 	});
 	
-	//Bring up pictures
-	if($(".maine_modal_picture").length > 0) {
-		var $getPictures = $(".maine_modal_picture img");
-		var $getCaptions = $(".maine_modal_picture .pictureCaption");
-		$getPictures.not($getPictures[0]).hide();
-		$getCaptions.not($getCaptions[0]).hide();
-	}
-	
-	//Scroll through pictures
-	$("body").on("click", ".prevLeft, .nextRight", function(e){
-		var movePicture = $(this).attr("class");
-		scrollPics(movePicture);
-	});
-	
 	//User Registration
 	/*$(".signupForm").submit(function(e) {
 		e.preventDefault();
@@ -249,17 +241,6 @@ $(document).ready(function() {
 			$(".errors, .message").fadeOut();
 		}, 7000);
 	});*/
-	
-	//Bring up warning modal before deleting users
-	$("body").on("click", ".delete_disney_user, .delete_cruise_user", function(e){
-		e.preventDefault();
-		var firstName = $(this).parent().parent().find(".eFirstname").val();
-		var lastName = $(this).parent().parent().find(".eLastname").val();
-		var userID = $(this).parent().parent().find(".eUser_id").val();
-		var deleteMsg = "Are you sure you want to delete " + firstName + " " + lastName + " from the list of people going? <input type='number' value='"+userID+"'hidden/>";
-		$(".maine_overlay, .maine_modal_delete").fadeIn();
-		$(".delete_modal_content").append(deleteMsg);
-	});
 	
 	//Close modal and remove overlay
 	$(".closeBtn, .maine_overlay, #delete_modal_no_btn").click(function()
@@ -291,17 +272,6 @@ $(document).ready(function() {
 		});
 	});*/
 	
-	//Remove pictures modal
-	$("body").on("click", ".maine_overlay_pictures, .maine_overlay_pictures .closeBtn", function(){
-		var showingPics = $(".maine_modal_picture img");
-		var picsHomeDiv = $("#"+showingPics.attr("class")+"s");
-		$(".maine_overlay_pictures, .maine_modal_picture, .maine_modal_videos").fadeOut(function(){
-			$(showingPics).each(function(){
-				$(this).css({display:"none"}).appendTo(picsHomeDiv);
-			});
-		});
-	});
-	
 	//Add loading GIF when form is submitted. Will remove once form is submitted to next pageX
 	$("body").on("submit", "#add_picture_form", function(e) {
 		if($(".pictureSelect option:selected").val() != "blank") {
@@ -310,7 +280,7 @@ $(document).ready(function() {
 		}
 	});
 	
-//Add and remove loading gif when making ajax call
+	//Add and remove loading gif when making ajax call
 	$(document).ajaxStart(function(){
 		$("#loading_image").fadeIn("slow");
 		console.log("AJAX Started");
@@ -355,6 +325,25 @@ function getPictures(id) {
 			},
 			type: 'image'
 		}).magnificPopup('open');
+	});
+}
+
+function removePicture(id) {
+	$.ajax({
+	  method: "DELETE",
+	  url: "/pictures/" + id
+	})
+	
+	.fail(function() {	
+		alert("Fail");
+	})
+	.done(function(data) {
+		var newData = $(data).find(".adminDiv");
+		$(".adminDiv").fadeOut(1500, function(e){ 
+			$(".adminDiv").remove();
+			$(newData).hide().appendTo("#admin_page")
+			.fadeIn(1500);
+		});
 	});
 }
 
@@ -431,54 +420,4 @@ function capitalizeWords(stringToCapitalize) {
 	var newStringLength = newString.length;
 	newString = newString.substring(0, newStringLength);
 	return newString;
-}
-	
-//Move pictures left and right
-function scrollPics(direction) {
-	var getAllPics = $(".maine_modal_picture img");
-	var picsLength = $(".maine_modal_picture img").length;
-	var currentPic = $(".maine_modal_picture img")[counter];
-	var currentCaption = $(".maine_modal_picture .pictureCaption")[counter];
-	var scrollDirection = direction;
-	if(scrollDirection == "prevLeft") {
-		if(counter >= 1) {
-			$(currentCaption).hide();
-			$(currentPic).fadeOut(function() {
-				counter--;
-				currentPic = $(".maine_modal_picture img")[counter];
-				currentCaption = $(".maine_modal_picture .pictureCaption")[counter];
-				$(currentPic).fadeIn();
-				$(currentCaption).show();
-			});
-		} else {
-			$(currentCaption).hide();
-			$(currentPic).fadeOut(function() {
-				counter = picsLength - 1;
-				currentPic = $(".maine_modal_picture img")[counter];
-				currentCaption = $(".maine_modal_picture .pictureCaption")[counter];
-				$(currentPic).fadeIn();
-				$(currentCaption).show();
-			});
-		}
-	} else {
-		if(counter < (picsLength - 1)) {
-			$(currentCaption).hide();
-			$(currentPic).fadeOut(function() {
-				counter++;
-				currentPic = $(".maine_modal_picture img")[counter];
-				currentCaption = $(".maine_modal_picture .pictureCaption")[counter];
-				$(currentCaption).show();
-				$(currentPic).fadeIn();
-			});
-		} else	{
-			$(currentCaption).hide();
-			$(currentPic).fadeOut(function() {
-				counter = 0;
-				currentPic = $(".maine_modal_picture img")[counter];
-				currentCaption = $(".maine_modal_picture .pictureCaption")[counter];
-				$(currentCaption).show();
-				$(currentPic).fadeIn();
-			});
-		}
-	}
 }

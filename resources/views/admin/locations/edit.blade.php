@@ -5,9 +5,6 @@
 	
 	@section('scripts')
 		@include('function.bootstrap_js')
-		<script type="text/javascript">
-			
-		</script>
 	@endsection
 
 	@section('content')
@@ -32,8 +29,11 @@
 						<div class="trip_edit_div">
 							<div class="trip_location_photo editTripInfo">
 								<span>Trip Photo</span>
-								<img src="{{ $showLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $showLocation->trip_photo)) : '/images/skyline.jpg' }}" class="" height="300" width="250" />
-								<input type="file" name="trip_photo" class="tripPhotoChange addInput" value="" />
+								<img src="{{ $showLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $showLocation->trip_photo)) : '/images/skyline.jpg' }}" class="rounded" height="300" width="41.5%" />
+								<label class="custom-file addInput mt-1">
+									<span class="custom-file-control" style="width:90%;"></span>
+									<input type="file" name="trip_photo" class="tripPhotoChange custom-file-input" />
+								</label>
 							</div>
 							<div class="trip_name editTripInfo">
 								<span>Trip Location</span>
@@ -61,7 +61,10 @@
 							</div>
 							<div class="trip_flyer editTripInfo">
 								<span>Change Flyer</span>
-								<input type="file" name="flyer_name" class="tripFlyerChange" value="" />
+								<label class="custom-file">
+									<span class="custom-file-control" style="width:90%;"></span>
+									<input type="file" name="flyer_name" class="tripFlyerChange custom-file-input" />
+								</label>
 								@if($showLocation->flyer_name != null)
 									<a href="{{ asset('storage/' . str_ireplace('public/', '', $showLocation->flyer_name)) }}" class="btn btn-primary addInput" download="{{ str_ireplace(' ', '_', ucwords($showLocation->trip_location)) . '_Flyer' }}">View Current Flyer</a>
 								@endif
@@ -221,7 +224,7 @@
 							</div>
 							
 							<div class="tripUsers">
-								<table class="table table-responsive mw-100">
+								<table class="table mw-100">
 									<tr class="firstTableRow text-white">
 										<th colspan="2">Name</th>
 										<th colspan="4">Contact Info</th>

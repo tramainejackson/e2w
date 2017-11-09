@@ -14,24 +14,30 @@
 			@include('layouts.admin_nav')
 			
 			<div class="adminDiv" id="">
-				<form name="" id="add_picture_form" class="pictureForm" action="picture_add.php" method="POST" enctype="multipart/form-data" onsubmit="locationCheck();">
+				<form name="" id="add_picture_form" class="pictureForm" action="/pictures" method="POST" enctype="multipart/form-data">
+				
+					{{ method_field('POST') }}
+					{{ csrf_field() }}
+						
 					<div id="pictures_page_header" class="">
 						<h1 class="pageTopicHeader">Add Pictures</h1>
-						<select name="trip_name_pictures" class="pictureSelect" id="select_trip_for_new_pictures">
-							<option value="blank" selected disabled>--Select A Trip--</option>
+						<select name="trip_id" class="pictureSelect" id="select_trip_for_new_pictures">
+							<option value="blank" selected disabled>---- Select A Trip ----</option>
 							@foreach($getLocations as $showLocations)
-								<?php if(isset($_GET["location"]) && $_GET["location"] == $showLocations["trip_location"]) { ?>
-									<option value="<?php echo $showLocations["trip_location"]; ?>" selected><?php echo $showLocations["trip_location"]; ?></option>
-								<?php } else { ?>
-									<option value="<?php echo $showLocations["trip_location"]; ?>"><?php echo $showLocations["trip_location"]; ?></option>
-								<?php } ?>
+								<option value="{{ $showLocations->id }}">{{ $showLocations->trip_location }}</option>
 							@endforeach
 						</select>
 					</div>
 					<div class="addPictures">
-						<input type="file" name="upload_photo[]" class="" multiple />
+						<label class="custom-file d-block">
+							<span class="custom-file-control" style=""></span>
+							<input type="file" name="upload_photo[]" class="custom-file-input mx-auto" multiple />
+						</label>
+						<span class="text-danger text-center d-block"> (Add up to 10 photos at a time)</span>
+					</div>
+					<div class="uploadsView"></div>
+					<div class="">
 						<input type="submit" name="submit" name="add_pictures" class="" />
-						<p class="addPicturesP"> (Add up to 10 photos at a time)</p>
 					</div>
 				</form>					
 			</div>

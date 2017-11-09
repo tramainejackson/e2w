@@ -236,7 +236,7 @@ class TripLocationsController extends Controller
      * @param  \App\Trip_Locations  $trip_Locations
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Trip_Locations $trip_Locations)
+    public function destroy(TripLocations $tripLocations)
     {
         //
     }
