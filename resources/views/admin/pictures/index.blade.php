@@ -41,9 +41,10 @@
 									</div>
 								@else
 									@foreach($getAllPictures as $picture)
+										@php $content = Storage::disk('local')->has($picture->picture_name); @endphp
 										<div class="col-3">
 											<div class="card my-2">
-												<img src="{{ $picture->picture_name != null ? asset('storage/' . str_ireplace('public/', '', $picture->picture_name)) : '/images/skyline.jpg' }}" class="card-img-top" style="" />
+												<img src="{{ $content == true ? asset('storage/' . str_ireplace('public/', '', $picture->picture_name)) : '/images/skyline.jpg' }}" class="card-img-top" style="" />
 												<div class="card-footer">
 													<span class="text-center">{{ $picture->picture_caption != null ? $picture->picture_caption : 'No Caption Added Yet' }}</span>
 												</div>

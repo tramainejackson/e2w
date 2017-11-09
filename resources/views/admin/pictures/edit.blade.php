@@ -30,9 +30,10 @@
 						</div>
 						<div class="row">
 							@foreach($getPictures as $picture)
+								@php $content = Storage::disk('local')->has($picture->picture_name); @endphp
 								<div class="col-4">
 									<div class="card my-2">
-										<img src="{{ $picture->picture_name != null ? asset('storage/' . str_ireplace('public/', '', $picture->picture_name)) : '' }}" class="card-img-top" alt="{{ $picture->picture_caption }}" style="" />
+										<img src="{{ $content == true ? asset('storage/' . str_ireplace('public/', '', $picture->picture_name)) : '/images/skyline.jpg' }}" class="card-img-top" alt="{{ $picture->picture_caption }}" style="" />
 										<div class="card-body">
 											<h4 class="card-title">Pictrue Caption</h4>
 											<input type="text" name="picture_caption[]" class="rounded d-block border-0" value="{{ $picture->picture_caption }}" placeholder="Enter Caption" />

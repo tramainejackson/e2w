@@ -2504,7 +2504,7 @@ form.addUser input[type="submit"], form.addActivity input[type="submit"] {
 #select_trip_for_new_activity, #select_trip_for_new_user, #select_trip_for_new_pictures, #select_trip_for_remove_pictures, #select_trip_for_pictures, #select_user_for_edit {
 	padding: 0.2% 0%;
 	width: 50%;
-	margin: 0% 25% 2%;
+	margin: 0% 25%;
 	border-radius: 5px;
 	border: solid 2px;
 	font-size: 140%;
