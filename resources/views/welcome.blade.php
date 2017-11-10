@@ -32,9 +32,10 @@
 								<h3 class="">---- Upcoming Vacations ----</h3>
 							</div>
 							@foreach($activeTrips as $trip)
+								@php $content = Storage::disk('local')->has($trip->trip_photo); @endphp
 								@php $tripsActivities = $trip->activities; @endphp
 								<div id="{{ str_ireplace(' ', '_', strtolower($trip->trip_location)) . '_link' }}" class="whats_next_w upcomingTrip">	
-									<div class="individualEvent eventDiv" id="{{ str_ireplace(' ', '_', strtolower($trip->trip_location)) . '_event' }}" style="background:url({{ $trip->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }})">
+									<div class="individualEvent eventDiv" id="{{ str_ireplace(' ', '_', strtolower($trip->trip_location)) . '_event' }}" style="background:url({{ $content == true ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }})">
 										<a href="/location/{{ $trip->id }}" class="w-100">
 											<p class="event_header">{{ ucwords($trip->trip_location) }}</p>
 											<p class="event_date">{{ $trip->trip_month . " ". $trip->trip_year }}</p>
@@ -71,9 +72,10 @@
 								<h3 class="">---- Completed Vacations ----</h3>
 							</div>
 							@foreach($inactiveTrips as $trip)
+								@php $content = Storage::disk('local')->has($trip->trip_photo); @endphp
 								@php $tripsActivities = $trip->activities; @endphp
 								<div id="<?php echo str_ireplace(" ", "_", strtolower($trip->trip_location)) . "_link"; ?>" class="whats_next_w">
-									<div class="individualEvent eventDiv" id="{{ str_ireplace(' ', '_', strtolower($trip->trip_location)) . '_event' }}" style="background-image:url({{ $trip->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }})">
+									<div class="individualEvent eventDiv" id="{{ str_ireplace(' ', '_', strtolower($trip->trip_location)) . '_event' }}" style="background-image:url({{ $content == true ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }})">
 										<a href="#" class="w-100"  onclick="getPictures({{ $trip->id }})">
 											<p class="event_header">{{ ucwords($trip->trip_location) }}</p>
 											<p class="event_date">{{ $trip->trip_month . " ". $trip->trip_year }}</p>

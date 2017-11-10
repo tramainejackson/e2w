@@ -6,6 +6,10 @@
 			</div>
 			<div class="modal-body">
 				<form id="suggestion_form1" method="POST">
+				
+					{{ method_field('POST') }}
+					{{ csrf_field() }}
+						
 					<div class="custom-controls-stacked">
 						<label class="custom-control custom-radio">
 							<input class="nextLocation custom-control-input" id="niagra_falls" type="radio" name="next_location" value="Niagra Falls" />
@@ -36,8 +40,11 @@
 							<input class="nextLocation custom-control-input" id="other_option" type="radio" name="next_location" value="Houston" />
 							<span class="custom-control-indicator"></span>
 							<span class="custom-control-description">Other</span>
-							<input type="text" name="other_location" id="other_location2" placeholder="Example: Disney Land" disabled />
+							
 						</label>
+						<div class="">
+							<input type="text" name="other_location" class="d-block rounded ml-3 mb-3 p-1" id="other_location2" placeholder="Example: Disney Land" disabled />
+						</div>
 					</div>
 					</ul>
 					<button id="submit_suggestion" class="btn w-100">Send Suggestion</button>

@@ -2,11 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Travel_Suggestions;
+use App\TravelSuggestions;
 use Illuminate\Http\Request;
 
 class TravelSuggestionsController extends Controller
 {
+	/**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except('store');
+    }
+	
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +24,7 @@ class TravelSuggestionsController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.suggestions');
     }
 
     /**
@@ -35,7 +45,17 @@ class TravelSuggestionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $suggestion = new TravelSuggestions();
+		
+		if(isset($request->other_location)) {
+			$suggestion->option_suggestion = $request->other_location;
+		} else {
+			$suggestion->option_suggestion = $request->next_location;
+		}
+		
+		if($suggestion->save()) {
+			return "<span>Suggestion received. Thanks for helping us figure out where to go next.</span>";
+		}
     }
 
     /**
@@ -44,9 +64,8 @@ class TravelSuggestionsController extends Controller
      * @param  \App\Travel_Suggestions  $travel_Suggestions
      * @return \Illuminate\Http\Response
      */
-    public function show(Travel_Suggestions $travel_Suggestions)
+    public function show(TravelSuggestions $travelSuggestions)
     {
-        //
     }
 
     /**

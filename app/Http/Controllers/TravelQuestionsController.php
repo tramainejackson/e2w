@@ -2,11 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Travel_Questions;
+use App\TravelQuestions;
 use Illuminate\Http\Request;
 
 class TravelQuestionsController extends Controller
 {
+	/**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except('store');
+    }
+	
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +24,7 @@ class TravelQuestionsController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.questions');
     }
 
     /**
@@ -35,7 +45,16 @@ class TravelQuestionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $question = new TravelQuestions();
+		
+		$question->first_name = $request->first_name;
+		$question->last_name = $request->last_name;
+		$question->user_email = $request->question_text;
+		$question->user_question = $request->question_text;
+		
+		if($question->save()) {
+			return "<span>Question received. We will get back to you as soon as possible.</span>";
+		}
     }
 
     /**
@@ -44,9 +63,8 @@ class TravelQuestionsController extends Controller
      * @param  \App\Travel_Questions  $travel_Questions
      * @return \Illuminate\Http\Response
      */
-    public function show(Travel_Questions $travel_Questions)
+    public function show(TravelQuestions $travelQuestions)
     {
-        //
     }
 
     /**

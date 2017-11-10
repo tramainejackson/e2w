@@ -26,12 +26,30 @@ div#app:after {
     background-attachment: fixed;
     background-position: center center;
 }
-#return_messages {
+.return_messages {
     position: fixed;
+	display: none;
     z-index: 3;
-    right: 1%;
-    top: 1%;
+    right: 35%;
+    top: 10%;
     width: 25%;
+    background: green;
+    color: whitesmoke;
+    border-radius: 5px;
+}
+.return_messages h2 {
+	text-align: -webkit-center;
+    text-align: center;
+    padding: 2% 0%;
+	background: darkgreen;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.return_messages span {
+	text-align: justify;
+    padding: 5%;
+    display: block;
 }
 .pastVacations {
         background: linear-gradient(white, #868686 3%, #868686, whitesmoke);
@@ -1187,68 +1205,6 @@ p#signup_ny, p#signup_cruise, p#signup_cali{
 	font-size: 131%;
 	text-align: center;
 }
-.picture_modal_content {
-    border: outset 5px whitesmoke;
-    border-radius: 5px;
-    position: fixed;
-    top: 20%;
-    left: 0%;
-    margin: 0% 35%;
-    max-width: 100%;
-    max-height: 350px;
-    width: 30%;
-}
-.pictureModalNoContent {
-    border: solid 2px whitesmoke;
-    background: darkred;
-    color: whitesmoke;
-    border-radius: 5px;
-    position: fixed;
-    top: 20%;
-    left: 0%;
-    margin: 0% 30%;
-    max-width: 100%;
-    width: 30%;
-    padding: 0% 5%;
-    text-align: -webkit-center;
-    text-align: center;
-}
-.picture_modal_content img {
-    max-width: 100%;
-    max-height: 350px;
-    width: 100%;
-    height: 350px;
-    margin: 0% 0% -1% 0%;
-}
-.picture_modal_content h2.pictureCaption {
-    position: absolute;
-    background: rgba(245, 245, 245, 0.5);
-    width: 100%;
-    margin: 0%;
-    text-align: -webkit-center;
-    text-align: center;
-    text-overflow: ellipsis;
-    padding: 0.5% 0%;
-}
-.frame_east, .frame_west {
-	height: 100%;
-	position: absolute;
-	z-index: 2;
-	top: 0%;
-	width: 1000%;
-	overflow: hidden;
-}
-.new_orleans_picture, .jamaica_picture, .new_york_picture, 
-.st_louis_picture, .las_vegas_picture, .cali_picture, 
-.bahamas_picture, .bermuda_picture, .caribbean_picture {
-	height: 525px;
-	width: 100%;
-	margin: 0% 0% -0.5%;
-}
-#pics_no, #pics_jamaica, #pics_new_york, #pics_st_louis, 
-#pics_las_vegas, #pics_cali, #pics_bahamas, #pics_bermuda {
-	display:none;
-}
 .whats_next_w {
 	margin: 6.3% 15%;
 	max-width: 80%;
@@ -1262,31 +1218,6 @@ p#signup_ny, p#signup_cruise, p#signup_cali{
 }
 .whats_next_w:hover {
   box-shadow: 0px 0px 20px white;
-}
-div#disney_event {
-    background-image: url("/e2w/public/images/disney-world2.jpg");
-    background-position: center center;
-    background-size: 100% 100%;
-	border-radius: 10px;
-	position: relative;
-    padding: 0% 0% 2%;	
-}
-div#cruise_event {
-    background-image: url("/e2w/public/images/cruise_ship.jpg");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-position: center center;
-    border-radius: 10px;
-	position: relative;
-	padding: 0% 0% 2%;
-}
-div#cali_event {
-    background-image: url("/e2w/public/images/calipic.jpg");
-    background-position: center center;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-	border-radius: 10px;
-	position: relative;
 }
 .eventDiv {
     background-size: cover;
@@ -1566,9 +1497,6 @@ table#suggestions_table {
     font-size: 115%;
 }
 div#suggestion_results_div {
-    position: fixed;
-    top: 23%;
-    right: 10%;
     border: solid 2px;
     border-radius: 10px;
 	background: linear-gradient(bisque, bisque 80%, black 92%);
@@ -1594,7 +1522,7 @@ div#suggestion_results_header h2 {
     border-bottom: solid 1.5px;
 }
 .suggestionResultsPercent {
-    margin: 0% 20% 0%;
+    margin: 0% 20% 9%;
 }
 div.indResult {
     margin: 1% 0%;
@@ -2059,13 +1987,6 @@ table#suggestions_table {
     width: 95%;
     margin: 0% 0% 0%;
 }
-div#suggestion_results_div {
-    position: inherit;
-	margin: 4% 0%;
-	max-width: 100%;
-	width: 95%;
-	right: initial;
-}
 table#questions_table {
     width: 95%;
     margin: 5% 5% 0% 0%;
@@ -2271,13 +2192,6 @@ table#suggestions_table {
     max-width: 100%;
     width: 95%;
     margin: 0% 0% 0%;
-}
-div#suggestion_results_div {
-    position: inherit;
-	margin: 4% 0%;
-	max-width: 100%;
-	width: 95%;
-	right: initial;
 }
 table#questions_table {
     width: 95%;

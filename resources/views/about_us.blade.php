@@ -8,6 +8,8 @@
 	@endsection
 
 	@section('content')
+		@include('modals.questions')
+		@include('modals.suggestions')
 		<div id="main_content" class="container-fluid">	
 			<div class="row">
 				<div id="header" class="col-12 col-sm-12 main_content_class">

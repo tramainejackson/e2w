@@ -1,8 +1,7 @@
 $(document).ready(function() {
 	$.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
+		headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')	},
+		cache: false
 	});
 
 	//Commonly user variables
@@ -10,9 +9,6 @@ $(document).ready(function() {
 	var passwordAttempts = 0;
 	var adminDivs = $(".adminDiv");
 	var counter = 0;
-	var registrationForm = $("#disney_registration_form").detach();
-	var cruiseForm = $(".cruise_page_additions").detach();
-	var disneyForm = $(".disney_page_additions").detach();
 	var winHeight = window.innerHeight;
 	var winWidth = window.innerWidth;
 	var screenHeight = screen.availHeight;
@@ -128,19 +124,7 @@ $(document).ready(function() {
 			$(".message").fadeOut();
 		}, 10000)
 	}
-	
-	//Suggestion display box
-	$("body").on("click", ".nextLocation, #other_option", function(e){
-		if($(this).attr("class") == "nextLocation")
-		{
-			$("#other_location2").attr("disabled", true).val("");
-		}
-		else
-		{
-			$("#other_location2").removeAttr("disabled");
-		}
-	});		
-	
+
 	// Button toggle for PIF switch
 	$('body').on("click", "button", function(e) {
 		if(!$(this).hasClass('btn-primary') || !$(this).hasClass('btn-danger')) {
@@ -154,93 +138,25 @@ $(document).ready(function() {
 		}	
 	});
 
-	//Send suggestion form 
-	$("body").on("click", "#submit_suggestion", function(e)
-	{
+	$("body").on("click", ".submit_question", function(e) {
 		e.preventDefault();
-		$(".confirm_modal_title").text("Suggestion Confirmation");
-		$("#submit_suggestion").attr("disabled", true);
-		$.post("confirm_question_suggestion_form2.php",
-			$("#suggestion_form1").serialize(),
-			function(data)
-			{					
-				$(".maine_modal").hide("slow");				
-				setTimeout(function()
-				{
-					$(".maine_modal_confirmation_box").append(data).fadeIn();
-					$("#other_location2").attr("disabled", true).val("");
-					$("#suggestion_form #niagra_falls").prop("checked", true);
-				}, "500");		
-				setTimeout(function()
-				{
-					$(".maine_modal_confirmation_box, .maine_overlay, #suggestion_form").fadeOut("slow", function(){
-						$(".maine_modal_confirmation_box *:not(.confirm_modal_title)").remove();
-						$("#submit_suggestion").removeAttr("disabled");
-					});
-				}, "10000");				
-			});	
-	});	
-	
-	//Send question form
-	$("body").on("click", "#submit_question", function(e)
-	{
-		e.preventDefault();
-		errors = 0;
-		checkErrors();
-		
-		if(errors < 1)
-		{
-			$(".confirm_modal_title").text("Question Confirmation");
-			$("#submit_question").attr("disabled", true);
-			$.post(	"confirm_question_suggestion_form.php",	$("#question_form1").serialize(), function(data) {
-				$(".maine_modal").hide("slow");
-				setTimeout(function()
-				{
-					$(".maine_modal_confirmation_box").append(data).fadeIn();
-				}, "500");		
-				setTimeout(function()
-				{
-					$(".maine_modal_confirmation_box, .maine_overlay, #question_form").fadeOut("slow", function(){
-						$(".maine_modal_confirmation_box *:not(.confirm_modal_title)").remove();
-						$("#submit_question").removeAttr("disabled");
-						$("#question_form1 input, #question_form1 textarea").val("");
-					});
-				}, "12000");	
-			});
-		}
-		else 
-		{
-			$(".maine_modal_error").show();
-		}
+		sendQuestion();		
 	});
 	
-	//User Registration
-	/*$(".signupForm").submit(function(e) {
-		e.preventDefault();
-		var userFirstName = $(".first_name_input").val();
-		var userLastName = $(".last_name_input").val();
-		var userEmail = $(".email_input").val();
-		
-		if(userFirstName == "" || userLastName == "" || userEmail == "") {
-			var errors = "<div class=\"errors\"><ul>";
-			errors += "<li class='errorItem'>All fields must be filled in.</li>";
-			errors += "</ul></div>";
-			$(errors).appendTo("#return_messages");
+	//Suggestion display box
+	$("body").on("click", ".nextLocation, #other_option", function(e){
+		if($(e.target).attr("id") == 'other_option') {
+			$("#other_location2").removeAttr("disabled");
 		} else {
-			$.post("user_signup.php", $(".signupForm").serialize(), function(data) {					
-				var r			
-			})
-			.done(function() {
-				var complete = "<div class=\"message\"><ul>";
-				complete += "<li class='okItem'>Thanks you for your interest. Please check your email. We will send you additional information regarding the trip.</li>";
-				complete += "</ul></div>";
-				$(complete).appendTo("#return_messages");
-			});
+			$("#other_location2").attr("disabled", true).val("");
 		}
-		setTimeout(function() {
-			$(".errors, .message").fadeOut();
-		}, 7000);
-	});*/
+	});		
+	
+	//Send suggestion form 
+	$("body").on("click", "#submit_suggestion", function(e)	{
+		e.preventDefault();
+		sendSuggestion();
+	});	
 	
 	//Close modal and remove overlay
 	$(".closeBtn, .maine_overlay, #delete_modal_no_btn").click(function()
@@ -263,14 +179,6 @@ $(document).ready(function() {
 			$("#price_is_right").remove();
 		}
 	});
-	
-	//Remove error modal
-	/*$("body").on("focus", ".first_name_input, .last_name_input, .email_input, #first_name, #last_name, #email_address, #question_text", function(e){
-		$("input, textarea").removeClass("errorBorder");
-		$(".maine_modal_error").fadeIn(function(){
-			$(".error_modal_content").empty();
-		});
-	});*/
 	
 	//Add loading GIF when form is submitted. Will remove once form is submitted to next pageX
 	$("body").on("submit", "#add_picture_form", function(e) {
@@ -304,30 +212,130 @@ function getPictures(id) {
 	.done(function(data) {
 		$(data).appendTo($("#app"));
 
-		$('.tripPictures').magnificPopup({
-			callbacks: {
-				open: function() {
-				  // Will fire when this exact popup is opened
-				  // this - is Magnific Popup object
+		if($('.tripPictures').length > 0) {
+			$('.tripPictures').magnificPopup({
+				callbacks: {
+					open: function() {
+					  // Will fire when this exact popup is opened
+					  // this - is Magnific Popup object
+					},
+					close: function() {
+					  $('.picture_modal_content').remove();
+					}
 				},
-				close: function() {
-				  $('.picture_modal_content').remove();
-				}
-			},
-			gallery: {
-			  enabled: true
-			},
-			image: {
-				tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
-				titleSrc: function(item) {
-					return item.el.attr('title');
-				}
-			},
-			type: 'image'
-		}).magnificPopup('open');
+				gallery: {
+				  enabled: true
+				},
+				image: {
+					tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+					titleSrc: function(item) {
+						return item.el.attr('title');
+					}
+				},
+				type: 'image'
+			}).magnificPopup('open');
+		} else if($('.noContentReturned').length > 0) {
+			$('.noContentReturned').modal('show');
+			
+			$('.noContentReturned').on('hidden.bs.modal', function (e) {
+			  $(this).remove();
+			});
+		}
 	});
 }
 
+//Send question form
+function sendQuestion() {
+	var errors = 0;
+	var form = $('#question_form1');
+	var inputs = $('#question_form1 input');
+	var textarea = $('#question_form1 textarea');
+	
+	// Check for empty fields
+	$(inputs).each(function(e) {
+		if($(this).val() == "") {
+			$(this).prop('placeholder', 'Field Cannot be Empty');
+			errors++;
+		}
+	});
+	
+	if($(textarea).val() == "") {
+		$(textarea).prop('placeholder', 'Field Cannot be Empty');
+		errors++;
+	}
+	
+	if(errors < 1) {
+		
+		$.ajax({
+		  method: "POST",
+		  url: "/questions/",
+		  data: $('#question_form1').serialize()
+		})
+		
+		.fail(function() {	
+			alert("Fail");
+		})
+		
+		.done(function(data) {
+			var newData = $(data);
+			$(".modal").modal('hide');
+			$('.modal').on('hidden.bs.modal', function(e) {
+				var returnDiv  = "<div class='return_messages'>";
+					returnDiv += "<h2>Question Received</h2>";
+					returnDiv += "<span>" + $(newData).html() + "</span>";
+					returnDiv += "</div>";
+				$(returnDiv).appendTo($('#app')).fadeIn();
+			});
+			
+			setTimeout(function() {
+				$('.return_messages').fadeOut(function() {
+					$(this).remove();
+				});
+			}, 10000);
+			
+			// Empty all fields
+			$(textarea).val('').css({'background':'white'});
+			$(inputs).each(function(e) {
+				$(this).val('').css({'background':'white'});
+			});
+		});
+	}
+}
+
+//Send suggestion form
+function sendSuggestion() {
+	var errors = 0;
+	var form = $('#suggestion_form1');
+		
+	$.ajax({
+	  method: "POST",
+	  url: "/suggestions/",
+	  data: $('#suggestion_form1').serialize()
+	})
+	
+	.fail(function() {	
+		alert("Fail");
+	})
+	
+	.done(function(data) {
+		var newData = $(data);
+		$(".modal").modal('hide');
+		$('.modal').on('hidden.bs.modal', function(e) {
+			var returnDiv  = "<div class='return_messages'>";
+				returnDiv += "<h2>Suggestion Received</h2>";
+				returnDiv += "<span>" + $(newData).html() + "</span>";
+				returnDiv += "</div>";
+			$(returnDiv).appendTo($('#app')).fadeIn();
+		});
+		
+		setTimeout(function() {
+			$('.return_messages').fadeOut(function() {
+				$(this).remove();
+			});
+		}, 10000);
+	});
+}
+	
 function removePicture(id) {
 	$.ajax({
 	  method: "DELETE",
@@ -337,6 +345,7 @@ function removePicture(id) {
 	.fail(function() {	
 		alert("Fail");
 	})
+	
 	.done(function(data) {
 		var newData = $(data).find(".adminDiv");
 		$(".adminDiv").fadeOut(1500, function(e){ 

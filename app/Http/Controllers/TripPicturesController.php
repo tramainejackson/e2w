@@ -85,7 +85,7 @@ class TripPicturesController extends Controller
 		$trip = TripLocations::find($id);
 		$getPictures = $trip->pictures;
 		// dd($id);
-        return view('admin.pictures.show', compact('getPictures'));
+        return view('admin.pictures.show', compact('trip', 'getPictures'));
     }
 
     /**

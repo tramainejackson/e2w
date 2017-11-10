@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Travel_Questions extends Model
+class TravelSuggestions extends Model
 {
     //
 }

@@ -135,27 +135,5 @@ class UsersController extends Controller
     {
         //
     }
-	
-	/**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Trip_Pictures  $trip_Pictures
-     * @return \Illuminate\Http\Response
-     */
-    public function questions()
-    {
-        return view('admin.questions');
-    }
-	
-	/**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Trip_Pictures  $trip_Pictures
-     * @return \Illuminate\Http\Response
-     */
-    public function suggestions()
-    {
-        return view('admin.suggestions');
-    }
 }
 

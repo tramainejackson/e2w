@@ -13,15 +13,17 @@
 
 Auth::routes();
 
-Route::get('/admin/questions', 'UsersController@questions')->name('admin.questions');
-
-Route::get('/admin/suggestions', 'UsersController@suggestions')->name('admin.suggestions');
-
 Route::resource('/admin', 'UsersController');
 
 Route::resource('/location', 'TripLocationsController');
 
 Route::resource('/pictures', 'TripPicturesController');
+
+Route::resource('/suggestions', 'TravelSuggestionsController');
+
+Route::resource('/questions', 'TravelQuestionsController');
+
+Route::resource('/participants', 'DistributionListController');
 
 Route::get('/', 'HomeController@index')->name('welcome');
 
