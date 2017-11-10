@@ -938,18 +938,6 @@ a.pics_link, a.videos_link {
     padding: 2% 0% !important;
 	color: white;
 }
-table#questions_table {
-    /* max-height: 800px; */
-    /* overflow: auto; */
-    width: 90%;
-    /* padding: 0% 0% 1% 0%; */
-    margin: 5% 5% 0%;
-    color: white;
-    display: table;
-    table-layout: fixed;
-    text-align: -webkit-center;
-    text-align: center;
-}
 #confirmation_form {
 	background-color: white;
 	border-radius: 10px;
@@ -1583,6 +1571,7 @@ div#suggestion_results_div {
     right: 10%;
     border: solid 2px;
     border-radius: 10px;
+	background: linear-gradient(bisque, bisque 80%, black 92%);
 }
 div.indResult span.resultLocation {
     width: 50%;
@@ -1643,134 +1632,6 @@ div#confirmed_users_status1 form, div#confirmed_users_status2 form {
     background-image: url("/e2w/public/images/disney-world2.jpg");
     background-size: 100% 100%;
     background-repeat: no-repeat;
-}
-tr.name_data_rows_header {
-	 background-color: lightsteelblue;
-}
-tr.name_data_rows_header th:first-of-type {
-    border-top-left-radius: 10px;
-}
-th.last_name_table_data, th.first_name_table_data, th.question_date_data {
-    /* width: 10%; */
-}
-#all_questions tr.name_data_rows_header th {
-    padding: 0% 1%;
-}
-#all_suggestions tr.name_data_rows_header th {
-    min-width: 300px;
-}
-#all_questions tr.name_data_rows_header th.question_data {
-    min-width: 300px;
-}
-tr.name_data_rows_header th:last-of-type {
-    border-top-right-radius: 10px;
-}
-th.question_email_data {}
-tr.name_data_rows_cruise:last-of-type td:first-of-type {
-    border-bottom-left-radius: 10px;
-}
-tr.name_data_rows_cruise:last-of-type td:last-of-type {
-    border-bottom-right-radius: 10px;
-}
-tr.name_data_rows_cruise:nth-of-type(even) {
-    background-color: buttonface;
-}
-tr.name_data_rows_cruise:nth-of-type(odd) {
-    background-color: darkseagreen;
-}
-tr.name_data_rows_disney:nth-of-type(odd) {
-    background-color: cornflowerblue;
-}
-tr.name_data_rows_disney:nth-of-type(even) {
-    background-color: darkgray;
-}
-tr.name_data_rows_disney:last-of-type td:first-of-type {
-    border-bottom-left-radius: 10px;
-}
-tr.name_data_rows_disney:last-of-type td:last-of-type {
-    border-bottom-right-radius: 10px;
-}
-th.ao_th, th.ap_th {
-    width: 8%;
-}
-th.fn_th, th.ln_th {
-    padding: 0% 1%;
-}
-tr.name_data_rows_suggestion:nth-of-type(even) {
-    background-color: cadetblue;
-}
-tr.name_data_rows_suggestion:nth-of-type(odd) {
-    background-color: aliceblue;
-    color: black;
-}
-tr.name_data_rows_suggestion:last-of-type td:first-of-type {
-    border-bottom-left-radius: 10px;
-}
-tr.name_data_rows_suggestion:last-of-type td:last-of-type {
-    border-bottom-right-radius: 10px;
-}
-tr.name_data_rows_question:nth-of-type(odd) {
-    background-color: darkgray;
-}
-tr.name_data_rows_question:nth-of-type(even) {
-    background-color: #590000;
-}
-tr.name_data_rows_question:last-of-type td:first-of-type {
-    border-bottom-left-radius: 10px;
-}
-tr.name_data_rows_question:last-of-type td:last-of-type {
-    border-bottom-right-radius: 10px;
-}
-input.eFirstname, input.ePaid, input.eOutstanding, 
-input.eLastname, input.eRoomType {
-    width: 95%;
-    background-color: transparent;
-}
-input.eEmail {
-	background-color: transparent;
-}
-button#addNewUser {
-    position: absolute;
-    top: 2%;
-    right: 6%;
-    background-color: antiquewhite;
-    border: solid 1px #FFA509;
-    border-radius: 5px;
-    padding: 0.3% 1.5%;
-	color: black;
-}
-button#prevCategory, button#nextCategory, button#addNewUserD, button#addNewUserC, button#admin_logout {
-    position: fixed;
-    border-radius: 50px;
-    padding: 0%;
-    top: 20px;
-    width: 5%;
-    height: 9%;
-    font-size: 115%;
-}
-button#prevCategory {
-    right: 200px;
-}
-button#nextCategory {
-    right: 125px;
-}
-button.addNewUserD {
-	right: 275px;
-}
-button#addNewUserC {
-	right: 275px;
-}
-button#admin_logout {
-    right: 50px;
-}
-button#admin_logout a {
-    color: black;
-}
-.moveLeft{
-	margin: 0% 0% 0% -100%;
-}
-.moveRight{
-	margin: 0% 0% 0% 100%;
 }
 div#loading_image img {
     display: block;

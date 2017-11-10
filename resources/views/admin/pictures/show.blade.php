@@ -3,7 +3,7 @@
 		<div id="trip_location_pictures">
 			@foreach($getPictures as $showPicture)
 				@php $content = Storage::disk('local')->has($showPicture->picture_name); @endphp
-				<a href="{{ $content == true ? asset('storage/' . str_ireplace('public/', '', $showPicture->picture_name)) : '/images/skyline.jpg' }}" alt="{{ $showPicture->picture_caption }}" id="{{ $showPicture->picture_id }}" class="tripPictures" title="{{ $showPicture->picture_caption }}"></a>
+				<a href="{{ $content == true ? asset('storage/' . str_ireplace('public/', '', $showPicture->picture_name)) : '/images/no_image_lg.png' }}" alt="{{ $showPicture->picture_caption }}" id="{{ $showPicture->picture_id }}" class="tripPictures" title="{{ $showPicture->picture_caption }}"></a>
 			@endforeach
 		</div>
 		<p class="additionalPictures">If you have any pictures or videos that you want posted, please send them to <a class="mailToLink" href="mailto:administrator@eastcoast2westcoast.com?subject=<?php echo str_ireplace(" ", "_", ucwords($showPicture->trip_id)); ?>_Pictures">administrator@eastcoast2westcoast.com</a></p>
