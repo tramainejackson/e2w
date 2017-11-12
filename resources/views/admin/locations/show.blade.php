@@ -166,7 +166,7 @@
 									<td colspan="2"><input type="submit" name="submit" class="pageSubmit btn btn-success" value="Send Me Info" /></td>
 								</tr>
 							</table>
-							<input type="text" name="trip_id" class="" value="{{ $tripLocation->trip_id }}" hidden />
+							<input type="text" name="trip_id" class="" value="{{ $tripLocation->id }}" hidden />
 							<div class="paymentInstructions text-light">
 								<p class="m-0 py-3">For everyone who has a PayPal account and would like to pay electronically, please send all payments to jacksond1961@yahoo.com by selecting the option to send money to friends and family. <a href="http://www.paypal.com" target="_blank">Click here</a> to go to the PayPal website.</p>
 							</div>

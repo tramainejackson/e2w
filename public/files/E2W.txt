@@ -1,0 +1,9 @@
+------------------------------------------------
+		Eastcoast 2 Westcoast Travel
+------------------------------------------------
+
+Add delete options for all categories
+Update Home Page
+Change date format when already displayed
+Create a relationship for trip locations and trip activities
+Create a relationship for trip locations and trip participants

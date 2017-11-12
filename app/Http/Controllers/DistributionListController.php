@@ -33,7 +33,7 @@ class DistributionListController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         dd($request);
 		$particant = App\TripLocation();
@@ -45,7 +45,7 @@ class DistributionListController extends Controller
      * @param  \App\Distribution_List  $distribution_List
      * @return \Illuminate\Http\Response
      */
-    public function show(Distribution_List $distribution_List)
+    public function show(DistributionList $distributionList)
     {
         //
     }
