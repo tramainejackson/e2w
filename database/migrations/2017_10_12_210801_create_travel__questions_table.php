@@ -15,6 +15,10 @@ class CreateTravelQuestionsTable extends Migration
     {
         Schema::create('travel__questions', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('first_name', 50);
+            $table->string('last_name', 50);
+            $table->string('user_email', 50);
+            $table->text('user_question');
             $table->timestamps();
         });
     }

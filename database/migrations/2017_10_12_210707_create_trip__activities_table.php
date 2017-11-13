@@ -15,6 +15,12 @@ class CreateTripActivitiesTable extends Migration
     {
         Schema::create('trip__activities', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('trip_id');
+            $table->string('trip_event', 255);
+            $table->string('activity_location', 50);
+            $table->date('activity_date');
+			$table->char('show_activity', 1);
+            $table->string('user_updated', 50);
             $table->timestamps();
         });
     }

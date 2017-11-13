@@ -15,6 +15,7 @@ class CreateTravelSuggestionsTable extends Migration
     {
         Schema::create('travel__suggestions', function (Blueprint $table) {
             $table->increments('id');
+			$table->string('option_suugestion', 15);
             $table->timestamps();
         });
     }
