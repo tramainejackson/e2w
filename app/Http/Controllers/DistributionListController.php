@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 
 class DistributionListController extends Controller
 {
+	/**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except('store');
+    }
+	
     /**
      * Display a listing of the resource.
      *
@@ -33,10 +43,17 @@ class DistributionListController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
-        dd($request);
-		$particant = App\TripLocation();
+        $tripLocation = \App\TripLocations::find($request->trip_id);
+
+		$tripLocation->participants()->create([
+			'first_name' => $request->first_name,
+			'last_name' => $request->last_name,
+			'email_address' => $request->email
+		]);
+		
+		return redirect()->action('TripLocationsController@show', $tripLocation)->with('status', 'Thanks for signing up for the trip to' . $tripLocation->trip_location);
     }
 
     /**

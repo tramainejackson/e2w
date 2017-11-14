@@ -14,7 +14,7 @@
 					<div class="col">
 						<h1 class="vacation_header display-2">
 							{{ $tripLocation->trip_location }}
-							<a href="/" class="float-right btn btn-lg btn-secondary mt-5 mr-3">Home Page</a>
+							<a href="/" class="float-right btn btn-lg btn-secondary mt-4 mr-3">Home Page</a>
 						</h1>
 						@if($tripLocation->flyer_name != "")
 							<a href="{{ asset('storage/' . str_ireplace('public/', '', $tripLocation->flyer_name)) }}" class="btn btn-primary" download="{{ str_ireplace(' ', '_', ucwords($tripLocation->trip_location)) . '_Flyer' }}">Download Flyer</a>

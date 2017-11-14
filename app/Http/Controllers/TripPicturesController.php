@@ -6,6 +6,8 @@ use App\TripPictures;
 use App\TripLocations;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Http\File;
 
 class TripPicturesController extends Controller
 {
@@ -53,22 +55,37 @@ class TripPicturesController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        // dd($request->file('upload_photo')[0]->getClientSize());
 		
 		$pictures = TripPictures::all();
 		$getLocations = TripLocations::all();
+		$addImage = new TripPictures();
 		
 		if($request->hasFile('upload_photo')) {
 			if(count($request->file('upload_photo')) > 0) {
 				foreach($request->file('upload_photo') as $newImage) {
 					$path = $newImage->store('public/images');
-					$addImage = new TripPictures();
-					$addImage->trip_id = $request->trip_id;
-					$addImage->picture_name = $path;
+					$img = Image::make(Storage::get($path))->encode();
+					dd($img);
 					
-					$addImage->save();
+					$img->orientate();
+					
+					$img->resize(null, 480, function ($constraint) {
+						$constraint->aspectRatio();
+					});
+					
+					$img->crop(320,480);
+					Storage::put($path, $img);
+					// dd($img);
+
+					// $addImage->trip_id = $request->trip_id;
+					// $addImage->picture_name = $path;
+					
+					// $addImage->save();
 				}
 			}
+		} else {
+			dd($request->file('upload_photo')[0]->getErrorMessage());
 		}
 		
 		return view('admin.pictures.index', compact('pictures', 'getLocations'));
