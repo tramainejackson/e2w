@@ -12,7 +12,7 @@
 			<h1 id="admin_page_header">Eastcoast to Westcoast Travel</h1>
 			
 			@include('layouts.admin_nav')
-			
+			<h4>{{ $error }}</h4>
 			<div class="adminDiv" id="">
 				<div id="pictures_page_header" class="">
 					<h1 class="pageTopicHeader">Trip Pictures</h1>

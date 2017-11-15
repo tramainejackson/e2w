@@ -55,31 +55,38 @@ class TripPicturesController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->file('upload_photo')[0]->getClientSize());
-
+		// dd($request);
 		$pictures = TripPictures::all();
 		$getLocations = TripLocations::all();
 		$addImage = new TripPictures();
+		$error = "";
 		
 		if($request->hasFile('upload_photo')) {
-			if(count($request->file('upload_photo')) > 0) {
-				foreach($request->file('upload_photo') as $newImage) {
-					$path = $newImage->store('public/images');
-					$image = Image::make($newImage)->resize(300, 200)->orientate();
-					$image->save(storage_path('app/'. $path));
-					// dd($image);
+			foreach($request->file('upload_photo') as $newImage) {
+				if($newImage->getClientSize() == 0) {
+					$fileName = $request->file('upload_photo')[0]->getClientOriginalName();
+					$error += "<li class='errorItem'>The file " . $fileName . " may be corrupt and could not be uploaded</li>";
+				} else {
+					if($newImage->getClientSize() < $newImage->getMaxFileSize()) {
+						$path = $newImage->store('public/images');
+						$image = Image::make($newImage)->orientate();
+						$image->save(storage_path('app/'. $path));
 
-					$addImage->trip_id = $request->trip_id;
-					$addImage->picture_name = $path;
-					
-					$addImage->save();
+						$addImage->trip_id = $request->trip_id;
+						$addImage->picture_name = $path;
+						
+						$addImage->save();
+					} else {
+						// Resize the image before storing. Will need to hash the filename first
+					}
 				}
 			}
 		} else {
-			dd($request->file('upload_photo')[0]->getErrorMessage());
+			$fileName = $request->file('upload_photo')[0]->getClientOriginalName();
+			$error = "The file " . $fileName . " may be corrupt and could not be uploaded.";
 		}
 		
-		return view('admin.pictures.index', compact('pictures', 'getLocations'));
+		return view('admin.pictures.index', compact('pictures', 'getLocations', 'error'));
     }
 
     /**
