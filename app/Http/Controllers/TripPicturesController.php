@@ -56,7 +56,7 @@ class TripPicturesController extends Controller
     public function store(Request $request)
     {
         // dd($request->file('upload_photo')[0]->getClientSize());
-		
+
 		$pictures = TripPictures::all();
 		$getLocations = TripLocations::all();
 		$addImage = new TripPictures();
@@ -65,23 +65,14 @@ class TripPicturesController extends Controller
 			if(count($request->file('upload_photo')) > 0) {
 				foreach($request->file('upload_photo') as $newImage) {
 					$path = $newImage->store('public/images');
-					$img = Image::make(Storage::get($path))->encode();
-					dd($img);
-					
-					$img->orientate();
-					
-					$img->resize(null, 480, function ($constraint) {
-						$constraint->aspectRatio();
-					});
-					
-					$img->crop(320,480);
-					Storage::put($path, $img);
-					// dd($img);
+					$image = Image::make($newImage)->resize(300, 200)->orientate();
+					$image->save(storage_path('app/'. $path));
+					// dd($image);
 
-					// $addImage->trip_id = $request->trip_id;
-					// $addImage->picture_name = $path;
+					$addImage->trip_id = $request->trip_id;
+					$addImage->picture_name = $path;
 					
-					// $addImage->save();
+					$addImage->save();
 				}
 			}
 		} else {

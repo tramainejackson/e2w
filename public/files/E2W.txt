@@ -3,11 +3,12 @@
 ------------------------------------------------
 
 Update Home Page
-Add Intervention image
 Update sessions messages
 Add delete options for all categories
 Add link at the top of the magnific popup modal to allow user to send photos
-When new picture being uploaded, change current picture to new picture
+When new being uploaded, change current picture to new picture
+Add more checks and sessions messages for images that aren't uploaded
+Done: Rotate uploaded images if needed
 Done: Update email addresses 
 Done: Figure out what to do when 0 picutres are returned from ajax call
 Done: Update admin questions pages
@@ -22,3 +23,4 @@ Done: Update flyer on form
 Done: Change date format when already displayed
 Done: Create a relationship for trip locations and trip activities
 Done: Create a relationship for trip locations and trip participants
+export HTTP_PROXY="http://155.247.166.25:8080"
