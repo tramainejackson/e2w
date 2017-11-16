@@ -55,18 +55,55 @@ class TripPicturesController extends Controller
      */
     public function store(Request $request)
     {
-		// dd($request);
 		$pictures = TripPictures::all();
 		$getLocations = TripLocations::all();
 		$addImage = new TripPictures();
 		$error = "";
-		
+
 		if($request->hasFile('upload_photo')) {
 			foreach($request->file('upload_photo') as $newImage) {
-				if($newImage->getClientSize() == 0) {
+				// Check to see if images is too large
+				if($newImage->getError() == 1) {
 					$fileName = $request->file('upload_photo')[0]->getClientOriginalName();
-					$error += "<li class='errorItem'>The file " . $fileName . " may be corrupt and could not be uploaded</li>";
+					$error += "<li class='errorItem'>The file " . $fileName . " is too large and could not be uploaded</li>";
+				} elseif($newImage->getError() == 0) {
+					// Check to see if images is about 25MB
+					// If it is then resize it
+					if($newImage->getClientSize() < 25000000) {
+						$image = Image::make($newImage->getRealPath())->orientate();
+						$path = $newImage->store('public/images');
+						$image->save(storage_path('app/'. $path));
+
+						$addImage->trip_id = $request->trip_id;
+						$addImage->picture_name = $path;
+						
+						$addImage->save();
+					} else {
+						// Resize the image before storing. Will need to hash the filename first
+						$path = $newImage->store('public/images');
+						$image = Image::make($newImage)->orientate()->resize(1500, null, function ($constraint) {
+							$constraint->aspectRatio();
+							$constraint->upsize();
+						});
+						$image->save(storage_path('app/'. $path));
+
+						$addImage->trip_id = $request->trip_id;
+						$addImage->picture_name = $path;
+						
+						$addImage->save();
+					}
 				} else {
+					$error += "The file " . $fileName . " may be corrupt and could not be uploaded.";
+				}
+			}
+		} else {
+			foreach($request->file('upload_photo') as $newImage) {
+				$fileName = $newImage->getClientOriginalName();
+				if($newImage->getError() == 1) {
+					$error += "<li class='errorItem'>The file " . $fileName . " is too large and could not be uploaded</li>";
+				} elseif($newImage->getError() == 0) {
+					// Change if statement to check size of images and make sure smaller than 5kb
+					// If not resize to a smaller size
 					if($newImage->getClientSize() < $newImage->getMaxFileSize()) {
 						$path = $newImage->store('public/images');
 						$image = Image::make($newImage)->orientate();
@@ -78,12 +115,22 @@ class TripPicturesController extends Controller
 						$addImage->save();
 					} else {
 						// Resize the image before storing. Will need to hash the filename first
+						$path = $newImage->store('public/images');
+						$image = Image::make($newImage)->orientate()->resize(1500, null, function ($constraint) {
+							$constraint->aspectRatio();
+							$constraint->upsize();
+						});
+						$image->save(storage_path('app/'. $path));
+
+						$addImage->trip_id = $request->trip_id;
+						$addImage->picture_name = $path;
+						
+						$addImage->save();
 					}
+				} else {
+					$error += "The file " . $fileName . " may be corrupt and could not be uploaded.";
 				}
 			}
-		} else {
-			$fileName = $request->file('upload_photo')[0]->getClientOriginalName();
-			$error = "The file " . $fileName . " may be corrupt and could not be uploaded.";
 		}
 		
 		return view('admin.pictures.index', compact('pictures', 'getLocations', 'error'));
