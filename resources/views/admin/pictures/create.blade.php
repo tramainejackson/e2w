@@ -21,23 +21,25 @@
 						
 					<div id="pictures_page_header" class="">
 						<h1 class="pageTopicHeader">Add Pictures</h1>
-						<select name="trip_id" class="pictureSelect" id="select_trip_for_new_pictures">
+					</div>
+					<div class="addPictures">
+						<select name="trip_id" class="pictureSelect p-1 m-0 mb-1 w-100" id="">
 							<option value="blank" selected disabled>---- Select A Trip ----</option>
 							@foreach($getLocations as $showLocations)
 								<option value="{{ $showLocations->id }}">{{ $showLocations->trip_location }}</option>
 							@endforeach
 						</select>
-					</div>
-					<div class="addPictures">
 						<label class="custom-file d-block">
 							<span class="custom-file-control" style=""></span>
-							<input type="file" name="upload_photo[]" class="custom-file-input mx-auto" multiple />
+							<input type="file" name="upload_photo[]" id="upload_photo_input" class="custom-file-input mx-auto" multiple />
 						</label>
 						<span class="text-danger text-center d-block"> (Add up to 10 photos at a time)</span>
+						<div class="d-block">
+							<input type="submit" name="submit" name="add_pictures" class="btn btn-lg" />
+						</div>
 					</div>
-					<div class="uploadsView"></div>
-					<div class="">
-						<input type="submit" name="submit" name="add_pictures" class="" />
+					<div class="uploadsView">
+						<h2 class="text-light">Preview Uploads</h2>
 					</div>
 				</form>					
 			</div>

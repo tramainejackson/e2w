@@ -55,6 +55,7 @@ class TripPicturesController extends Controller
      */
     public function store(Request $request)
     {
+		$trip = TripLocations::find($request->trip_id);
 		$pictures = TripPictures::all();
 		$getLocations = TripLocations::all();
 		$addImage = new TripPictures();
@@ -133,7 +134,11 @@ class TripPicturesController extends Controller
 			}
 		}
 		
-		return view('admin.pictures.index', compact('pictures', 'getLocations', 'error'));
+		if($error != "") {
+			return redirect()->action('TripPicturesController@create')->with('status', $error);
+		} else {
+			return redirect()->action('TripPicturesController@edit', $trip)->with('status', 'Pictures Updated Successfully');
+		}
     }
 
     /**
@@ -201,6 +206,8 @@ class TripPicturesController extends Controller
         // Get picture to remove
 		$remove = TripPictures::find($id);
 		$trip = $remove->trip;
+		$status = "You have removed all of the photos for this trip";
+		$getLocations = TripLocations::all();
 		
 		// Remove Picture
 		Storage::delete(str_ireplace('public/images/', '', $remove->picture_name));
@@ -209,6 +216,10 @@ class TripPicturesController extends Controller
 		// After deleting picture retrieve current pictures
 		$getPictures = $trip->pictures;
 		
-		return view('admin.pictures.edit', compact('trip', 'getPictures'));
+		if($trip->pictures()->count() < 1) {
+			return view('admin.pictures.create', compact('status', 'getLocations'));
+		} else {
+			return view('admin.pictures.edit', compact('trip', 'getPictures'));
+		}
     }
 }

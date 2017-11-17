@@ -6,9 +6,9 @@ Update Home Page
 Update sessions messages
 Add delete options for all categories
 Add link at the top of the magnific popup modal to allow user to send photos
-When new being uploaded, change current picture to new picture
-If last picture is removed. Add a redirect back to picutres index or add an add new link
+When new images being uploaded, change current picture to new picture
 Figure out progress bar when uploading files
+Done: If last picture is removed. Add a redirect back to picutres index or add an add new link
 Done: Add more checks and sessions messages for images that aren't uploaded
 Done: Rotate uploaded images if needed
 Done: Update email addresses 
