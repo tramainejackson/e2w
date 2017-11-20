@@ -53,6 +53,8 @@ class TripLocationsController extends Controller
      */
     public function store(Request $request)
     {
+		$tripLocation = new TripLocations();
+		
 		$this->validate($request, [
 			'trip_name' => 'required|max:50|unique:trip_locations,trip_location',
 		]);
@@ -61,8 +63,6 @@ class TripLocationsController extends Controller
 			$path = $request->file('trip_photo')->store('public/images');
 			$tripLocation->trip_photo = $path;
 		}
-		
-		$tripLocation = new TripLocations();
 
         $tripLocation->trip_location = $request->trip_name;
 		$tripLocation->trip_month = $request->trip_month;

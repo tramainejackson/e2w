@@ -14,7 +14,7 @@ class TravelQuestionsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except('store');
+        $this->middleware('auth')->except(['store', 'create']);
     }
 	
     /**
@@ -34,7 +34,7 @@ class TravelQuestionsController extends Controller
      */
     public function create()
     {
-        //
+        return view('modals.questions');
     }
 
     /**

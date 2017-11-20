@@ -1,4 +1,4 @@
-<div class="modal fade" id="suggestionModal">
+<div class="modal fade suggestionModal" id="suggestionModal">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">

@@ -46,6 +46,18 @@ div#app:after {
     border-top-right-radius: 5px;
 }
 
+.flashMessage {
+	background: darkcyan;
+    color: wheat;
+    position: fixed;
+    z-index: 20;
+    padding: 20px;
+    border-radius: 10px;
+    top: -150px;
+    left: 40%;
+    width: 25%;
+}
+
 .return_messages span {
 	text-align: justify;
     padding: 5%;
@@ -463,9 +475,9 @@ div.trip_location_div::after {
 }
 .addNewTrip {
     margin: 6% 10%;
+	padding: 2%;
     background: linear-gradient(to right, #8a8aff, #ff8787);
     border-radius: 10px;
-    padding: 1.5% 1.5% 4.5%;
     border: solid 2px black;
     box-shadow: 0px 0px 10px darkcyan;
     font-size: 135%;
@@ -476,27 +488,6 @@ div.trip_location_div::after {
 }
 .addPictures input[type="submit"] {
     width: 25%;
-}
-.addNewTrip span {
-    display: -webkit-inline-box;
-    display: inline-block;
-    min-width: 25%;
-    margin: 0.6% 0%;
-}
-.addNewTrip input:not([type="submit"]) {
-    width: 47.5%;
-}
-.addNewTrip input[type="submit"] {
-    position: absolute;
-    right: 2%;
-    bottom: 5%;
-    border-radius: 5px;
-    padding: 1%;
-}
-.addNewTrip select {
-    width: 50%;
-    border-radius: 5px;
-    padding: 0% 1% 0%;
 }
 .newActivities {
 	padding: 0% 10% 0%;
@@ -1219,9 +1210,9 @@ p#signup_ny, p#signup_cruise, p#signup_cali{
   box-shadow: 0px 0px 20px white;
 }
 .eventDiv {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 100% 75%;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: 100% 75% !important;
     border-radius: 10px;
     position: relative;
     -webkit-animation-name: individualDivExit; /* Chrome, Safari, Opera */
@@ -1906,14 +1897,6 @@ h1.pageTopicHeader {
 #location_page_header h1 {
     margin: 4% 0%;
 }
-.addNewTrip {
-    margin: 6% 5% 0% 0%;
-    padding: 2% 1.5% 15% !important;
-}
-.addNewTrip span {
-    min-width: 39%;
-    margin: 0.6% 0%;
-}
 .newActivities {
     padding: 0% 0% 0% 0%;
 }
@@ -2110,14 +2093,6 @@ h1.pageTopicHeader {
 }
 #location_page_header h1 {
     margin: 4% 0%;
-}
-.addNewTrip {
-    margin: 6% 5% 0% 0%;
-    padding: 2% 1.5% 15% !important;
-}
-.addNewTrip span {
-    min-width: 39%;
-    margin: 0.6% 0%;
 }
 .newActivities {
     padding: 0% 0% 0% 0%;
@@ -2371,36 +2346,14 @@ div.trip_location_div {
     color: white;
     max-width: 269px;
 }
-.addNewTrip {
-    padding: 1.5% 1.5% 7%;
-    font-size: 130%;
-    margin: 0% 10% 0%;
-}
 .addPictures {
     margin: 1% 25%;
 }
 .addPictures input[type="submit"] {
     width: 25%;
 }
-.addNewTrip span {
-    min-width: 32%;
-    margin: 0.6% 0%;
-}
-.addNewTrip input:not([type="submit"]) {
-    width: 50%;
-	border-radius: 5px;
-}
-.addNewTrip input[type="submit"] {
-}
-.addNewTrip select {
-    width: 50%;
-    border-radius: 5px;
-    padding: 0% 1% 0%;
-}
 .newActivities {
 	padding: 0% 10% 0%;
-}
-.newUser {
 }
 .newActivities .newIndActivity input {
 	padding: 0.5% 1%;

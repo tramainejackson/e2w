@@ -9,6 +9,10 @@
 
 	@section('content')
 		<div class="" id="admin_page">
+			@if(session('status'))
+				<h2 class="flashMessage">{{ session('status') }}</h2>
+			@endif
+			
 			<h1 id="admin_page_header">Eastcoast to Westcoast Travel</h1>
 			
 			@include('layouts.admin_nav')

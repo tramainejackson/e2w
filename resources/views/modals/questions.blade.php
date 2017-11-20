@@ -1,4 +1,4 @@
-<div class="modal fade" id="questionModal">
+<div class="modal fade questionModal" id="questionModal">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">

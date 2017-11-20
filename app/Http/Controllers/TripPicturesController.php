@@ -137,7 +137,7 @@ class TripPicturesController extends Controller
 		if($error != "") {
 			return redirect()->action('TripPicturesController@create')->with('status', $error);
 		} else {
-			return redirect()->action('TripPicturesController@edit', $trip)->with('status', 'Pictures Updated Successfully');
+			return redirect()->action('TripPicturesController@edit', $trip)->with('status', 'Pictures Added/Updated Successfully');
 		}
     }
 
@@ -165,7 +165,7 @@ class TripPicturesController extends Controller
     {
         $trip = TripLocations::find($id);
 		$getPictures = $trip->pictures;
-		// dd($id);
+
         return view('admin.pictures.edit', compact('trip', 'getPictures'));
     }
 

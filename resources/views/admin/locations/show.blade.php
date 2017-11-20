@@ -142,7 +142,11 @@
 									<td>
 										<div class="form-group">
 											<label for="first_name" class="text-light">First Name:</label>
-											<input class="form-control" type="text" name="first_name" />
+											<input class="form-control" type="text" name="first_name" value="{{ old('first_name') }}" />
+											
+											@if($errors->has('first_name'))
+												<span class="text-danger">First name cannot empty or more than 50 characters</span>
+											@endif
 										</div>
 									</td>
 								</tr>
@@ -150,7 +154,11 @@
 									<td>
 										<div class="form-group">
 											<label for="last_name" class="text-light">Last Name:</label>
-											<input class="form-control" type="text" name="last_name" />
+											<input class="form-control" type="text" name="last_name" value="{{ old('last_name') }}" />
+											
+											@if ($errors->has('last_name'))
+												<span class="text-danger">Last name cannot empty or more than 50 characters</span>
+											@endif
 										</div>
 									</td>
 								</tr>
@@ -158,7 +166,11 @@
 									<td>
 										<div class="form-group">
 											<label for="email" class="text-light">Email:</label>
-											<input class="form-control" type="email" name="email" />
+											<input class="form-control" type="email" name="email" value="{{ old('email') }}" />
+											
+											@if($errors->has('email'))
+												<span class="text-danger">Email address cannot empty or more than 100 characters</span>
+											@endif
 										</div>
 									</td>
 								</tr>

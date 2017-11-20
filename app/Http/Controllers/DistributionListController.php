@@ -47,6 +47,12 @@ class DistributionListController extends Controller
     {
         $tripLocation = \App\TripLocations::find($request->trip_id);
 
+		$this->validate($request, [
+			'first_name' => 'required|max:50',
+			'last_name' => 'required|max:50',
+			'email' => 'required|max:100'
+		]);
+		
 		$tripLocation->participants()->create([
 			'first_name' => $request->first_name,
 			'last_name' => $request->last_name,

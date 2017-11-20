@@ -14,6 +14,16 @@ $(document).ready(function() {
 	var screenHeight = screen.availHeight;
 	var screenWidth = screen.availWidth;
 	
+	if($('.flashMessage').length == 1) {
+		$('.flashMessage').animate({top:'5%'});
+		setTimeout(function(){
+			$('.flashMessage').animate({top:'-150px'}, function(){
+				$('.flashMessage').remove();
+			});
+		}, 8000);
+	}
+	
+	// Change input button when input has been changed
 	$("body").on('change', '.locationEditForm input, .locationEditForm textarea, .locationEditForm select, #add_picture_form input', function() {
 		$('.locationEditForm input[type="submit"], #add_picture_form input[type="submit"]').addClass('btn-success btn-lg').removeClass('btn-secondary');
 	});
@@ -137,6 +147,11 @@ $(document).ready(function() {
 			}
 		}	
 	});
+	
+	// $("body").on("click", "#suggestion_btn", function(e) {
+		// $('.suggestionModal').modal('show');
+	// });
+	
 
 	$("body").on("click", ".submit_question", function(e) {
 		e.preventDefault();
@@ -199,12 +214,12 @@ $(document).ready(function() {
 	});
 	
 	// Call function for file preview when uploading new images
-	$("#upload_photo_input").change(function () {
+	$("#upload_photo_input, #trip_photo").change(function () {
 		filePreview(this);
 	});
 });
 
-//Ajax request for photos of selected trip
+// Ajax request for photos of selected trip
 function getPictures(id) {
 	$.ajax({
 	  method: "GET",
@@ -249,7 +264,7 @@ function getPictures(id) {
 	});
 }
 
-//Send question form
+// Send question form
 function sendQuestion() {
 	var errors = 0;
 	var form = $('#question_form1');
@@ -293,21 +308,31 @@ function sendQuestion() {
 			});
 			
 			setTimeout(function() {
+				$.ajax({
+				  method: "GET",
+				  url: "/suggestions/create",
+				}).done(function(data) {
+					var newData = $(data);
+					$(newData).prependTo($('#app'));
+				});
+				
+				$.ajax({
+				  method: "GET",
+				  url: "/questions/create",
+				}).done(function(data) {
+					var newData = $(data);
+					$(newData).prependTo($('#app'));
+				});
+				
 				$('.return_messages').fadeOut(function() {
 					$(this).remove();
 				});
 			}, 10000);
-			
-			// Empty all fields
-			$(textarea).val('').css({'background':'white'});
-			$(inputs).each(function(e) {
-				$(this).val('').css({'background':'white'});
-			});
 		});
 	}
 }
 
-//Send suggestion form
+// Send suggestion form
 function sendSuggestion() {
 	var errors = 0;
 	var form = $('#suggestion_form1');
@@ -331,9 +356,26 @@ function sendSuggestion() {
 				returnDiv += "<span>" + $(newData).html() + "</span>";
 				returnDiv += "</div>";
 			$(returnDiv).appendTo($('#app')).fadeIn();
+			$("#suggestionModal, #questionModal").remove();
 		});
 		
 		setTimeout(function() {
+			$.ajax({
+			  method: "GET",
+			  url: "/suggestions/create",
+			}).done(function(data) {
+				var newData = $(data);
+				$(newData).prependTo($('#app'));
+			});
+			
+			$.ajax({
+			  method: "GET",
+			  url: "/questions/create",
+			}).done(function(data) {
+				var newData = $(data);
+				$(newData).prependTo($('#app'));
+			});
+			
 			$('.return_messages').fadeOut(function() {
 				$(this).remove();
 			});
@@ -341,7 +383,7 @@ function sendSuggestion() {
 	});
 }
 
-// Preview images before being uploaded
+// Preview images before being uploaded on images page
 function filePreview(input) {
     if (input.files && input.files[0]) {
 		if(input.files.length > 1) {
