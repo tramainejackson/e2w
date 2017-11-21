@@ -66,7 +66,7 @@ class TripPicturesController extends Controller
 				// Check to see if images is too large
 				if($newImage->getError() == 1) {
 					$fileName = $request->file('upload_photo')[0]->getClientOriginalName();
-					$error += "<li class='errorItem'>The file " . $fileName . " is too large and could not be uploaded</li>";
+					$error .= "<li class='errorItem'>The file " . $fileName . " is too large and could not be uploaded</li>";
 				} elseif($newImage->getError() == 0) {
 					// Check to see if images is about 25MB
 					// If it is then resize it
@@ -94,14 +94,16 @@ class TripPicturesController extends Controller
 						$addImage->save();
 					}
 				} else {
-					$error += "The file " . $fileName . " may be corrupt and could not be uploaded.";
+					$error .= "The file " . $fileName . " may be corrupt and could not be uploaded.";
 				}
 			}
 		} else {
 			foreach($request->file('upload_photo') as $newImage) {
+				dd($newImage->getMaxFileSize());
 				$fileName = $newImage->getClientOriginalName();
 				if($newImage->getError() == 1) {
-					$error += "<li class='errorItem'>The file " . $fileName . " is too large and could not be uploaded</li>";
+					$error .= "<li class='errorItem'>The file " . $fileName . " is too large and could not be uploaded</li>";
+					// $image = Image::make($newImage)->orientate();
 				} elseif($newImage->getError() == 0) {
 					// Change if statement to check size of images and make sure smaller than 5kb
 					// If not resize to a smaller size
@@ -129,7 +131,7 @@ class TripPicturesController extends Controller
 						$addImage->save();
 					}
 				} else {
-					$error += "The file " . $fileName . " may be corrupt and could not be uploaded.";
+					$error .= "The file " . $fileName . " may be corrupt and could not be uploaded.";
 				}
 			}
 		}
