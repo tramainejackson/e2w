@@ -217,6 +217,11 @@ $(document).ready(function() {
 	$("#upload_photo_input, #trip_photo").change(function () {
 		filePreview(this);
 	});
+	
+	// Call function for file preview when uploading new photo for a current trip
+	$(".tripPhotoChange").change(function () {
+		filePreview2(this);
+	});
 });
 
 // Ajax request for photos of selected trip
@@ -383,7 +388,7 @@ function sendSuggestion() {
 	});
 }
 
-// Preview images before being uploaded on images page
+// Preview images before being uploaded on images page and new location page
 function filePreview(input) {
     if (input.files && input.files[0]) {
 		if(input.files.length > 1) {
@@ -409,6 +414,16 @@ function filePreview(input) {
     }
 }
 
+// Preview images before being uploaded on edit location page
+function filePreview2(input) {
+    if (input.files && input.files[0]) {
+		var reader = new FileReader();		
+		reader.onload = function (e) {
+			$('.newTripPhoto').attr('src', e.target.result);
+		}
+		reader.readAsDataURL(input.files[0]);
+    }
+}
 // Remove individual image via ajax request
 function removePicture(id) {
 	$.ajax({

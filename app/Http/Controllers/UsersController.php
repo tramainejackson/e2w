@@ -121,6 +121,11 @@ class UsersController extends Controller
 		$user->active = $request->active;
 		
 		$user->save();
+
+		if($user->active == 'N') {
+			User::where('id', $user->id)->delete();
+			return redirect()->action('UsersController@index')->with('status', 'User Made Inactive Successfully');
+		}
 		
 		return redirect()->action('UsersController@edit', $user)->with('status', 'User Updated Successfully');
     }

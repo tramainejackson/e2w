@@ -33,7 +33,7 @@
 						<div class="trip_edit_div">
 							<div class="trip_location_photo editTripInfo">
 								<span>Trip Photo</span>
-								<img src="{{ $showLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $showLocation->trip_photo)) : '/images/skyline.jpg' }}" class="rounded" height="300" width="41.5%" />
+								<img src="{{ $showLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $showLocation->trip_photo)) : '/images/skyline.jpg' }}" class="rounded newTripPhoto" height="300" width="41.5%" />
 								<label class="custom-file addInput mt-1">
 									<span class="custom-file-control" style="width:90%;"></span>
 									<input type="file" name="trip_photo" class="tripPhotoChange custom-file-input" />

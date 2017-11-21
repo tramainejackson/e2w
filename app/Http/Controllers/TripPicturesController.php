@@ -99,7 +99,6 @@ class TripPicturesController extends Controller
 			}
 		} else {
 			foreach($request->file('upload_photo') as $newImage) {
-				dd($newImage->getMaxFileSize());
 				$fileName = $newImage->getClientOriginalName();
 				if($newImage->getError() == 1) {
 					$error .= "<li class='errorItem'>The file " . $fileName . " is too large and could not be uploaded</li>";

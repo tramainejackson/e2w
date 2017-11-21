@@ -143,6 +143,13 @@ h1.pageTopicHeader {
     padding: 0% 1%;
 	color: whitesmoke;
 }
+.trip_location_month select, .trip_location_year select, .trip_completed_div select, .show_trip_div select, .editTripInfo textarea, .editTripInfo input {
+    padding: 1% 0% 1% 3%;
+    border: inset 2px;
+}
+.custom-file {
+    max-width: 50%;
+}
 #location_page_header h1 {
     margin: 2% 1%;
 }
@@ -2182,6 +2189,20 @@ tr.name_data_rows_question:nth-of-type(3) td:last-of-type {
 }
 h1#admin_page_header {
 	    padding: 1% 8% 3%;
+}
+.addInput {
+    margin-left: 39.5%;
+}
+.editTripInfo {
+    margin: 1% 0%;
+}
+.editTripInfo .oi {
+    margin: 0% 2% 0% -5.9% !important;
+}
+.trip_location_div input[type="submit"] {
+    min-width: initial;
+    right: 1%;
+    padding: 3% 1%;
 }
 }
 /*Larger screens*/
