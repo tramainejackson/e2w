@@ -4,7 +4,7 @@ $(document).ready(function() {
 		cache: false
 	});
 
-	//Commonly user variables
+	// Commonly user variables
 	var errors;
 	var passwordAttempts = 0;
 	var adminDivs = $(".adminDiv");
@@ -148,16 +148,6 @@ $(document).ready(function() {
 		}	
 	});
 	
-	// $("body").on("click", "#suggestion_btn", function(e) {
-		// $('.suggestionModal').modal('show');
-	// });
-	
-
-	$("body").on("click", ".submit_question", function(e) {
-		e.preventDefault();
-		sendQuestion();		
-	});
-	
 	//Suggestion display box
 	$("body").on("click", ".nextLocation, #other_option", function(e){
 		if($(e.target).attr("id") == 'other_option') {
@@ -165,13 +155,7 @@ $(document).ready(function() {
 		} else {
 			$("#other_location2").attr("disabled", true).val("");
 		}
-	});		
-	
-	//Send suggestion form 
-	$("body").on("click", "#submit_suggestion", function(e)	{
-		e.preventDefault();
-		sendSuggestion();
-	});	
+	});
 	
 	//Close modal and remove overlay
 	$(".closeBtn, .maine_overlay, #delete_modal_no_btn").click(function()
@@ -290,102 +274,19 @@ function sendQuestion() {
 	}
 	
 	if(errors < 1) {
-		
-		$.ajax({
-		  method: "POST",
-		  url: "/questions/",
-		  data: $('#question_form1').serialize()
-		})
-		
-		.fail(function() {	
-			alert("Fail");
-		})
-		
-		.done(function(data) {
-			var newData = $(data);
-			$(".modal").modal('hide');
-			$('.modal').on('hidden.bs.modal', function(e) {
-				var returnDiv  = "<div class='return_messages'>";
-					returnDiv += "<h2>Question Received</h2>";
-					returnDiv += "<span>" + $(newData).html() + "</span>";
-					returnDiv += "</div>";
-				$(returnDiv).appendTo($('#app')).fadeIn();
-			});
-			
-			setTimeout(function() {
-				$.ajax({
-				  method: "GET",
-				  url: "/suggestions/create",
-				}).done(function(data) {
-					var newData = $(data);
-					$(newData).prependTo($('#app'));
-				});
-				
-				$.ajax({
-				  method: "GET",
-				  url: "/questions/create",
-				}).done(function(data) {
-					var newData = $(data);
-					$(newData).prependTo($('#app'));
-				});
-				
-				$('.return_messages').fadeOut(function() {
-					$(this).remove();
-				});
-			}, 10000);
-		});
+		return true;
+	} else {
+		return false;
 	}
 }
 
 // Send suggestion form
 function sendSuggestion() {
 	var errors = 0;
-	var form = $('#suggestion_form1');
-		
-	$.ajax({
-	  method: "POST",
-	  url: "/suggestions/",
-	  data: $('#suggestion_form1').serialize()
-	})
 	
-	.fail(function() {	
-		alert("Fail");
-	})
-	
-	.done(function(data) {
-		var newData = $(data);
-		$(".modal").modal('hide');
-		$('.modal').on('hidden.bs.modal', function(e) {
-			var returnDiv  = "<div class='return_messages'>";
-				returnDiv += "<h2>Suggestion Received</h2>";
-				returnDiv += "<span>" + $(newData).html() + "</span>";
-				returnDiv += "</div>";
-			$(returnDiv).appendTo($('#app')).fadeIn();
-			$("#suggestionModal, #questionModal").remove();
-		});
-		
-		setTimeout(function() {
-			$.ajax({
-			  method: "GET",
-			  url: "/suggestions/create",
-			}).done(function(data) {
-				var newData = $(data);
-				$(newData).prependTo($('#app'));
-			});
-			
-			$.ajax({
-			  method: "GET",
-			  url: "/questions/create",
-			}).done(function(data) {
-				var newData = $(data);
-				$(newData).prependTo($('#app'));
-			});
-			
-			$('.return_messages').fadeOut(function() {
-				$(this).remove();
-			});
-		}, 10000);
-	});
+	if($('#suggestion_form1 input:checked').length < 1) {
+		event.preventDefault();
+	}
 }
 
 // Preview images before being uploaded on images page and new location page

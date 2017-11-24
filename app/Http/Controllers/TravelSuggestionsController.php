@@ -54,7 +54,9 @@ class TravelSuggestionsController extends Controller
 		}
 		
 		if($suggestion->save()) {
-			return "<span>Suggestion received. Thanks for helping us figure out where to go next.</span>";
+			return redirect()->back()->with('status', 'Suggestion received. Thanks for helping us figure out where to go next.');
+		} else {
+			return redirect()->back()->with('status', 'Suggestion not received. Please try sending your question again.');
 		}
     }
 

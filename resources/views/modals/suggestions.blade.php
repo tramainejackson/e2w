@@ -5,7 +5,7 @@
 				<p>Where to Next? Help us decide where our next travel location should be!</p>
 			</div>
 			<div class="modal-body">
-				<form id="suggestion_form1" method="POST">
+				<form id="suggestion_form1" action="/suggestions" method="POST">
 				
 					{{ method_field('POST') }}
 					{{ csrf_field() }}
@@ -37,7 +37,7 @@
 							<span class="custom-control-description">Houston</span>
 						</label>
 						<label class="custom-control custom-radio">
-							<input class="nextLocation custom-control-input" id="other_option" type="radio" name="next_location" value="Houston" />
+							<input class="nextLocation custom-control-input" id="other_option" type="radio" name="next_location" value="Other" />
 							<span class="custom-control-indicator"></span>
 							<span class="custom-control-description">Other</span>
 							
@@ -47,7 +47,7 @@
 						</div>
 					</div>
 					</ul>
-					<button id="submit_suggestion" class="btn w-100">Send Suggestion</button>
+					<input type="submit" id="submit_suggestion" class="btn w-100" value="Send Suggestion" onclick="sendSuggestion();" />
 				</form>
 			</div>
 		</div>

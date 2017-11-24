@@ -10,7 +10,11 @@
 	@section('content')
 		@include('modals.questions')
 		@include('modals.suggestions')
-		<div id="main_content" class="container-fluid">	
+		<div id="main_content" class="container-fluid">
+			@if(session('status'))
+				<h2 class="flashMessage">{{ session('status') }}</h2>
+			@endif
+			
 			<div class="row">
 				<div id="header" class="col-12 col-sm-12 main_content_class">
 					<p>East Coast West Coast Travel</p>
@@ -29,10 +33,10 @@
 							<a href="{{ route('welcome') }}" id="home_btn" class="btn btn-lg actionBtns py-3 text-dark" disabled>Home</a>
 						</div>
 						<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
-							<a id="question_btn" class="btn btn-lg actionBtns py-3 text-dark">Ask A Question</a>
+							<button id="question_btn" class="btn btn-lg actionBtns py-3" data-toggle="modal" data-target=".questionModal">Ask A Question</button>
 						</div>
 						<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
-							<a id="suggestion_btn" class="btn btn-lg actionBtns py-3 text-dark">Suggestions</a>
+							<a id="suggestion_btn" class="btn btn-lg actionBtns py-3" data-toggle="modal" data-target=".suggestionModal">Suggestions</a>
 						</div>
 						<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
 							<a href="{{ route('contact_us') }}" id="contact_us_btn" class="btn btn-lg actionBtns py-3 text-dark">Contact Us</a>

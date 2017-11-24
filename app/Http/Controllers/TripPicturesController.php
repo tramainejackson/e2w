@@ -58,11 +58,12 @@ class TripPicturesController extends Controller
 		$trip = TripLocations::find($request->trip_id);
 		$pictures = TripPictures::all();
 		$getLocations = TripLocations::all();
-		$addImage = new TripPictures();
 		$error = "";
 
 		if($request->hasFile('upload_photo')) {
 			foreach($request->file('upload_photo') as $newImage) {
+				$addImage = new TripPictures();
+				
 				// Check to see if images is too large
 				if($newImage->getError() == 1) {
 					$fileName = $request->file('upload_photo')[0]->getClientOriginalName();
@@ -99,6 +100,8 @@ class TripPicturesController extends Controller
 			}
 		} else {
 			foreach($request->file('upload_photo') as $newImage) {
+				$addImage = new TripPictures();
+
 				$fileName = $newImage->getClientOriginalName();
 				if($newImage->getError() == 1) {
 					$error .= "<li class='errorItem'>The file " . $fileName . " is too large and could not be uploaded</li>";

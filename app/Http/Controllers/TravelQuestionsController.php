@@ -53,7 +53,9 @@ class TravelQuestionsController extends Controller
 		$question->user_question = $request->question_text;
 		
 		if($question->save()) {
-			return "<span>Question received. We will get back to you as soon as possible.</span>";
+			return redirect()->back()->with('status', 'Question received. We will get back to you as soon as possible.');
+		} else {
+			return redirect()->back()->with('status', 'Question not received. Please try sending again.');
 		}
     }
 

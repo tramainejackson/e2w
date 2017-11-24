@@ -3,9 +3,12 @@
 ------------------------------------------------
 
 Update Home Page
-If user account is inactive, don't allow access but give message
 Add delete options for all categories
 Figure out progress bar when uploading files
+If user account is inactive, find a way to allow restore
+Make site https
+Done: Fix suggestions and questions on live server
+Done: Figure out why only one image loading at a time
 Done: Update sessions messages
 Done: When new images being uploaded, change current picture to new picture
 Done: If last picture is removed. Add a redirect back to picutres index or add an add new link

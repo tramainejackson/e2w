@@ -132,7 +132,7 @@
 				<div class="row">
 					<div class="page_signup_form col-3 py-1">
 						<h3 class="text-center text-light">Sign Me Up</h3>
-						<form class="signupForm" id="" action="/participants/" method="POST" enctype="multipart/form-data">
+						<form class="signupForm" id="" action="/participants" method="POST" enctype="multipart/form-data">
 						
 							{{ method_field('POST') }}
 							{{ csrf_field() }}

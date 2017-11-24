@@ -10,7 +10,12 @@
 	@section('content')
 		@include('modals.questions')
 		@include('modals.suggestions')
+		
 		<div id="home_page" class="container-fluid">
+			@if(session('status'))
+				<h2 class="flashMessage">{{ session('status') }}</h2>
+			@endif
+			
 			<div class="row">
 				<div class="col-2 col-sm-2 pictures_east_and_west_btns">
 					<p>Check out some of the pictures from where we've been. Click on the location of the pictures you want to see.</p>

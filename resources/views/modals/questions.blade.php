@@ -5,7 +5,7 @@
 				<p>Got a question? Fill in your email address and your question and we&rsquo;ll get back to you as soon as possible.</p>
 			</div>
 			<div class="modal-body">
-				<form id="question_form1" method="POST">
+				<form id="question_form1" action="/questions" method="POST">
 				
 					{{ method_field('POST') }}
 					{{ csrf_field() }}
@@ -27,7 +27,7 @@
 						<textarea class="form-control" id="question_text" name="question_text" rows="5" cols="15"required></textarea>
 					</div>
 					<div class="form-group">
-						<button class="btn w-100 submit_question">Send Question</button>
+						<input type="submit" id="submit_question" class="btn w-100" onclick="sendQuestion();" value="Send Question" />
 					</div>
 				</form>
 			</div>
