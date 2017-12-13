@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Http\File;
+use Jenssegers\Agent\Agent;
 
 class TripPicturesController extends Controller
 {
@@ -28,10 +29,15 @@ class TripPicturesController extends Controller
      */
     public function index()
     {
-        $pictures = TripPictures::all();
+        $agent = new Agent();
+		$pictures = TripPictures::all();
 		$getLocations = TripLocations::all();
 		
-		return view('admin.pictures.index', compact('pictures', 'getLocations'));
+		if($agent->isMobile()) {
+			return view('mobile.pictures', compact('pictures', 'getLocations'));
+		} else {
+			return view('admin.pictures.index', compact('pictures', 'getLocations'));
+		}
     }
 
     /**

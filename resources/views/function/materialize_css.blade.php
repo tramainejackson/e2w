@@ -1,4 +1,7 @@
-<!-- Bootstrap core CSS -->
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	  
+<!-- Materialize core CSS -->
 <link href="/css/materialize.css" rel="stylesheet">
 
 <!-- Custom CSS -->

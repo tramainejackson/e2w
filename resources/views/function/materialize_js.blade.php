@@ -3,4 +3,4 @@
 <script src="/js/materialize.js"></script>
 
 <!-- Custom core JS -->
-<script src="/js/eastwest_2.js"></script>
+<script src="/js/eastwest_3.js"></script>

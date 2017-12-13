@@ -27,10 +27,24 @@ Route::resource('/participants', 'DistributionListController');
 
 Route::get('/', 'HomeController@index')->name('welcome');
 
+Route::get('/past', 'HomeController@past')->name('past');
+
 Route::get('/about_us', function() {
-	return view('about_us');
+	$agent = new \Jenssegers\Agent\Agent();
+	
+	if($agent->isMobile()) {
+		return view('mobile.about_us');		
+	} else {
+		return view('about_us');		
+	}
 })->name('about_us');
 
 Route::get('/contact_us', function() {
-	return view('contact_us');
+	$agent = new \Jenssegers\Agent\Agent();
+	
+	if($agent->isMobile()) {
+		return view('mobile.contact_us');
+	} else {
+		return view('contact_us');
+	}
 })->name('contact_us');

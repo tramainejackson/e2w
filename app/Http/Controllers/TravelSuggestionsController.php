@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\TravelSuggestions;
 use Illuminate\Http\Request;
+use Jenssegers\Agent\Agent;
 
 class TravelSuggestionsController extends Controller
 {
@@ -24,7 +25,11 @@ class TravelSuggestionsController extends Controller
      */
     public function index()
     {
-        return view('admin.suggestions');
+		if($agent->isMobile()) {
+			return view('admin.suggestions');
+		} else {
+			return view('admin.suggestions');
+		}
     }
 
     /**

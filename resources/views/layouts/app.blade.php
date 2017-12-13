@@ -1,3 +1,4 @@
+@php $agent = new Jenssegers\Agent\Agent(); @endphp
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
