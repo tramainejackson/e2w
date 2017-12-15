@@ -15,12 +15,10 @@
 				<h2 class="flashMessage">{{ session('status') }}</h2>
 			@endif
 			
-			<div class="row">
+			<div class="row d-none d-xl-flex align-items-strecth">
 				<div id="header" class="col-12 col-sm-12 main_content_class">
 					<p>East Coast West Coast Travel</p>
 				</div>
-			</div>
-			<div class="row d-flex align-items-strecth">
 				<div class="col-8 col-sm-8 ml-auto align-self-center">
 					<h2 class="underline text-white">About Us</h2>
 					<p id="about_us_div" class="rounded">
@@ -62,6 +60,19 @@
 							<button id="photos_btn_mobile" class="">Photos</button>
 						</div>
 					</div>
+				</div>
+			</div>
+			
+			<div class="row d-xl-none">
+			@include('layouts.mobile_nav')
+			
+				<div class="col-12 p-0">
+					<h2 class="text-black text-center m-0 p-5" style="background:linear-gradient(#f2f2f2, #f2f2f2, #f2f2f2, rgba(0, 0, 0, 0)); font-family: 'Felipa', cursive; text-shadow: 2px 1px 5px #304e4e; font-size: 275%;"><b>About Us</b></h2>
+				</div>
+				<div class="col">
+					<p id="" class="bg-light text-black p-5 m-5 rounded">
+						Here at EastCoast to WestCoast Travel, we have the ultimate family oriented experience because that's how we got started.  A group of friends decided that we wanted to travel and see the world. And who better to do that with than the closest people to you. So tell a brother, sister, cousin, friend, co-worker or whoever you think you would have the most fun with. And we're never short of activities. Check out the upcoming trips we have on the East and West coast and see what activites we have planned for each trip. Don't forget to sign up for the one you would be most interested in. Hope you decide to come along for the ride.
+					</p>
 				</div>
 			</div>
 		</div>

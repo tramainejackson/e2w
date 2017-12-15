@@ -19,7 +19,7 @@ class TripPicturesController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except('show');
+        $this->middleware('auth')->except(['show', 'mobile_index']);
     }
 	
     /**
@@ -29,15 +29,10 @@ class TripPicturesController extends Controller
      */
     public function index()
     {
-        $agent = new Agent();
 		$pictures = TripPictures::all();
 		$getLocations = TripLocations::all();
 		
-		if($agent->isMobile()) {
-			return view('mobile.pictures', compact('pictures', 'getLocations'));
-		} else {
-			return view('admin.pictures.index', compact('pictures', 'getLocations'));
-		}
+		return view('admin.pictures.index', compact('pictures', 'getLocations'));
     }
 
     /**
@@ -232,4 +227,17 @@ class TripPicturesController extends Controller
 			return view('admin.pictures.edit', compact('trip', 'getPictures'));
 		}
     }
+	
+	/**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Trip_Pictures  $trip_Pictures
+     * @return \Illuminate\Http\Response
+     */
+    public function mobile_index()
+    {
+		$trips = TripLocations::all();
+	
+		return view('photos', compact('trips'));
+	}
 }

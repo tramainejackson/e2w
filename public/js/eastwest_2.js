@@ -3,17 +3,21 @@ $(document).ready(function() {
 		headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')	},
 		cache: false
 	});
-
+	
 	// Commonly user variables
 	var errors;
 	var passwordAttempts = 0;
 	var adminDivs = $(".adminDiv");
 	var counter = 0;
+	var mobileNavHeight = $('.mobileNavBar').outerHeight();
+	var documentHeight = $(document).height();
 	var winHeight = window.innerHeight;
 	var winWidth = window.innerWidth;
 	var screenHeight = screen.availHeight;
 	var screenWidth = screen.availWidth;
 	
+	$('.carousel-item > div').css({'minHeight': (documentHeight - mobileNavHeight)});
+
 	if($('.flashMessage').length == 1) {
 		$('.flashMessage').animate({top:'5%'});
 		setTimeout(function(){

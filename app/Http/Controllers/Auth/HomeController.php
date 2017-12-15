@@ -41,11 +41,7 @@ class HomeController extends Controller
 		->get();
 		$tripsPics = TripPictures::all();
 		
-		if($agent->isMobile()) {
-			return view('mobile.welcome', compact('trips', 'inactiveTrips', 'tripsPics', 'activeTrips'));
-		} else {
-			return view('welcome', compact('trips', 'inactiveTrips', 'tripsPics', 'activeTrips'));
-		}
+		return view('welcome', compact('trips', 'inactiveTrips', 'tripsPics', 'activeTrips'));
     }
 	
 	 /**
@@ -69,8 +65,6 @@ class HomeController extends Controller
 		->get();
 		$tripsPics = TripPictures::all();
 		
-		if($agent->isMobile()) {
-			return view('mobile.past', compact('trips', 'inactiveTrips', 'tripsPics', 'activeTrips'));
-		}
+		return view('past', compact('trips', 'inactiveTrips', 'tripsPics', 'activeTrips'));
     }
 }

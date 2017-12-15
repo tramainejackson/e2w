@@ -16,7 +16,7 @@
 				<h2 class="flashMessage">{{ session('status') }}</h2>
 			@endif
 			
-			<div class="row">
+			<div class="row d-none d-xl-flex">
 				<div class="col-2 col-sm-2 pictures_east_and_west_btns">
 					<p>Check out some of the pictures from where we've been. Click on the location of the pictures you want to see.</p>
 					@foreach($trips as $trip)
@@ -113,40 +113,59 @@
 					@endif
 				</div>
 				<div id="" class="col-2 col-sm-2" style="position:fixed; right:0;">
-					<div class="actionBtnDiv d-flex flex-column justify-content-center">
-						<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
-							<a href="#" id="home_btn" class="btn btn-lg actionBtns text-dark py-3" disabled>Home</a>
-						</div>
-						<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
-							<button id="question_btn" class="btn btn-lg actionBtns py-3" data-toggle="modal" data-target=".questionModal">Ask A Question</button>
-						</div>
-						<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
-							<a id="suggestion_btn" class="btn btn-lg actionBtns py-3" data-toggle="modal" data-target=".suggestionModal">Suggestions</a>
-						</div>
-						<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
-							<a href="{{ route('contact_us') }}" id="contact_us_btn" class="btn btn-lg actionBtns text-dark py-3">Contact Us</a>
-						</div>
-						<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
-							<a href="{{ route('about_us') }}" id="about_us_btn" class="btn btn-lg actionBtns text-dark py-3">About Us</a>
-						</div>
-						<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
-							<a href="{{ route('login') }}" id="admin_page_btn" class="btn btn-lg actionBtns text-dark py-3">Admin</a>
-						</div>
+					@include('layouts.nav')
+				</div>
+			</div>
+			<div class="row d-xl-none">
+				@include('layouts.mobile_nav')
+				
+				<div id="carousel_controls" class="carousel slide w-100" data-ride="carousel">	
+					<div class="carousel-inner">
+						@foreach($activeTrips as $trip)
+							@php $content = Storage::disk('local')->has($trip->trip_photo); @endphp
+							@php $tripsActivities = $trip->activities; @endphp
+							
+							<div id="" class="carousel-item{{ $loop->first ? ' active' : ''}}">	
+								<div class="carouselImage" id="{{ str_ireplace(' ', '_', strtolower($trip->trip_location)) . '_event' }}" style="background:linear-gradient(#f2f2f2, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url({{ $content == true ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }});">
+									<div class="carousel-caption">
+										<h1 class="center white-text" style="margin-top: 0; padding-top: 50px;">{{ ucwords($trip->trip_location) }}</h1>
+										<h3 class="center white-text">{{ $trip->trip_month . " ". $trip->trip_year }}</h3>
+
+										@if($tripsActivities->count() > 0)
+											<table class="west_calendar">
+												<tr>
+													<th class="header_data" id="date_data">Date</th>
+													<th class="header_data" id="middle_th_data">Location</th>
+													<th class="header_data" id="event_data">Event</th>
+												</tr>
+												
+												@foreach($tripsActivities as $activity)
+													@if($activity->show_activity == "Y")									
+														<tr>
+															<td>{{ $activity->activity_date }}</td>
+															<td class="middle_data">{{ $activity->activity_location }}</td>
+															<td>{{ $activity->trip_event }}</td>
+														</tr>
+													@endif	
+												@endforeach
+											</table>
+										@endif
+										<div class="carousel-fixed-item center">
+											<a href="/location/{{ $trip->id }}" class="btn btn-secondary">Click For More Information</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						@endforeach
 					</div>
-					<div id="mobile_action_btns">
-						<div class="mobileMenuBtn">
-							<a href="#" class="mobileMenuLink">Menu</a>
-							<img src="images/menu.png" class="menuImg" />
-						</div>
-						<div class="mobileBtns">
-							<button id="home_btn_mobile" class="">Home</button>
-							<button id="question_btn_mobile" class="">Ask A Question</button>
-							<button id="suggestion_btn_mobile" class="">Suggestion</button>
-							<button id="contact_us_btn_mobile" class="">Contact Us</button>
-							<button id="about_us_btn_mobile" class="">About Us</button>
-							<button id="photos_btn_mobile" class="">Photos</button>
-						</div>
-					</div>
+					<a class="carousel-control-next" href="#carousel_controls" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+					<a class="carousel-control-prev" href="#carousel_controls" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
 				</div>
 			</div>
 		</div>

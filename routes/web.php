@@ -29,22 +29,12 @@ Route::get('/', 'HomeController@index')->name('welcome');
 
 Route::get('/past', 'HomeController@past')->name('past');
 
+Route::get('/photos', 'TripPicturesController@mobile_index')->name('photos');
+
 Route::get('/about_us', function() {
-	$agent = new \Jenssegers\Agent\Agent();
-	
-	if($agent->isMobile()) {
-		return view('mobile.about_us');		
-	} else {
-		return view('about_us');		
-	}
+	return view('about_us');
 })->name('about_us');
 
 Route::get('/contact_us', function() {
-	$agent = new \Jenssegers\Agent\Agent();
-	
-	if($agent->isMobile()) {
-		return view('mobile.contact_us');
-	} else {
-		return view('contact_us');
-	}
+	return view('contact_us');
 })->name('contact_us');

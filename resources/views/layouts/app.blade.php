@@ -12,6 +12,7 @@
     <title>@yield('Title', 'E<>W')</title>
 
     <!-- Styles -->
+	<link href="https://fonts.googleapis.com/css?family=Felipa" rel="stylesheet">
     @yield('styles')
 	
 	<!-- Scripts -->

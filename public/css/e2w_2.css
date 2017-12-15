@@ -1630,15 +1630,8 @@ div#loading_image img {
     /* margin: 0% 20%; */
 }
 
-.mobile-carousel-slider-item {
-	height: 100%;
-    background-attachment: fixed !important;
-    background-position: center center !important;
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
-}
 /*Smartphones portrait*/
-@media only screen and (min-device-width:320px) and (max-device-width:767px){
+@media only screen and (min-device-width:320px) and (max-device-width:767px) {
 .maine_overlay {
     left: -35%;
     height: 100%;
@@ -2030,6 +2023,7 @@ h1#admin_page_header {
 	    padding: 1% 8% 2%;;
 }
 }
+
 /*Coverage between iPad and Smartphone*/
 @media only screen and (min-width:992px) {
 .maine_modal_confirmation_box, .maine_modal {
@@ -2242,6 +2236,46 @@ h1#admin_page_header {
     padding: 3% 1%;
 }
 }
+
+@media only screen and (max-width:1199px) {
+	div#app::after {
+		content: "";
+		position: initial;
+		background-image: initial;
+		background-size: initial;
+		background-position: initial;
+		background-repeat: initial;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: -1;
+	}
+
+	div#app {
+		background-attachment: fixed;
+		background-image: url("/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg");
+		background-size: cover;
+		background-position: center center;
+		background-repeat:no-repeat;
+		min-height: 100vh;
+	}
+
+	.mobileNavBar {
+		background: #f2f2f2;
+	}
+	
+	.carouselImage {
+		background-size: cover !important;
+		background-position: center center !important;
+		background-repeat:no-repeat !important;
+	}
+	
+	.carousel-caption {
+		z-index: 1;
+	}
+}
+
 /*Larger screens*/
 @media only screen and (min-width:1200px) {
 .terms_cost_div.editTripInfo::after, .terms_payment_div.editTripInfo::after,
