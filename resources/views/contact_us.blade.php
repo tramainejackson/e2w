@@ -94,7 +94,7 @@
 				<div class="container-fluid">
 					<div class="row align-items-stretch">
 						<div class="col">
-							<div class="card mx-auto h-100" id="">
+							<div class="card mx-auto h-100g" id="">
 								
 								<img class="card-img-top" src="/images/holly13.jpg" />
 								
