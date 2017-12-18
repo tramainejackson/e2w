@@ -18,6 +18,16 @@ $(document).ready(function() {
 	
 	$('.carousel-item > div').css({'minHeight': (documentHeight - mobileNavHeight)});
 
+	$('.location_photos').each(function() {
+		$(this).magnificPopup({
+			gallery: {
+			  enabled: true
+			},
+			type: 'image',
+			delegate: 'a'
+		});
+	});
+	
 	if($('.flashMessage').length == 1) {
 		$('.flashMessage').animate({top:'5%'});
 		setTimeout(function(){

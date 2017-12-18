@@ -32,13 +32,11 @@
 										</div>
 										<div id="collapse{{ $loop->iteration }}" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
 											<div class="card-body">
-												<div class="row">
+												<div class="row location_photos">
 													@foreach($getPictures as $picture)
 														@php $content = Storage::disk('local')->has($picture->picture_name); @endphp
 														
-														<div class="col-4">
-															<img src="{{ $content == true ? asset('storage/' . str_ireplace('public/', '', $picture->picture_name)) : '/images/no_image_lg.png' }}" class="img-thumbnail" />
-														</div>
+														<a href="{{ $content == true ? asset('storage/' . str_ireplace('public/', '', $picture->picture_name)) : '/images/no_image_lg.png' }}" class="col-4"><img src="{{ $content == true ? asset('storage/' . str_ireplace('public/', '', $picture->picture_name)) : '/images/no_image_lg.png' }}" class="img-thumbnail" /></a>
 													@endforeach
 												</div>
 											</div>

@@ -93,8 +93,8 @@
 				</div>
 				<div class="container-fluid">
 					<div class="row align-items-stretch">
-						<div class="col">
-							<div class="card mx-auto h-100g" id="">
+						<div class="col-11 col-sm-6 mb-2 mx-auto mx-sm-0">
+							<div class="card mx-auto h-100" id="">
 								
 								<img class="card-img-top" src="/images/holly13.jpg" />
 								
@@ -104,7 +104,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col">
+						<div class="col-11 col-sm-6 mb-2 mx-auto mx-sm-0">
 							<div class="card mx-auto" id="">
 
 								<img class="card-img-top" src="/images/RhondaLambert2.png" />
@@ -117,7 +117,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-6 mx-auto my-4 rounded bg-light">
+						<div class="col-10 col-sm-6 mx-auto my-4 rounded bg-light">
 							<h2 class="text-center text-dark">Send Us A Question</h2>
 							<form id="question_form1" action="/questions" method="POST">
 				
