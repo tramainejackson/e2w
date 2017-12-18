@@ -22,7 +22,7 @@
 							@foreach($trips as $trip)
 								@php $content1 = Storage::disk('local')->has($trip->trip_photo); @endphp
 								@php $getPictures = $trip->pictures; @endphp
-								<div class="col-6">
+								<div class="col-12 col-sm-6">
 									<div class="card my-2">
 										<img src="{{ $content1 == true ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }}" class="card-img-top" />
 										<div class="card-header" role="tab" id="heading{{ $loop->iteration }}">
@@ -36,7 +36,7 @@
 													@foreach($getPictures as $picture)
 														@php $content = Storage::disk('local')->has($picture->picture_name); @endphp
 														
-														<a href="{{ $content == true ? asset('storage/' . str_ireplace('public/', '', $picture->picture_name)) : '/images/no_image_lg.png' }}" class="col-4"><img src="{{ $content == true ? asset('storage/' . str_ireplace('public/', '', $picture->picture_name)) : '/images/no_image_lg.png' }}" class="img-thumbnail" /></a>
+														<a href="{{ $content == true ? asset('storage/' . str_ireplace('public/', '', $picture->picture_name)) : '/images/no_image_lg.png' }}" class="col-6"><img src="{{ $content == true ? asset('storage/' . str_ireplace('public/', '', $picture->picture_name)) : '/images/no_image_lg.png' }}" class="img-thumbnail" /></a>
 													@endforeach
 												</div>
 											</div>

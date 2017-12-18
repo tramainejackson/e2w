@@ -127,30 +127,13 @@
 							
 							<div id="" class="carousel-item{{ $loop->first ? ' active' : ''}}">	
 								<div class="carouselImage" id="{{ str_ireplace(' ', '_', strtolower($trip->trip_location)) . '_event' }}" style="background:linear-gradient(#f2f2f2, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url({{ $content == true ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }});">
-									<div class="carousel-caption">
-										<h1 class="center white-text" style="margin-top: 0; padding-top: 50px;">{{ ucwords($trip->trip_location) }}</h1>
-										<h3 class="center white-text">{{ $trip->trip_month . " ". $trip->trip_year }}</h3>
+									<div class="">
+										<h1 class="text-center white-text" style="margin-top: 0; padding-top: 50px;">{{ ucwords($trip->trip_location) }}</h1>
+										<h3 class="text-center white-text">{{ $trip->trip_month . " ". $trip->trip_year }}</h3>
 
-										@if($tripsActivities->count() > 0)
-											<table class="west_calendar">
-												<tr>
-													<th class="header_data" id="date_data">Date</th>
-													<th class="header_data" id="middle_th_data">Location</th>
-													<th class="header_data" id="event_data">Event</th>
-												</tr>
-												
-												@foreach($tripsActivities as $activity)
-													@if($activity->show_activity == "Y")									
-														<tr>
-															<td>{{ $activity->activity_date }}</td>
-															<td class="middle_data">{{ $activity->activity_location }}</td>
-															<td>{{ $activity->trip_event }}</td>
-														</tr>
-													@endif	
-												@endforeach
-											</table>
-										@endif
-										<div class="carousel-fixed-item center">
+										<p class="">{{ $trip->description }}</p>
+										
+										<div class="carousel-fixed-item mx-auto d-block pb-2">
 											<a href="/location/{{ $trip->id }}" class="btn btn-secondary">Click For More Information</a>
 										</div>
 									</div>
