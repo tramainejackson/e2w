@@ -219,11 +219,11 @@
 		
 		<!-- Mobile version -->
 		<div class="d-xl-none">
-			<div class="showTrip" style="background:linear-gradient(#f2f2f2, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url({{ $tripLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $tripLocation->trip_photo)) : '/images/skyline.jpg' }})">
+			<div class="showTrip" style="background:linear-gradient(#f2f2f2, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url({{ $tripLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $tripLocation->trip_photo)) : '/images/skyline.jpg' }});">
 			
 			@include('layouts.mobile_nav')
 				
-				<div class="container-fluid">
+				<div class="container-fluid showTripMobile">
 					<div class="row">
 						<div class="col-12 pt-2 pb-4" style="background: linear-gradient(rgb(242, 242, 242), rgb(242, 242, 242), rgb(242, 242, 242), rgba(0, 0, 0, 0))">
 							<h2 class="tripDescription text-center">{{ $tripLocation->trip_location }}</h2>
