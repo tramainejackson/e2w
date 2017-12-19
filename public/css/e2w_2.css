@@ -1630,6 +1630,13 @@ div#loading_image img {
 .paymentInstructions {
     /* margin: 0% 20%; */
 }
+.carouselTripDescription {
+    padding: 5px 10px;
+    margin: 20px 40px;
+    background: rgba(135, 190, 222, 0.75);
+    color: whitesmoke;
+    border-radius: 10px;
+}
 
 /*Smartphones portrait*/
 @media only screen and (max-width:575px) {

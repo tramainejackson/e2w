@@ -23,6 +23,12 @@ $(document).ready(function() {
 			gallery: {
 			  enabled: true
 			},
+			image: {
+				tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+				titleSrc: function(item) {
+					return item.el.attr('title');
+				}
+			},
 			type: 'image',
 			delegate: 'a'
 		});
