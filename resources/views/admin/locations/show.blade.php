@@ -1,6 +1,27 @@
 @extends('layouts.app')
 	@section('styles')
 		@include('function.bootstrap_css')
+		<style>
+			/*Smartphones portrait*/
+			@media only screen and (max-width:575px) {
+				div#app {
+					background: initial;
+				}
+				div#app:after {
+					content: "";
+					background:linear-gradient(#f2f2f2, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url({{ $tripLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $tripLocation->trip_photo)) : '/images/skyline.jpg' }});
+					background-size: cover;
+					background-position: center center;
+					background-repeat: no-repeat;
+					position: fixed;
+					top: 0;
+					bottom: 0;
+					right: 0;
+					left: 0;
+					z-index: -1;
+				}
+			}
+		</style>
 	@endsection
 	
 	@section('scripts')
@@ -219,11 +240,11 @@
 		
 		<!-- Mobile version -->
 		<div class="d-xl-none">
-			<div class="showTrip" style="background:linear-gradient(#f2f2f2, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url({{ $tripLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $tripLocation->trip_photo)) : '/images/skyline.jpg' }});">
+			<div class="showTripMobile" style="">
 			
 			@include('layouts.mobile_nav')
 				
-				<div class="container-fluid showTripMobile">
+				<div class="container-fluid">
 					<div class="row">
 						<div class="col-12 pt-2 pb-4" style="background: linear-gradient(rgb(242, 242, 242), rgb(242, 242, 242), rgb(242, 242, 242), rgba(0, 0, 0, 0))">
 							<h2 class="tripDescription text-center">{{ $tripLocation->trip_location }}</h2>
