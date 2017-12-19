@@ -26,10 +26,10 @@ div#app:after {
 }
 
 .showTrip {
-	background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center center;
+	background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-attachment: fixed !important;
+    background-position: center center !important;
 }
 .return_messages {
     position: fixed;
@@ -1605,7 +1605,7 @@ div#loading_image img {
 	bottom: 0;
 	background: black;
 	opacity: 0.4;
-	z-index: 0;
+	z-index: -1;
 	border-radius: inherit;
 }
 .content_info h1.vacation_header {
@@ -1638,11 +1638,47 @@ div#loading_image img {
     border-radius: 10px;
 }
 
+.suggestionMobile {
+	background: chocolate;
+    padding: 10px 0px;
+    border-radius: 10px;
+    margin: 10px -15px;
+    color: whitesmoke;
+}
+
 /*Smartphones portrait*/
 @media only screen and (max-width:575px) {
 .card-img-top {
 	height: 250px;
 	max-height: 250px;
+}
+
+.suggestionResultsPercent {
+    margin: 0% 5% 10%;
+}
+
+div#suggestion_results_div {
+    border: solid 2px;
+    border-radius: 10px;
+	background: bisque;
+}
+
+.flashMessage {
+    padding: 20px;
+    left: 5%;
+    width: 90%;
+}
+
+.vacationDescription {
+    margin: 0% 0%;
+}
+
+.vacationDescription h2 {
+	font-size: 100% !important;
+}
+
+.mobileLocationFlexShow {
+	background: linear-gradient(transparent, white, transparent);
 }
 }
 /*Coverage between iPad and Smartphone*/

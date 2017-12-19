@@ -16,8 +16,10 @@ $(document).ready(function() {
 	var screenHeight = screen.availHeight;
 	var screenWidth = screen.availWidth;
 	
+	// Make carousel items a minimum height of the document window
 	$('.carousel-item > div').css({'minHeight': (documentHeight - mobileNavHeight)});
 
+	// Magnific popup api for mobile screens
 	$('.location_photos').each(function() {
 		$(this).magnificPopup({
 			gallery: {
@@ -34,6 +36,7 @@ $(document).ready(function() {
 		});
 	});
 	
+	// Show flash message when one is available
 	if($('.flashMessage').length == 1) {
 		$('.flashMessage').animate({top:'5%'});
 		setTimeout(function(){

@@ -46,7 +46,7 @@
 							<input type="text" name="other_location" class="d-block rounded ml-3 mb-3 p-1" id="other_location2" placeholder="Example: Disney Land" disabled />
 						</div>
 					</div>
-					</ul>
+
 					<input type="submit" id="submit_suggestion" class="btn w-100" value="Send Suggestion" onclick="sendSuggestion();" />
 				</form>
 			</div>

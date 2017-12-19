@@ -15,7 +15,7 @@ class TravelSuggestionsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['store', 'create']);
+        $this->middleware('auth')->except(['store', 'create', 'mobile_index']);
     }
 	
     /**
@@ -25,11 +25,7 @@ class TravelSuggestionsController extends Controller
      */
     public function index()
     {
-		if($agent->isMobile()) {
-			return view('admin.suggestions');
-		} else {
-			return view('admin.suggestions');
-		}
+		return view('admin.suggestions');
     }
 
     /**
@@ -107,5 +103,17 @@ class TravelSuggestionsController extends Controller
     public function destroy(Travel_Suggestions $travel_Suggestions)
     {
         //
+    }
+	
+	/**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Travel_Suggestions  $travel_Suggestions
+     * @return \Illuminate\Http\Response
+     */
+    public function mobile_index(TravelSuggestions $travelSuggestions)
+    {
+		$getSuggestionInfo = TravelSuggestions::all();
+        return view('suggestions', compact('getSuggestionInfo'));
     }
 }

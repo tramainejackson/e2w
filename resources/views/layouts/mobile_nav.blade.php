@@ -22,7 +22,7 @@
         <a class="nav-link" href="/about_us">About Us</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/suggestions">Suggestions</a>
+        <a class="nav-link" href="/suggestion">Suggestions</a>
       </li>
     </ul>
   </div>
