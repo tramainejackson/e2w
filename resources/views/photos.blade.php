@@ -7,6 +7,20 @@
 				div#app {
 					background: initial;
 				}
+				
+				div#app:after {
+					content: "";
+					position: fixed;
+					background-image: url(/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg);
+					background-size: cover;
+					background-position: center center;
+					background-repeat: no-repeat;
+					top: 0;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					z-index: -1;
+				}
 			}
 		</style>
 	@endsection
