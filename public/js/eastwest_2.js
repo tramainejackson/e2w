@@ -37,11 +37,32 @@ $(document).ready(function() {
 	});
 	
 	// Show flash message when one is available
-	if($('.flashMessage').length == 1) {
+	var errorHeight = $('.errorMessage').outerHeight() + 20;
+	var messageHeight = $('.flashMessage').outerHeight() + 20;
+	
+	if($('.flashMessage').length == 1 && $('.errorMessage').length != 1) {
 		$('.flashMessage').animate({top:'5%'});
 		setTimeout(function(){
 			$('.flashMessage').animate({top:'-150px'}, function(){
 				$('.flashMessage').remove();
+			});
+		}, 8000);
+	} else if($('.flashMessage').length != 1 && $('.errorMessage').length == 1) {
+		$('.errorMessage').animate({top:'-' + messageHeight});
+		setTimeout(function(){
+			$('.errorMessage').animate({top:'-' + errorHeight}, function(){
+				$('.errorMessage').remove();
+			});
+		}, 8000);
+	} else if($('.flashMessage').length == 1 && $('.errorMessage').length == 1) {
+		$('.flashMessage').animate({top:'5%', left: '10%'});
+		$('.errorMessage').animate({top:'5%', left: '60%'});
+		setTimeout(function() {
+			$('.flashMessage').animate({top:'-' + messageHeight}, function(){
+				$('.flashMessage').remove();
+			});
+			$('.errorMessage').animate({top:'-' + errorHeight}, function(){
+				$('.errorMessage').remove();
 			});
 		}, 8000);
 	}
@@ -59,8 +80,24 @@ $(document).ready(function() {
 	
 	// Add an additional input row when plus sign selected
 	$("body").on("click", ".oi-plus", function() {
-		var inputField = $(this).next().clone();
-		$(inputField).addClass("addInput").val("").appendTo($(this).parent());
+		var inputDiv = $(this).next().clone();
+		var minusBtn = "<span class='oi oi-minus text-danger rounded-circle' title='io-minus' aria-hidden='true'></span>";
+		var iteration = $(this).parent().find('div').length;
+		$(minusBtn).prependTo($(inputDiv));
+		$(inputDiv).find('input').val("");
+		
+		if(iteration > 1) {
+			$(inputDiv).removeClass("d-inline");
+		}
+		
+		$(inputDiv).addClass("addInput w-100").appendTo($(this).parent());
+	});
+	
+	$("body").on("click", ".oi-minus", function(e) {
+		console.log(e.target);
+		$(e.target).parent().fadeOut(function() {
+			$(e.target).parent().remove();
+		});
 	});
 	
 	// Add a blank activity row to the current location edit form
@@ -204,19 +241,21 @@ $(document).ready(function() {
 	
 	//Add loading GIF when form is submitted. Will remove once form is submitted to next pageX
 	$("body").on("submit", "#add_picture_form", function(e) {
-		if($(".pictureSelect option:selected").val() != "blank") {
-			$("#loading_image").fadeIn("slow");
-			console.log("Form Submission Started");
+		if($(".pictureSelect option:selected").val() == "blank") {
+			e.preventDefault();
+			$(".noLocationSelected").fadeIn("slow");
+			console.log("Form Not Submitted. No Trip Selected");
+		} else {
+			$('.loadingSpinner p').text('Adding Images....');
+			$('.loadingSpinner').modal('show');
 		}
 	});
 	
 	//Add and remove loading gif when making ajax call
 	$(document).ajaxStart(function(){
-		$("#loading_image").fadeIn("slow");
 		console.log("AJAX Started");
 	});
 	$(document).ajaxComplete(function(){
-		$("#loading_image").fadeOut("slow");
 		console.log("AJAX Finished");
 	});
 	

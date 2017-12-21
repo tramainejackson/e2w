@@ -3,10 +3,10 @@
 ------------------------------------------------
 
 Update Home Page
-Add delete options for all categories
-Figure out progress bar when uploading files
 If user account is inactive, find a way to allow restore
 Make site https
+Add delete options for all categories
+Done: Figure out progress bar when uploading files
 Done: Fix suggestions and questions on live server
 Done: Figure out why only one image loading at a time
 Done: Update sessions messages

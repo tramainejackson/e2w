@@ -51,9 +51,34 @@ div#app:after {
     border-top-right-radius: 5px;
 }
 
+.loader {
+	border-top: 16px solid blue;
+	border-bottom: 16px solid blue;
+	border-radius: 50%;
+	width: 120px;
+	height: 120px;
+	-webkit-animation: spin 2s linear infinite; /* Safari */
+	animation: spin 2s linear infinite;
+	margin: 100px auto;
+}
+
 .flashMessage {
 	background: darkcyan;
     color: wheat;
+    position: fixed;
+    z-index: 20;
+    padding: 20px;
+    border-radius: 10px;
+    top: -150px;
+    left: 40%;
+    width: 25%;
+	text-align: -webkit-center;
+	text-align: center;
+}
+
+.errorMessage {
+	background: darkred;
+    color: whitesmoke;
     position: fixed;
     z-index: 20;
     padding: 20px;
@@ -130,15 +155,15 @@ div#app:after {
     text-align: center;
 }
 .adminDiv {
-	max-width: 80%;
-	width: 80%;
-	min-height: 100%;
-	left: 20%;
-	top: 9%;
+	/* max-width: 80%; */
+	/* width: 80%; */
+	/* min-height: 100%; */
+	/* left: 20%; */
+	/* top: 9%; */
 	/* margin: 5% 0% 0% 20%; */
-	padding: 5% 0% 2% 0%;
-	overflow: auto;
-	position: relative;
+	/* padding: 5% 0% 2% 0%; */
+	/* overflow: auto; */
+	/* position: relative; */
 }
 .divider {
 	width: 70%;
@@ -163,10 +188,11 @@ h1.pageTopicHeader {
 #navi {
 	position: fixed;
 	max-height: 100%;
-	max-width: 20%;
 	min-height: 100%;
 	width: 20%;
-	margin: 5% 0% 0% 0%;
+	max-width: 20%;
+	left: 0px;
+	top: 0px;
 	background: url("../images/disney_world2.gif");
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -193,6 +219,8 @@ ul#navi_list li a {
 }
 h1#admin_page_header {
 	position: fixed;
+	top:0px;
+	left: 0px;
 	padding: 1% 8% 1.6%;
 	margin: 0% 0% 0%;
 	color: whitesmoke;
@@ -1795,11 +1823,11 @@ button#see_contacts_btn {
     width: 54%;
 }
 .adminDiv {
-    max-width: 70%;
-    width: 70%;
-    left: 30%;
-    top: 9%;
-    padding: 8% 0% 2% 0%;
+    /* max-width: 70%; */
+    /* width: 70%; */
+    /* left: 30%; */
+    /* top: 9%; */
+    /* padding: 8% 0% 2% 0%; */
 }
 #navi {
     max-width: 25%;
@@ -1915,7 +1943,7 @@ tr.name_data_rows_question:nth-of-type(3) td:last-of-type {
     border-bottom-right-radius: 10px;
 }
 h1#admin_page_header {
-	    padding: 1% 8% 2%;;
+	padding: 1% 8% 2%;;
 }
 }
 
@@ -1983,11 +2011,11 @@ p.contact_name {
     width: 54%;
 }
 .adminDiv {
-    max-width: 70%;
-    width: 70%;
-    left: 25%;
-    top: 9%;
-    padding: 8% 0% 2% 5%;
+    /* max-width: 70%; */
+    /* width: 70%; */
+    /* left: 25%; */
+    /* top: 9%; */
+    /* padding: 8% 0% 2% 5%; */
 }
 #navi {
     max-width: 25%;
@@ -2114,7 +2142,7 @@ tr.name_data_rows_question:nth-of-type(3) td:last-of-type {
     border-bottom-right-radius: 10px;
 }
 h1#admin_page_header {
-	    padding: 1% 8% 3%;
+	padding: 1% 8% 3%;
 }
 .addInput {
     margin-left: 39.5%;
@@ -2398,5 +2426,12 @@ button#prevCategory {
 }
 button#nextCategory {
     right: 150px;
+}
+.addInput {
+    margin-left: 35.5%;
+}
+.trip_location_div input[type="submit"] {
+    top: 43.5%;
+    right: 5%;
 }
 }

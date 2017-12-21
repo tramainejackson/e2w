@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 	@section('styles')
 		@include('function.bootstrap_css')
 	@endsection
@@ -8,16 +8,15 @@
 	@endsection
 
 	@section('content')
-		<div id="admin_page">
-			@if(session('status'))
-				<h2 class="flashMessage text-center">{{ session('status') }}</h2>
-			@endif
-			
-			<h1 id="admin_page_header">Eastcoast to Westcoast Travel</h1>
-			
-			@include('layouts.admin_nav')
-			
-			<div class="adminDiv" id="all_users">
+		<div class="row">
+			<div class="col">
+				<div id="pictures_page_header" class="">
+					<h1 class="pageTopicHeader">Admin Page</h1>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col" id="all_users">
 				<form name="update_user" class="" action="/admin/{{ $user->id }}" method="POST">
 					
 					{{ method_field('PATCH') }}

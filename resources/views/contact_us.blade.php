@@ -20,12 +20,14 @@
 					<p>East Coast West Coast Travel</p>
 				</div>
 				<div class="col-8 col-sm-8 ml-auto">
-					<div class="row d-flex">
+					<div class="row">
 						<div class="col-12 col-sm-12" class="navContent">
 							<h2 class="underline text-white">Contact Us</h2>
 						</div>
-						<div class="col-5 col-sm-5 align-self-stretch">
-							<div class="card" id="">
+					</div>
+					<div class="row d-flex align-items-stretch">
+						<div class="col-5 col-sm-5">
+							<div class="card h-100" id="">
 								<img class="card-img-top" src="/images/holly13.jpg" />
 								<div class="card-body">
 									<p class="contact_name">Name: Deborah Jackson</p>

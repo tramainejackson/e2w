@@ -60,27 +60,33 @@ class TripPicturesController extends Controller
 		$pictures = TripPictures::all();
 		$getLocations = TripLocations::all();
 		$error = "";
-
+		$success = 0;
 		if($request->hasFile('upload_photo')) {
 			foreach($request->file('upload_photo') as $newImage) {
 				$addImage = new TripPictures();
+				$fileName = $newImage->getClientOriginalName();
 				
 				// Check to see if images is too large
 				if($newImage->getError() == 1) {
-					$fileName = $request->file('upload_photo')[0]->getClientOriginalName();
-					$error .= "<li class='errorItem'>The file " . $fileName . " is too large and could not be uploaded</li>";
+					$error .= "The file " . $fileName . " is too large and could not be uploaded";
 				} elseif($newImage->getError() == 0) {
 					// Check to see if images is about 25MB
 					// If it is then resize it
 					if($newImage->getClientSize() < 25000000) {
-						$image = Image::make($newImage->getRealPath())->orientate();
-						$path = $newImage->store('public/images');
-						$image->save(storage_path('app/'. $path));
+						if($newImage->guessExtension() == 'jpeg' || $newImage->guessExtension() == 'png' || $newImage->guessExtension() == 'gif' || $newImage->guessExtension() == 'webp' || $newImage->guessExtension() == 'jpg') {
+							$image = Image::make($newImage->getRealPath())->orientate();
+							$path = $newImage->store('public/images');
+							$image->save(storage_path('app/'. $path));
 
-						$addImage->trip_id = $request->trip_id;
-						$addImage->picture_name = $path;
-						
-						$addImage->save();
+							$addImage->trip_id = $request->trip_id;
+							$addImage->picture_name = $path;
+							
+							if($addImage->save()) {
+								$success++;
+							}
+						} else {
+							$error .= "The file " . $fileName . " could not be added bcause it is the wrong image type.";
+						}
 					} else {
 						// Resize the image before storing. Will need to hash the filename first
 						$path = $newImage->store('public/images');
@@ -93,7 +99,9 @@ class TripPicturesController extends Controller
 						$addImage->trip_id = $request->trip_id;
 						$addImage->picture_name = $path;
 						
-						$addImage->save();
+						if($addImage->save()) {
+							$success++;
+						}
 					}
 				} else {
 					$error .= "The file " . $fileName . " may be corrupt and could not be uploaded.";
@@ -102,10 +110,10 @@ class TripPicturesController extends Controller
 		} else {
 			foreach($request->file('upload_photo') as $newImage) {
 				$addImage = new TripPictures();
-
 				$fileName = $newImage->getClientOriginalName();
+
 				if($newImage->getError() == 1) {
-					$error .= "<li class='errorItem'>The file " . $fileName . " is too large and could not be uploaded</li>";
+					$error .= "The file " . $fileName . " is too large and could not be uploaded";
 					// $image = Image::make($newImage)->orientate();
 				} elseif($newImage->getError() == 0) {
 					// Change if statement to check size of images and make sure smaller than 5kb
@@ -118,7 +126,9 @@ class TripPicturesController extends Controller
 						$addImage->trip_id = $request->trip_id;
 						$addImage->picture_name = $path;
 						
-						$addImage->save();
+						if($addImage->save()) {
+							$success++;
+						}
 					} else {
 						// Resize the image before storing. Will need to hash the filename first
 						$path = $newImage->store('public/images');
@@ -131,7 +141,9 @@ class TripPicturesController extends Controller
 						$addImage->trip_id = $request->trip_id;
 						$addImage->picture_name = $path;
 						
-						$addImage->save();
+						if($addImage->save()) {
+							$success++;
+						}
 					}
 				} else {
 					$error .= "The file " . $fileName . " may be corrupt and could not be uploaded.";
@@ -140,7 +152,11 @@ class TripPicturesController extends Controller
 		}
 		
 		if($error != "") {
-			return redirect()->action('TripPicturesController@create')->with('status', $error);
+			if($success > 0) {
+				return redirect()->action('TripPicturesController@create')->with('status', $success . ' pictures added successfully')->with('error', $error);
+			} else {
+				return redirect()->action('TripPicturesController@create')->with('error', $error);
+			}
 		} else {
 			return redirect()->action('TripPicturesController@edit', $trip)->with('status', 'Pictures Added/Updated Successfully');
 		}
