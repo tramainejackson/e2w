@@ -1,0 +1,7 @@
+.d-flex {
+	display: initial;
+}
+
+.nav.navbar-expand-sm a.navbar-brand {
+	min-height: 100px;
+}

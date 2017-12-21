@@ -15,6 +15,10 @@
 	<link href="https://fonts.googleapis.com/css?family=Felipa" rel="stylesheet">
     @yield('styles')
 	
+	@if(substr_count(request()->server('HTTP_USER_AGENT'), 'rv:') > 0)
+		<link href="/css/myIEcss.css" rel="stylesheet">
+	@endif
+	
 	<!-- Scripts -->
 	@yield('scripts')
 </head>
@@ -41,10 +45,16 @@
 				</div>
 			</div>
 			
-			@include('admin.layouts.nav')
 			
-			<div class="adminDiv container" id="" style="margin-left: 25%; margin-right: 0%;">
-				@yield('content')
+			<div class="adminDiv container" id="">
+				<div class="row" style="">
+					<div class="col-3">
+						@include('admin.layouts.nav')
+					</div>
+					<div class="col-9" style="overflow:hidden;">
+						@yield('content')
+					</div>
+				</div>
 			</div>
 		</div>
     </div>

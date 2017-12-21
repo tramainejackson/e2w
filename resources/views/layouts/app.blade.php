@@ -15,6 +15,10 @@
 	<link href="https://fonts.googleapis.com/css?family=Felipa" rel="stylesheet">
     @yield('styles')
 	
+	@if(substr_count(request()->server('HTTP_USER_AGENT'), 'rv:') > 0)
+		<link href="/css/myIEcss.css" rel="stylesheet">
+	@endif
+	
 	<!-- Scripts -->
 	@yield('scripts')
 </head>
