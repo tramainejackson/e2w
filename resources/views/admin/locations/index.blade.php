@@ -14,6 +14,11 @@
 		<div class="newUserHeader">
 			<h1 class="pageTopicHeader">Select A Trip</h1>
 		</div>
+		<div class="row d-xl-none">
+			<div class="col text-center py-4">
+				<a href="/location/create" class="btn btn-success">Create New Trip</a>
+			</div>
+		</div>
 		<div class="">
 			<ul class="list-unstyled">
 				@foreach($getLocations as $showLocations)

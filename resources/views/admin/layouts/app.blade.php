@@ -40,18 +40,21 @@
 			@endif
 			
 			<div class="row">
-				<div class="col px-0">
+				<div class="col px-0 d-none d-xl-block">
 					<h1 id="admin_page_header">Eastcoast to Westcoast Travel</h1>
+				</div>
+				<div class="d-xl-none">
+					@include('layouts.mobile_nav')
 				</div>
 			</div>
 			
 			
 			<div class="adminDiv container" id="">
 				<div class="row" style="">
-					<div class="col-3">
+					<div class="col-3 d-none d-xl-block">
 						@include('admin.layouts.nav')
 					</div>
-					<div class="col-9" style="overflow:hidden;">
+					<div class="col-12 col-xl-9" style="overflow:hidden;">
 						@yield('content')
 					</div>
 				</div>

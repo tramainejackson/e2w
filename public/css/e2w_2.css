@@ -1695,6 +1695,24 @@ div#suggestion_results_div {
 .mobileLocationFlexShow {
 	background: linear-gradient(transparent, whitesmoke, white, whitesmoke, transparent);
 }
+.panel-body {
+    background: rgba(95, 158, 160, 0.25);
+}
+.newUser {
+    padding: 0% 2% 0%;
+}
+.addNewTrip {
+    margin: 6% 2%;
+}
+.custom-file {
+    max-width: 100%;
+}
+.addPictures {
+    margin: 2% 2%;
+}
+.addPictures input[type="submit"] {
+    width: 50%;
+}
 }
 /*Coverage between iPad and Smartphone*/
 @media only screen and (min-width:576) {

@@ -18,17 +18,3 @@
 		<a href="{{ route('login') }}" id="admin_page_btn" class="btn btn-lg actionBtns text-dark py-3">Admin</a>
 	</div>
 </div>
-<div id="mobile_action_btns">
-	<div class="mobileMenuBtn">
-		<a href="#" class="mobileMenuLink">Menu</a>
-		<img src="images/menu.png" class="menuImg" />
-	</div>
-	<div class="mobileBtns">
-		<button id="home_btn_mobile" class="">Home</button>
-		<button id="question_btn_mobile" class="">Ask A Question</button>
-		<button id="suggestion_btn_mobile" class="">Suggestion</button>
-		<button id="contact_us_btn_mobile" class="">Contact Us</button>
-		<button id="about_us_btn_mobile" class="">About Us</button>
-		<button id="photos_btn_mobile" class="">Photos</button>
-	</div>
-</div>
