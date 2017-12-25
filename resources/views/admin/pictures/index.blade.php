@@ -26,10 +26,11 @@
 							<div class="col-12 col-sm-6">
 								<div class="card my-2">
 									<img src="{{ $content1 == true ? asset('storage/' . str_ireplace('public/', '', $location->trip_photo)) : '/images/skyline.jpg' }}" class="card-img-top" />
-									<div class="card-header" role="tab" id="heading{{ $loop->iteration }}">
+									<div class="card-header d-flex justify-content-around align-items-center" role="tab" id="heading{{ $loop->iteration }}">
 										<h5 class="mb-0">
 											<a class="collapsed" data-toggle="collapse" href="#collapse{{ $loop->iteration }}" aria-expanded="false" aria-controls="collapse{{ $loop->iteration }}">{{ $location->trip_location }}</a>
 										</h5>
+										<a href="/pictures/{{$location->id}}/edit" class="btn btn-primary ml-3">Edit</a>
 									</div>
 									<div id="collapse{{ $loop->iteration }}" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
 										<div class="card-body">

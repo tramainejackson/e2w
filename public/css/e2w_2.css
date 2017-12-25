@@ -630,6 +630,10 @@ form.addUser, form.addActivity {
     padding: 1.5% 0%;
     border: solid 1px;
 }
+.editTripInfo .newTripPhoto {
+	height: 300px;
+	width: 41.5%;
+}
 .pageConfirmationTable .tripUsers {
     /* max-width: 60%; */
     /* margin: 2% 20% 4%; */
@@ -1712,6 +1716,21 @@ div#suggestion_results_div {
 }
 .addPictures input[type="submit"] {
     width: 50%;
+}
+.editTripInfo .newTripPhoto {
+	height: 300px;
+	width: 100%;
+	max-width: 100%;
+}
+.trip_location_div input[type="submit"] {
+    position: initial;
+    min-width: 140px;
+    top: 43.5%;
+    right: 5%;
+    z-index: 4;
+}
+.addInput {
+    margin-left: 1%;
 }
 }
 /*Coverage between iPad and Smartphone*/
