@@ -14,6 +14,23 @@
     <!-- Styles -->
 	<link href="https://fonts.googleapis.com/css?family=Felipa" rel="stylesheet">
     @yield('styles')
+	<style>
+		@media only screen and (max-width: 575px) {
+			div#app:after {
+				content: "";
+				position: fixed;
+				background-image: url(/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg);
+				background-size: cover;
+				background-position: center center;
+				background-repeat: no-repeat;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				z-index: -1;
+			}
+		}
+	</style>
 	
 	@if(substr_count(request()->server('HTTP_USER_AGENT'), 'rv:') > 0)
 		<link href="/css/myIEcss.css" rel="stylesheet">

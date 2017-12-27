@@ -2,10 +2,12 @@
 		Eastcoast 2 Westcoast Travel
 ------------------------------------------------
 
-Update Home Page
 If user account is inactive, find a way to allow restore
-Make site https
-Add delete options for all categories
+Fix screens between 992-768
+Done: Change mobile background to fixed on images pages admin
+Done: Update Home Page
+Done: Make site https
+Done: Add delete options for all categories
 Done: Figure out progress bar when uploading files
 Done: Fix suggestions and questions on live server
 Done: Figure out why only one image loading at a time
@@ -28,5 +30,6 @@ Done: Update flyer on form
 Done: Change date format when already displayed
 Done: Create a relationship for trip locations and trip activities
 Done: Create a relationship for trip locations and trip participants
+Bug: Loading image not working on mobile when adding pictures on mobile
 Not Doing: Add link at the top of the magnific popup modal to allow user to send photos
 export HTTP_PROXY="http://155.247.166.25:8080"
