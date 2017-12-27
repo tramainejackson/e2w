@@ -117,6 +117,25 @@ $(document).ready(function() {
 			.find("input").focus();
 	});
 	
+	// Add a blank activity row to the current location edit form (mobile)
+	$("body").on("click", ".newActivityBtnMobile", function() {
+		var newActivityRow = $(".newActivityRowMobile").clone();
+		var newDivider = ('<div class="divider"></div>');
+		$(".blankActivity").remove();
+		$(newActivityRow)
+			.find(".datetimepicker")
+			.datetimepicker({
+				timepicker:false,
+				format:'m/d/Y'
+			});
+		$(newDivider).insertBefore($(".newActivityRowMobile"));
+		$(newActivityRow)
+			.removeClass("newActivityRowMobile")
+			.insertBefore($(".newActivityRowMobile"))
+			.fadeIn()
+			.find("input").focus();
+	});
+	
 	// Add an blank participant row to the current location edit form
 	$("body").on("click", ".newParticipantBtn", function() {
 		var newParticipantRow = $(".newParticipantRow").clone();
@@ -130,6 +149,25 @@ $(document).ready(function() {
 		$(newParticipantRow)
 			.removeClass("newParticipantRow")
 			.appendTo($(".tripUsers table"))
+			.fadeIn()
+			.find("input").focus();
+	});
+	
+	// Add an blank participant row to the current location edit form (mobile)
+	$("body").on("click", ".newParticipantBtnMobile", function() {
+		var newParticipantList = $(".newParticipantRowMobile").clone();
+		var newDivider = ('<div class="divider"></div>');
+		$(".blankParticipant").slideUp();
+		$(newParticipantList)
+			.find(".datetimepicker")
+			.datetimepicker({
+				timepicker:false,
+				format:'m/d/Y'
+			});
+		$(newDivider).insertBefore($(".newParticipantRowMobile"));
+		$(newParticipantList)
+			.removeClass("newParticipantRowMobile")
+			.insertBefore($(".newParticipantRowMobile"))
 			.fadeIn()
 			.find("input").focus();
 	});

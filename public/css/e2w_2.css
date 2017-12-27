@@ -1723,13 +1723,6 @@ div#suggestion_results_div {
 	width: 100%;
 	max-width: 100%;
 }
-.trip_location_div input[type="submit"] {
-    position: initial;
-    min-width: 140px;
-    top: 43.5%;
-    right: 5%;
-    z-index: 4;
-}
 .addInput {
     margin-left: 1%;
 }
@@ -2202,6 +2195,51 @@ h1#admin_page_header {
 	
 	.carouselTripDescription {
 		margin: 20px 100px;
+	}
+	
+	#headingOne {
+		background: cadetblue;
+	}
+	
+	#headingTwo {
+		background: #77c2c5;
+	}
+	
+	#headingThree {
+		background: #336062;
+	}
+	
+	#headingFour{
+		background: #33c1b4f5;
+	}
+	
+	#headingOne a, #headingTwo a, #headingThree a, #headingFour a {
+		color: whitesmoke;
+		font-size: 165%;
+	}
+	
+	.trip_edit_div {
+		margin: 0%;
+		padding: 0%;
+		background-color: white;
+		border-radius: 0px;;
+	}
+	
+	.tripEvents, .tripUsers {
+		margin: 0% 0%;
+		padding: 0% 0%;
+	}
+	
+	.tripEvents ul:nth-of-type(even), .tripUsers ul:nth-of-type(even) {
+		background: #e4d2bb;
+	}
+	
+	.trip_location_div input[type="submit"] {
+		position: initial;
+		min-width: 140px;
+		top: 43.5%;
+		right: 5%;
+		z-index: 4;
 	}
 }
 

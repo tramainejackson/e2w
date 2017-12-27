@@ -3,7 +3,8 @@
 ------------------------------------------------
 
 If user account is inactive, find a way to allow restore
-Fix screens between 1200-768
+Fixed location edit page on mobile/tablet
+Done: Fix screens between 1200-768
 Done: Fix IE issues
 Done: Change mobile background to fixed on images pages admin
 Done: Update Home Page
