@@ -11,10 +11,6 @@
 		@include('modals.questions')
 		@include('modals.suggestions')
 		<div id="main_content" class="container-fluid">
-			@if(session('status'))
-				<h2 class="flashMessage">{{ session('status') }}</h2>
-			@endif
-			
 			<div class="row d-none d-xl-flex align-items-strecth">
 				<div id="header" class="col-12 col-sm-12 main_content_class">
 					<p>East Coast West Coast Travel</p>
@@ -28,7 +24,7 @@
 				<div id="" class="col-2 col-sm-2" style="">
 					<div class="actionBtnDiv d-flex flex-column justify-content-center">
 						<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
-							<a href="{{ route('welcome') }}" id="home_btn" class="btn btn-lg actionBtns py-3 text-dark" disabled>Home</a>
+							<a href="{{ route('welcome') }}" id="home_btn" class="btn btn-lg actionBtns py-3 text-dark">Home</a>
 						</div>
 						<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
 							<button id="question_btn" class="btn btn-lg actionBtns py-3" data-toggle="modal" data-target=".questionModal">Ask A Question</button>

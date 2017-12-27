@@ -30,7 +30,7 @@
 
 	@section('content')
 		<div class="d-none d-xl-flex">
-			<div class="showTrip" style="background-image:url({{ $tripLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $tripLocation->trip_photo)) : '/images/skyline.jpg' }})">
+			<div class="showTrip col" style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url({{ $tripLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $tripLocation->trip_photo)) : '/images/skyline.jpg' }})">
 				<div class="container-fluid text-light position-relative" style="z-index:1;">
 					<div class="row">
 						<div class="col">

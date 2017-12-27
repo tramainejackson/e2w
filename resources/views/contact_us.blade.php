@@ -10,11 +10,7 @@
 	@section('content')
 		@include('modals.questions')
 		@include('modals.suggestions')
-		<div id="main_content" class="container-fluid">	
-			@if(session('status'))
-				<h2 class="flashMessage">{{ session('status') }}</h2>
-			@endif
-
+		<div id="main_content" class="container-fluid">
 			<div class="row d-none d-xl-flex">
 				<div id="header" class="col-12 col-sm-12 main_content_class">
 					<p>East Coast West Coast Travel</p>
@@ -25,7 +21,7 @@
 							<h2 class="underline text-white">Contact Us</h2>
 						</div>
 					</div>
-					<div class="row d-flex align-items-stretch">
+					<div class="row align-items-stretch">
 						<div class="col-5 col-sm-5">
 							<div class="card h-100" id="">
 								<img class="card-img-top" src="/images/holly13.jpg" />
@@ -53,7 +49,7 @@
 				<div id="" class="col-2 col-sm-2" style="">
 					<div class="actionBtnDiv d-flex flex-column justify-content-center">
 						<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
-							<a href="{{ route('welcome') }}" id="home_btn" class="btn btn-lg actionBtns py-3" disabled>Home</a>
+							<a href="{{ route('welcome') }}" id="home_btn" class="btn btn-lg actionBtns py-3">Home</a>
 						</div>
 						<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
 							<button id="question_btn" class="btn btn-lg actionBtns py-3" data-toggle="modal" data-target=".questionModal">Ask A Question</button>

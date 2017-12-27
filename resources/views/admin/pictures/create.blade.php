@@ -36,7 +36,7 @@
 				</label>
 				<span class="text-danger text-center d-block"> (Add up to 10 photos at a time)</span>
 				<div class="d-block">
-					<input type="submit" name="submit" name="add_pictures" class="btn btn-lg" />
+					<input type="submit" value="Add Photos" name="add_pictures" value="" class="btn btn-lg" />
 				</div>
 			</div>
 			<div class="uploadsView">

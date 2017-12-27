@@ -60,7 +60,7 @@
 				<div class="col px-0 d-none d-xl-block">
 					<h1 id="admin_page_header">Eastcoast to Westcoast Travel</h1>
 				</div>
-				<div class="d-xl-none">
+				<div class="d-xl-none w-100">
 					@include('layouts.mobile_nav')
 				</div>
 			</div>

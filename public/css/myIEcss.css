@@ -1,7 +1,14 @@
 .d-flex {
-	display: initial;
+	display: block !important;
 }
 
+.card {
+	display: block;
+}
+
+.oi {
+	width: auto !important;
+}
 .nav.navbar-expand-sm a.navbar-brand {
 	min-height: 100px;
 }

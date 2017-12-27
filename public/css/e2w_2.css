@@ -180,7 +180,7 @@ h1.pageTopicHeader {
     border: inset 2px;
 }
 .custom-file {
-    max-width: 50%;
+    max-width: 100%;
 }
 #location_page_header h1 {
     margin: 2% 1%;
@@ -505,7 +505,8 @@ input#other_location2 {
     margin: 2% 28%;
 }
 .addPictures input[type="submit"] {
-    width: 25%;
+    max-width: 50%;
+	margin: 5px 0px;
 }
 .newActivities {
 	padding: 0% 10% 0%;
@@ -2198,6 +2199,10 @@ h1#admin_page_header {
 	.carousel-caption {
 		z-index: 1;
 	}
+	
+	.carouselTripDescription {
+		margin: 20px 100px;
+	}
 }
 
 /*Larger screens*/
@@ -2338,9 +2343,6 @@ form.addUser input[type="submit"], form.addActivity input[type="submit"] {
 }
 .addPictures {
     margin: 1% 25%;
-}
-.addPictures input[type="submit"] {
-    width: 25%;
 }
 .newActivities {
 	padding: 0% 10% 0%;

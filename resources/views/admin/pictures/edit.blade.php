@@ -29,7 +29,7 @@
 				<div class="row">
 					@foreach($getPictures as $picture)
 						@php $content = Storage::disk('local')->has($picture->picture_name); @endphp
-						<div class="col-12 col-md-6 col-xl-4">
+						<div class="col-12 col-md-4">
 							<div class="card my-2">
 								<img src="{{ $content == true ? asset('storage/' . str_ireplace('public/', '', $picture->picture_name)) : '/images/skyline.jpg' }}" class="card-img-top" alt="{{ $picture->picture_caption }}" style="" />
 								<div class="card-body">
