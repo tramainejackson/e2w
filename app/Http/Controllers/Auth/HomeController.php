@@ -33,6 +33,7 @@ class HomeController extends Controller
 			['show_trip', 'Y'],
 			['trip_complete', 'N'],
 		])
+		->orderBy('id', 'desc')
 		->get();
 		$inactiveTrips = TripLocations::where([
 			['show_trip', 'Y'],
