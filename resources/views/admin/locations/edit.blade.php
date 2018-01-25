@@ -42,7 +42,7 @@
 							<span>Trip Month</span>
 							<select name="trip_month">
 								@foreach($getMonth as $showMonth)
-									<option class="" value="{{ $showMonth->month_name }}" {{ $showMonth->month_name == $showLocation->trip_month ? 'selected' : ''}}>{{ $showMonth->month_name }}</option>
+									<option class="" value="{{ $showMonth->month_id }}" {{ $showMonth->month_id == $showLocation->trip_month ? 'selected' : ''}}>{{ $showMonth->month_name }}</option>
 								@endforeach
 							</select>
 						</div>
