@@ -39,11 +39,12 @@
 							@foreach($activeTrips as $trip)
 								@php $content = Storage::disk('local')->has($trip->trip_photo); @endphp
 								@php $tripsActivities = $trip->activities; @endphp
+								@php $tripMonth = DB::table('vacation_month')->select('month_name')->where('month_id', $trip->trip_month)->first(); @endphp
 								<div id="{{ str_ireplace(' ', '_', strtolower($trip->trip_location)) . '_link' }}" class="whats_next_w upcomingTrip">	
 									<div class="individualEvent eventDiv" id="{{ str_ireplace(' ', '_', strtolower($trip->trip_location)) . '_event' }}" style="background:url({{ $content == true ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }})">
 										<a href="/location/{{ $trip->id }}" class="w-100">
 											<p class="event_header">{{ ucwords($trip->trip_location) }}</p>
-											<p class="event_date">{{ $trip->trip_month . " ". $trip->trip_year }}</p>
+											<p class="event_date">{{ $tripMonth->month_name . " ". $trip->trip_year }}</p>
 											<p class="more_info">Click for more information</p>
 
 											@if($tripsActivities->count() > 0)
@@ -82,8 +83,10 @@
 								<div id="<?php echo str_ireplace(" ", "_", strtolower($trip->trip_location)) . "_link"; ?>" class="whats_next_w">
 									<div class="individualEvent eventDiv" id="{{ str_ireplace(' ', '_', strtolower($trip->trip_location)) . '_event' }}" style="background-image:url({{ $content == true ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }})">
 										<a href="#" class="w-100"  onclick="getPictures({{ $trip->id }})">
+											@php $tripMonth = DB::table('vacation_month')->select('month_name')->where('month_id', $trip->trip_month)->first(); @endphp
+
 											<p class="event_header">{{ ucwords($trip->trip_location) }}</p>
-											<p class="event_date">{{ $trip->trip_month . " ". $trip->trip_year }}</p>
+											<p class="event_date">{{ $tripMonth->month_name . " ". $trip->trip_year }}</p>
 											<p class="more_info">Click to view photos</p>
 
 											@if($tripsActivities->count() > 0)

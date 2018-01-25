@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\TripLocations;
 use App\TripPictures;
 use App\TripActivities;
+use Illuminate\Support\Facades\DB;
 use Jenssegers\Agent\Agent;
 
 class HomeController extends Controller
@@ -38,7 +39,8 @@ class HomeController extends Controller
 			['show_trip', 'Y'],
 			['trip_complete', 'Y'],
 		])
-		->orderBy('id', 'desc')
+		->orderBy('trip_year', 'desc')
+		->orderBy('trip_month', 'desc')
 		->get();
 		$tripsPics = TripPictures::all();
 		
