@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\DistributionList;
+use App\Mail\Confirmation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class DistributionListController extends Controller
 {
@@ -53,13 +58,15 @@ class DistributionListController extends Controller
 			'email' => 'required|max:100'
 		]);
 		
-		$tripLocation->participants()->create([
+		if($tripLocation->participants()->create([
 			'first_name' => $request->first_name,
 			'last_name' => $request->last_name,
 			'email_address' => $request->email
-		]);
-		
-		return redirect()->action('TripLocationsController@show', $tripLocation)->with('status', 'Thanks for signing up for the trip to' . $tripLocation->trip_location);
+		])) {
+			\Mail::to($request->email)->send(new Confirmation($tripLocation, $request->first_name, $request->last_name, $request->email));
+			
+			return redirect()->action('TripLocationsController@show', $tripLocation)->with('status', 'Thanks for signing up for the trip to' . $tripLocation->trip_location);
+		}
     }
 
     /**

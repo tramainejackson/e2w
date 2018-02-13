@@ -2,8 +2,9 @@
 		Eastcoast 2 Westcoast Travel
 ------------------------------------------------
 
+Email: jackson521961@gmail.com Pwd: Ihpws#1030
 If user account is inactive, find a way to allow restore
-Get mail fixed
+Done: Get mail fixed
 Done: Fixed location edit page on mobile/tablet
 Done: Fix screens between 1200-768
 Done: Fix IE issues
