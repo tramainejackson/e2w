@@ -3,7 +3,7 @@
 		@include('function.bootstrap_css')
 		<style>
 			/*Smartphones portrait*/
-			@media only screen and (max-width:575px) {
+			@media only screen and (max-width:1024px) {
 				div#app {
 					background: initial;
 				}
@@ -244,17 +244,16 @@
 			
 			@include('layouts.mobile_nav')
 				
-				<div class="container-fluid">
+				<div class="container-fluid" style="font-size:150%;">
 					<div class="row">
 						<div class="col-12 pt-2 pb-4" style="background: linear-gradient(rgb(242, 242, 242), rgb(242, 242, 242), rgb(242, 242, 242), rgba(0, 0, 0, 0))">
 							<h2 class="tripDescription text-center">{{ $tripLocation->trip_location }}</h2>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col">
-							<div class="vacationDescription mt-5">
-								<h2 class="tripDescription pt-3">{{ $tripLocation->description != null ? $tripLocation->description : 'No description for the trip has been added yet.' }}</h2>
-							</div>
+						<div class="col d-flex full-height align-items-center justify-content-center flex-column mobileLocationFlexShow">
+							<h2 class="paymentHeaders text-left align-self-start">Description</h2>
+							<p class="text-center">{{ $tripLocation->description != null ? $tripLocation->description : 'No description for the trip has been added yet.' }}</p>
 						</div>
 					</div>
 					<div class="row">
@@ -312,7 +311,7 @@
 					<div class="row full-height align-items-center justify-content-center">
 						<div class="col d-flex full-height align-items-center justify-content-center flex-column">
 							<h3 class="text-center text-light">Sign Me Up</h3>
-							<form class="signupForm" id="" action="/participants" method="POST" enctype="multipart/form-data">
+							<form class="signupForm w-100" id="" action="/participants" method="POST" enctype="multipart/form-data">
 							
 								{{ method_field('POST') }}
 								{{ csrf_field() }}
@@ -359,15 +358,15 @@
 									</tr>
 								</table>
 								<input type="text" name="trip_id" class="" value="{{ $tripLocation->id }}" hidden />
-								<div class="paymentInstructions text-light">
-									<p class="m-0 py-3">For everyone who has a PayPal account and would like to pay electronically, please send all payments to jacksond1961@yahoo.com by selecting the option to send money to friends and family. <a href="http://www.paypal.com" target="_blank">Click here</a> to go to the PayPal website.</p>
-								</div>
 							</form>	
+							<div class="paymentInstructions text-light">
+								<p class="m-0 py-3">For everyone who has a PayPal account and would like to pay electronically, please send all payments to jacksond1961@yahoo.com by selecting the option to send money to friends and family. <a href="http://www.paypal.com" target="_blank">Click here</a> to go to the PayPal website.</p>
+							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col">
-							<button class="btn btn-info round mb-3 mx-auto d-block" type="button" data-toggle="collapse" data-target="#signed_up" aria-expanded="false" aria-controls="signed_up">See Who's Already Going</button>
+							<button class="btn btn-info btn-lg round mb-3 mx-auto d-block" type="button" data-toggle="collapse" data-target="#signed_up" aria-expanded="false" aria-controls="signed_up">See Who's Already Going</button>
 							
 							<div class="collapse" id="signed_up">
 								<table class="table table-striped table-dark table-hover text-center">

@@ -5,7 +5,7 @@ body {
 }
 
 .full-height {
-	height: 100vh;
+	min-height: 100vh;
 }
 
 div#app::after {
@@ -2169,6 +2169,10 @@ h1#admin_page_header {
 		right: 0;
 		z-index: -1;
 	}
+	
+	.mobileLocationFlexShow {
+		background: linear-gradient(transparent, whitesmoke, white, whitesmoke, transparent);
+	}
 
 	div#app {
 		background-attachment: fixed;
@@ -2194,7 +2198,7 @@ h1#admin_page_header {
 	}
 	
 	.carouselTripDescription {
-		margin: 20px 100px;
+		margin: 20px 15%;
 	}
 	
 	#headingOne {
