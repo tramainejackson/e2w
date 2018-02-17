@@ -15,12 +15,12 @@ class CreateTripActivitiesTable extends Migration
     {
         Schema::create('trip__activities', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('trip_id');
-            $table->string('trip_event', 255);
-            $table->string('activity_location', 50);
-            $table->date('activity_date');
-			$table->char('show_activity', 1);
-            $table->string('user_updated', 50);
+            $table->integer('trip_id')->nullable();
+            $table->string('trip_event', 255)->nullable();
+            $table->string('activity_location', 50)->nullable();
+            $table->date('activity_date')->nullable();
+			$table->char('show_activity', 1)->nullable();
+            $table->string('user_updated', 50)->nullable();
             $table->timestamps();
         });
     }

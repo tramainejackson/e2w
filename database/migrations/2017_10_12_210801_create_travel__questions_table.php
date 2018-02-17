@@ -13,12 +13,12 @@ class CreateTravelQuestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('travel__questions', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('first_name', 50);
-            $table->string('last_name', 50);
-            $table->string('user_email', 50);
-            $table->text('user_question');
+        Schema::create('travel_questions', function (Blueprint $table) {
+            $table->increments('id_question');
+            $table->string('first_name', 50)->nullable();
+            $table->string('last_name', 50)->nullable();
+            $table->string('user_email', 50)->nullable();
+            $table->text('user_question')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateTravelQuestionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('travel__questions');
+        Schema::dropIfExists('travel_questions');
     }
 }

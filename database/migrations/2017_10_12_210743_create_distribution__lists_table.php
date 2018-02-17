@@ -13,17 +13,18 @@ class CreateDistributionListsTable extends Migration
      */
     public function up()
     {
-        Schema::create('distribution__lists', function (Blueprint $table) {
+        Schema::create('distribution_lists', function (Blueprint $table) {
             $table->increments('id');
-			$table->string('first_name', 50);
-            $table->string('last_name', 50);
-            $table->string('email', 100);
-            $table->string('package', 150);
-            $table->char('reocuring_payments', 1);
-            $table->char('paid_in_full', 1);
-            $table->string('phone', 15);
-            $table->string('notes', 255);
-            $table->string('user_updated', 50);
+			$table->integer('trip_id')->nullable();
+			$table->string('first_name', 50)->nullable();
+            $table->string('last_name', 50)->nullable();
+            $table->string('email', 100)->nullable();
+            $table->string('package', 150)->nullable();
+            $table->char('reocuring_payments', 1)->nullable();
+            $table->char('paid_in_full', 1)->nullable();
+            $table->string('phone', 15)->nullable();
+            $table->text('notes')->nullable();
+            $table->string('user_updated', 50)->nullable();
             $table->timestamp('signup_date');
             $table->timestamps();
         });
