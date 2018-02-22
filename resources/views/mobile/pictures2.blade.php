@@ -1,10 +1,10 @@
-@extends('mobile.layouts.app')
+@extends('layouts.app')
 	@section('styles')
-		@include('function.materialize_css')
+		@include('function.bootstrap_css')
 	@endsection
 	
 	@section('scripts')
-		@include('function.materialize_js')
+		@include('function.bootstrap_js')
 	@endsection
 
 	@section('content')

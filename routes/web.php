@@ -40,12 +40,3 @@ Route::get('/about_us', function() {
 Route::get('/contact_us', function() {
 	return view('contact_us');
 })->name('contact_us');
-
-// Route::get('/test', function() {
-	// $trip = \App\TripLocations::find(1);
-	// $firstname = 'My Name Is';
-	// $lastname = 'What';
-	// $email = 'what@gmail.com';
-	
-	// return view('emails.confirmation', compact('trip', 'firstname', 'lastname', 'email'));
-// })->name('test');
