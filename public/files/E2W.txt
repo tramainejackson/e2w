@@ -4,6 +4,7 @@
 
 Allow admin to remove users who have signed up
 If user account is inactive, find a way to allow restore
+Done: Fix radio buttons for suggestion form
 Done: Add spinning modal for when someone adds themselves to a trip
 Done: Get mail fixed
 Done: Fixed location edit page on mobile/tablet

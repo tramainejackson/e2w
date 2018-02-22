@@ -19,6 +19,12 @@ $(document).ready(function() {
 	// Make carousel items a minimum height of the document window
 	$('.carousel-item > div').css({'minHeight': (documentHeight - mobileNavHeight)});
 
+	// Add loading modal when user signing up for trip
+	$('.signupForm').on('submit', function() {
+		$('.loadingSpinner p').text('Sending Information');
+		$('.loadingSpinner').modal('show');
+	});
+	
 	// Magnific popup api for mobile screens
 	$('.location_photos').each(function() {
 		$(this).magnificPopup({

@@ -63,7 +63,7 @@ class DistributionListController extends Controller
 			'last_name' => $request->last_name,
 			'email_address' => $request->email
 		])) {
-			\Mail::to($request->email)->cc(['jacksond1961@yahoo.com', 'rhonda.lambert@sbcglobal.com'])->send(new Confirmation($tripLocation, $request->first_name, $request->last_name, $request->email));
+			// \Mail::to($request->email)->cc(['jacksond1961@yahoo.com', 'rhonda.lambert@sbcglobal.com'])->send(new Confirmation($tripLocation, $request->first_name, $request->last_name, $request->email));
 			
 			return redirect()->action('TripLocationsController@show', $tripLocation)->with('status', 'Thanks for signing up for the trip to' . $tripLocation->trip_location);
 		}

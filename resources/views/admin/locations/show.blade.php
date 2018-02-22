@@ -140,7 +140,7 @@
 							<div class="col-12">
 								<h2 class="text-center">Terms and Conditions</h2>
 							</div>
-							<div class="col">
+							<div class="col-12">
 								@for($i=0; $i < count($conditionOption); $i++)
 									@if($conditionOption[$i] != null)
 										<p class="terms">{{ trim($conditionOption[$i]) }}</p>
