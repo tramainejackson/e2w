@@ -36,6 +36,6 @@ class Confirmation extends Mailable
      */
     public function build()
     {
-        return $this->subject('E2W ' . $this->trip->trip_location . ' SignUp')->view('emails.confirmation', compact('trip', 'firstname', 'lastname', 'email'));
+        return $this->subject('E2W ' . $this->trip->trip_location . ' Sign Up')->view('emails.confirmation', compact('trip', 'firstname', 'lastname', 'email'));
     }
 }
