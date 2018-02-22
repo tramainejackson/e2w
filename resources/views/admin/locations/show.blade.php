@@ -29,6 +29,7 @@
 	@endsection
 
 	@section('content')
+		@php $confirmedUsers = false; @endphp
 		<div class="d-none d-xl-flex">
 			<div class="showTrip col" style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url({{ $tripLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $tripLocation->trip_photo)) : '/images/skyline.jpg' }})">
 				<div class="container-fluid text-light position-relative" style="z-index:1;">
@@ -149,10 +150,14 @@
 						</div>
 					@endif
 				</div>
+				
+				<!-- Add a divider/spacer -->
 				<div class="divider"></div>
+				
+				<!-- Sign up for this trip form -->
 				<div class="container-fluid position-relative pt-2 pb-4 mt-5" style="z-index:1;">
 					<div class="row">
-						<div class="page_signup_form col-3 py-1">
+						<div class="page_signup_form col-4 py-1 mx-auto">
 							<h3 class="text-center text-light">Sign Me Up</h3>
 							<form class="signupForm" id="" action="/participants" method="POST" enctype="multipart/form-data">
 							
@@ -206,30 +211,34 @@
 								</div>
 							</form>	
 						</div>
-						<div class="pageConfirmationTable col-6 py-1">
-							@php $getEventUsers = $tripLocation->participants; @endphp
-							<div class="">
-								<h3 class="text-center text-light">See Who's Already Going</h3>
-								<table class="table table-striped table-dark table-hover text-center">
-									@if($getEventUsers->count() >= 1)
-										<tr>
-											<th>First</th>
-											<th>Last</th>
-										</tr>
-										@foreach($getEventUsers as $user)
+						
+						@if($confirmedUsers)
+							<!-- Removed listing of users because Rhonda thinks its a bad idea -->
+							<div class="pageConfirmationTable col-6 py-1">
+								@php $getEventUsers = $tripLocation->participants; @endphp
+								<div class="">
+									<h3 class="text-center text-light">See Who's Already Going</h3>
+									<table class="table table-striped table-dark table-hover text-center">
+										@if($getEventUsers->count() >= 1)
 											<tr>
-												<td>{{ $user->first_name }}</td>
-												<td>{{ $user->last_name }}</td>
+												<th>First</th>
+												<th>Last</th>
 											</tr>
-										@endforeach
-									@else
-										<tr>
-											<td colspan="2" class="text-light">No users have signed up for the trip yet</td>
-										</tr>
-									@endif
-								</table>
+											@foreach($getEventUsers as $user)
+												<tr>
+													<td>{{ $user->first_name }}</td>
+													<td>{{ $user->last_name }}</td>
+												</tr>
+											@endforeach
+										@else
+											<tr>
+												<td colspan="2" class="text-light">No users have signed up for the trip yet</td>
+											</tr>
+										@endif
+									</table>
+								</div>
 							</div>
-						</div>
+						@endif
 					</div>
 					<div id="loading_image">
 						<img src="/images/ajax-loader (1).gif">
@@ -364,32 +373,35 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col">
-							<button class="btn btn-info btn-lg round mb-3 mx-auto d-block" type="button" data-toggle="collapse" data-target="#signed_up" aria-expanded="false" aria-controls="signed_up">See Who's Already Going</button>
-							
-							<div class="collapse" id="signed_up">
-								<table class="table table-striped table-dark table-hover text-center">
-									@if($getEventUsers->count() >= 1)
-										<tr>
-											<th>First</th>
-											<th>Last</th>
-										</tr>
-										@foreach($getEventUsers as $user)
+					
+					@if($confirmedUsers)
+						<div class="row">
+							<div class="col">
+								<button class="btn btn-info btn-lg round mb-3 mx-auto d-block" type="button" data-toggle="collapse" data-target="#signed_up" aria-expanded="false" aria-controls="signed_up">See Who's Already Going</button>
+								
+								<div class="collapse" id="signed_up">
+									<table class="table table-striped table-dark table-hover text-center">
+										@if($getEventUsers->count() >= 1)
 											<tr>
-												<td>{{ $user->first_name }}</td>
-												<td>{{ $user->last_name }}</td>
+												<th>First</th>
+												<th>Last</th>
 											</tr>
-										@endforeach
-									@else
-										<tr>
-											<td colspan="2" class="text-light">No users have signed up for the trip yet</td>
-										</tr>
-									@endif
-								</table>
+											@foreach($getEventUsers as $user)
+												<tr>
+													<td>{{ $user->first_name }}</td>
+													<td>{{ $user->last_name }}</td>
+												</tr>
+											@endforeach
+										@else
+											<tr>
+												<td colspan="2" class="text-light">No users have signed up for the trip yet</td>
+											</tr>
+										@endif
+									</table>
+								</div>
 							</div>
 						</div>
-					</div>
+					@endif
 				</div>
 			</div>
 		</div>
