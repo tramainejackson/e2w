@@ -127,12 +127,15 @@
 						@foreach($activeTrips as $trip)
 							@php $content = Storage::disk('local')->has($trip->trip_photo); @endphp
 							@php $tripsActivities = $trip->activities; @endphp
+							@php 
+								$tripMonth = DB::table('vacation_month')->select('month_name')->where('month_id', $trip->trip_month)->first(); 
+							@endphp
 							
 							<div id="" class="carousel-item{{ $loop->first ? ' active' : ''}}">	
 								<div class="carouselImage" id="{{ str_ireplace(' ', '_', strtolower($trip->trip_location)) . '_event' }}" style="background:linear-gradient(#f2f2f2, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url({{ $content == true ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }});">
 									<div class="d-flex align-items-center justify-content-center flex-column">
 										<h1 class="text-center" style="margin-top: 0; padding-top: 50px;">{{ ucwords($trip->trip_location) }}</h1>
-										<h3 class="text-center">{{ $trip->trip_month . " ". $trip->trip_year }}</h3>
+										<h3 class="text-center">{{ $tripMonth->month_name . " ". $trip->trip_year }}</h3>
 
 										<p class="text-justify carouselTripDescription">{{ $trip->description }}</p>
 										
