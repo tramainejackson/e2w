@@ -20,6 +20,6 @@ mix.js([
 		'node_modules/bootstrap/dist/js/bootstrap.js',
 	   ], 'public/js')
 	.js('node_modules/jquery/dist/jquery.min.js', 'public/js')
-	// .js('node_modules/materialize-css/dist/js/materialize.js', 'public/js')
+	.js('node_modules/materialize-css/dist/js/materialize.js', 'public/js')
 	.sass('resources/assets/sass/app.scss', 'public/css')
-	// .sass('node_modules/materialize-css/sass/materialize.scss', 'public/css');
+	.sass('node_modules/materialize-css/sass/materialize.scss', 'public/css');

@@ -31,7 +31,7 @@
 					@endforeach
 				</select>
 				<label class="custom-file d-block">
-					<span class="custom-file-label" style=""></span>
+					<span class="custom-file-control" style=""></span>
 					<input type="file" name="upload_photo[]" id="upload_photo_input" class="custom-file-input mx-auto" multiple />
 				</label>
 				<span class="text-danger text-center d-block"> (Add up to 10 photos at a time)</span>
