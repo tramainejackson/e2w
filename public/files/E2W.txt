@@ -3,8 +3,8 @@
 ------------------------------------------------
 
 Allow admin to remove users who have signed up
-Add spinning modal for when someone adds themselves to a trip
 If user account is inactive, find a way to allow restore
+Done: Add spinning modal for when someone adds themselves to a trip
 Done: Get mail fixed
 Done: Fixed location edit page on mobile/tablet
 Done: Fix screens between 1200-768
