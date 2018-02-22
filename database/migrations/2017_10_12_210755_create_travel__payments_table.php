@@ -13,8 +13,13 @@ class CreateTravelPaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('travel__payments', function (Blueprint $table) {
+        Schema::create('travel_payments', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('payment_token', 100)->nullable();
+            $table->string('name', 100)->nullable();
+            $table->string('email', 100)->nullable();
+            $table->char('reoccuring', 1)->nullable();
+            $table->char('one_time', 1)->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ class CreateTravelPaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('travel__payments');
+        Schema::dropIfExists('travel_payments');
     }
 }
