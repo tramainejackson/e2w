@@ -1,11 +1,4 @@
 @extends('admin.layouts.app')
-	@section('styles')
-		@include('function.bootstrap_css')
-	@endsection
-	
-	@section('scripts')
-		@include('function.bootstrap_js')
-	@endsection
 
 	@section('content')
 		<div id="location_page_header" class="">

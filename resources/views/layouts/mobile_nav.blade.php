@@ -1,16 +1,26 @@
-<nav class="navbar navbar-expand-xl w-100 mobileNavBar d-xl-block d-flex">
-	<a class="navbar-brand w-100" href="/"><img src="/images/E2W_Header.png" class="img-fluid mx-auto d-inline-block d-md-block" /></a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-	<span class="oi oi-menu"></span>
-	</button>
+<nav class="navbar navbar-expand-xl navbar-dark primary-color mobileNavBar">
 
-	<div class="collapse navbar-collapse" id="navbarToggler">
+	<div class="d-flex flex-fill" id="">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+			<i class="fa fa-bars" aria-hidden="true"></i>
+		</button>
+
+		<a class="navbar-brand d-none d-xl-block" href="/"><img src="/images/EW-Logo-White.png" class="img-fluid mx-auto" width="50px" /></a>
+		<a class="navbar-brand d-xl-none" href="/"><img src="/images/E2W_Header.png" class="img-fluid mx-auto" /></a>
+	</div>
+
+	<div class="collapse multi-collapse navbar-collapse" id="navbarToggler">
+
 		@if(!Auth::check())
+
 			<ul class="navbar-nav w-100 mt-2 mt-xl-0 text-center align-items-center justify-content-around">
 				<li class="nav-item active">
+					<a class="nav-link" href="/">Home</a>
+				</li>
+				<li class="nav-item active d-xl-none">
 					<a class="nav-link" href="/">Upcoming Trips <span class="sr-only">(current)</span></a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item d-xl-none">
 					<a class="nav-link" href="/past">Past Trips</a>
 				</li>
 				<li class="nav-item">
@@ -29,7 +39,9 @@
 					<a class="nav-link" href="/login">Login</a>
 				</li>
 			</ul>
+
 		@else
+
 			<ul class="navbar-nav w-100 mt-2 mt-xl-0 text-center align-items-center justify-content-around">
 				<li class="nav-item">
 					<a href="{{ route('location.index') }}" id="" class="nav-link">Trip Locations</a>
@@ -52,8 +64,11 @@
 					<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 						{{ csrf_field() }}
 					</form>
+
 				</li>
 			</ul>
+
 		@endif
+
 	</div>
 </nav>

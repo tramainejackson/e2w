@@ -23,27 +23,29 @@
 			}
 		</style>
 	@endsection
-	
-	@section('scripts')
-		@include('function.bootstrap_js')
-	@endsection
 
 	@section('content')
+
 		@php $confirmedUsers = false; @endphp
+
 		<div class="d-none d-xl-flex">
+
 			<div class="showTrip col" style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url({{ $tripLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $tripLocation->trip_photo)) : '/images/skyline.jpg' }})">
+
 				<div class="container-fluid text-light position-relative" style="z-index:1;">
+
 					<div class="row">
+
 						<div class="col">
-							<h1 class="vacation_header display-2">
-								{{ $tripLocation->trip_location }}
-								<a href="/" class="float-right btn btn-lg btn-secondary mt-4 mr-3">Home Page</a>
-							</h1>
+
 							@if($tripLocation->flyer_name != "")
 								<a href="{{ asset('storage/' . str_ireplace('public/', '', $tripLocation->flyer_name)) }}" class="btn btn-primary" download="{{ str_ireplace(' ', '_', ucwords($tripLocation->trip_location)) . '_Flyer' }}">Download Flyer</a>
 							@endif
+
 						</div>
+
 					</div>
+
 					<div class="row">
 						<div class="col">
 							<div class="vacationDescription my-4">
@@ -51,6 +53,7 @@
 							</div>
 						</div>
 					</div>
+
 					<div class="row my-5">
 						<div class="col">
 							<div class="container">
@@ -110,6 +113,7 @@
 							</div>
 						</div>
 					</div>
+
 					<div class="row">
 						<div class="col">
 							<div class="container">
@@ -134,6 +138,7 @@
 							</div>
 						</div>
 					</div>
+
 					@if($tripLocation->conditions != null)
 						@php $conditionOption = explode("; ", $tripLocation->conditions); @endphp
 						<div class="row w-75 mx-auto progress-bar progress-bar-striped bg-warning py-5 rounded">
@@ -149,6 +154,7 @@
 							</div>
 						</div>
 					@endif
+
 				</div>
 				
 				<!-- Add a divider/spacer -->

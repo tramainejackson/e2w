@@ -17,31 +17,17 @@ $(document).ready(function() {
 	var screenWidth = screen.availWidth;
 	
 	// Make carousel items a minimum height of the document window
-	$('.carousel-item > div').css({'minHeight': (documentHeight - mobileNavHeight)});
+	$('.mobileCarousel .carousel-item > div').css({'minHeight': (documentHeight - mobileNavHeight)});
+
+	// Make carousel items a minimum height of the document window
+	$('.carousel').css({'maxHeight': (winHeight)});
 
 	// Add loading modal when user signing up for trip
 	$('.signupForm').on('submit', function() {
 		$('.loadingSpinner p').text('Sending Information');
 		$('.loadingSpinner').modal('show');
 	});
-	
-	// Magnific popup api for mobile screens
-	$('.location_photos').each(function() {
-		$(this).magnificPopup({
-			gallery: {
-			  enabled: true
-			},
-			image: {
-				tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
-				titleSrc: function(item) {
-					return item.el.attr('title');
-				}
-			},
-			type: 'image',
-			delegate: 'a'
-		});
-	});
-	
+
 	// Show flash message when one is available
 	var errorHeight = $('.errorMessage').outerHeight() + 20;
 	var messageHeight = $('.flashMessage').outerHeight() + 20;
@@ -79,10 +65,10 @@ $(document).ready(function() {
 	});
 	
 	// Initialize the datetimepicker
-	$('.datetimepicker').datetimepicker({
-		timepicker:false,
-		format:'m/d/Y'
-	});
+	// $('.datetimepicker').datetimepicker({
+	// 	timepicker:false,
+	// 	format:'m/d/Y'
+	// });
 	
 	// Add an additional input row when plus sign selected
 	$("body").on("click", ".oi-plus", function() {
@@ -110,12 +96,12 @@ $(document).ready(function() {
 	$("body").on("click", ".newActivityBtn", function() {
 		var newActivityRow = $(".newActivityRow").clone();
 		$(".blankActivity").remove();
-		$(newActivityRow)
-			.find(".datetimepicker")
-			.datetimepicker({
-				timepicker:false,
-				format:'m/d/Y'
-			});
+		// $(newActivityRow)
+		// 	.find(".datetimepicker")
+		// 	.datetimepicker({
+		// 		timepicker:false,
+		// 		format:'m/d/Y'
+		// 	});
 		$(newActivityRow)
 			.removeClass("newActivityRow")
 			.appendTo($(".tripEvents table"))
@@ -128,12 +114,12 @@ $(document).ready(function() {
 		var newActivityRow = $(".newActivityRowMobile").clone();
 		var newDivider = ('<div class="divider"></div>');
 		$(".blankActivity").remove();
-		$(newActivityRow)
-			.find(".datetimepicker")
-			.datetimepicker({
-				timepicker:false,
-				format:'m/d/Y'
-			});
+		// $(newActivityRow)
+		// 	.find(".datetimepicker")
+		// 	.datetimepicker({
+		// 		timepicker:false,
+		// 		format:'m/d/Y'
+		// 	});
 		$(newDivider).insertBefore($(".newActivityRowMobile"));
 		$(newActivityRow)
 			.removeClass("newActivityRowMobile")
@@ -146,12 +132,12 @@ $(document).ready(function() {
 	$("body").on("click", ".newParticipantBtn", function() {
 		var newParticipantRow = $(".newParticipantRow").clone();
 		$(".blankParticipant").remove();
-		$(newParticipantRow)
-			.find(".datetimepicker")
-			.datetimepicker({
-				timepicker:false,
-				format:'m/d/Y'
-			});
+		// $(newParticipantRow)
+		// 	.find(".datetimepicker")
+		// 	.datetimepicker({
+		// 		timepicker:false,
+		// 		format:'m/d/Y'
+		// 	});
 		$(newParticipantRow)
 			.removeClass("newParticipantRow")
 			.appendTo($(".tripUsers table"))
@@ -164,12 +150,12 @@ $(document).ready(function() {
 		var newParticipantList = $(".newParticipantRowMobile").clone();
 		var newDivider = ('<div class="divider"></div>');
 		$(".blankParticipant").slideUp();
-		$(newParticipantList)
-			.find(".datetimepicker")
-			.datetimepicker({
-				timepicker:false,
-				format:'m/d/Y'
-			});
+		// $(newParticipantList)
+		// 	.find(".datetimepicker")
+		// 	.datetimepicker({
+		// 		timepicker:false,
+		// 		format:'m/d/Y'
+		// 	});
 		$(newDivider).insertBefore($(".newParticipantRowMobile"));
 		$(newParticipantList)
 			.removeClass("newParticipantRowMobile")
@@ -177,7 +163,7 @@ $(document).ready(function() {
 			.fadeIn()
 			.find("input").focus();
 	});
-		//Toggle mobile menubar	$("body").on("click", ".mobileMenuBtn a", function(e){		e.preventDefault();		$(".mobileBtns").slideToggle();	});	
+	
 	//Bring up already signed up users for specific trip
 	$("body").on("change", "#select_trip_for_new_user, #select_trip_for_new_activity, #select_trip_for_edit", function(e) {
 		var newValue = $(this).val();
@@ -210,24 +196,6 @@ $(document).ready(function() {
 			// window.open("pictures.php?add_pictures=&location="+newValue, "_self");
 		} else {
 			// window.open("pictures.php?location="+newValue, "_self");
-		}
-	});
-	
-	//Something with the mobile buttons	
-	$("body").on("click", "#mobile_menu_btn", function() {
-		var actionBtns = $(".actionBtns");
-		var checkExist = $("#mobile_menu").has(".actionBtns").length ? "Yes" : "No";
-		
-		if(checkExist === "No")
-		{
-			$("#mobile_menu").append(actionBtns).insertAfter("#container").animate({width:"55.1%"});
-			$("#container").css({width:"180%", fontSize:"165%"}).animate({left:"55%"});
-		}
-		else
-		{
-			$("#action_btns").append(actionBtns);
-			$("#mobile_menu").animate({width:"0%"}).insertAfter("#action_btns");
-			$("#container").css({width:"initial", fontSize:"initial"}).animate({left:"0%"});
 		}
 	});
 	
@@ -293,14 +261,6 @@ $(document).ready(function() {
 			$('.loadingSpinner p').text('Adding Images....');
 			$('.loadingSpinner').modal('show');
 		}
-	});
-	
-	//Add and remove loading gif when making ajax call
-	$(document).ajaxStart(function(){
-		console.log("AJAX Started");
-	});
-	$(document).ajaxComplete(function(){
-		console.log("AJAX Finished");
 	});
 	
 	// Call function for file preview when uploading new images
@@ -526,3 +486,13 @@ function capitalizeWords(stringToCapitalize) {
 	newString = newString.substring(0, newStringLength);
 	return newString;
 }
+
+// Initialize tooltip
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+});
+
+// MDB Lightbox Init
+$(function () {
+    $("#mdb-lightbox-ui").load("/addons/mdb-lightbox-ui.html");
+});

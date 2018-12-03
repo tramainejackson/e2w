@@ -28,22 +28,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-		$agent = new Agent();
 		$trips = TripLocations::all();
-		$activeTrips = TripLocations::where([
-			['show_trip', 'Y'],
-			['trip_complete', 'N'],
-		])
-		->orderBy('trip_year', 'desc')
-		->orderBy('trip_month', 'desc')
-		->get();
-		$inactiveTrips = TripLocations::where([
-			['show_trip', 'Y'],
-			['trip_complete', 'Y'],
-		])
-		->orderBy('trip_year', 'desc')
-		->orderBy('trip_month', 'desc')
-		->get();
+		$activeTrips = TripLocations::active();
+		$inactiveTrips = TripLocations::inactive();
 		$tripsPics = TripPictures::all();
 		
 		return view('welcome', compact('trips', 'inactiveTrips', 'tripsPics', 'activeTrips'));
@@ -56,18 +43,9 @@ class HomeController extends Controller
      */
     public function past()
     {
-		$agent = new Agent();
 		$trips = TripLocations::all();
-		$activeTrips = TripLocations::where([
-			['show_trip', 'Y'],
-			['trip_complete', 'N'],
-		])
-		->get();
-		$inactiveTrips = TripLocations::where([
-			['show_trip', 'Y'],
-			['trip_complete', 'Y'],
-		])
-		->get();
+		$activeTrips = TripLocations::active();
+		$inactiveTrips = TripLocations::inactive();
 		$tripsPics = TripPictures::all();
 		
 		return view('past', compact('trips', 'inactiveTrips', 'tripsPics', 'activeTrips'));

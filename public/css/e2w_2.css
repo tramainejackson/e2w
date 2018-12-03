@@ -9,20 +9,24 @@ body {
 }
 
 div#app::after {
-	content: "";
-	position: fixed;
-	background-image: url("/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg");
-	background-size:100% 100%;
-	background-position: center center;
-	background-repeat:no-repeat;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	z-index: -1;
+	/*content: "";*/
+	/*position: fixed;*/
+	/*background-image: url("/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg");*/
+	/*background-size:100% 100%;*/
+	/*background-position: center center;*/
+	/*background-repeat:no-repeat;*/
+	/*top: 0;*/
+	/*bottom: 0;*/
+	/*left: 0;*/
+	/*right: 0;*/
+	/*z-index: -1;*/
 }
 .container {
 	position: relative;
+}
+
+.carousel, .carousel-inner, .carousel-item, .carousel-item.active {
+    height: 100%;
 }
 
 .showTrip {
@@ -1232,20 +1236,7 @@ p#signup_ny, p#signup_cruise, p#signup_cali{
 	font-size: 131%;
 	text-align: center;
 }
-.whats_next_w {
-	margin: 6.3% 15%;
-	max-width: 80%;
-	width: 70%;
-	max-height: 60%;
-	z-index: 1;
-	border-radius: 10px;
-	position: relative;
-	font-family: 'Trocchi', serif;
-	box-shadow: 0px 0px 10px black;
-}
-.whats_next_w:hover {
-  box-shadow: 0px 0px 20px white;
-}
+
 .eventDiv {
     background-size: cover !important;
     background-repeat: no-repeat !important;
@@ -1327,9 +1318,8 @@ th#date_data, th#event_data {
 	border-radius: 12px;
 }
 #submit_question, #submit_suggestion {
-    background: linear-gradient(whitesmoke, cornflowerblue);
-    border: outset darkgrey;
 }
+
 footer {
     background: linear-gradient(black, #0B0B0B, #0B0B0B);
     color: white;
@@ -1670,6 +1660,7 @@ div#loading_image img {
 
 /*Smartphones portrait*/
 @media only screen and (max-width:575px) {
+
 .showTripMobile::after {
 	content: "";
     background-image: inherit;
@@ -2003,11 +1994,6 @@ input.adminPin {
 #admin_page_btn {
 	top: 63%;
 }
-.whats_next_w {
-    margin: 6.3% 12% 2%;
-    max-width: 76%;
-    width: 76%;
-}
 .form_tables {
 	max-width: 30%;
 	top: 31.5%;
@@ -2170,6 +2156,14 @@ h1#admin_page_header {
 }
 
 @media only screen and (max-width:1199px) {
+    .mobileNavBar {
+        background-color: #f4f4f4 !important;
+    }
+
+    .navbar.navbar-dark .navbar-toggler, .navbar.navbar-dark .navbar-nav .nav-item .nav-link {
+        color: black;
+    }
+
 	div#app::after {
 		content: "";
 		position: initial;

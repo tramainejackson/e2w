@@ -1,6 +1,17 @@
 /node_modules
 /uploads/*
 /videos/*
+/public/js/modules
+/public/css/addons
+/public/js/addons
+/public/addons
+/public/font
+/public/img
+/public/scss
+/public/css/mdb*
+/public/js/mdb*
+/public/js/addon*
+/public/css/addon*
 /public/hot
 /public/images/*
 /public/uploads/*
