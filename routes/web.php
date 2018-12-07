@@ -29,8 +29,6 @@ Route::get('/', 'HomeController@index')->name('welcome');
 
 Route::get('/past', 'HomeController@past')->name('past');
 
-Route::get('/suggestion', 'TravelSuggestionsController@mobile_index')->name('suggestion');
-
 Route::get('/photos', 'TripPicturesController@mobile_index')->name('photos');
 
 Route::get('/about_us', function() {

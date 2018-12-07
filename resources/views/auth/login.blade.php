@@ -2,19 +2,20 @@
 
 	@section('content')
 
-		<div class="col-12 p-0">
-			<h2 class="white-text text-center m-0 p-5" style="font-family: 'Felipa', cursive; text-shadow: 2px 1px 5px #304e4e;"><b>Login</b></h2>
+		<div class="col-12 white-text text-center m-0 p-5 d-xl-none">
+			<h2 class="" style="font-family: 'Felipa', cursive; text-shadow: 2px 1px 5px #304e4e;"><b>Login</b></h2>
 		</div>
 
-		<div class="col-12 col-sm-8 ml-auto">
+		<div class="col-12 underline d-none d-xl-block p-5 text-center">
+			<h2 class="display-3">Login</h2>
+		</div>
 
-			<div class="panel-heading d-none">
-				<h2 class="underline text-white">Login</h2>
-			</div>
+		<div class="col-12 col-sm-auto mx-auto">
 
 			<div class="panel-body rounded">
 
 				<form class="form-horizontal" method="POST" action="{{ route('login') }}">
+
 					{{ csrf_field() }}
 
 					<div class="md-form{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -69,28 +70,5 @@
 			</div>
 
 		</div>
-
-		{{--<div id="" class="col-2 col-sm-2" style="">--}}
-			{{--<div class="actionBtnDiv d-flex flex-column justify-content-center">--}}
-				{{--<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">--}}
-					{{--<a href="http://www.eastcoast2westcoast.com" id="home_btn" class="btn btn-lg actionBtns text-dark py-3" disabled="">Home</a>--}}
-				{{--</div>--}}
-				{{--<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">--}}
-					{{--<a id="question_btn" class="btn btn-lg actionBtns py-3">Ask A Question</a>--}}
-				{{--</div>--}}
-				{{--<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">--}}
-					{{--<a id="suggestion_btn" class="btn btn-lg actionBtns py-3">Suggestions</a>--}}
-				{{--</div>--}}
-				{{--<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">--}}
-					{{--<a href="http://www.eastcoast2westcoast.com/contact_us" id="contact_us_btn" class="btn btn-lg actionBtns text-dark py-3">Contact Us</a>--}}
-				{{--</div>--}}
-				{{--<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">--}}
-					{{--<a href="http://www.eastcoast2westcoast.com/about_us" id="about_us_btn" class="btn btn-lg actionBtns text-dark py-3">About Us</a>--}}
-				{{--</div>--}}
-				{{--<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">--}}
-					{{--<a href="#" id="admin_page_btn" class="btn btn-lg actionBtns text-dark py-3" disabled="">Admin</a>--}}
-				{{--</div>--}}
-			{{--</div>--}}
-		{{--</div>--}}
 
 	@endsection

@@ -1,6 +1,5 @@
 @extends('layouts.app')
 	@section('styles')
-		@include('function.bootstrap_css')
 		<style>
 			/*Smartphones portrait*/
 			@media only screen and (max-width:1024px) {

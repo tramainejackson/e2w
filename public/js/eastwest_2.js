@@ -221,13 +221,13 @@ $(document).ready(function() {
 	});
 	
 	//Suggestion display box
-	$("body").on("click", ".nextLocation, #other_option", function(e){
-		if($(e.target).attr("id") == 'other_option') {
-			$("#other_location2").removeAttr("disabled");
-		} else {
-			$("#other_location2").attr("disabled", true).val("");
-		}
-	});
+	// $("body").on("click", ".nextLocation, #other_option", function(e){
+	// 	if($(e.target).attr("id") == 'other_option') {
+	// 		$("#other_location2").removeAttr("disabled");
+	// 	} else {
+	// 		$("#other_location2").attr("disabled", true).val("");
+	// 	}
+	// });
 	
 	//Close modal and remove overlay
 	$(".closeBtn, .maine_overlay, #delete_modal_no_btn").click(function()

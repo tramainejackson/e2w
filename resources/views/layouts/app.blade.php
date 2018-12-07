@@ -40,8 +40,8 @@
 
     <div id="app">
 
-		@include('modals.questions')
-		@include('modals.suggestions')
+		{{--@include('modals.questions')--}}
+		{{--@include('modals.suggestions')--}}
 
 		@if(session('status'))
 			<h2 class="flashMessage text-center">{{ session('status') }}</h2>
@@ -63,7 +63,7 @@
 
 		<div id="main_content" class="container-fluid">
 
-			<div class="row">
+			<div class="row pb-5">
 
 				<div class="col-12 px-0">
 
@@ -78,17 +78,17 @@
 
 		</div>
 
-		<footer class="page-footer">
-
-			<!-- Copyright -->
-			<div class="footer-copyright text-center py-3">© 2014 Copyright:
-				<a href="https://tramaine.atstmpllc.com"> ATSTMPLLC.com</a>
-			</div>
-			<!-- Copyright -->
-
-		</footer>
-
 	</div>
+
+	<footer class="page-footer">
+
+		<!-- Copyright -->
+		<div class="footer-copyright text-center py-3">© 2014 Copyright:
+			<a href="https://tramaine.atstmpllc.com"> ATSTMPLLC.com</a>
+		</div>
+		<!-- Copyright -->
+
+	</footer>
 
 	<!-- SCRIPTS -->
 	<!-- JQuery -->

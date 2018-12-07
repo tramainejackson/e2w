@@ -2,8 +2,9 @@
 		Eastcoast 2 Westcoast Travel
 ------------------------------------------------
 
-Allow admin to remove users who have signed up
-If user account is inactive, find a way to allow restore
+TODO: Carousel is causing a problem on home page
+TODO: Allow admin to remove users who have signed up
+TODO: If user account is inactive, find a way to allow restore
 Done: Fix radio buttons for suggestion form
 Done: Add spinning modal for when someone adds themselves to a trip
 Done: Get mail fixed

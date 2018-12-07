@@ -2,81 +2,77 @@
 
 	@section('content')
 				
-		<div class="col-12 p-0">
-			<h2 class="white-text text-center m-0 p-5" style=" font-family: 'Felipa', cursive; text-shadow: 2px 1px 5px #304e4e; font-size: 275%;"><b>Trip Suggestions</b></h2>
+		<div class="col-12 white-text text-center m-0 p-5 d-xl-none">
+			<h2 class="" style=" font-family: 'Felipa', cursive; text-shadow: 2px 1px 5px #304e4e; font-size: 275%;"><b>Trip Suggestions</b></h2>
+		</div>
+
+		<div class="col-12 underline d-none d-xl-block p-5 text-center">
+			<h2 class="display-3">Trip Suggestions</h2>
 		</div>
 
 		<div class="col-12">
 
 			<div class="container-fluid">
 
-				<div class="row suggestionMobile">
+				<div class="row justify-content-around">
 
-					<div class="col-12">
-						<h2 class="text-center text-light">Where to next?</h2>
-					</div>
+					<div class="col-12 col-md-10 col-lg-5 suggestionMobile">
 
-					<div class="col-12">
+						<div class="">
+							<h2 class="text-center text-light">Where to next?</h2>
+						</div>
+
 						<form id="suggestion_form1" action="/suggestions" method="POST">
 
 							{{ method_field('POST') }}
 							{{ csrf_field() }}
 
-							<div class="custom-control custom-radio">
-								<input class="nextLocation custom-control-input" id="niagra_falls" type="radio" name="next_location" value="Niagra Falls" />
-								<label class="custom-control-label" for="niagra_falls">Niagra Falls</label>
+							<div class="form-check">
+								<input class="nextLocation form-check-input" id="niagra_falls" type="radio" name="next_location" value="Niagra Falls" />
+								<label class="form-check-label" for="niagra_falls">Niagra Falls</label>
 							</div>
 
-							<div class="custom-control custom-radio">
-								<input class="nextLocation custom-control-input" id="Toronto" type="radio" name="next_location" value="Toronto" />
-								<label class="custom-control-label" for="Toronto">Toronto</label>
+							<div class="form-check">
+								<input class="nextLocation form-check-input" id="toronto" type="radio" name="next_location" value="Toronto" />
+								<label class="form-check-label" for="toronto">Toronto</label>
 							</div>
 
-							<div class="custom-control custom-radio">
-								<input class="nextLocation custom-control-input" id="DC" type="radio" name="next_location" value="DC" />
-								<label class="custom-control-label" for="DC">Washington D.C.</label>
+							<div class="form-check">
+								<input class="nextLocation form-check-input" id="dc" type="radio" name="next_location" value="DC" />
+								<label class="form-check-label" for="dc">Washington D.C.</label>
 							</div>
 
-							<div class="custom-control custom-radio">
-								<input class="nextLocation custom-control-input" id="Miami" type="radio" name="next_location" value="Miami" />
-								<label class="custom-control-label" for="Miami">Miami</label>
+							<div class="form-check">
+								<input class="nextLocation form-check-input" id="miami" type="radio" name="next_location" value="Miami" />
+								<label class="form-check-label" for="miami">Miami</label>
 							</div>
 
-							<div class="custom-control custom-radio">
-								<input class="nextLocation custom-control-input" id="Houston" type="radio" name="next_location" value="Houston" />
-								<label class="custom-control-label" for="Houston">Houston</label>
+							<div class="form-check">
+								<input class="nextLocation form-check-input" id="houston" type="radio" name="next_location" value="Houston" />
+								<label class="form-check-label" for="houston">Houston</label>
 							</div>
 
-							<div class="custom-control custom-radio">
-								<input class="nextLocation custom-control-input" id="other_option" type="radio" name="next_location" value="Other" />
-								<label class="custom-control-label" for="other_option">Other</label>
-							</div>
+							<input type="submit" id="submit_suggestion" class="btn primary-color m-4" value="Send Suggestion" onclick="sendSuggestion();" />
 
-							<input type="submit" id="submit_suggestion" class="btn w-100" value="Send Suggestion" onclick="sendSuggestion();" />
 						</form>
+
 					</div>
 
-				</div>
-
-				<div class="row">
-
-					@php $date = date("m/d/Y"); @endphp
-					@php $getLocations = DB::table('travel_suggestions')->distinct()->select('option_suggestion')->get()->pluck('option_suggestion'); @endphp
-					@php $getTotalRows = $getSuggestionInfo->count(); @endphp
-
-					<div id="suggestion_results_div">
+					<div class="col-12 col-md-10 col-lg-5" id="suggestion_results_div">
 
 						<div id="suggestion_results_header">
-							<h2 class="text-center">Suggestion as of <span class="text-center">{{ $date }}</span></h2>
+							<h2 class="text-center">Suggestions as of <span class="text-center">{{ $date->format('m/d/Y') }}</span></h2>
 						</div>
 
 						<div class="suggestionResultsPercent">
 							@foreach($getLocations as $showLocations)
+
 								@php $getRows = DB::table('travel_suggestions')->where('option_suggestion', '=', $showLocations)->count(); @endphp
 
 								<div class="indResult">
 									<span class="resultLocation">{{ str_ireplace('_', ' ', $showLocations) }}</span><span class="resultPercent">{{ ".............. " . round(($getRows/$getTotalRows) * 100) . "%" }}</span>
 								</div>
+
 							@endforeach
 						</div>
 
@@ -87,4 +83,5 @@
 			</div>
 
 		</div>
+
 	@endsection

@@ -2257,180 +2257,186 @@ h1#admin_page_header {
 
 /*Larger screens*/
 @media only screen and (min-width:1200px) {
-.terms_cost_div.editTripInfo::after, .terms_payment_div.editTripInfo::after,
-.terms_conditions_div.editTripInfo::after {
-    content: "- Separate with semicolon";
-    position: absolute;
-    right: -6%;
-    top: 35%;
-    color: white;
-    font-size: initial;
-}
-#pictures_page_header input[type="submit"] {
-    top: 50%;
-    right: 5%;
-}
-.newUser {
-    padding: 0% 20% 0%;
-}
-.tripEvents, .tripUsers {
-    /* padding: 2% 1%; */
-}
-.tripEvents .editActivity input[type="submit"] {
-    left: 1%;
-    top: 65px;
-}
-form.addUser input[type="submit"], form.addActivity input[type="submit"] {
-    margin: 6.2% 10.2% 0% 0%;
-    padding: 0.7% 1%;
-}
-.editTripInfo input, .editTripInfo textarea {
-	width: 41.5%;
-}
-.removeIndPicture {
-    max-width: 30%;
-    width: 28.7%;
-    min-height: 250px;
-    display: -webkit-inline-box;
-    display: inline-block;
-    position: relative;
-    /* display: table; */
-    padding: 0% 0%;
-    margin: 1% 1.9%;
-    border-radius: 10px;
-    border: solid 2px;
-    box-shadow: 0px 0px 10px black;
-}
-.removeIndPicture h3 {
-    max-width: 90%;
-    width: 90%;
-    display: inline-block;
-    text-align: -webkit-left;
-    text-align: left;
-    padding: 0% 0% 0% 2%;
-}
-.removeIndPicture img {
-    max-width: 100%;
-    max-height: 100%;
-    width: 500px;
-    height: 300px;
-    margin-bottom: -1%;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-.removeIndPicture input {
-    display: -webkit-inline-box;
-}
-#select_trip_for_new_activity, #select_trip_for_new_user, #select_trip_for_new_pictures, #select_trip_for_remove_pictures, #select_trip_for_pictures, #select_user_for_edit {
-	padding: 0.2% 0%;
-	width: 50%;
-	margin: 0% 25%;
-	border-radius: 5px;
-	border: solid 2px;
-	font-size: 140%;
-}
 
-.trip_edit_div {
-    padding: 2%;
-}
-.trip_edit_div div span:not(.custom-file-control) {
-    width: 35%;
-    display: inline-block;
-    margin: 0.5% 0%;
-    padding: 1% 0%;
-    border-radius: 5px;
-}
-.trip_location_month select,
-.trip_location_year select,
-.trip_completed_div select,
-.show_trip_div select {
-    width: 41.5%;
-    padding: 1% 0% 1% 3%;
-    border: inset 2px;
-}
-.trip_edit_div input:not([type="file"]) {
-	padding: 1%;
-}
+    .terms_cost_div.editTripInfo::after, .terms_payment_div.editTripInfo::after,
+    .terms_conditions_div.editTripInfo::after {
+        content: "- Separate with semicolon";
+        position: absolute;
+        right: -6%;
+        top: 35%;
+        color: white;
+        font-size: initial;
+    }
 
-.trip_location_header {
-    padding: 2% 5%;
-}
-.trip_location_header input {
-}
-.trip_location_header h2 {
-    margin: 0%;
-}
+    .panel-body {
+        background: midnightblue;
+    }
 
-.allPicturesDiv {
-    display: inline-block;
-    position: relative;
-    width: 22%;
-    border-radius: 10px;
-    margin: 0.5% 1.33%;
-    padding: 0% 0%;
-}
-.allPicturesDiv img {
-    max-width: 100%;
-    max-height: 200px;
-    width: 275px;
-    height: 100%;
-    border-radius: 10px;
-    margin: 0% 6% -1%;
-    border: solid 1.5px;
-    box-shadow: 0px 0px 10px gray;
-}
-.allPicturesDiv .pictureCaption {
-    margin: 0% 6%;
-    position: absolute;
-    left: 0.5%;
-    bottom: 1%;
-    border: none;
-    background: rgba(0, 0, 0, 0.5);
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-    color: white;
-    max-width: 269px;
-}
-.addPictures {
-    margin: 1% 25%;
-}
-.newActivities {
-	padding: 0% 10% 0%;
-}
-.newActivities .newIndActivity input {
-	padding: 0.5% 1%;
-	border-radius: 5px;
-	width: 30.3%;
-}
-.newUser .newUserFirst input, .newUser .newUserLast input, .newUser .newUserEmail input, .newUser .newUserNotes textarea, .newUser .newAdminInput input {
-	width: 97%;
-	font-size: 115%;
-}
-.newUser .newAdminInput select {
-    font-size: 115%;
-    width: 99.9%;
-}
-.newUser .newAdminInput input[type="submit"] {
-    margin: 4% 20%;
-    padding: 1%;
-    width: 60%;
-}
-.newUser .newUserNotes textarea {
-}
-.newUser .newUserPhone input.profileInputPhone1,
-.newUser .newUserPhone input.profileInputPhone2,
-.newUser .newUserPhone input.profileInputPhone3 {
-	max-width: 30.235%;
-	width: 29%;
-}
-.newActivities .newIndActivity input[type="date"] {
-	padding: 0% 1%;
-	border-radius: 5px;
-}
-form.addActivity input[type="submit"] {
-}
-form.addUser input[type="submit"] {
-}
+    #pictures_page_header input[type="submit"] {
+        top: 50%;
+        right: 5%;
+    }
+    .newUser {
+        padding: 0% 20% 0%;
+    }
+    .tripEvents, .tripUsers {
+        /* padding: 2% 1%; */
+    }
+    .tripEvents .editActivity input[type="submit"] {
+        left: 1%;
+        top: 65px;
+    }
+    form.addUser input[type="submit"], form.addActivity input[type="submit"] {
+        margin: 6.2% 10.2% 0% 0%;
+        padding: 0.7% 1%;
+    }
+    .editTripInfo input, .editTripInfo textarea {
+        width: 41.5%;
+    }
+    .removeIndPicture {
+        max-width: 30%;
+        width: 28.7%;
+        min-height: 250px;
+        display: -webkit-inline-box;
+        display: inline-block;
+        position: relative;
+        /* display: table; */
+        padding: 0% 0%;
+        margin: 1% 1.9%;
+        border-radius: 10px;
+        border: solid 2px;
+        box-shadow: 0px 0px 10px black;
+    }
+    .removeIndPicture h3 {
+        max-width: 90%;
+        width: 90%;
+        display: inline-block;
+        text-align: -webkit-left;
+        text-align: left;
+        padding: 0% 0% 0% 2%;
+    }
+    .removeIndPicture img {
+        max-width: 100%;
+        max-height: 100%;
+        width: 500px;
+        height: 300px;
+        margin-bottom: -1%;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+    .removeIndPicture input {
+        display: -webkit-inline-box;
+    }
+    #select_trip_for_new_activity, #select_trip_for_new_user, #select_trip_for_new_pictures, #select_trip_for_remove_pictures, #select_trip_for_pictures, #select_user_for_edit {
+        padding: 0.2% 0%;
+        width: 50%;
+        margin: 0% 25%;
+        border-radius: 5px;
+        border: solid 2px;
+        font-size: 140%;
+    }
+
+    .trip_edit_div {
+        padding: 2%;
+    }
+    .trip_edit_div div span:not(.custom-file-control) {
+        width: 35%;
+        display: inline-block;
+        margin: 0.5% 0%;
+        padding: 1% 0%;
+        border-radius: 5px;
+    }
+    .trip_location_month select,
+    .trip_location_year select,
+    .trip_completed_div select,
+    .show_trip_div select {
+        width: 41.5%;
+        padding: 1% 0% 1% 3%;
+        border: inset 2px;
+    }
+    .trip_edit_div input:not([type="file"]) {
+        padding: 1%;
+    }
+
+    .trip_location_header {
+        padding: 2% 5%;
+    }
+    .trip_location_header input {
+    }
+    .trip_location_header h2 {
+        margin: 0%;
+    }
+
+    .allPicturesDiv {
+        display: inline-block;
+        position: relative;
+        width: 22%;
+        border-radius: 10px;
+        margin: 0.5% 1.33%;
+        padding: 0% 0%;
+    }
+    .allPicturesDiv img {
+        max-width: 100%;
+        max-height: 200px;
+        width: 275px;
+        height: 100%;
+        border-radius: 10px;
+        margin: 0% 6% -1%;
+        border: solid 1.5px;
+        box-shadow: 0px 0px 10px gray;
+    }
+    .allPicturesDiv .pictureCaption {
+        margin: 0% 6%;
+        position: absolute;
+        left: 0.5%;
+        bottom: 1%;
+        border: none;
+        background: rgba(0, 0, 0, 0.5);
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        color: white;
+        max-width: 269px;
+    }
+    .addPictures {
+        margin: 1% 25%;
+    }
+    .newActivities {
+        padding: 0% 10% 0%;
+    }
+    .newActivities .newIndActivity input {
+        padding: 0.5% 1%;
+        border-radius: 5px;
+        width: 30.3%;
+    }
+    .newUser .newUserFirst input, .newUser .newUserLast input, .newUser .newUserEmail input, .newUser .newUserNotes textarea, .newUser .newAdminInput input {
+        width: 97%;
+        font-size: 115%;
+    }
+    .newUser .newAdminInput select {
+        font-size: 115%;
+        width: 99.9%;
+    }
+    .newUser .newAdminInput input[type="submit"] {
+        margin: 4% 20%;
+        padding: 1%;
+        width: 60%;
+    }
+    .newUser .newUserNotes textarea {
+    }
+    .newUser .newUserPhone input.profileInputPhone1,
+    .newUser .newUserPhone input.profileInputPhone2,
+    .newUser .newUserPhone input.profileInputPhone3 {
+        max-width: 30.235%;
+        width: 29%;
+    }
+    .newActivities .newIndActivity input[type="date"] {
+        padding: 0% 1%;
+        border-radius: 5px;
+    }
+    form.addActivity input[type="submit"] {
+    }
+    form.addUser input[type="submit"] {
+    }
 }
 /*Even Larger Screens*/
 @media only screen and (min-width:1400px) {

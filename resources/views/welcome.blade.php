@@ -2,7 +2,7 @@
 
 	@section('content')
 
-		<div class="col-12 px-0" id="">
+		<div class="col-12 d-none d-xl-block px-0" id="">
 
 			@if($activeTrips->count() > 0)
 
@@ -44,6 +44,7 @@
 										@if($trip->activities->count())
 
 											<table class="west_calendar">
+
 												<tr>
 													<th class="header_data" id="date_data">Date</th>
 													<th class="header_data" id="middle_th_data">Location</th>
@@ -167,8 +168,11 @@
 						@endphp
 
 						<div id="" class="carousel-item{{ $loop->first ? ' active' : ''}}">
+
 							<div class="carouselImage" id="{{ str_ireplace(' ', '_', strtolower($trip->trip_location)) . '_event' }}" style="background:linear-gradient(#f2f2f2, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url({{ $content == true ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }});">
+
 								<div class="d-flex align-items-center justify-content-center flex-column">
+
 									<h1 class="text-center" style="margin-top: 0; padding-top: 50px;">{{ ucwords($trip->trip_location) }}</h1>
 									<h3 class="text-center">{{ $tripMonth->month_name . " ". $trip->trip_year }}</h3>
 
@@ -177,8 +181,11 @@
 									<div class="carousel-fixed-item mx-auto d-block pb-2">
 										<a href="/location/{{ $trip->id }}" class="btn btn-secondary">Click For More Information</a>
 									</div>
+
 								</div>
+
 							</div>
+
 						</div>
 
 					@endforeach
@@ -197,6 +204,7 @@
 					</a>
 
 				@endif
+
 			</div>
 
 		</div>

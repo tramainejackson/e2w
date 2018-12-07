@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\TravelSuggestions;
 use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
+use Carbon\Carbon;
 
 class TravelSuggestionsController extends Controller
 {
@@ -15,7 +16,7 @@ class TravelSuggestionsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['store', 'create', 'mobile_index']);
+        $this->middleware('auth')->except(['index']);
     }
 	
     /**
@@ -25,7 +26,11 @@ class TravelSuggestionsController extends Controller
      */
     public function index()
     {
-		return view('admin.suggestions');
+	    $getLocations = TravelSuggestions::distinct()->select('option_suggestion')->get()->pluck('option_suggestion');
+	    $getTotalRows = TravelSuggestions::all()->count();
+	    $date = new Carbon();
+
+	    return view('suggestions', compact('date', 'getLocations', 'getTotalRows'));
     }
 
     /**
@@ -104,16 +109,5 @@ class TravelSuggestionsController extends Controller
     {
         //
     }
-	
-	/**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Travel_Suggestions  $travel_Suggestions
-     * @return \Illuminate\Http\Response
-     */
-    public function mobile_index(TravelSuggestions $travelSuggestions)
-    {
-		$getSuggestionInfo = TravelSuggestions::all();
-        return view('suggestions', compact('getSuggestionInfo'));
-    }
+
 }

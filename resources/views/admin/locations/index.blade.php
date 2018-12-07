@@ -12,6 +12,7 @@
 				<a href="/location/create" class="btn btn-success">Create New Trip</a>
 			</div>
 		</div>
+
 		<div class="">
 			<ul class="list-unstyled">
 				@foreach($getLocations as $showLocations)
@@ -23,4 +24,5 @@
 				@endforeach
 			</ul>
 		</div>
+
 	@endsection
