@@ -24,7 +24,9 @@ class TravelQuestionsController extends Controller
      */
     public function index()
     {
-        return view('admin.questions');
+	    $getQuestionInfo = TravelQuestions::all();
+
+        return view('admin.questions', compact('getQuestionInfo'));
     }
 
     /**

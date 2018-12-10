@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\TravelSuggestions;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Jenssegers\Agent\Agent;
 use Carbon\Carbon;
+use Jenssegers\Agent\Agent;
 
 class TravelSuggestionsController extends Controller
 {
@@ -30,7 +31,12 @@ class TravelSuggestionsController extends Controller
 	    $getTotalRows = TravelSuggestions::all()->count();
 	    $date = new Carbon();
 
-	    return view('suggestions', compact('date', 'getLocations', 'getTotalRows'));
+	    // Return the admin view if Auth is true
+	    if(Auth::check()) {
+		    return view('admin.suggestions', compact('date', 'getLocations', 'getTotalRows'));
+	    } else {
+		    return view('suggestions', compact('date', 'getLocations', 'getTotalRows'));
+	    }
     }
 
     /**

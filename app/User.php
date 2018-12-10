@@ -35,4 +35,70 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+	/**
+	 * Get the user's first name.
+	 *
+	 * @param  string  $value
+	 * @return string
+	 */
+	public function getFirstNameAttribute($value)
+	{
+		return ucfirst(strtolower($value));
+	}
+
+	/**
+	 * Set the user's first name.
+	 *
+	 * @param  string  $value
+	 * @return void
+	 */
+	public function setFirstNameAttribute($value)
+	{
+		$this->attributes['first_name'] = ucwords(strtolower($value));
+	}
+
+	/**
+	 * Get the user's last name.
+	 *
+	 * @param  string  $value
+	 * @return string
+	 */
+	public function getLastNameAttribute($value)
+	{
+		return ucwords(strtolower($value));
+	}
+
+	/**
+	 * Set the user's last name.
+	 *
+	 * @param  string  $value
+	 * @return void
+	 */
+	public function setLastNameAttribute($value)
+	{
+		$this->attributes['last_name'] = ucfirst(strtolower($value));
+	}
+
+	/**
+	 * Get the user's last name.
+	 *
+	 * @param  string  $value
+	 * @return string
+	 */
+	public function getEmailAttribute($value)
+	{
+		return strtolower($value);
+	}
+
+	/**
+	 * Set the user's last name.
+	 *
+	 * @param  string  $value
+	 * @return void
+	 */
+	public function setEmailAttribute($value)
+	{
+		$this->attributes['email'] = strtolower($value);
+	}
 }

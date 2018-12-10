@@ -26,6 +26,7 @@ class UsersController extends Controller
     public function index()
     {
 		$getAllusers = User::all();
+
         return view('admin.users.index', compact('getAllusers'));
     }
 
@@ -58,13 +59,16 @@ class UsersController extends Controller
 		$user = new User();
         $user->first_name = $request->first_name;
 		$user->last_name = $request->last_name;
-		$user->email = strtolower($request->email);
+		$user->email = $request->email;
 		$user->active = $request->active;
 		$user->password = Hash::make($request->password);
 		
-		$user->save();
-		
-		return redirect()->action('UsersController@edit', $user)->with('status', 'New User Added Successfully');
+		if($user->save()) {
+
+			return redirect()->action('UsersController@edit', $user)->with('status', 'New User Added Successfully');
+
+		}
+
     }
 
     /**
@@ -87,6 +91,7 @@ class UsersController extends Controller
     public function edit(User $user, $id)
     {
 		$user = User::find($id);
+
         return view('admin.users.edit', compact('user'));
     }
 
@@ -117,7 +122,7 @@ class UsersController extends Controller
 
 		$user->first_name = $request->first_name;
 		$user->last_name = $request->last_name;
-		$user->email = strtolower($request->email);
+		$user->email = $request->email;
 		$user->active = $request->active;
 		
 		$user->save();

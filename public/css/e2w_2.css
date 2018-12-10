@@ -8,19 +8,6 @@ body {
 	min-height: 100vh;
 }
 
-div#app::after {
-	/*content: "";*/
-	/*position: fixed;*/
-	/*background-image: url("/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg");*/
-	/*background-size:100% 100%;*/
-	/*background-position: center center;*/
-	/*background-repeat:no-repeat;*/
-	/*top: 0;*/
-	/*bottom: 0;*/
-	/*left: 0;*/
-	/*right: 0;*/
-	/*z-index: -1;*/
-}
 .container {
 	position: relative;
 }
@@ -78,34 +65,6 @@ div#app::after {
 @keyframes spin {
 	0% { transform: rotate(0deg); }
 	100% { transform: rotate(360deg); }
-}
-
-.flashMessage {
-	background: darkcyan;
-    color: wheat;
-    position: fixed;
-    z-index: 20;
-    padding: 20px;
-    border-radius: 10px;
-    top: -150px;
-    left: 40%;
-    width: 25%;
-	text-align: -webkit-center;
-	text-align: center;
-}
-
-.errorMessage {
-	background: darkred;
-    color: whitesmoke;
-    position: fixed;
-    z-index: 20;
-    padding: 20px;
-    border-radius: 10px;
-    top: -150px;
-    left: 40%;
-    width: 25%;
-	text-align: -webkit-center;
-	text-align: center;
 }
 
 .return_messages span {
@@ -172,27 +131,14 @@ div#app::after {
     text-align: -webkit-center;
     text-align: center;
 }
-.adminDiv {
-	/* max-width: 80%; */
-	/* width: 80%; */
-	/* min-height: 100%; */
-	/* left: 20%; */
-	/* top: 9%; */
-	/* margin: 5% 0% 0% 20%; */
-	/* padding: 5% 0% 2% 0%; */
-	/* overflow: auto; */
-	/* position: relative; */
-}
+
 .divider {
 	width: 70%;
     padding: 0px;
     margin: 50px auto;
     border: solid #c7c7c7 2px;
 }
-h1.pageTopicHeader {
-    padding: 0% 1%;
-	color: whitesmoke;
-}
+
 .trip_location_month select, .trip_location_year select, .trip_completed_div select, .show_trip_div select, .editTripInfo textarea, .editTripInfo input {
     padding: 1% 0% 1% 3%;
     border: inset 2px;
@@ -248,17 +194,6 @@ h1#admin_page_header {
 	font-size: 250%;
 	z-index: 2;
 }
-div#admin_page *:not(.oi) {
-    font-family: Trocchi;
-}
-
-.oi {
-	width: initial !important;
-}
-
-.editTripInfo .oi {
-	margin: 0% 2% 0% -4.6% !important;
-}
 
 #about_us_div, .panel-body {
     background: cadetblue;
@@ -266,9 +201,11 @@ div#admin_page *:not(.oi) {
     padding: 15% 10%;
 	font-size: 115%;
 }
+
 p.noValueMessage {
     padding: 0% 0% 0% 3%;
 }
+
 footer {
 	font-family: 'Lobster', cursive;
 }
@@ -281,55 +218,35 @@ a {
 	display: inline-block;
 	text-decoration: none !important;
 }
+
 button:focus {
 	outline:0 !important;
 }
+
 button:hover {
 	cursor: pointer;
 }
+
 .maine_overlay, .maine_modal, .maine_modal_confirmation_box, #terms_and_conditions, #loading_image, #home_content {
 	display: none;
 }
-.modal_confirm {
-    position: fixed;
-	display: none;
-    height: 30%;
-    width: 10%;
-    top: -3%;
-    right: 5%;
-    background-color: white;
-    z-index: 1;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-	border: solid 1px green;
-    background-color: aliceblue;
-    padding: 0% 1%;
-}
-p.modal_confirm_content {
-    height: 100%;
-    font-size: 150%;
-    padding: 15% 0% 0% 0%;
-}
-div.maine_modal #registration_form label, div.maine_modal #registration_form input[type="text"] {
-    min-width: 49%;
-    display: -webkit-inline-box;
-    display: inline-block;
-    text-align: -webkit-left;
-    text-align: left;
-}
+
 #main_content {
 	display: inline-block;
 }
+
 #header {
 	font-family: 'Lobster', cursive;
 	text-align: center;
 	font-size: 450%;
 	text-shadow: 5px 5px 5px darkslategray;	
 }
+
 #header p {
 	text-shadow: 5px 5px 5px darkslategray;	
 	margin: 2% 0% 0% 0%;
 }
+
 .main_content_class {
 	background-color: white;
 	overflow:hidden;
@@ -378,20 +295,12 @@ input[type="image"] {
     margin: 0 auto;
     display: block;
 }
+
 button.inclusionsBtn {
     background: brown;
     max-width: 65%;
 }
-.pastVacationsHeader, .upcomingVacationsHeader {
-    margin: 75px 0px;
-}
-.pastVacationsHeader h3, .upcomingVacationsHeader h3 {
-    margin: 0 auto;
-    text-align: -webkit-center;
-    text-align: center;
-    font-size: 215%;
-    font-family: 'Trocchi', serif;
-}
+
 ul.termsInclusions {
     max-width: 100%;
     text-align: -webkit-left;
@@ -469,17 +378,22 @@ input#other_location2 {
     background: #00ffff47;
     border-radius: 5px;
 }
+
 .terms_payment_div.editTripInfo {
     background: rgba(95, 158, 160, 0.55);
     border-radius: 5px;
-}.terms_inclusions_div.editTripInfo {
+}
+
+.terms_inclusions_div.editTripInfo {
     background: rgba(0, 255, 255, 0.55);
 	border-radius: 5px;
 }
+
 .terms_conditions_div.editTripInfo {
     background: rgba(0, 191, 255, 0.55);
     border-radius: 5px;
 }
+
 .allPicturesDiv {
     display: inline-block;
     position: relative;
@@ -497,6 +411,7 @@ input#other_location2 {
     border: solid 1.5px;
     box-shadow: 0px 0px 10px gray;
 }
+
 .allPicturesDiv .pictureCaption {
     width: 98%;
     margin: 0% 0%;
@@ -509,6 +424,7 @@ input#other_location2 {
     border-bottom-right-radius: 8px;
     color: white;
 }
+
 .addNewTrip {
     margin: 6% 10%;
 	padding: 2%;
@@ -519,23 +435,25 @@ input#other_location2 {
     font-size: 135%;
     position: relative;
 }
+
 .addPictures {
     margin: 2% 28%;
 }
+
 .addPictures input[type="submit"] {
     max-width: 50%;
 	margin: 5px 0px;
 }
+
 .newActivities {
 	padding: 0% 10% 0%;
 }
-.newUser {
-	padding: 0% 16% 0%;
-}
+
 .editAdminInput span {
     min-width: 35%;
     display: -webkit-inline-box;
 }
+
 .editAdminInput input {
     min-width: 61%;
 }
@@ -547,38 +465,17 @@ input#other_location2 {
 	border-radius: 5px;
 	width: 30.3%;
 }
-.newUser .newUserFirst input, .newUser .newUserLast input, .newUser .newUserEmail input, .newUser .newUserNotes textarea, .newUser .newAdminInput input {
-	width: 97%;
-	font-size: 115%;
-}
-.newUser .newAdminInput select {
-    font-size: 115%;
-    width: 99.9%;
-}
-.newUser .newAdminInput input[type="submit"], #all_users .newAdminInput input[type="submit"] {
-    margin: 4% 20%;
-    padding: 1%;
-    width: 60%;
-}
-.newUser .newUserNotes textarea {
-}
-.newUser .newUserPhone input.profileInputPhone1,
-.newUser .newUserPhone input.profileInputPhone2,
-.newUser .newUserPhone input.profileInputPhone3 {
-	padding: 0.5% 1%;
-	margin: 0.3% 0%;
-	border-radius: 5px;
-	width: 29.55%;
-	max-width: 30%;
-}
+
 span.phone_par_span {
     width: 1%;
     display: -webkit-inline-box;
 }
+
 .newActivities .newIndActivity input[type="date"] {
 	padding: 0% 1%;
 	border-radius: 5px;
 }
+
 form.addActivity input[type="submit"] {
     position: absolute;
     top: 0;
@@ -588,6 +485,7 @@ form.addActivity input[type="submit"] {
     border-radius: 5px;
     border: outset 2px;
 }
+
 form.addUser input[type="submit"] {
     position: absolute;
     top: 0;
@@ -601,12 +499,15 @@ form.addUser input[type="submit"] {
     border-bottom-left-radius: 5px;
     border: outset 2px;
 }
+
 form.addUser, form.addActivity {
     position: relative;
 }
+
 .tripUsers .editUser {
 	position: relative;
 }
+
 .tripUsers .editUser table, .tripUsers .editUser tr, .tripUsers .editUser th, .tripUsers .editUser td {
     border: solid 1px black;
     border-collapse: collapse;
@@ -630,6 +531,7 @@ form.addUser, form.addActivity {
     padding: 1% 0%;
     vertical-align: middle;
 }
+
 .tripUsers .editUser input[type="submit"] {
     position: absolute;
     top: -1%;
@@ -638,10 +540,12 @@ form.addUser, form.addActivity {
     width: 13%;
     white-space: normal;
 }
+
 .tripEvents, .tripUsers {
     margin: 2% 0% 2%;
     padding: 2% 10%;
 }
+
 .tripEvents .editActivity input {
     text-align: -webkit-center;
     text-align: center;
@@ -649,92 +553,12 @@ form.addUser, form.addActivity {
     padding: 1.5% 0%;
     border: solid 1px;
 }
+
 .editTripInfo .newTripPhoto {
 	height: 300px;
 	width: 41.5%;
 }
-.pageConfirmationTable .tripUsers {
-    /* max-width: 60%; */
-    /* margin: 2% 20% 4%; */
-    /* padding: 1% 0%; */
-}
-.pageConfirmationTable .tripUsers table {
-    width: 70%;
-    margin: 0% 15%;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-collapse: collapse;
-    box-shadow: 0px 0px 10px black;
-}
-.pageConfirmationTable .tripUsers table tr:nth-of-type(even) {
-    background: bisque;
-}
-.pageConfirmationTable .tripUsers table tr:nth-of-type(even) td:first-of-type {
-    border-right: solid 2px white;
-}
-.pageConfirmationTable .tripUsers table tr:last-of-type td:first-of-type {
-    border-bottom-left-radius: 10px;
-}
-.pageConfirmationTable .tripUsers table tr:last-of-type td:last-of-type {
-    border-bottom-right-radius: 10px;
-}
-.pageConfirmationTable .tripUsers table tr:nth-of-type(odd) {
-    background: white;
-}
-.pageConfirmationTable .tripUsers table tr:nth-of-type(1) {
-    background: none;
-}
-.pageConfirmationTable .tripUsers table tr:nth-of-type(1) th, .pageConfirmationTable .tripUsers table caption {
-    background: darkgreen;
-    color: white;
-    padding: 1% 0%;
-    font-weight: 600;
-}
-.pageConfirmationTable .tripUsers table tr:nth-of-type(1) th {
-    border-top: solid white 2px;
-}
-.pageConfirmationTable .tripUsers table tr:nth-of-type(1) th:first-of-type {
-    border-right: solid white 2px;
-}
-.pageConfirmationTable .tripUsers table caption {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    box-shadow: 0px 0px 10px black;
-}
-.removeIndPicture {
-    max-width: 29%;
-    width: 28.9%;
-    min-height: 300px;
-    display: -webkit-inline-box;
-    display: inline-block;
-    position: relative;
-    /* display: table; */
-    padding: 0% 0%;
-    margin: 1% 1.9%;
-    border-radius: 10px;
-    border: solid 2px;
-    box-shadow: 0px 0px 10px black;
-}
-.removeIndPicture h3 {
-    max-width: 90%;
-    width: 90%;
-    display: inline-block;
-    text-align: -webkit-left;
-    text-align: left;
-    padding: 0% 0% 0% 2%;
-}
-.removeIndPicture img {
-    max-width: 100%;
-    max-height: 100%;
-    width: 500px;
-    height: 300px;
-    margin-bottom: -1%;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-.removeIndPicture input {
-    display: -webkit-inline-box;
-}
+
 .editSelect, .pictureSelect, .userSelect {
 	padding: 0.2% 0%;
 	width: 30%;
@@ -743,14 +567,17 @@ form.addUser, form.addActivity {
 	border: solid 2px;
 	font-size: 140%;
 }
+
 #pictures_page_header input[type="submit"] {
     position: absolute;
     top: 48%;
     right: 10%;
 }
+
 #pictures_page_header {
     position: relative;
 }
+
 .tripEvents table {
     width: 100%;
     table-layout: fixed;
@@ -770,6 +597,7 @@ form.addUser, form.addActivity {
 .tripUsers .editUser table {
     border-radius: 10px;
 }
+
 button.cancelSave {
 	border-radius: 5px;
 	border: outset 2px;
@@ -778,71 +606,7 @@ button.cancelSave {
 	color: white;
 	border-color: darkred;
 }
-.maine_overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(0,0,0,0.75);
-    z-index: 10;
-}
-.maine_overlay_pictures {
-    position: absolute;
-    /* display: none; */
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(0,0,0,0.90);
-    z-index: 10;
-}
-.maine_modal_error {
-    display: none;
-    position: fixed;
-    width: 17%;
-    max-height: 40%;
-    min-height: 20%;
-    top: 5px;
-    left: 5px;
-	z-index: 10;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px black;
-}
-.maine_modal, .maine_modal_confirmation_box {
-    width: 40%;
-    border: 3px outset;
-    position: fixed;
-    top: 8%;
-    left: 30%;
-    padding: 0%;
-    border-radius: 5px;
-    text-align: center;
-	box-shadow: 0px 0px 20px black;
-    z-index: 11;
-	overflow-y: auto;
-	background: linear-gradient(90deg, white, white 75%, gray 100%);
-}
-.maine_modal_delete {
-    position: fixed;
-    top: 10%;
-    width: 50%;
-    left: 0%;
-    background-color: white;
-    z-index: 11;
-    margin: 0% 25%;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px black;
-	display: none;
-}
-.maine_modal_picture {
-    /* display: none; */
-    position: relative;
-    width: 42%;
-    z-index: 10;
-    margin: 0% 29%;
-}
+
 .closeBtn {
     position: absolute;
     right: 0%;
@@ -859,145 +623,15 @@ button.cancelSave {
 .closeBtn:hover {
 	text-shadow: 2px 2px 2px red;
 }
-.addModalPic {
-	background: url("../images/Montego_Bay_3.jpg") !important;
-	background-size:cover !important;
-	background-repeat:no-repeat !important;
-	background-position:center center !important;
-}
-.maine_overlay_pictures .closeBtn {
-    position: fixed;
-    right: 15px;
-    top: 10px;
-    width: 5%;
-    z-index: 12;
-    font-size: 185%;
-    background-color: initial;
-    border: none;
-    color: white;
-}
-.maine_modal_picture p.additionalPictures {
-    position: fixed;
-    z-index: 11;
-    color: white;
-    width: 50%;
-    top: 0%;
-    left: 0%;
-    margin: 0% 23%;
-    padding: 1.5%;
-    text-align: -webkit-center;
-    text-align: -webkit-center;
-}
-.maine_modal_picture p.additionalPictures a.mailToLink {
-    text-decoration: underline;
-    color: #DDDDDD;
-}
-.confirm_modal_title { 
-	background: linear-gradient(90deg, white, white 75%, gray 100%);
-    color: black;
-    margin: 0%;
-    padding: 3%;
-    font-size: 150%;
-}
-.modal_title {
-    background: linear-gradient(90deg, white, white 75%, gray 100%);
-    color: black;
-    margin: 0%;
-    padding: 3% 0%;
-    font-size: 150%;
-    width: 100%;
-}
-.error_modal_title {
-    font-size: 110%;
-    padding: 2% 0%;
-    margin: 0%;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    text-align: -webkit-center;
-    text-align: center;
-    background-color: darkred;
-    color: white;
-}
-.error_modal_content {
-    text-align: -webkit-center;
-    text-align: center;
-}
+
 .errorBorder {
 	border: solid 2px darkred;
 }
-.delete_modal_title {
-    background-color: darkred;
-    color: white;
-    text-align: -webkit-auto;
-    text-align: center;
-    margin: 0;
-    padding: 1% 0%;
-    font-size: 165%;
-    border-top-right-radius: 8px;
-    border-top-left-radius: 8px;
-}
-.delete_modal_content {
-	font-size: 120%;
-    text-align: -webkit-center;
-    text-align: center;
-    margin: 2% 0% 8%;
-}
-.verificationMessage {
-	font-size: 125%;
-}
-.completedEvent {
-  position: absolute;
-  top: 0%;
-  left: 0%;
-  height: 100%;
-  width: 100%;
-  z-index: 2;
-  color: white;
-  border-radius: 10px;
-}
-.completedEvent::after {
-  content: "";
-  background: black;
-  opacity: 0.90;
-  position: absolute;
-  top: 0%;
-  left: 0%;
-  bottom: 0%;
-  right: 0%;
-  z-index: -1;
-  border-radius: 10px;
-}
-.status_complete {
-  text-align: center;
-  font-size: 350%;
-  margin: 5% 0% 0% 0%;
-}
+
 div#suggestion_form ul {
     list-style: none;
 }
-a.pics_link, a.videos_link {
-    margin: 1.5% 20%;
-    text-align: center;
-    display: inline-block;
-    width: 60% !important;
-    max-width: 100%;
-    font-size: 130%;
-    border: dashed 3px;
-    border-radius: 5px;
-    padding: 2% 0% !important;
-	color: white;
-}
-#confirmation_form {
-	background-color: white;
-	border-radius: 10px;
-	margin: 5%;
-	padding: 1% 5%;
-}
-#question_confirmation_form {
-    border-radius: 10px;
-    margin: 5%;
-    padding: 1% 5%;
-}
+
 #payment_plan, #terms_and_conditions {
 	background-color: darkred;
 	opacity: 0.8;
@@ -1008,34 +642,14 @@ a.pics_link, a.videos_link {
 #terms_and_conditions p {
 	margin: 0.2% 0% 0% 0%;
 }
+
 .terms {
 	text-align: center;
 	font-size: 150%;
 	margin: 0%;
 	padding: 0.1% 0%;
 }
-.remove_terms, .add_terms {
-	text-align: center;
-	margin: 1% 0% 0%;
-	font-size: 125%;
-}
-.remove_terms {
-	padding: 3% 0%;
-}
-#payment_plan a, #terms_and_conditions a {
-	color: white;
-}
-div.eUser_form {
-    display: none;
-}
-td.editNotes {
-    max-width: 200px;
-}
-td.editNotes .eNotes {
-    max-width: 95%;
-    background-color: transparent;
-    border: inset 2px;
-}
+
 .red {
 	border: solid 2px red;
 }
@@ -1043,12 +657,7 @@ td.editNotes .eNotes {
 	background: linear-gradient(whitesmoke, gray); 
 	border:solid 1px gray;
 }
-		
-.blurry_border {
-	box-shadow: 0px 0px 25px blue;
-	border: solid 1px;
-	border-radius: 5px;
-}
+
 p.event_header {
 	text-align: center;
 	font-size: 500%;
@@ -1123,17 +732,7 @@ div#contact1_content p:first-of-type {
     color: white;
     font-size: 150%;
 }
-p#signup_ny, p#signup_cruise, p#signup_cali{
-	text-align: center;
-	text-align: -webkit-center;
-	font-size: 124%;
-	margin: 5% 0% 0% 0.5%;
-	border-bottom-right-radius: 0px;
-	border-bottom-left-radius: 0px;
-	background-color: lightsteelblue;
-	padding: 0% 0% 0% 0%;
-	width: 99%;
-}
+
 #suggestion_form {
 	text-align: webkit-left;
 	text-align: left;
@@ -1141,52 +740,13 @@ p#signup_ny, p#signup_cruise, p#signup_cali{
 #suggestion_form  span {
 	margin: 0% 0% 0% 2%;
 }
-#home_btn {
-	top: 1%;
-}
-#question_btn {
-	top: 11.8%;
-}
-#suggestion_btn {
-	top: 22.8%;
-}
-#contact_us_btn {
-	top: 33.8%;
-}
-#about_us_btn {
-	top: 44.8%;
-}
-#admin_page_btn {
-	top: 55.8%;
-}
-.actionBtns {
-	width: 100%;
-	opacity: 0.9;
-	color: #343a40;
-	border: outset 2px cadetblue;
-	background: linear-gradient(rgba(245, 245, 245, 0), whitesmoke 75%, cadetblue);
-	transition: .5s;
-}
-.actionBtns:hover {
-	border: inset 2px cadetblue;
-	background: linear-gradient(whitesmoke, whitesmoke, cadetblue);
-	/* -webkit-animation-name: home_page; */ /* Chrome, Safari, Opera */
-	/* -webkit-animation-duration: 1s; */ /* Chrome, Safari, Opera */
-	/* -webkit-animation-fill-mode: forwards; */
-	/* animation-name: home_page; */
-	/* animation-duration: 1s; */
-	/* animation-fill-mode: forwards; */
-}
-/* Chrome, Safari, Opera 
-@-webkit-keyframes home_page {
-	from {background-image: linear-gradient(rgba(245, 245, 245, 0), whitesmoke 75%, cadetblue);}
-	to {background: linear-gradient(whitesmoke, whitesmoke, cadetblue);}
-}*/
+
 #home_content{
 	opacity: 0.9;
 	margin: 2% 0%;
 	padding: 1%;
 }
+
 .confirmation_form {
 	min-height: 100px;
 	width: 83%;
@@ -1661,498 +1221,463 @@ div#loading_image img {
 /*Smartphones portrait*/
 @media only screen and (max-width:575px) {
 
-.showTripMobile::after {
-	content: "";
-    background-image: inherit;
-    background-attachment: fixed;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
-}
+    .showTripMobile::after {
+        content: "";
+        background-image: inherit;
+        background-attachment: fixed;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+    }
 
-.card-img-top {
-	height: 250px;
-	max-height: 250px;
-}
+    .card-img-top {
+        height: 250px;
+        max-height: 250px;
+    }
 
-.suggestionResultsPercent {
-    margin: 0% 5% 10%;
-}
+    .suggestionResultsPercent {
+        margin: 0% 5% 10%;
+    }
 
-div#suggestion_results_div {
-    border: solid 2px;
-    border-radius: 10px;
-	background: bisque;
-}
+    div#suggestion_results_div {
+        border: solid 2px;
+        border-radius: 10px;
+        background: bisque;
+    }
 
-.flashMessage {
-    padding: 20px;
-    left: 5%;
-    width: 90%;
-}
+    .flashMessage {
+        padding: 20px;
+        left: 5%;
+        width: 90%;
+    }
 
-.vacationDescription {
-    margin: 0% 0%;
-}
+    .vacationDescription {
+        margin: 0% 0%;
+    }
 
-.vacationDescription h2 {
-	font-size: 100% !important;
-}
+    .vacationDescription h2 {
+        font-size: 100% !important;
+    }
 
-.mobileLocationFlexShow {
-	background: linear-gradient(transparent, whitesmoke, white, whitesmoke, transparent);
-}
-.panel-body {
-    background: rgba(95, 158, 160, 0.25);
-}
-.newUser {
-    padding: 0% 2% 0%;
-}
-.addNewTrip {
-    margin: 6% 2%;
-}
-.custom-file {
-    max-width: 100%;
-}
-.addPictures {
-    margin: 2% 2%;
-}
-.addPictures input[type="submit"] {
-    width: 50%;
-}
-.editTripInfo .newTripPhoto {
-	height: 300px;
-	width: 100%;
-	max-width: 100%;
-}
-.addInput {
-    margin-left: 1%;
-}
+    .mobileLocationFlexShow {
+        background: linear-gradient(transparent, whitesmoke, white, whitesmoke, transparent);
+    }
+
+    .panel-body {
+        background: rgba(95, 158, 160, 0.25);
+    }
+
+    .addNewTrip {
+        margin: 6% 2%;
+    }
+
+    .custom-file {
+        max-width: 100%;
+    }
+
+    .addPictures {
+        margin: 2% 2%;
+    }
+
+    .addPictures input[type="submit"] {
+        width: 50%;
+    }
+
+    .editTripInfo .newTripPhoto {
+        height: 300px;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .addInput {
+        margin-left: 1%;
+    }
 }
 /*Coverage between iPad and Smartphone*/
 @media only screen and (min-width:576) {
-div#app::after {
-	content: "";
-	position: initial;
-	background-image: initial;
-	background-size: initial;
-	background-position: initial;
-	background-repeat: initial;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	z-index: -1;
-}
+    div#app::after {
+        content: "";
+        position: initial;
+        background-image: initial;
+        background-size: initial;
+        background-position: initial;
+        background-repeat: initial;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: -1;
+    }
 
-div#app {
-	background-attachment: fixed;
-	background-image: url("/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg");
-	background-size: cover;
-	background-position: center center;
-	background-repeat:no-repeat;
-}
+    div#app {
+        background-attachment: fixed;
+        background-image: url("/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg");
+        background-size: cover;
+        background-position: center center;
+        background-repeat:no-repeat;
+    }
 
-.pictures_east_and_west_btns, #action_btns {
-    display:none;
-}
+    .pictures_east_and_west_btns, #action_btns {
+        display:none;
+    }
 
-#mobile_action_btns {
-	display: block;
-}
+    #mobile_action_btns {
+        display: block;
+    }
 
-.mobileBtns {
-    text-align: -webkit-center;
-    text-align: center;
-    display: none;
-}
+    .mobileBtns {
+        text-align: -webkit-center;
+        text-align: center;
+        display: none;
+    }
 
-.mobileBtns button {
-	display: -webkit-inline-box;
-	display: block;
-	width: 100%;
-	/* margin: 0 auto; */
-	border: none;
-	background-color: transparent;
-}
+    .mobileBtns button {
+        display: -webkit-inline-box;
+        display: block;
+        width: 100%;
+        /* margin: 0 auto; */
+        border: none;
+        background-color: transparent;
+    }
 
-.mobileBtns button:not(:last-of-type) {
-    border-bottom: solid 1px;
-}
+    .mobileBtns button:not(:last-of-type) {
+        border-bottom: solid 1px;
+    }
 
-img.menuImg {
-    max-width: 20px;
-    vertical-align: middle;
-}
+    img.menuImg {
+        max-width: 20px;
+        vertical-align: middle;
+    }
 
-div.mobileMenuBtn {
-    margin: 0% 25% 1%;
-    padding: 2% 0% 0%;
-    font-size: 25px;
-    text-align: -webkit-center;
-    text-align: center;
-}
+    div.mobileMenuBtn {
+        margin: 0% 25% 1%;
+        padding: 2% 0% 0%;
+        font-size: 25px;
+        text-align: -webkit-center;
+        text-align: center;
+    }
 
-#main_content {
-    width: initial;
-    margin: 0% auto;
-    display: block;
-}
+    #main_content {
+        width: initial;
+        margin: 0% auto;
+        display: block;
+    }
 
-button#see_contacts_btn {
-	width: 100%;
-	opacity: 0.9;
-	font-size: 125px;
-}
+    button#see_contacts_btn {
+        width: 100%;
+        opacity: 0.9;
+        font-size: 125px;
+    }
 
-.card-img-top {
-	height: 325px;
-	max-height: 325px;
-}
+    .card-img-top {
+        height: 325px;
+        max-height: 325px;
+    }
 
-.mobileLocationFlexShow {
-	background: linear-gradient(transparent, whitesmoke, white, whitesmoke, transparent);
-}
+    .mobileLocationFlexShow {
+        background: linear-gradient(transparent, whitesmoke, white, whitesmoke, transparent);
+    }
 }
 
 /*Coverage for small screens but not devices*/
 @media only screen and (min-width:768px) {
-.terms_cost_div.editTripInfo::after, 
-.terms_payment_div.editTripInfo::after, 
-.terms_conditions_div.editTripInfo::after {
-	display: none;
-}
-.editTripInfo input, .editTripInfo textarea {
-    width: 51%;
-    /* padding: 1% 0% 1% 3%; */
-    font-size: 130%;
-}
-.editTripInfo select {
-    width: 54%;
-}
-.adminDiv {
-    /* max-width: 70%; */
-    /* width: 70%; */
-    /* left: 30%; */
-    /* top: 9%; */
-    /* padding: 8% 0% 2% 0%; */
-}
-#navi {
-    max-width: 25%;
-    min-height: 100%;
-    width: 25%;
-    margin: 8% 0% 0% 0%;
-}
-ul#navi_list {
-    font-size: 120%;
-    position: relative;
-    margin: 0% 5%;
-    padding: 10% 0% 10% 5%;
-}
-.editSelect, .pictureSelect, .userSelect {
-    width: 50%;
-    margin: 0% 25% 2%;
-}
 
-h1.pageTopicHeader {
-    padding: 0% 1%;
-    margin: 4% 0%;
-}
-#location_page_header h1 {
-    margin: 4% 0%;
-}
-.newActivities {
-    padding: 0% 0% 0% 0%;
-}
-.newUser {
-	padding: 0% 5% 0% 0%;
-}
-.newActivities .newIndActivity input {
-    padding: 0.5% 1%;
-    border-radius: 5px;
-    max-width: 28%;
-    width: 28%;
-}
-.newActivities .newIndActivity input[type="date"] {
-    padding: 0% 0.5% 0% 0%;
-    border-radius: 5px;
-}
-form.addActivity input[type="submit"], form.addUser input[type="submit"],
-#pictures_page_header input[type="submit"] {
-    margin: 1% 3% 0% 0%;
-    padding: 1%;
-}
-#pictures_page_header input[type="submit"] {
-    position: absolute;
-    top: 3%;
-    right: 2%;
-}
-.newUser .newUserPhone input.profileInputPhone1, 
-.newUser .newUserPhone input.profileInputPhone2, 
-.newUser .newUserPhone input.profileInputPhone3 {
-    max-width: 28.6%;
-    width: 28.6%;
-}
-.allPicturesDiv {
-    width: 45%;
-}
-/*.allPicturesDiv img {
-    max-width: 100%;
-    max-height: 200px;
-    height: 100%;
-    border-radius: 10px;
-    margin: 0% 0% -1%;
-    border: solid 1.5px;
-    box-shadow: 0px 0px 10px gray;
-}*/
-.allPicturesDiv .pictureCaption {
-    padding: 3% 1%;
-}
-.addPictures {
-    margin: 5%;
-}
-.removeIndPicture {
-    max-width: 45%;
-    width: 43%;
-    min-height: 200px;
-}
-.removeIndPicture h3 {
-    max-width: 90%;
-    width: 90%;
-    display: inline-block;
-    text-align: -webkit-left;
-    text-align: left;
-    padding: 0% 0% 0% 2%;
-}
-.removeIndPicture img {
-    height: 200px;
-    margin-bottom: -2%;
-}
-table#suggestions_table {
-    max-width: 100%;
-    width: 95%;
-    margin: 0% 0% 0%;
-}
-table#questions_table {
-    width: 95%;
-    margin: 5% 5% 0% 0%;
-}
-th.question_email_data, #questions_table tr.name_data_rows_header th:last-of-type, #questions_table .name_data:last-of-type, .name_data:nth-of-type(4) {
-    display: none;
-}
-tr.name_data_rows_header th:nth-of-type(3) {
-    border-top-right-radius: 10px;
-}
-tr.name_data_rows_question:nth-of-type(3) td:last-of-type {
-    border-bottom-right-radius: 10px;
-}
-h1#admin_page_header {
-	padding: 1% 8% 2%;;
-}
+    .terms_cost_div.editTripInfo::after,
+    .terms_payment_div.editTripInfo::after,
+    .terms_conditions_div.editTripInfo::after {
+        display: none;
+    }
+
+    .editTripInfo input, .editTripInfo textarea {
+        width: 51%;
+        /* padding: 1% 0% 1% 3%; */
+        font-size: 130%;
+    }
+
+    .editTripInfo select {
+        width: 54%;
+    }
+
+    #navi {
+        max-width: 25%;
+        min-height: 100%;
+        width: 25%;
+        margin: 8% 0% 0% 0%;
+    }
+
+    ul#navi_list {
+        font-size: 120%;
+        position: relative;
+        margin: 0% 5%;
+        padding: 10% 0% 10% 5%;
+    }
+
+    .editSelect, .pictureSelect, .userSelect {
+        width: 50%;
+        margin: 0% 25% 2%;
+    }
+
+    #location_page_header h1 {
+        margin: 4% 0%;
+    }
+
+    .newActivities {
+        padding: 0% 0% 0% 0%;
+    }
+
+    .newActivities .newIndActivity input {
+        padding: 0.5% 1%;
+        border-radius: 5px;
+        max-width: 28%;
+        width: 28%;
+    }
+
+    .newActivities .newIndActivity input[type="date"] {
+        padding: 0% 0.5% 0% 0%;
+        border-radius: 5px;
+    }
+
+    form.addActivity input[type="submit"], form.addUser input[type="submit"],
+    #pictures_page_header input[type="submit"] {
+        margin: 1% 3% 0% 0%;
+        padding: 1%;
+    }
+
+    #pictures_page_header input[type="submit"] {
+        position: absolute;
+        top: 3%;
+        right: 2%;
+    }
+
+    .allPicturesDiv {
+        width: 45%;
+    }
+
+    .allPicturesDiv .pictureCaption {
+        padding: 3% 1%;
+    }
+
+    .addPictures {
+        margin: 5%;
+    }
+
+    .removeIndPicture {
+        max-width: 45%;
+        width: 43%;
+        min-height: 200px;
+    }
+
+    .removeIndPicture h3 {
+        max-width: 90%;
+        width: 90%;
+        display: inline-block;
+        text-align: -webkit-left;
+        text-align: left;
+        padding: 0% 0% 0% 2%;
+    }
+
+    .removeIndPicture img {
+        height: 200px;
+        margin-bottom: -2%;
+    }
+
+    table#suggestions_table {
+        max-width: 100%;
+        width: 95%;
+        margin: 0% 0% 0%;
+    }
+
+    table#questions_table {
+        width: 95%;
+        margin: 5% 5% 0% 0%;
+    }
+
+    th.question_email_data, #questions_table tr.name_data_rows_header th:last-of-type, #questions_table .name_data:last-of-type, .name_data:nth-of-type(4) {
+        display: none;
+    }
+
+    tr.name_data_rows_header th:nth-of-type(3) {
+        border-top-right-radius: 10px;
+    }
+
+    tr.name_data_rows_question:nth-of-type(3) td:last-of-type {
+        border-bottom-right-radius: 10px;
+    }
+
+    h1#admin_page_header {
+        padding: 1% 8% 2%;;
+    }
 }
 
 /*Coverage between iPad and Smartphone*/
 @media only screen and (min-width:992px) {
-.maine_modal_confirmation_box, .maine_modal {
-    width: 56%;
-    min-height: 50%;
-    top: 15%;
-    left: 0%;
-    margin: 0% 18.5% 0% 25%;
-}
-.maine_modal_error {
-    max-height: 40%;
-    min-height: 10%;
-}
-.maine_modal_picture {
-    top: 19%;
-}
-input.adminPin {
-    right: 5%;
-}
-#main_content {
-    /* min-height: 1040px; */
-}
-#suggestion_btn {
-    top: 27.5%;
-}
-#question_btn {
-    top: 15.2%;
-}
-#home_btn {
-    top: 2.8%;
-}
-#contact_us_btn {
-    top: 39.9%;
-}
-#about_us_btn {
-    top: 52.3%;
-}
-#admin_page_btn {
-	top: 63%;
-}
-.form_tables {
-	max-width: 30%;
-	top: 31.5%;
-	right: 0.5%;
-}
-p.contact_name {
-	background-color: white;
-	margin: 0px;
-	text-align: center;
-}
-.editTripInfo input, .editTripInfo textarea {
-    width: 37.5%;
-    /* padding: 1% 0% 1% 3%; */
-    font-size: 130%;
-}
-.editTripInfo select {
-    width: 54%;
-}
-.adminDiv {
-    /* max-width: 70%; */
-    /* width: 70%; */
-    /* left: 25%; */
-    /* top: 9%; */
-    /* padding: 8% 0% 2% 5%; */
-}
-#navi {
-    max-width: 25%;
-    min-height: 100%;
-    width: 25%;
-    margin: 8% 0% 0% 0%;
-}
-ul#navi_list {
-    font-size: 120%;
-    position: relative;
-    margin: 0% 5%;
-    padding: 10% 0% 10% 5%;
-}
-.editSelect, .pictureSelect, .userSelect {
-    width: 50%;
-    margin: 0% 25% 2%;
-}
 
-.trip_edit_div {
-    margin: 2% 0%;
-    padding: 2% 3%;
-}
-.editTripInfo span:not(.custom-file-control) {
-    width: 39%;
-}
-.editTripInfo select {
-    width: 40%;
-}
-h1.pageTopicHeader {
-    padding: 0% 1%;
-    margin: 4% 0%;
-}
-#location_page_header h1 {
-    margin: 4% 0%;
-}
-.newActivities {
-    padding: 0% 0% 0% 0%;
-}
-.newUser {
-	padding: 0% 10% 0% 5%;
-}
-.newActivities .newIndActivity input {
-    padding: 0.5% 1%;
-    border-radius: 5px;
-    max-width: 28%;
-    width: 28%;
-}
-.newActivities .newIndActivity input[type="date"] {
-    padding: 0% 0.5% 0% 0%;
-    border-radius: 5px;
-}
-form.addActivity input[type="submit"], form.addUser input[type="submit"],
-#pictures_page_header input[type="submit"] {
-    margin: 1% 3% 0% 0%;
-    padding: 1%;
-}
-#pictures_page_header input[type="submit"] {
-    position: absolute;
-    top: 3%;
-    right: 2%;
-}
-.newUser .newUserPhone input.profileInputPhone1, 
-.newUser .newUserPhone input.profileInputPhone2, 
-.newUser .newUserPhone input.profileInputPhone3 {
-    max-width: 29.1%;
-    width: 29%;
-}
-.allPicturesDiv {
-    width: 30.8%;
-    max-width: 31%;
-}
-/*.allPicturesDiv img {
-    max-width: 100%;
-    max-height: 200px;
-    height: 100%;
-    border-radius: 10px;
-    margin: 0% 0% -1%;
-    border: solid 1.5px;
-    box-shadow: 0px 0px 10px gray;
-}*/
-.allPicturesDiv .pictureCaption {
-    padding: 3% 1%;
-}
-.addPictures {
-    margin: 5%;
-}
-.removeIndPicture {
-    max-width: 31%;
-    width: 28.6%;
-    min-height: 200px;
-}
-.removeIndPicture h3 {
-    max-width: 85%;
-    width: 85%;
-    display: inline-block;
-    text-align: -webkit-left;
-    text-align: left;
-    padding: 0% 0% 0% 2%;
-}
-.removeIndPicture img {
-    height: 200px;
-    margin-bottom: -2.5%;
-}
-table#suggestions_table {
-    max-width: 100%;
-    width: 95%;
-    margin: 0% 0% 0%;
-}
-table#questions_table {
-    width: 95%;
-    margin: 5% 5% 0% 0%;
-}
-th.question_email_data, #questions_table tr.name_data_rows_header th:last-of-type, #questions_table .name_data:last-of-type, .name_data:nth-of-type(4) {
-    display: none;
-}
-tr.name_data_rows_header th:nth-of-type(3) {
-    border-top-right-radius: 10px;
-}
-tr.name_data_rows_question:nth-of-type(3) td:last-of-type {
-    border-bottom-right-radius: 10px;
-}
-h1#admin_page_header {
-	padding: 1% 8% 3%;
-}
-.editTripInfo {
-    margin: 1% 0%;
-}
-.editTripInfo .oi {
-    margin: 0% 2% 0% -5.9% !important;
-}
-.trip_location_div input[type="submit"] {
-    min-width: initial;
-    right: 1%;
-    padding: 3% 1%;
-}
+    input.adminPin {
+        right: 5%;
+    }
+
+    .form_tables {
+        max-width: 30%;
+        top: 31.5%;
+        right: 0.5%;
+    }
+
+    p.contact_name {
+        background-color: white;
+        margin: 0px;
+        text-align: center;
+    }
+
+    .editTripInfo input, .editTripInfo textarea {
+        width: 37.5%;
+        /* padding: 1% 0% 1% 3%; */
+        font-size: 130%;
+    }
+
+    .editTripInfo select {
+        width: 54%;
+    }
+
+    #navi {
+        max-width: 25%;
+        min-height: 100%;
+        width: 25%;
+        margin: 8% 0% 0% 0%;
+    }
+
+    ul#navi_list {
+        font-size: 120%;
+        position: relative;
+        margin: 0% 5%;
+        padding: 10% 0% 10% 5%;
+    }
+
+    .editSelect, .pictureSelect, .userSelect {
+        width: 50%;
+        margin: 0% 25% 2%;
+    }
+
+    .trip_edit_div {
+        margin: 2% 0%;
+        padding: 2% 3%;
+    }
+
+    .editTripInfo span:not(.custom-file-control) {
+        width: 39%;
+    }
+
+    .editTripInfo select {
+        width: 40%;
+    }
+
+    #location_page_header h1 {
+        margin: 4% 0%;
+    }
+
+    .newActivities {
+        padding: 0% 0% 0% 0%;
+    }
+
+    .newActivities .newIndActivity input {
+        padding: 0.5% 1%;
+        border-radius: 5px;
+        max-width: 28%;
+        width: 28%;
+    }
+
+    .newActivities .newIndActivity input[type="date"] {
+        padding: 0% 0.5% 0% 0%;
+        border-radius: 5px;
+    }
+
+    form.addActivity input[type="submit"], form.addUser input[type="submit"],
+    #pictures_page_header input[type="submit"] {
+        margin: 1% 3% 0% 0%;
+        padding: 1%;
+    }
+
+    #pictures_page_header input[type="submit"] {
+        position: absolute;
+        top: 3%;
+        right: 2%;
+    }
+
+    .allPicturesDiv {
+        width: 30.8%;
+        max-width: 31%;
+    }
+
+    .allPicturesDiv .pictureCaption {
+        padding: 3% 1%;
+    }
+
+    .addPictures {
+        margin: 5%;
+    }
+
+    .removeIndPicture {
+        max-width: 31%;
+        width: 28.6%;
+        min-height: 200px;
+    }
+
+    .removeIndPicture h3 {
+        max-width: 85%;
+        width: 85%;
+        display: inline-block;
+        text-align: -webkit-left;
+        text-align: left;
+        padding: 0% 0% 0% 2%;
+    }
+
+    .removeIndPicture img {
+        height: 200px;
+        margin-bottom: -2.5%;
+    }
+
+    table#suggestions_table {
+        max-width: 100%;
+        width: 95%;
+        margin: 0% 0% 0%;
+    }
+
+    table#questions_table {
+        width: 95%;
+        margin: 5% 5% 0% 0%;
+    }
+
+    th.question_email_data, #questions_table tr.name_data_rows_header th:last-of-type, #questions_table .name_data:last-of-type, .name_data:nth-of-type(4) {
+        display: none;
+    }
+
+    tr.name_data_rows_header th:nth-of-type(3) {
+        border-top-right-radius: 10px;
+    }
+
+    tr.name_data_rows_question:nth-of-type(3) td:last-of-type {
+        border-bottom-right-radius: 10px;
+    }
+
+    h1#admin_page_header {
+        padding: 1% 8% 3%;
+    }
+
+    .editTripInfo {
+        margin: 1% 0%;
+    }
+
+    .editTripInfo .oi {
+        margin: 0% 2% 0% -5.9% !important;
+    }
+
+    .trip_location_div input[type="submit"] {
+        min-width: initial;
+        right: 1%;
+        padding: 3% 1%;
+    }
 }
 
 @media only screen and (max-width:1199px) {
@@ -2268,6 +1793,10 @@ h1#admin_page_header {
         font-size: initial;
     }
 
+    .side-nav .logo-wrapper, .side-nav .logo-wrapper a {
+        height: 150px;
+    }
+
     .panel-body {
         background: midnightblue;
     }
@@ -2276,9 +1805,7 @@ h1#admin_page_header {
         top: 50%;
         right: 5%;
     }
-    .newUser {
-        padding: 0% 20% 0%;
-    }
+
     .tripEvents, .tripUsers {
         /* padding: 2% 1%; */
     }
@@ -2408,27 +1935,7 @@ h1#admin_page_header {
         border-radius: 5px;
         width: 30.3%;
     }
-    .newUser .newUserFirst input, .newUser .newUserLast input, .newUser .newUserEmail input, .newUser .newUserNotes textarea, .newUser .newAdminInput input {
-        width: 97%;
-        font-size: 115%;
-    }
-    .newUser .newAdminInput select {
-        font-size: 115%;
-        width: 99.9%;
-    }
-    .newUser .newAdminInput input[type="submit"] {
-        margin: 4% 20%;
-        padding: 1%;
-        width: 60%;
-    }
-    .newUser .newUserNotes textarea {
-    }
-    .newUser .newUserPhone input.profileInputPhone1,
-    .newUser .newUserPhone input.profileInputPhone2,
-    .newUser .newUserPhone input.profileInputPhone3 {
-        max-width: 30.235%;
-        width: 29%;
-    }
+
     .newActivities .newIndActivity input[type="date"] {
         padding: 0% 1%;
         border-radius: 5px;
@@ -2438,33 +1945,34 @@ h1#admin_page_header {
     form.addUser input[type="submit"] {
     }
 }
+
 /*Even Larger Screens*/
 @media only screen and (min-width:1400px) {
-.maine_modal {
-    font-size: 120%;
-}
-.maine_modal_picture {
-    width: 30%;
-    top: 15%;
-    margin: 0% 35%;
-}
-#all_questions tr.name_data_rows_header th.question_data {
-    min-width: 750px;
-}
-#all_questions tr.name_data_rows_header th.question_email_data {
-    min-width: 350px;
-}
-button#prevCategory {
-    right: 250px;
-}
-button#nextCategory {
-    right: 150px;
-}
-.addInput {
-    margin-left: 35.5%;
-}
-.trip_location_div input[type="submit"] {
-    top: 43.5%;
-    right: 5%;
-}
+    .maine_modal {
+        font-size: 120%;
+    }
+    .maine_modal_picture {
+        width: 30%;
+        top: 15%;
+        margin: 0% 35%;
+    }
+    #all_questions tr.name_data_rows_header th.question_data {
+        min-width: 750px;
+    }
+    #all_questions tr.name_data_rows_header th.question_email_data {
+        min-width: 350px;
+    }
+    button#prevCategory {
+        right: 250px;
+    }
+    button#nextCategory {
+        right: 150px;
+    }
+    .addInput {
+        margin-left: 35.5%;
+    }
+    .trip_location_div input[type="submit"] {
+        top: 43.5%;
+        right: 5%;
+    }
 }

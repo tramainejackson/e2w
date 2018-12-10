@@ -33,13 +33,17 @@
 
 								<div class="view" style="height:100%;">
 
-									<div class="flex-column mask rgba-stylish-strong white-text text-center">
+									<div class="flex-center mask rgba-stylish-strong white-text text-center">
 
-										<p class="event_header">{{ ucwords($trip->trip_location) }}</p>
+										<div class="" id="">
 
-										<p class="event_date">{{ $tripMonth->month_name . " ". $trip->trip_year }}</p>
+											<p class="event_header">{{ ucwords($trip->trip_location) }}</p>
 
-										<a class="btn btn-info">Click for more information</a>
+											<p class="event_date">{{ $tripMonth->month_name . " ". $trip->trip_year }}</p>
+
+											<a class="btn btn-info" href="location/{{$trip->id}}">Click for more information</a>
+
+										</div>
 
 										@if($trip->activities->count())
 

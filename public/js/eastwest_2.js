@@ -27,37 +27,6 @@ $(document).ready(function() {
 		$('.loadingSpinner p').text('Sending Information');
 		$('.loadingSpinner').modal('show');
 	});
-
-	// Show flash message when one is available
-	var errorHeight = $('.errorMessage').outerHeight() + 20;
-	var messageHeight = $('.flashMessage').outerHeight() + 20;
-	
-	if($('.flashMessage').length == 1 && $('.errorMessage').length != 1) {
-		$('.flashMessage').animate({top:'5%'});
-		setTimeout(function(){
-			$('.flashMessage').animate({top:'-150px'}, function(){
-				$('.flashMessage').remove();
-			});
-		}, 8000);
-	} else if($('.flashMessage').length != 1 && $('.errorMessage').length == 1) {
-		$('.errorMessage').animate({top:'-' + messageHeight});
-		setTimeout(function(){
-			$('.errorMessage').animate({top:'-' + errorHeight}, function(){
-				$('.errorMessage').remove();
-			});
-		}, 8000);
-	} else if($('.flashMessage').length == 1 && $('.errorMessage').length == 1) {
-		$('.flashMessage').animate({top:'5%', left: '10%'});
-		$('.errorMessage').animate({top:'5%', left: '60%'});
-		setTimeout(function() {
-			$('.flashMessage').animate({top:'-' + messageHeight}, function(){
-				$('.flashMessage').remove();
-			});
-			$('.errorMessage').animate({top:'-' + errorHeight}, function(){
-				$('.errorMessage').remove();
-			});
-		}, 8000);
-	}
 	
 	// Change input button when input has been changed
 	$("body").on('change', '.locationEditForm input, .locationEditForm textarea, .locationEditForm select, #add_picture_form input', function() {
@@ -207,50 +176,39 @@ $(document).ready(function() {
 		}, 10000)
 	}
 
-	// Button toggle for PIF switch
+	// Button toggle Yes/No switch
 	$('body').on("click", "button", function(e) {
-		if(!$(this).hasClass('btn-primary') || !$(this).hasClass('btn-danger')) {
-			if($(this).children().val() == "Y") {
-				$(this).addClass('active btn-success').children().attr("checked", true);
-				$(this).siblings().removeClass('active btn-danger').children().removeAttr("checked");
-			} else if($(this).children().val() == 'N') {
-				$(this).addClass('active btn-danger').children().attr("checked", true);
-				$(this).siblings().removeClass('active btn-success').children().removeAttr("checked");
-			}
-		}	
-	});
-	
-	//Suggestion display box
-	// $("body").on("click", ".nextLocation, #other_option", function(e){
-	// 	if($(e.target).attr("id") == 'other_option') {
-	// 		$("#other_location2").removeAttr("disabled");
-	// 	} else {
-	// 		$("#other_location2").attr("disabled", true).val("");
-	// 	}
-	// });
-	
-	//Close modal and remove overlay
-	$(".closeBtn, .maine_overlay, #delete_modal_no_btn").click(function()
-	{
-		$(".maine_overlay, .maine_modal_confirmation_box, .maine_modal, .maine_modal_error, .maine_modal_delete").fadeOut(function(){
-			$(".delete_modal_content").empty();
-			$(".disney_page_additions, .maine_modal .comingSoon, .maine_modal .termsInclusions").remove();
-			$(registrationForm).detach();
-			$(".maine_modal .modal_title").text("");
-			$(".navContent").each(function(){
-				$(this).hide();
-			});
-		});
-		$("#question_form1 input").removeClass("errorBorder").val("");
-		$("#question_form1 textarea").removeClass("errorBorder").val("");
-		$(".maine_modal").removeClass("addModalPic");
-			
-		if($("#price_is_right").length > 0)
-		{
-			$("#price_is_right").remove();
+		if($(this).hasClass('yesBtn') || $(this).hasClass('noBtn')) {
+			if($(this).hasClass('yesBtn')) {
+				// Yes Button
+				$(this).addClass('active btn-success')
+                    .removeClass('stylish-color')
+					.children()
+					.attr("checked", true);
+
+				// No Button
+				$(this).siblings()
+					.removeClass('active btn-danger')
+					.addClass('stylish-color')
+					.children()
+					.removeAttr("checked");
+			} else if($(this).hasClass('noBtn')) {
+                // Yes Button
+                $(this).siblings()
+					.removeClass('active btn-success')
+                    .addClass('stylish-color')
+					.children()
+					.removeAttr("checked");
+
+                // No Button
+                $(this).addClass('active btn-danger')
+                    .removeClass('stylish-color')
+					.children()
+					.attr("checked", true);
+            }
 		}
 	});
-	
+
 	//Add loading GIF when form is submitted. Will remove once form is submitted to next pageX
 	$("body").on("submit", "#add_picture_form", function(e) {
 		if($(".pictureSelect option:selected").val() == "blank") {
@@ -496,3 +454,9 @@ $(function () {
 $(function () {
     $("#mdb-lightbox-ui").load("/addons/mdb-lightbox-ui.html");
 });
+
+// SideNav Button Initialization
+$(".button-collapse").sideNav();
+// SideNav Scrollbar Initialization
+var sideNavScrollbar = document.querySelector('.custom-scrollbar');
+Ps.initialize(sideNavScrollbar);

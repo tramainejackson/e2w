@@ -27,8 +27,12 @@
 
 	@section('content')
 			
-		<div class="col-12 p-0">
-			<h2 class="white-text text-center m-0 p-5" style=" font-family: 'Felipa', cursive; text-shadow: 2px 1px 5px #304e4e; font-size: 275%;"><b>Trip Photos</b></h2>
+		<div class="col-12 white-text text-center m-0 p-5 d-xl-none">
+			<h2 class="" style=" font-family: 'Felipa', cursive; text-shadow: 2px 1px 5px #304e4e; font-size: 275%;"><b>Trip Photos</b></h2>
+		</div>
+
+		<div class="col-12 underline d-none d-xl-block p-5 text-center">
+			<h2 class="display-3">Trip Photos</h2>
 		</div>
 
 		<div class="col-12">
