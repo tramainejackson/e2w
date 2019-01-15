@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TripInclusions extends Model
+class TravelPayments extends Model
 {
 	/**
 	 * The attributes that are mass assignable.
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['description'];
+	protected $fillable = ['payment_description', 'occurrence'];
 
 	/**
 	 * Get the email address for the participant.
@@ -34,12 +34,4 @@ class TripInclusions extends Model
 	{
 		$this->attributes['description'] = ucfirst($value);
 	}
-
-    /**
-     * Get the trip for the picture.
-     */
-    public function trip()
-    {
-        return $this->belongsTo('App\TripLocations');
-    }
 }

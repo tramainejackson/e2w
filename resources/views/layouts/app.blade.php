@@ -13,7 +13,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('Title', 'Eastcoast2Westcoast')</title>
+    <title>@yield('title', 'Eastcoast2Westcoast')</title>
 
     <!-- Styles -->
 	<link href="https://fonts.googleapis.com/css?family=Felipa" rel="stylesheet">

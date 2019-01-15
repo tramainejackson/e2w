@@ -17,6 +17,10 @@ Route::resource('/admin', 'UsersController');
 
 Route::resource('/location', 'TripLocationsController');
 
+Route::post('/locations/ajax_add', 'TripLocationsController@ajax_add');
+
+Route::patch('/locations/ajax_update', 'TripLocationsController@ajax_update');
+
 Route::resource('/pictures', 'TripPicturesController');
 
 Route::resource('/suggestions', 'TravelSuggestionsController');

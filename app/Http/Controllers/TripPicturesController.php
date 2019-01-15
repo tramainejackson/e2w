@@ -57,10 +57,9 @@ class TripPicturesController extends Controller
     public function store(Request $request)
     {
 		$trip = TripLocations::find($request->trip_id);
-		$pictures = TripPictures::all();
-		$getLocations = TripLocations::all();
 		$error = "";
 		$success = 0;
+
 		if($request->hasFile('upload_photo')) {
 			foreach($request->file('upload_photo') as $newImage) {
 				$addImage = new TripPictures();
@@ -76,58 +75,41 @@ class TripPicturesController extends Controller
 						if($newImage->guessExtension() == 'jpeg' || $newImage->guessExtension() == 'png' || $newImage->guessExtension() == 'gif' || $newImage->guessExtension() == 'webp' || $newImage->guessExtension() == 'jpg') {
 							$image = Image::make($newImage->getRealPath())->orientate();
 							$path = $newImage->store('public/images');
-							$image->save(storage_path('app/'. $path));
+
+							if($image->save(storage_path('app/'. $path))) {
+								// prevent possible upsizing
+								// Create a larger version of the image
+								// and save to large image folder
+								$image->resize(1800, null, function ($constraint) {
+									$constraint->aspectRatio();
+									// $constraint->upsize();
+								});
+
+								if ($image->save(storage_path('app/' . str_ireplace('images', 'images/lg', $path)))) {
+									// Get the height of the current large image
+									$addImage->lg_height = $image->height();
+
+									// Create a smaller version of the image
+									// and save to large image folder
+									$image->resize(500, null, function ($constraint) {
+										$constraint->aspectRatio();
+									});
+
+									if($image->save(storage_path('app/'. str_ireplace('images', 'images/sm', $path)))) {
+										// Get the height of the current small image
+										$addImage->sm_height = $image->height();
+									}
+								}
+							}
 
 							$addImage->trip_id = $request->trip_id;
 							$addImage->picture_name = $path;
-							
+
 							if($addImage->save()) {
 								$success++;
 							}
 						} else {
 							$error .= "The file " . $fileName . " could not be added bcause it is the wrong image type.";
-						}
-					} else {
-						// Resize the image before storing. Will need to hash the filename first
-						$path = $newImage->store('public/images');
-						$image = Image::make($newImage)->orientate()->resize(1500, null, function ($constraint) {
-							$constraint->aspectRatio();
-							$constraint->upsize();
-						});
-						$image->save(storage_path('app/'. $path));
-
-						$addImage->trip_id = $request->trip_id;
-						$addImage->picture_name = $path;
-						
-						if($addImage->save()) {
-							$success++;
-						}
-					}
-				} else {
-					$error .= "The file " . $fileName . " may be corrupt and could not be uploaded.";
-				}
-			}
-		} else {
-			foreach($request->file('upload_photo') as $newImage) {
-				$addImage = new TripPictures();
-				$fileName = $newImage->getClientOriginalName();
-
-				if($newImage->getError() == 1) {
-					$error .= "The file " . $fileName . " is too large and could not be uploaded";
-					// $image = Image::make($newImage)->orientate();
-				} elseif($newImage->getError() == 0) {
-					// Change if statement to check size of images and make sure smaller than 5kb
-					// If not resize to a smaller size
-					if($newImage->getClientSize() < $newImage->getMaxFileSize()) {
-						$path = $newImage->store('public/images');
-						$image = Image::make($newImage)->orientate();
-						$image->save(storage_path('app/'. $path));
-
-						$addImage->trip_id = $request->trip_id;
-						$addImage->picture_name = $path;
-						
-						if($addImage->save()) {
-							$success++;
 						}
 					} else {
 						// Resize the image before storing. Will need to hash the filename first

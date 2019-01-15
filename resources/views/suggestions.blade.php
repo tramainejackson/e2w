@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+	@section('styles')
+		<style type="text/css">
+			#main_content > .row {
+				min-height: 100vh;
+			}
+		</style>
+	@endsection
+
 	@section('content')
 				
 		<div class="col-12 white-text text-center m-0 p-5 d-xl-none">
@@ -16,7 +24,7 @@
 
 				<div class="row justify-content-around">
 
-					<div class="col-12 col-md-10 col-lg-5 suggestionMobile">
+					<div class="col-12 col-md-10 col-lg-5 my-2 suggestionMobile">
 
 						<div class="">
 							<h2 class="text-center text-light">Where to next?</h2>
@@ -58,7 +66,7 @@
 
 					</div>
 
-					<div class="col-12 col-md-10 col-lg-5" id="suggestion_results_div">
+					<div class="col-12 col-md-10 col-lg-5 my-2" id="suggestion_results_div">
 
 						<div id="suggestion_results_header">
 							<h2 class="text-center">Suggestions as of <span class="text-center">{{ $date->format('m/d/Y') }}</span></h2>

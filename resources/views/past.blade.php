@@ -2,7 +2,7 @@
 
 	@section('content')
 				
-		<div id="carousel_controls" class="carousel slide w-100" data-ride="carousel">
+		<div id="carousel_controls" class="carousel slide w-100 mobileCarousel" data-ride="carousel">
 
 			<div class="carousel-inner">
 

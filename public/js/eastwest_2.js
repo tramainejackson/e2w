@@ -15,7 +15,17 @@ $(document).ready(function() {
 	var winWidth = window.innerWidth;
 	var screenHeight = screen.availHeight;
 	var screenWidth = screen.availWidth;
-	
+
+    // Material Select Initialization
+	$('.mdb-select').materialSelect();
+
+
+	// Data Picker Initialization
+    $('.datepicker').pickadate({
+        format: 'mm/dd/yyyy',
+        formatSubmit: 'yyyy/mm/dd',
+    });
+
 	// Make carousel items a minimum height of the document window
 	$('.mobileCarousel .carousel-item > div').css({'minHeight': (documentHeight - mobileNavHeight)});
 
@@ -27,17 +37,16 @@ $(document).ready(function() {
 		$('.loadingSpinner p').text('Sending Information');
 		$('.loadingSpinner').modal('show');
 	});
-	
+
+	// ScrollSpy
+    $('body').scrollspy({
+        target: '.dotted-scrollspy'
+    });
+
 	// Change input button when input has been changed
 	$("body").on('change', '.locationEditForm input, .locationEditForm textarea, .locationEditForm select, #add_picture_form input', function() {
 		$('.locationEditForm input[type="submit"], #add_picture_form input[type="submit"]').addClass('btn-success btn-lg').removeClass('btn-secondary');
 	});
-	
-	// Initialize the datetimepicker
-	// $('.datetimepicker').datetimepicker({
-	// 	timepicker:false,
-	// 	format:'m/d/Y'
-	// });
 	
 	// Add an additional input row when plus sign selected
 	$("body").on("click", ".oi-plus", function() {
@@ -182,7 +191,7 @@ $(document).ready(function() {
 			if($(this).hasClass('yesBtn')) {
 				// Yes Button
 				$(this).addClass('active btn-success')
-                    .removeClass('stylish-color')
+                    .removeClass('stylish-color active')
 					.children()
 					.attr("checked", true);
 
@@ -202,7 +211,7 @@ $(document).ready(function() {
 
                 // No Button
                 $(this).addClass('active btn-danger')
-                    .removeClass('stylish-color')
+                    .removeClass('stylish-color active')
 					.children()
 					.attr("checked", true);
             }
@@ -361,12 +370,17 @@ function removePicture(id) {
 	})
 	
 	.done(function(data) {
-		var newData = $(data).find(".adminDiv");
-		$(".adminDiv").fadeOut(1500, function(e){ 
-			$(".adminDiv").remove();
-			$(newData).hide().appendTo("#admin_page")
-			.fadeIn(1500);
-		});
+		var deleteCard = $('#edit_picture_form input[value="' + id + '"]').parent().parent().parent();
+        deleteCard.addClass('zoomOutLeft');
+
+        // Display a success toast
+        toastr.error('Image Removed');
+
+        // Delete Card After Animation Is Finished
+        setTimeout(function() {
+            deleteCard.remove();
+		}, 1000);
+
 	});
 }
 
@@ -454,9 +468,3 @@ $(function () {
 $(function () {
     $("#mdb-lightbox-ui").load("/addons/mdb-lightbox-ui.html");
 });
-
-// SideNav Button Initialization
-$(".button-collapse").sideNav();
-// SideNav Scrollbar Initialization
-var sideNavScrollbar = document.querySelector('.custom-scrollbar');
-Ps.initialize(sideNavScrollbar);

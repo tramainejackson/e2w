@@ -1,837 +1,777 @@
 @extends('admin.layouts.app')
 
+	@section('title', 'Edit Trip - Eastcoast2Westcoast')
+
+	@section('scripts')
+		<script type="text/javascript">
+            var $BTN = $('.table-save');
+            var $EXPORT = $('<span></span>');
+
+            $('.table-add').click(function () {
+                var table = $(this).parent().parent();
+                var $clone = table.find('tr.hide').clone(true).removeClass('hide table-line');
+
+                // Remove blank placeholder row if one available
+                table.find('table tr[class^="blank"]').remove();
+
+                // Add id attribute to input checkboxes and for attribute to label if trip payment table
+                $clone.find('.reoccuringCheckBox').attr('id', 'materialInline' + (table.find('tr').length * 2));
+                $clone.find('.reoccuringCheckBox').next().attr('for', 'materialInline' + (table.find('tr').length * 2));
+                $clone.find('.oneTimeCheckBox').attr('id', 'materialInline' + ((table.find('tr').length * 2) + 1));
+                $clone.find('.oneTimeCheckBox').next().attr('for', 'materialInline' + ((table.find('tr').length * 2) +1));
+
+                // Initialize the new date field
+				$clone.removeClass('newActivityRow').find('.new_activity_date').addClass('date_picker_1');
+
+                // Append the cloned row to the table
+                table.find('table').append($clone).find('.date_picker_1').pickadate({
+                    format: 'mm/dd/yyyy',
+                    formatSubmit: 'yyyy/mm/dd',
+                });
+            });
+
+            $('.table-remove').click(function () {
+                $(this).parents('tr').detach();
+            });
+
+            // Save new rows
+            $BTN.on('click', function () {
+                var row = $(this).parents('tr');
+                var $values = $(row).find('input, textarea, select').serialize();
+
+				// Turn all existing rows into a loopable array
+                // console.log($values);
+
+                $.ajax({
+                    method: "POST",
+					url: "/locations/ajax_add",
+					data: {trip_additions:$values}
+                }).done(function(data) {
+					// console.log(data);
+				});
+            });
+
+            // Update current rows
+            $('input').on('change', function() {
+                var value_name = $(this).attr('name');
+                var values = $(this).val();
+
+                $.ajax({
+                    method: "PATCH",
+                    url: "/locations/ajax_update",
+                    data: {value_name:values}
+                }).done(function(data) {
+                    // console.log(data);
+                });
+			});
+
+		</script>
+
+	@endsection
+
 	@section('content')
-		<div class="d-none d-xl-flex">
-			<form id="" class="locationEditForm" action="/location/{{ $showLocation->id }}" method="POST" enctype="multipart/form-data">
-			
-				{{ method_field('PATCH') }}
-				{{ csrf_field() }}
-					
-				<div id="location_page_header" class="">
-					<h1 class="pageTopicHeader text-light">Trip Locations</h1>
-				</div>
-				<div class="trip_location_div">
-					<div class="trip_location_header">
-						<h3>{{ $showLocation->trip_location }}</h3>
-					</div>
-					<div class="trip_edit_div">
-						<div class="trip_location_photo editTripInfo">
-							<span>Trip Photo</span>
-							<img src="{{ $showLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $showLocation->trip_photo)) : '/images/skyline.jpg' }}" class="rounded newTripPhoto" height="300" width="41.5%" />
-							<label class="custom-file addInput mt-1">
-								<span class="custom-file-control" style="width:90%;"></span>
-								<input type="file" name="trip_photo" class="tripPhotoChange custom-file-input" />
-							</label>
+
+		<div class="row">
+
+			<div class="col" id="">
+
+				<form id="" class="locationEditForm" action="/location/{{ $showLocation->id }}" method="POST" enctype="multipart/form-data">
+
+					{{ method_field('PATCH') }}
+					{{ csrf_field() }}
+
+					<div class="">
+
+						<div class="">
+							<h3 class="display-2">{{ $showLocation->trip_location }}</h3>
 						</div>
-						<div class="trip_name editTripInfo">
-							<span>Trip Location</span>
-							<input name="trip_location" value="{{ $showLocation->trip_location }}"/>
-						</div>
-						<div class="trip_description editTripInfo">
-							<span>Trip Description</span>
-							<textarea name="description" class="px-2" placeholder="Trip Description">{{ $showLocation->description }}</textarea>
-						</div>
-						<div class="trip_location_month editTripInfo">
-							<span>Trip Month</span>
-							<select name="trip_month">
-								@foreach($getMonth as $showMonth)
-									<option class="" value="{{ $showMonth->month_id }}" {{ $showMonth->month_id == $showLocation->trip_month ? 'selected' : ''}}>{{ $showMonth->month_name }}</option>
-								@endforeach
-							</select>
-						</div>
-						<div class="trip_location_year editTripInfo">
-							<span>Trip Year</span>
-							<select name="trip_year">
-								@foreach($getYear as $showYear)
-									<option class="" value="{{ $showYear->year_num }}" {{ $showYear->year_num == $showLocation->trip_year ? 'selected' : ''}}>{{ $showYear->year_num }}</option>
-								@endforeach
-							</select>
-						</div>
-						<div class="trip_flyer editTripInfo">
-							<span class="">Change Flyer</span>
-							<label class="custom-file">
-								<span class="custom-file-control" style="width:90%;"></span>
-								<input type="file" name="flyer_name" class="tripFlyerChange custom-file-input" />
-							</label>
-							@if($showLocation->flyer_name != null)
-								<a href="{{ asset('storage/' . str_ireplace('public/', '', $showLocation->flyer_name)) }}" class="btn btn-primary addInput" download="{{ str_ireplace(' ', '_', ucwords($showLocation->trip_location)) . '_Flyer' }}">View Current Flyer</a>
-							@endif
-						</div>
-						<div class="trip_completed_div editTripInfo">
-							<span>Trip Completed</span>
-							<div class="btn-group">
-								<button type="button" class="btn{{ $showLocation->trip_complete == 'Y' ? ' btn-success active' : '' }}" style="">
-									<input type="checkbox" name="trip_completed" value="Y" {{ $showLocation->trip_complete == 'Y' ? 'checked' : '' }} hidden />Yes
-								</button>
-								<button type="button" class="btn{{ $showLocation->trip_complete == 'N' ? ' btn-danger active' : '' }}" style="">
-									<input type="checkbox" name="trip_completed" value="N" {{ $showLocation->trip_complete == 'N' ? 'checked' : '' }} hidden />No
-								</button>
+
+						<div class="trip_edit_div">
+
+							<div class="md-form">
+								<img src="{{ $showLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $showLocation->trip_photo)) : '/images/skyline.jpg' }}" class="rounded newTripPhoto" height="300" width="41.5%" />
+								<label class="custom-file mt-1">
+									<span class="custom-file-control" style="width:90%;"></span>
+									<input type="file" name="trip_photo" class="tripPhotoChange custom-file-input" />
+								</label>
+
+								<label for="" class="">Trip Photo</label>
 							</div>
-						</div>
-						<div class="show_trip_div editTripInfo">
-							<span>Show Trip</span>
-							<div class="btn-group">
-								<button type="button" class="btn{{ $showLocation->show_trip == 'Y' ? ' btn-success active' : '' }}" style="">
-									<input type="checkbox" name="show_trip" value="Y" {{ $showLocation->show_trip == 'Y' ? 'checked' : '' }} hidden />Yes
-								</button>
-								<button type="button" class="btn{{ $showLocation->show_trip == 'N' ? ' btn-danger active' : '' }}" style="">
-									<input type="checkbox" name="show_trip" value="N" {{ $showLocation->show_trip == 'N' ? 'checked' : '' }} hidden />No
-								</button>
+
+							<div class="md-form">
+								<input type="text" name="trip_location" id="trip_location" value="{{ $showLocation->trip_location }}" class="form-control" placeholder="Enter Destination Name" />
+
+								<label for="trip_location">Trip Location</label>
 							</div>
-						</div>
-						<div class="deposit_date_div editTripInfo">
-							@php 
-								$depositDate = explode('-', $showLocation->deposit_date);
-							@endphp
-							<span>First Deposit Date</span>
-							<input type="text" name="deposit_date" class="datetimepicker" id="" value="{{ $showLocation->deposit_date!= null ? $depositDate[1] . "/" . $depositDate[2] . "/" . $depositDate[0] : '' }}" placeholder="Deposit Date" />
-						</div>
-						<div class="balance_due_div editTripInfo">
-							@php
-								$dueDate = explode('-', $showLocation->due_date);
-							@endphp
-							<span>Total Balance Due</span>
-							<input type="text" name="due_date" class="datetimepicker" id="" value="{{ $showLocation->due_date != null ? $dueDate[1] . "/" . $dueDate[2] . "/" . $dueDate[0] : '' }}" placeholder="Due Date" />
-						</div>
-						<div class="terms_cost_div editTripInfo">
-							@php $costs = explode('; ', $showLocation->cost); @endphp
-							<span>Trip Cost</span>
-							<span class="oi oi-plus text-success rounded-circle" title="io-plus" aria-hidden="true"></span>
-							
-							@foreach($costs as $cost)
-								<div class="{{ $loop->iteration <= 2 ? 'd-inline' : '' }}{{ !$loop->first ? ' addInput' : '' }}{{ $loop->iteration > 2 ? ' w-100' : '' }}">
-									@if(!$loop->first )
-										<span class="oi oi-minus text-danger rounded-circle" title="io-minus" aria-hidden="true"></span>
-									@endif
-									<input type="text" name="cost[]" class="" value="{{ $cost }}" placeholder="Trip Cost" />
-								</div>
-							@endforeach
-						</div>
-						<div class="terms_payment_div editTripInfo">
-							@php $payments = explode('; ', $showLocation->payments); @endphp
-							<span>Trip Payment</span>
-							<span class="oi oi-plus text-success rounded-circle" title="io-plus" aria-hidden="true"></span>
-							
-							@foreach($payments as $payment)
-								<div class="{{ $loop->iteration <= 2 ? 'd-inline' : '' }}{{ !$loop->first ? ' addInput' : '' }}{{ $loop->iteration > 2 ? ' w-100' : '' }}">
-									@if(!$loop->first )
-										<span class="oi oi-minus text-danger rounded-circle" title="io-minus" aria-hidden="true"></span>
-									@endif
-									<input type="text" name="payments[]" class="" value="{{ $payment }}" placeholder="Trip Payment Option" />
-								</div>
-							@endforeach
-						</div>
-						<div class="terms_inclusions_div editTripInfo">
-							@php $inclusions = explode('; ', $showLocation->inclusions); @endphp
-							<span>Trip Includes</span>
-							<span class="oi oi-plus text-success rounded-circle" title="io-plus" aria-hidden="true"></span>
-							
-							@foreach($inclusions as $inclusion)
-								<div class="{{ $loop->iteration <= 2 ? 'd-inline' : '' }}{{ !$loop->first ? ' addInput' : '' }}{{ $loop->iteration > 2 ? ' w-100' : '' }}">
-									@if(!$loop->first )
-										<span class="oi oi-minus text-danger rounded-circle" title="io-minus" aria-hidden="true"></span>
-									@endif
-									<input type="text" name="inclusions[]" class="" value="{{ $inclusion }}" placeholder="Trip Inclusions" />
-								</div>
-							@endforeach
-						</div>
-						<div class="terms_conditions_div editTripInfo">
-							@php $conditions = explode('; ', $showLocation->conditions); @endphp
-							<span>Terms and Conditions</span>
-							<span class="oi oi-plus text-success rounded-circle" title="io-plus" aria-hidden="true"></span>
-							
-							@foreach($conditions as $condition)
-								<div class="{{ $loop->iteration <= 2 ? 'd-inline' : '' }}{{ !$loop->first ? ' addInput' : '' }}{{ $loop->iteration > 2 ? ' w-100' : '' }}">
-									@if(!$loop->first )
-										<span class="oi oi-minus text-danger rounded-circle" title="io-minus" aria-hidden="true"></span>
-									@endif
-									<input type="text" name="conditions[]" class="" value="{{ $condition }}" placeholder="Terms and Conditions" />
-								</div>
-							@endforeach
-						</div>
-					</div>
-					
-					<!-- Trip Events -->
-					<div class="trip_edit_div">
-						<div id="location_page_header" class="">
-							<h1 class="pageTopicHeader text-white">Trip Activities</h1>
-							<button type="button" class="btn btn-primary newActivityBtn">Add New Activity</button>
-						</div>
-					
-						<div class="tripEvents">
-							<table class="table">
-								<tr class="text-white">
-									<th scope="col">Show Activity</th>
-									<th scope="col">Activity Name</th>
-									<th scope="col">Activity Location</th>
-									<th scope="col">Activity Date</th>
-								</tr>
-								@if($getCurrentEvents->count() > 0)
-									@foreach($getCurrentEvents as $activity)
-										<tr>
-											<td>
-												<div class="btn-group">
-													<button type="button" class="btn{{ $activity->show_activity == 'Y' ? ' btn-success active' : '' }}" style="">
-														<input type="checkbox" name="show_activity[]" value="Y" {{ $activity->show_activity == 'Y' ? 'checked' : '' }} hidden />Yes
-													</button>
-													<button type="button" class="btn{{ $activity->show_activity == 'N' ? ' btn-danger active' : '' }}" style="">
-														<input type="checkbox" name="show_activity[]" value="N" {{ $activity->show_activity == 'N' ? 'checked' : '' }} hidden />No
-													</button>
-												</div>
-											</td>
-											<td>
-												<input type="text" name="trip_event[]" class="mw-100" value="{{ $activity->trip_event }}" placeholder="Event Description" />
-											</td>
-											<td>
-												<input type="text" name="activity_location[]" class="mw-100" value="{{ $activity->activity_location }}" placeholder="Event Location" />
-											</td>
-											<td>
-												@php
-													$activityDate = explode('-', $activity->activity_date);
-												@endphp
-												<input type="text" name="activity_date[]" class="datetimepicker mw-100" value="{{ $activityDate[1] . "/" . $activityDate[2] . "/" . $activityDate[0] }}" />
-												<input type="text" name="activity_id[]" value="{{ $activity->id }}" hidden />
-											</td>
-										</tr>
-									@endforeach
-								@else
-									<tr class="blankActivity">
-										<td colspan="4" rowspan="2" class="text-light">No Activities Added Yet</td>
-									</tr>
-								@endif
-								<tr class="newActivityRow" style="display:none;">
-									<td>
-										<div class="btn-group">
-											<button type="button" class="btn" style="">
-												<input type="checkbox" name="show_activity[]" value="Y" hidden />Yes
-											</button>
-											<button type="button" class="btn btn-danger active" style="">
-												<input type="checkbox" name="show_activity[]" value="N" checked hidden />No
-											</button>
-										</div>
-									</td>
-									<td>
-										<input type="text" name="trip_event[]" class="mw-100" value="" placeholder="Event Description" />
-									</td>
-									<td>
-										<input type="text" name="activity_location[]" class="mw-100" value="" placeholder="Event Location" />
-									</td>
-									<td>
-										<input type="text" name="activity_date[]" class="datetimepicker mw-100" placeholder="Event Date" />
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-					
-					<!-- Trip Participants -->
-					<div class="trip_edit_div">
-						<div id="location_page_header" class="">
-							<h1 class="pageTopicHeader text-white">Trip Participants</h1>
-							<button type="button" class="btn btn-primary newParticipantBtn">Add New Participant</button>
-						</div>
-						
-						<div class="tripUsers">
-							<table class="table mw-100">
-								<tr class="firstTableRow text-white">
-									<th colspan="2">Name</th>
-									<th colspan="4">Contact Info</th>
-								</tr>
-								<tr class="text-white">
-									<th>First</th>
-									<th>Last</th>
-									<th>Email</th>
-									<th>Phone</th>
-									<th>Notes</th>
-									<th>PIF</th>
-								</tr>
-								@if($getEventUsers->count() > 0)
-									@foreach($getEventUsers as $user)
-										<tr>
-											<td>
-												<input type="text" name="first_name[]" class="mw-100" value="{{ $user->first_name }}"placeholder="Enter First Name" />
-											</td>
-											<td>
-												<input type="text" name="last_name[]" class="mw-100" value="{{ $user->last_name }}" placeholder="Enter Last Name" />
-											</td>
-											<td>
-												<input type="text" name="email[]" class="mw-100" value="{{ $user->email }}"placeholder="Enter Email Address"  />
-											</td>
-											<td>
-												<input type="text" name="phone[]" class="mw-100" value="{{ $user->phone }}" maxlength="10" placeholder="Enter Phone Number" />
-											</td>
-											<td>
-												<textarea name="notes[]" class="mw-100" maxlength="495" rows="1" placeholder="Enter Notes">{{ $user->notes }}</textarea>
-											</td>
-											<td>
-												<div class="btn-group">
-													<button type="button" class="btn{{ $user->paid_in_full == 'Y' ? ' btn-success active' : '' }}" style="">
-														<input type="checkbox" name="pif[]" value="Y" {{ $user->paid_in_full == 'Y' ? 'checked' : '' }} hidden />Yes
-													</button>
-													<button type="button" class="btn{{ $user->paid_in_full == 'N' ? ' btn-danger active' : '' }}" style="">
-														<input type="checkbox" name="pif[]" value="N" {{ $user->paid_in_full == 'N' ? 'checked' : '' }} hidden />No
-													</button>
-												</div>
-												<input type="text" name="participant_id[]" value="{{ $user->id }}" hidden />
-											</td>
-										</tr>
-									@endforeach
-								@else
-									<tr class="blankParticipant">
-										<td colspan="6" rowspan="2" class="text-light">No Participants Added Yet</td>
-									</tr>
-								@endif
-								<tr class="newParticipantRow" style="display:none">
-									<td>
-										<input type="text" name="first_name[]" class="mw-100" placeholder="Enter First Name" />
-									</td>
-									<td>
-										<input type="text" name="last_name[]" class="mw-100" placeholder="Enter Last Name" />
-									</td>
-									<td>
-										<input type="text" name="email[]" class="mw-100" placeholder="Enter Email" />
-									</td>
-									<td>
-										<input type="text" name="phone[]" class="mw-100" placeholder="Enter Phone Number" maxlength="10" />
-									</td>
-									<td>
-										<textarea name="notes[]" class="mw-100" maxlength="495" rows="1"placeholder="Enter Notes" ></textarea>
-									</td>
-									<td>
-										<div class="btn-group">
-											<button type="button" class="btn" style="">
-												<input type="checkbox" name="pif[]" value="Y" hidden />Yes
-											</button>
-											<button type="button" class="btn btn-danger active" style="">
-												<input type="checkbox" name="pif[]" value="N" checked hidden />No
-											</button>
-										</div>
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-					<input type="submit" name="submit" class="btn btn-secondary" value="Update" />
-				</div>
-			</form>
-		</div>
-		<div class="d-xl-none">
-			<form id="" class="locationEditForm" action="/location/{{ $showLocation->id }}" method="POST" enctype="multipart/form-data">
-			
-				{{ method_field('PATCH') }}
-				{{ csrf_field() }}
-					
-				<div id="location_page_header" class="">
-					<h1 class="pageTopicHeader text-light">Trip Locations</h1>
-				</div>
-				<div class="trip_location_div">
-					<div class="trip_location_header">
-						<h3>{{ $showLocation->trip_location }}</h3>
-					</div>
-					<div class="text-center py-3">
-						<input type="submit" name="submit" class="btn btn-secondary" value="Update" />
-					</div>
-					<div id="accordion" role="tablist">
-						<div class="card">
-							<div class="card-header text-center py-4" role="tab" id="headingOne">
-								<a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="text-center">Trip Photo</a>
+
+							<div class="md-form">
+								<textarea type="text" name="description" id="trip_description" class="md-textarea form-control" placeholder="Enter Trip Description">{{ $showLocation->description }}</textarea>
+
+								<label for="trip_description" class="">Trip Description</label>
 							</div>
-							<div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-								<div class="card-body">
-									<div class="trip_location_photo editTripInfo">
-										<img src="{{ $showLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $showLocation->trip_photo)) : '/images/skyline.jpg' }}" class="rounded newTripPhoto mx-auto d-block my-2" />
-										<label class="custom-file mt-1">
-											<span class="custom-file-control" style="width:90%;"></span>
-											<input type="file" name="trip_photo" class="tripPhotoChange custom-file-input" />
-										</label>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="card">
-							<div class="card-header text-center py-4" role="tab" id="headingTwo">
-								<a data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" class="text-center">Trip Info</a>
-							</div>
-							<div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-								<div class="card-body">
-									<div class="">
-										<div class="form-group">
-											<label for="flyer_name" class="d-block">Change Flyer</label>
-											<label class="custom-file">
-												<span class="custom-file-control" style="width:90%;"></span>
-												<input type="file" name="flyer_name" class="tripFlyerChange custom-file-input" />
-											</label>
-										</div>
-										@if($showLocation->flyer_name != null)
-											<a href="{{ asset('storage/' . str_ireplace('public/', '', $showLocation->flyer_name)) }}" class="btn btn-primary mb-2" download="{{ str_ireplace(' ', '_', ucwords($showLocation->trip_location)) . '_Flyer' }}">View Current Flyer</a>
-										@endif
-										<div class="form-group">
-											<label for="trip_location">Trip Location</label>
-											<input name="trip_location" class="form-control" value="{{ $showLocation->trip_location }}"/>
-										</div>
-										<div class="form-group">
-											<label for="description">Trip Description</label>
-											<textarea name="description" class="px-2 form-control" placeholder="Trip Description">{{ $showLocation->description }}</textarea>
-										</div>
-										<div class="form-group">
-											<label for="trip_month">Trip Month</label>
-											<select name="trip_month" class="custom-select form-control">
-												@foreach($getMonth as $showMonth)
-													<option class="" value="{{ $showMonth->month_name }}" {{ $showMonth->month_name == $showLocation->trip_month ? 'selected' : ''}}>{{ $showMonth->month_name }}</option>
-												@endforeach
-											</select>
-										</div>
-										<div class="form-group">
-											<label for="trip_year">Trip Year</label>
-											<select name="trip_year" class="custom-select form-control">
-												@foreach($getYear as $showYear)
-													<option class="" value="{{ $showYear->year_num }}" {{ $showYear->year_num == $showLocation->trip_year ? 'selected' : ''}}>{{ $showYear->year_num }}</option>
-												@endforeach
-											</select>
-										</div>
-										<div class="form-group">
-											<label for="trip_completed">Trip Completed</label>
-											<div class="btn-group d-block">
-												<button type="button" class="btn{{ $showLocation->trip_complete == 'Y' ? ' btn-success active' : '' }}" style="">
-													<input type="checkbox" name="trip_completed" value="Y" {{ $showLocation->trip_complete == 'Y' ? 'checked' : '' }} hidden />Yes
-												</button>
-												<button type="button" class="btn{{ $showLocation->trip_complete == 'N' ? ' btn-danger active' : '' }}" style="">
-													<input type="checkbox" name="trip_completed" value="N" {{ $showLocation->trip_complete == 'N' ? 'checked' : '' }} hidden />No
-												</button>
-											</div>
-										</div>
-										<div class="form-group">
-											<label for="show_trip">Show Trip</label>
-											<div class="btn-group d-block">
-												<button type="button" class="btn{{ $showLocation->show_trip == 'Y' ? ' btn-success active' : '' }}" style="">
-													<input type="checkbox" name="show_trip" value="Y" {{ $showLocation->show_trip == 'Y' ? 'checked' : '' }} hidden />Yes
-												</button>
-												<button type="button" class="btn{{ $showLocation->show_trip == 'N' ? ' btn-danger active' : '' }}" style="">
-													<input type="checkbox" name="show_trip" value="N" {{ $showLocation->show_trip == 'N' ? 'checked' : '' }} hidden />No
-												</button>
-											</div>
-										</div>
-										<div class="form-group">
-											@php 
-												$depositDate = explode('-', $showLocation->deposit_date);
-											@endphp
-											<label for="deposit_date">First Deposit Date</label>
-											<input type="text" name="deposit_date" class="datetimepicker form-control" id="" value="{{ $showLocation->deposit_date!= null ? $depositDate[1] . "/" . $depositDate[2] . "/" . $depositDate[0] : '' }}" placeholder="Deposit Date" />
-										</div>
-										<div class="form-group">
-											@php
-												$dueDate = explode('-', $showLocation->due_date);
-											@endphp
-											<label for="due_date">Total Balance Due</label>
-											<input type="text" name="due_date" class="datetimepicker form-control" id="" value="{{ $showLocation->due_date != null ? $dueDate[1] . "/" . $dueDate[2] . "/" . $dueDate[0] : '' }}" placeholder="Due Date" />
-										</div>
-										<div class="form-group">
-											@php $costs = explode('; ', $showLocation->cost); @endphp
-											<label for="cost">Trip Cost</label>
-											<span class="oi oi-plus text-success rounded-circle" title="io-plus" aria-hidden="true"></span>
-											
-											@foreach($costs as $cost)
-												<div class="ml-4{{ !$loop->first ? ' addInput' : '' }}">
-													@if(!$loop->first )
-														<span class="oi oi-minus text-danger rounded-circle" title="io-minus" aria-hidden="true"></span>
+
+                            <div class="form-row" id="">
+
+                                <div class="md-form col-6">
+                                    <select name="trip_month" id="trip_month" class="md-form mdb-select">
+                                        @foreach($getMonth as $showMonth)
+                                            <option class="" value="{{ $showMonth->month_id }}" {{ $showMonth->month_id == $showLocation->trip_month ? 'selected' : ''}}>{{ $showMonth->month_name }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    <label for="trip_month" class="select-label active">Trip Month</label>
+                                </div>
+
+                                <div class="md-form col-6">
+                                    <select name="trip_year" id="trip_year" class="md-form mdb-select">
+                                        @foreach($getYear as $showYear)
+                                            <option class="" value="{{ $showYear->year_num }}" {{ $showYear->year_num == $showLocation->trip_year ? 'selected' : ''}}>{{ $showYear->year_num }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    <label for="trip_year" class="select-label active">Trip Year</label>
+                                </div>
+
+                            </div>
+
+                            <div class="form-row" id="">
+
+                                <div class="md-form col-6">
+                                    <input type="text" name="deposit_date" class="form-control datepicker" id="deposit_date" data-value="{{ $showLocation->deposit_date != null ? $showLocation->deposit_date->format('Y/m/d') : '' }}" placeholder="Enter Deposit Date" />
+
+                                    <label for="deposit_date">First Deposit Date</label>
+                                </div>
+
+                                <div class="md-form col-6">
+                                    <input type="text" name="due_date" class="form-control datepicker" id="due_date" data-value="{{ $showLocation->due_date != null ? $showLocation->due_date->format('Y/m/d') : '' }}" placeholder="Enter Due Date" />
+
+                                    <label for="due_date">Total Balance Due</label>
+                                </div>
+
+                            </div>
+
+                            <div class="md-form">
+                                <div class="btn-group mt-2">
+                                    <button type="button" class="btn yesBtn{{ $showLocation->trip_complete == 'Y' ? ' btn-success active' : ' stylish-color' }}" style="">
+                                        <input type="checkbox" name="trip_completed" value="Y" {{ $showLocation->trip_complete == 'Y' ? 'checked' : '' }} hidden />Yes
+                                    </button>
+                                    <button type="button" class="btn noBtn{{ $showLocation->trip_complete == 'N' ? ' btn-danger active' : ' stylish-color' }}" style="">
+                                        <input type="checkbox" name="trip_completed" value="N" {{ $showLocation->trip_complete == 'N' ? 'checked' : '' }} hidden />No
+                                    </button>
+                                </div>
+
+                                <label for="" class="active">Trip Completed</label>
+                            </div>
+
+                            <div class="md-form">
+                                <div class="btn-group mt-2">
+                                    <button type="button" class="btn yesBtn{{ $showLocation->show_trip == 'Y' ? ' btn-success active' : ' stylish-color' }}" style="">
+                                        <input type="checkbox" name="show_trip" value="Y" {{ $showLocation->show_trip == 'Y' ? 'checked' : '' }} hidden />Yes
+                                    </button>
+                                    <button type="button" class="btn noBtn{{ $showLocation->show_trip == 'N' ? ' btn-danger active' : ' stylish-color' }}" style="">
+                                        <input type="checkbox" name="show_trip" value="N" {{ $showLocation->show_trip == 'N' ? 'checked' : '' }} hidden />No
+                                    </button>
+                                </div>
+
+                                <label for="" class="active">Show Trip</label>
+                            </div>
+
+                            <div class="md-form pb-4">
+                                <div class="file-field">
+                                    <div class="btn btn-outline-primary waves-effect float-left">
+                                        <span>Choose File</span>
+                                        <input type="file" name="flyer_name">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" placeholder="Upload Trip Flyer">
+                                    </div>
+                                </div>
+
+                                @if($showLocation->flyer_name != null)
+                                    <a href="{{ asset('storage/' . str_ireplace('public/', '', $showLocation->flyer_name)) }}" class="btn btn-primary addInput" download="{{ str_ireplace(' ', '_', ucwords($showLocation->trip_location)) . '_Flyer' }}">View Current Flyer</a>
+                                @endif
+
+                                <label class="active">Change Flyer</label>
+                            </div>
+
+							{{-- Trip Cost--}}
+							<div class="terms_cost_div trip_edit_div">
+
+								<!-- Editable table -->
+								<div class="card">
+									<h3 class="card-header text-center font-weight-bold text-uppercase py-4 yellow darken-4">Trip Cost</h3>
+									<div class="card-body">
+										<div id="table" class="table-editable">
+
+											<table class="table table-bordered table-responsive-md text-center">
+
+												<tr>
+
+													@if($getCosts->count() > 0)
+
+														@foreach($getCosts as $cost)
+
+															{{-- Cost: Price Per Adult--}}
+															<div class="md-form input-group mb-3">
+																<div class="input-group-prepend">
+																	<span class="input-group-text md-addon" id="addon1">$</span>
+																</div>
+
+																<input type="number" step="0.01" name="per_adult" class="form-control" value="{{ $cost->per_adult }}" placeholder="Price Per Adult" aria-label="Price Per Adult" aria-describedby="addon1">
+
+																<div class="input-group-append">
+																	<span class="input-group-text md-addon">price per adult</span>
+																	<button class="btn btn-md btn-primary m-0 px-3" type="button">Button</button>
+																</div>
+															</div>
+
+															{{-- Cost: Price Per Child--}}
+															<div class="md-form input-group mb-3">
+																<div class="input-group-prepend">
+																	<span class="input-group-text md-addon" id="addon2">$</span>
+																</div>
+
+																<input type="number" step="0.01" name="per_child" class="form-control" value="{{ $cost->per_child }}" placeholder="Price Per Child" aria-label="Price Per Child" aria-describedby="addon2">
+
+																<div class="input-group-append">
+																	<span class="input-group-text md-addon">price per child</span>
+																</div>
+															</div>
+
+															{{-- Cost: Single Occupancy--}}
+															<div class="md-form input-group mb-3">
+																<div class="input-group-prepend">
+																	<span class="input-group-text md-addon" id="addon3">$</span>
+																</div>
+
+																<input type="number" step="0.01" name="single_occupancy" class="form-control" value="{{ $cost->single_occupancy }}" placeholder="Price For Single Occupancy" aria-label="Price For Single Occupancy" aria-describedby="addon3">
+
+																<div class="input-group-append">
+																	<span class="input-group-text md-addon">single occupancy</span>
+																</div>
+															</div>
+
+															{{-- Cost: Double Occupancy--}}
+															<div class="md-form input-group mb-3">
+																<div class="input-group-prepend">
+																	<span class="input-group-text md-addon" id="addon4">$</span>
+																</div>
+
+																<input type="number" step="0.01" name="double_occupancy" class="form-control" value="{{ $cost->double_occupancy }}" placeholder="Price For Double Occupancy" aria-label="Price For Double Occupancy" aria-describedby="addon4">
+
+																<div class="input-group-append">
+																	<span class="input-group-text md-addon">double occupancy</span>
+																</div>
+															</div>
+
+															{{-- Cost: Triple Occupancy--}}
+															<div class="md-form input-group mb-3">
+																<div class="input-group-prepend">
+																	<span class="input-group-text md-addon" id="addon5">$</span>
+																</div>
+
+																<input type="number" step="0.01" name="triple_occupancy" class="form-control" value="{{ $cost->triple_occupancy }}" placeholder="Price For Triple Occupancy" aria-label="Price For Triple Occupancy" aria-describedby="addon5">
+
+																<div class="input-group-append">
+																	<span class="input-group-text md-addon">triple occupancy</span>
+																</div>
+															</div>
+
+														@endforeach
+
+													@else
+
+														{{-- Cost: Price Per Adult--}}
+														<div class="md-form input-group mb-3">
+															<div class="input-group-prepend">
+																<span class="input-group-text md-addon" id="addon1">$</span>
+															</div>
+
+															<input type="number" step="0.01" name="per_adult" class="form-control" placeholder="Price Per Adult" aria-label="Price Per Adult" aria-describedby="addon1">
+
+															<div class="input-group-append">
+																<span class="input-group-text md-addon">price per adult</span>
+															</div>
+														</div>
+
+														{{-- Cost: Price Per Child--}}
+														<div class="md-form input-group mb-3">
+															<div class="input-group-prepend">
+																<span class="input-group-text md-addon" id="addon2">$</span>
+															</div>
+
+															<input type="number" step="0.01" name="per_child" class="form-control" placeholder="Price Per Child" aria-label="Price Per Child" aria-describedby="addon2">
+
+															<div class="input-group-append">
+																<span class="input-group-text md-addon">price per child</span>
+															</div>
+														</div>
+
+														{{-- Cost: Single Occupancy--}}
+														<div class="md-form input-group mb-3">
+															<div class="input-group-prepend">
+																<span class="input-group-text md-addon" id="addon3">$</span>
+															</div>
+
+															<input type="number" step="0.01" name="single_occupancy" class="form-control" placeholder="Price For Single Occupancy" aria-label="Price For Single Occupancy" aria-describedby="addon3">
+
+															<div class="input-group-append">
+																<span class="input-group-text md-addon">single occupancy</span>
+															</div>
+														</div>
+
+														{{-- Cost: Double Occupancy--}}
+														<div class="md-form input-group mb-3">
+															<div class="input-group-prepend">
+																<span class="input-group-text md-addon" id="addon4">$</span>
+															</div>
+
+															<input type="number" step="0.01" name="double_occupancy" class="form-control" placeholder="Price For Double Occupancy" aria-label="Price For Double Occupancy" aria-describedby="addon4">
+
+															<div class="input-group-append">
+																<span class="input-group-text md-addon">double occupancy</span>
+															</div>
+														</div>
+
+														{{-- Cost: Triple Occupancy--}}
+														<div class="md-form input-group mb-3">
+															<div class="input-group-prepend">
+																<span class="input-group-text md-addon" id="addon5">$</span>
+															</div>
+
+															<input type="number" step="0.01" name="triple_occupancy" class="form-control" placeholder="Price For Triple Occupancy" aria-label="Price For Triple Occupancy" aria-describedby="addon5">
+
+															<div class="input-group-append">
+																<span class="input-group-text md-addon">triple occupancy</span>
+															</div>
+														</div>
+
 													@endif
-													<input type="text" name="cost[]" class="rounded my-1 p-1" value="{{ $cost }}" placeholder="Trip Cost" />
-												</div>
-											@endforeach
-										</div>
-										<div class="form-group">
-											@php $payments = explode('; ', $showLocation->payments); @endphp
-											<label for="payments">Trip Payment</label>
-											<span class="oi oi-plus text-success rounded-circle" title="io-plus" aria-hidden="true"></span>
-											
-											@foreach($payments as $payment)
-												<div class="ml-4{{ !$loop->first ? ' addInput' : '' }}">
-													@if(!$loop->first )
-														<span class="oi oi-minus text-danger rounded-circle" title="io-minus" aria-hidden="true"></span>
-													@endif
-													<input type="text" name="payments[]" class="rounded my-1 p-1" value="{{ $payment }}" placeholder="Trip Payment Option" />
-												</div>
-											@endforeach
-										</div>
-										<div class="form-group">
-											@php $inclusions = explode('; ', $showLocation->inclusions); @endphp
-											<label for="inclusions">Trip Includes</label>
-											<span class="oi oi-plus text-success rounded-circle" title="io-plus" aria-hidden="true"></span>
-											
-											@foreach($inclusions as $inclusion)
-												<div class="ml-4{{ !$loop->first ? ' addInput' : '' }}">
-													@if(!$loop->first )
-														<span class="oi oi-minus text-danger rounded-circle" title="io-minus" aria-hidden="true"></span>
-													@endif
-													<input type="text" name="inclusions[]" class="rounded my-1 p-1" value="{{ $inclusion }}" placeholder="Trip Inclusions" />
-												</div>
-											@endforeach
-										</div>
-										<div class="form-group">
-											@php $conditions = explode('; ', $showLocation->conditions); @endphp
-											<label for="conditions">Terms and Conditions</label>
-											<span class="oi oi-plus text-success rounded-circle" title="io-plus" aria-hidden="true"></span>
-											
-											@foreach($conditions as $condition)
-												<div class="ml-4{{ !$loop->first ? ' addInput' : '' }}">
-													@if(!$loop->first )
-														<span class="oi oi-minus text-danger rounded-circle" title="io-minus" aria-hidden="true"></span>
-													@endif
-													<input type="text" name="conditions[]" class="rounded my-1 p-1" value="{{ $condition }}" placeholder="Terms and Conditions" />
-												</div>
-											@endforeach
+
+												</tr>
+
+											</table>
 										</div>
 									</div>
 								</div>
+								<!-- Editable table -->
+
+							</div>
+
+							{{-- Trip Payments--}}
+							<div class="terms_payment_div trip_edit_div">
+
+								<!-- Editable table -->
+								<div class="card">
+									<h3 class="card-header text-center font-weight-bold text-uppercase py-4 yellow darken-3">Trip Payment</h3>
+									<div class="card-body">
+										<div id="table_wrapper_1" class="table-editable">
+
+											<span class="table-add float-right mb-3 mr-2">
+												<a href="#!" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
+											</span>
+
+											<table class="table table-bordered table-responsive-md text-center">
+
+												<tr>
+													<th class="text-center">Description</th>
+													<th class="text-center">Occurrence</th>
+													<th class="text-center">Remove</th>
+												</tr>
+
+												@if($getPaymentOptions->count() > 0)
+
+													@foreach($getPaymentOptions as $payment)
+
+														<tr>
+															<td class="pt-3-half"><textarea class="bg-transparent border-0 h-auto md-textarea text-center w-100" name="description" placeholder="Enter Description">{{ $payment->payment_description }}</textarea></td>
+															<td class="pt-3-half">
+																<div class="" id="">
+																	<!-- Material inline 1 -->
+																	<div class="form-check form-check-inline col-auto">
+																		<input type="checkbox" class="form-check-input reoccuringCheckBox" id="materialInline{{($loop->iteration*2)}}"{{$payment->occurrence == "reoccurring" ? ' checked' : ''}}>
+																		<label class="form-check-label" for="materialInline{{($loop->iteration*2)}}">Reoccurring</label>
+																	</div>
+
+																	<!-- Material inline 2 -->
+																	<div class="form-check form-check-inline col-auto">
+																		<input type="checkbox" class="form-check-input oneTimeCheckBox" id="materialInline{{($loop->iteration*2) +1}}"{{$payment->occurrence == "one_time" ? ' checked' : ''}}>
+																		<label class="form-check-label" for="materialInline{{($loop->iteration*2) +1}}">One Time</label>
+																	</div>
+																</div>
+															</td>
+
+															<td>
+																<span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+															</td>
+															<td class="pt-3-half" hidden><input type="text" name="payment_option" value="{{ $payment->id }}" /></td>
+														</tr>
+
+													@endforeach
+
+												@else
+
+													<tr class="blankActivity">
+														<td colspan="3" rowspan="1" class="">No Payment Options Added Yet</td>
+													</tr>
+
+												@endif
+
+												<!-- This is our clonable table line -->
+												<tr class="hide">
+													<td class="pt-3-half"><textarea class="bg-transparent border-0 h-auto md-textarea text-center w-100" name="description" placeholder="Enter Description"></textarea></td>
+													<td class="pt-3-half">
+														<!-- Material inline 1 -->
+														<div class="form-check form-check-inline col-auto">
+															<input type="checkbox" class="form-check-input reoccuringCheckBox" name="occurrence" value="reoccurring" id="">
+															<label class="form-check-label" for="">Reoccurring</label>
+														</div>
+
+														<!-- Material inline 2 -->
+														<div class="form-check form-check-inline col-auto">
+															<input type="checkbox" class="form-check-input oneTimeCheckBox" name="occurrence" value="one_time" id="">
+															<label class="form-check-label" for="">One Time</label>
+														</div>
+													</td>
+													<td>
+														<span class="table-save"><button type="button" class="btn btn-info btn-rounded btn-sm my-0">Save</button></span>
+														<span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+													</td>
+													<td class="pt-3-half" hidden><input type="text" name="trip" value="{{ $showLocation->id }}" /></td>
+													<td class="pt-3-half" hidden><input type="text" name="trip_payments" value="true"></td>
+												</tr>
+
+											</table>
+										</div>
+									</div>
+								</div>
+								<!-- Editable table -->
+
+							</div>
+
+							{{-- Trip Inclusions --}}
+							<div class="tripInclusions trip_edit_div">
+
+								<!-- Editable table -->
+								<div class="card">
+									<h3 class="card-header text-center font-weight-bold text-uppercase py-4 yellow darken-2">Trip Includes</h3>
+									<div class="card-body">
+										<div id="table_wrapper_2" class="">
+
+											<span class="table-add float-right mb-3 mr-2">
+												<a href="#!" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
+											</span>
+
+											<table class="table table-bordered table-responsive-md text-center">
+
+												<tr>
+													<th class="text-center">Description</th>
+													<th class="text-center">Remove</th>
+												</tr>
+
+												@if($getInclusions->count() > 0)
+
+													@foreach($getInclusions as $inclusion)
+
+														<tr>
+															<td class="pt-3-half"><textarea class="bg-transparent border-0 h-auto md-textarea text-center w-100" name="description" placeholder="Enter Description">{{ $inclusion->description }}</textarea></td>
+															<td>
+																<span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+															</td>
+
+															<td class="pt-3-half" hidden><input type="text" name="trip" value="{{ $showLocation->id }}" /></td>
+															<td class="pt-3-half" hidden><input type="text" name="trip_includes" value="true"></td>
+														</tr>
+
+													@endforeach
+
+												@else
+
+													<tr class="blankActivity">
+														<td colspan="2" rowspan="1" class="">No Inclusions Added Yet</td>
+													</tr>
+
+												@endif
+
+												<!-- This is our clonable table line -->
+												<tr class="hide">
+													<td class="pt-3-half"><textarea class="bg-transparent border-0 h-auto md-textarea text-center w-100" name="description" placeholder="Enter Description"></textarea></td>
+													<td>
+														<span class="table-save"><button type="button" class="btn btn-info btn-rounded btn-sm my-0">Save</button></span>
+														<span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+													</td>
+													<td class="pt-3-half" hidden><input type="text" name="trip" value="{{ $showLocation->id }}" /></td>
+													<td class="pt-3-half" hidden><input type="text" name="trip_includes" value="true"></td>
+												</tr>
+
+											</table>
+										</div>
+									</div>
+								</div>
+								<!-- Editable table -->
+
+							</div>
+
+							{{-- Terms and Conditions --}}
+							<div class="terms_conditions_div trip_edit_div">
+
+								<!-- Editable table -->
+								<div class="card">
+									<h3 class="card-header text-center font-weight-bold text-uppercase py-4 yellow darken-1">Terms and Conditions</h3>
+									<div class="card-body">
+										<div id="table_wrapper_3" class="table-editable">
+
+											<span class="table-add float-right mb-3 mr-2">
+												<a href="#!" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
+											</span>
+
+											<table class="table table-bordered table-responsive-md text-center">
+
+												<tr>
+													<th class="text-center">Description</th>
+													<th class="text-center">Remove</th>
+												</tr>
+
+												@if($getConditions->count() > 0)
+
+													@foreach($getConditions as $condition)
+
+														<tr>
+															<td class="pt-3-half"><textarea class="bg-transparent border-0 h-auto md-textarea text-center w-100" name="description" placeholder="Enter Description">{{ $condition->description }}</textarea></td>
+															<td>
+																<span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+															</td>
+															<td class="pt-3-half" hidden><input type="text" name="trip" value="{{ $showLocation->id }}" /></td>
+															<td class="pt-3-half" hidden><input type="text" name="trip_conditions" value="true"></td>
+														</tr>
+
+													@endforeach
+
+												@else
+
+													<tr class="blankActivity">
+														<td colspan="2" rowspan="1" class="">No Conditions Added Yet</td>
+													</tr>
+
+												@endif
+
+												<!-- This is our clonable table line -->
+												<tr class="hide">
+													<td class="pt-3-half"><textarea class="bg-transparent border-0 h-auto md-textarea text-center w-100" name="description" placeholder="Enter Description"></textarea></td>
+													<td>
+														<span class="table-save"><button type="button" class="btn btn-info btn-rounded btn-sm my-0">Save</button></span>
+														<span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+													</td>
+													<td class="pt-3-half" hidden><input type="text" name="trip" value="{{ $showLocation->id }}" /></td>
+													<td class="pt-3-half" hidden><input type="text" name="trip_conditions" value="true"></td>
+												</tr>
+
+											</table>
+										</div>
+									</div>
+								</div>
+								<!-- Editable table -->
+
 							</div>
 						</div>
-						<div class="card">
-							<!-- Trip Events -->
-							<div class="card-header text-center py-4" role="tab" id="headingThree">
-								<a data-toggle="collapse" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree" class="text-center">Event</a>
-							</div>
-							<div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+
+						<!-- Trip Events -->
+						<div class="trip_edit_div">
+
+							<!-- Editable table -->
+							<div class="card">
+								<h3 class="card-header text-center font-weight-bold text-uppercase py-4 yellow">Trip Activities</h3>
 								<div class="card-body">
-									<div class="trip_edit_div">
-										<div id="location_page_header" class="">
-											<h1 class="">Trip Activities</h1>
-											<button type="button" class="btn btn-primary newActivityBtnMobile">Add New Activity</button>
-										</div>
-									
-										<div class="tripEvents">
+									<div id="table_wrapper_4" class="table-editable">
+
+										<span class="table-add float-right mb-3 mr-2">
+											<a href="#!" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
+										</span>
+
+										<table class="table table-bordered table-responsive-md text-center">
+
+											<tr class="">
+												<th scope="col">Activity Name</th>
+												<th scope="col">Activity Location</th>
+												{{--<th scope="col">Activity Date</th>--}}
+												<th scope="col">Show Activity</th>
+												<th scope="col" class="text-center">Remove</th>
+												<th class="" hidden>trip</th>
+												<th class="" hidden>trip_activities</th>
+											</tr>
+
 											@if($getCurrentEvents->count() > 0)
+
 												@foreach($getCurrentEvents as $activity)
-													<ul class="list-unstyled my-0 py-3">
-														<li class="container-fluid">
-															<div class="row">
-																<div class="col">
-																	<span>Show Activity</span>
-																</div>
-																<div class="col">
-																	<span>
-																		<div class="btn-group">
-																			<button type="button" class="btn{{ $activity->show_activity == 'Y' ? ' btn-success active' : '' }}" style="">
-																				<input type="checkbox" name="show_activity[]" value="Y" {{ $activity->show_activity == 'Y' ? 'checked' : '' }} hidden />Yes
-																			</button>
-																			<button type="button" class="btn{{ $activity->show_activity == 'N' ? ' btn-danger active' : '' }}" style="">
-																				<input type="checkbox" name="show_activity[]" value="N" {{ $activity->show_activity == 'N' ? 'checked' : '' }} hidden />No
-																			</button>
-																		</div>
-																	</span>
-																</div>
+													<tr>
+
+														<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="trip_event" value="{{ $activity->trip_event }}" /></td>
+														<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="activity_location" value="{{ $activity->activity_location }}" /></td>
+														{{--<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100 datepicker" data-value="{{ $activity->activity_date->format('Y/m/d') }}" name="activity_date" /></td>--}}
+														<td>
+															<div class="btn-group">
+																<button type="button" class="btn yesBtn{{ $activity->show_activity == 'Y' ? ' btn-success active' : ' stylish-color' }}">
+																	<input type="checkbox" name="show_activity" value="Y" {{ $activity->show_activity == 'Y' ? 'checked' : '' }} hidden />Yes
+																</button>
+																<button type="button" class="btn noBtn{{ $activity->show_activity == 'N' ? ' btn-danger active' : ' stylish-color' }}">
+																	<input type="checkbox" name="show_activity" value="N" {{ $activity->show_activity == 'N' ? 'checked' : '' }} hidden />No
+																</button>
 															</div>
-														</li>
-														<li class="container-fluid">
-															<div class="row">
-																<div class="col">
-																	<span>Activity Name</span>
-																</div>
-																<div class="col">
-																	<span>
-																		<input type="text" name="trip_event[]" class="rounded my-1 p-1 border border-dark" value="{{ $activity->trip_event }}" placeholder="Event Description" />
-																	</span>
-																</div>
-															</div>
-														</li>
-														<li class="container-fluid">
-															<div class="row">
-																<div class="col">
-																	<span>Activity Location</span>
-																</div>
-																<div class="col">
-																	<span>
-																		<input type="text" name="activity_location[]" class="rounded my-1 p-1 border border-dark" value="{{ $activity->activity_location }}" placeholder="Event Location" />
-																	</span>
-																</div>
-															</div>
-														</li>
-														<li class="container-fluid">
-															<div class="row">
-																<div class="col">
-																	<span>Activity Date</span>
-																</div>
-																<div class="col">
-																	<span>
-																		@php
-																			$activityDate = explode('-', $activity->activity_date);
-																		@endphp
-																		<input type="text" name="activity_date[]" class="datetimepicker rounded my-1 p-1 border border-dark" value="{{ $activityDate[1] . "/" . $activityDate[2] . "/" . $activityDate[0] }}" />
-																		<input type="text" name="activity_id[]" value="{{ $activity->id }}" hidden />
-																	</span>
-																</div>
-															</div>
-														</li>
-													</ul>
-													
-													@if(!$loop->last)
-														<div class="divider"></div>
-													@endif
+														</td>
+														<td>
+															<span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+														</td>
+														<td class="" hidden>{{ $activity->id }}</td>
+														<td class="" hidden>true</td>
+													</tr>
 												@endforeach
+
 											@else
-												<div class="blankActivity">
-													<h2 class="text-center py-3">No Activities Added Yet</h2>
-												</div>
+
+												<tr class="blankActivity">
+													<td colspan="5" rowspan="1" class="">No Activities Added Yet</td>
+												</tr>
+
 											@endif
 
-											<ul class="list-unstyled newActivityRowMobile" style="display:none;">
-												<li class="container-fluid">
-													<div class="row">
-														<div class="col">
-															<span>PIF</span>
-														</div>
-														<div class="col">
-															<span>
-																<div class="btn-group">
-																	<button type="button" class="btn" style="">
-																		<input type="checkbox" name="show_activity[]" value="Y" hidden />Yes
-																	</button>
-																	<button type="button" class="btn btn-danger active" style="">
-																		<input type="checkbox" name="show_activity[]" value="N" checked hidden />No
-																	</button>
-																</div>
-															</span>
-														</div>
+											<!-- This is our clonable table line -->
+											<tr class="newActivityRow hide">
+
+												<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="trip_event" placeholder="Enter Activity Name" /></td>
+												<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="activity_location" placeholder="Enter Activity Location" /></td>
+												{{--<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100 new_activity_date" id="" name="activity_date" placeholder="Select A Date" /></td>--}}
+												<td>
+													<div class="btn-group">
+														<button type="button" class="btn yesBtn stylish-color" style="">
+															<input type="checkbox" name="show_activity" value="Y" hidden />Yes
+														</button>
+														<button type="button" class="btn noBtn btn-danger active" style="">
+															<input type="checkbox" name="show_activity" value="N" checked hidden />No
+														</button>
 													</div>
-												</li>
-												<li class="container-fluid">
-													<div class="row">
-														<div class="col">
-															<span>Event</span>
-														</div>
-														<div class="col">
-															<span>
-																<input type="text" name="trip_event[]" class="rounded my-1 p-1 border border-dark" value="" placeholder="Event Description" />
-															</span>
-														</div>
-													</div>
-												</li>
-												<li class="container-fluid">
-													<div class="row">
-														<div class="col">
-															<span>Location</span>
-														</div>
-														<div class="col">
-															<span>
-																<input type="text" name="activity_location[]" class="rounded my-1 p-1 border border-dark" value="" placeholder="Event Location" />
-															</span>
-														</div>
-													</div>
-												</li>
-												<li class="container-fluid">
-													<div class="row">
-														<div class="col">
-															<span>Date</span>
-														</div>
-														<div class="col">
-															<span>
-																<input type="text" name="activity_date[]" class="datetimepicker rounded my-1 p-1 border border-dark" placeholder="Event Date" />
-															</span>
-														</div>
-													</div>
-												</li>
-											</ul>
-										</div>
+												</td>
+												<td>
+													<span class="table-save"><button type="button" class="btn btn-info btn-rounded btn-sm my-0">Save</button></span>
+													<span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+												</td>
+												<td class="pt-3-half" hidden><input type="text" name="trip" value="{{ $showLocation->id }}" /></td>
+												<td class="pt-3-half" hidden><input type="text" name="trip_activities" value="true"></td>
+											</tr>
+
+										</table>
 									</div>
 								</div>
 							</div>
+							<!-- Editable table -->
+
 						</div>
-						<div class="card">
-							<!-- Trip Participants -->
-							<div class="card-header text-center py-4" role="tab" id="headingFour">
-								<a data-toggle="collapse" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour" class="text-center">Participants</a>
-							</div>
-							<div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+
+						<!-- Trip Participants -->
+						<div class="trip_edit_div">
+
+							<!-- Editable table -->
+							<div class="card">
+								<h3 class="card-header text-center font-weight-bold text-uppercase py-4 yellow lighten-1">Trip Participants</h3>
 								<div class="card-body">
-									<div class="trip_edit_div">
-										<div id="location_page_header" class="">
-											<h1 class="">Trip Participants</h1>
-											<button type="button" class="btn btn-primary newParticipantBtnMobile">Add New Participant</button>
-										</div>
-										
-										<div class="tripUsers">
+									<div id="table_wrapper_5" class="table-editable">
+
+										<span class="table-add float-right mb-3 mr-2">
+											<a href="#!" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
+										</span>
+
+										<table class="table table-bordered table-responsive-md text-center">
+
+											<tr class="firstTableRow">
+												<th colspan="2">Name</th>
+												<th colspan="4">Contact Info</th>
+											</tr>
+
+											<tr class="">
+												<th>First</th>
+												<th>Last</th>
+												<th>Email</th>
+												<th>Phone</th>
+												<th>Notes</th>
+												<th>PIF</th>
+												<th>Remove</th>
+											</tr>
+
 											@if($getEventUsers->count() > 0)
+
 												@foreach($getEventUsers as $user)
-													<ul class="list-unstyled my-0 py-3">
-														<li class="container-fluid">
-															<div class="row">
-																<div class="col">
-																	<span>PIF</span>
-																</div>
-																<div class="col">
-																	<span>
-																		<div class="btn-group">
-																			<button type="button" class="btn{{ $user->paid_in_full == 'Y' ? ' btn-success active' : '' }}" style="">
-																				<input type="checkbox" name="pif[]" value="Y" {{ $user->paid_in_full == 'Y' ? 'checked' : '' }} hidden />Yes
-																			</button>
-																			<button type="button" class="btn{{ $user->paid_in_full == 'N' ? ' btn-danger active' : '' }}" style="">
-																				<input type="checkbox" name="pif[]" value="N" {{ $user->paid_in_full == 'N' ? 'checked' : '' }} hidden />No
-																			</button>
-																		</div>
-																		<input type="text" name="participant_id[]" value="{{ $user->id }}" hidden />
-																	</span>
-																</div>
+													<tr>
+														<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" value="{{ $user->first_name }}" /></td>
+														<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" value="{{ $user->last_name }}" /></td>
+														<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" value="{{ $user->email }}" /></td>
+														<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" value="{{ $user->phone }}" /></td>
+														<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" value="{{ $user->notes }}" /></td>
+														<td>
+															<div class="btn-group">
+																<button type="button" class="btn yesBtn{{ $user->paid_in_full == 'Y' ? ' btn-success active' : ' stylish-color' }}" style="">
+																	<input type="checkbox" name="pif[]" value="Y" {{ $user->paid_in_full == 'Y' ? 'checked' : '' }} hidden />Yes
+																</button>
+																<button type="button" class="btn noBtn{{ $user->paid_in_full == 'N' ? ' btn-danger active' : ' stylish-color' }}" style="">
+																	<input type="checkbox" name="pif[]" value="N" {{ $user->paid_in_full == 'N' ? 'checked' : '' }} hidden />No
+																</button>
 															</div>
-														</li>
-														<li class="container-fluid">
-															<div class="row">
-																<div class="col">
-																	<span>First</span>
-																</div>
-																<div class="col">
-																	<span>
-																		<input type="text" name="first_name[]" class="rounded my-1 p-1 border border-dark" value="{{ $user->first_name }}"placeholder="Enter First Name" />
-																	</span>
-																</div>
-															</div>
-														</li>
-														<li class="container-fluid">
-															<div class="row">
-																<div class="col">
-																	<span>Last</span>
-																</div>
-																<div class="col">
-																	<span>
-																		<input type="text" name="last_name[]" class="rounded my-1 p-1 border border-dark" value="{{ $user->last_name }}" placeholder="Enter Last Name" />
-																	</span>
-																</div>
-															</div>
-														</li>
-														<li class="container-fluid">
-															<div class="row">
-																<div class="col">
-																	<span>Phone</span>
-																</div>
-																<div class="col">
-																	<span>
-																		<input type="text" name="phone[]" class="rounded my-1 p-1 border border-dark" value="{{ $user->phone }}" maxlength="10" placeholder="Enter Phone Number" />
-																	</span>
-																</div>
-															</div>
-														</li>
-														<li class="container-fluid">
-															<div class="row">
-																<div class="col">
-																	<span>Email</span>
-																</div>
-																<div class="col">
-																	<span>
-																		<input type="text" name="email[]" class="rounded my-1 p-1 border border-dark" value="{{ $user->email }}"placeholder="Enter Email Address"  />
-																	</span>
-																</div>
-															</div>
-														</li>
-														<li class="container-fluid">
-															<div class="row">
-																<div class="col">
-																	<span>Notes</span>
-																</div>
-																<div class="col">
-																	<span>
-																		<textarea name="notes[]" class="rounded my-1 p-1 border border-dark" maxlength="495" rows="1" placeholder="Enter Notes">{{ $user->notes }}</textarea>
-																	</span>
-																</div>
-															</div>
-														</li>
-													</ul>
-													
-													@if(!$loop->last)
-														<div class="divider"></div>
-													@endif
+														<td>
+															<span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+														</td>
+															<input type="text" name="participant_id[]" value="{{ $user->id }}" hidden />
+														</td>
+													</tr>
+
 												@endforeach
+
 											@else
-												<div class="blankParticipant">
-													<h2 class="text-center py-3">No Participants Added Yet</h2>
-												</div>
+
+												<tr class="blankParticipant">
+													<td colspan="6" rowspan="1" class="">No Participants Added Yet</td>
+												</tr>
+
 											@endif
-											
-											<ul class="list-unstyled my-0 py-3 newParticipantRowMobile" style="display:none;">
-												<li class="container-fluid">
-													<div class="row">
-														<div class="col">
-															<span>PIF</span>
-														</div>
-														<div class="col">
-															<span>
-																<div class="btn-group">
-																	<button type="button" class="btn" style="">
-																		<input type="checkbox" name="pif[]" value="Y" hidden />Yes
-																	</button>
-																	<button type="button" class="btn btn-danger active" style="">
-																		<input type="checkbox" name="pif[]" value="N" checked hidden />No
-																	</button>
-																</div>
-															</span>
-														</div>
+
+											<!-- This is our clonable table line -->
+											<tr class="newParticipantRow hide">
+
+												<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="first_name" placeholder="Enter First Name" /></td>
+												<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="last_name" placeholder="Enter Last Name" /></td>
+												<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="email" placeholder="Enter Email" /></td>
+												<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="phone" placeholder="Enter Phone Number" /></td>
+												<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="notes" placeholder="Enter Notes" /></td>
+
+												<td>
+													<div class="btn-group">
+														<button type="button" class="btn stylish-color yesBtn" style="">
+															<input type="checkbox" name="pif" value="Y" hidden />Yes
+														</button>
+														<button type="button" class="btn btn-danger active noBtn" style="">
+															<input type="checkbox" name="pif" value="N" checked hidden />No
+														</button>
 													</div>
-												</li>	
-												<li class="container-fluid">
-													<div class="row">
-														<div class="col">
-															<span>First</span>
-														</div>
-														<div class="col">
-															<span>
-																<input type="text" name="first_name[]" class="rounded my-1 p-1 border border-dark" placeholder="Enter First Name" />
-															</span>
-														</div>
-													</div>
-												</li>
-												<li class="container-fluid">
-													<div class="row">
-														<div class="col">
-															<span>Last</span>
-														</div>
-														<div class="col">
-															<span>
-																<input type="text" name="last_name[]" class="rounded my-1 p-1 border border-dark" placeholder="Enter Last Name" />
-															</span>
-														</div>
-													</div>
-												</li>
-												<li class="container-fluid">
-													<div class="row">
-														<div class="col">
-															<span>Email</span>
-														</div>
-														<div class="col">
-															<span>
-																<input type="text" name="email[]" class="rounded my-1 p-1 border border-dark" placeholder="Enter Email" />
-															<span>
-														</div>
-													</div>
-												</li>
-												<li class="container-fluid">
-													<div class="row">
-														<div class="col">
-															<span>Phone</span>
-														</div>
-														<div class="col">
-															<span>
-																<input type="text" name="phone[]" class="rounded my-1 p-1 border border-dark" placeholder="Enter Phone Number" maxlength="10" />
-															<span>
-														</div>
-													</div>
-												</li>
-												<li class="container-fluid">
-													<div class="row">
-														<div class="col">
-															<span>Notes</span>
-														</div>
-														<div class="col">
-															<span>
-																<textarea name="notes[]" class="rounded my-1 p-1 border border-dark" maxlength="495" rows="1"placeholder="Enter Notes" ></textarea>
-															<span>
-														</div>
-													</div>
-												</li>
-											</ul>
-										</div>
+												</td>
+												<td>
+													<span class="table-save"><button type="button" class="btn btn-info btn-rounded btn-sm my-0">Save</button></span>
+													<span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+												</td>
+												<td class="pt-3-half" hidden><input type="text" name="trip" value="{{ $showLocation->id }}" /></td>
+												<td class="pt-3-half" hidden><input type="text" name="trip_participants" value="true"></td>
+											</tr>
+
+										</table>
 									</div>
 								</div>
 							</div>
+							<!-- Editable table -->
+
 						</div>
+
 					</div>
-				</div>
-			</form>
+
+				</form>
+
+			</div>
+
 		</div>
+
 	@endsection

@@ -3,9 +3,49 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+use App\TripCosts;
 
 class TripLocations extends Model
 {
+	/**
+	 * Get the deposit date for the vacation.
+	 *
+	 * @param  string  $value
+	 * @return string
+	 */
+	public function getDepositDateAttribute($value)
+	{
+		return $value == null ? $value : new Carbon($value);
+	}
+
+	/**
+	 * Get the due date for the vacation.
+	 *
+	 * @param  string  $value
+	 * @return string
+	 */
+	public function getDueDateAttribute($value)
+	{
+		return $value == null ? $value : new Carbon($value);
+	}
+
+	/**
+	 * Get the conditions for the trip.
+	 */
+	public function conditions()
+	{
+		return $this->hasMany('App\TripConditions');
+	}
+
+	/**
+	 * Get the inclusions for the trip.
+	 */
+	public function inclusion()
+	{
+		return $this->hasMany('App\TripInclusions', 'trip_id');
+	}
+
     /**
      * Get the activities for the trip.
      */
@@ -31,19 +71,19 @@ class TripLocations extends Model
     }
 
 	/**
+     * Get the payment options for the trip.
+     */
+    public function payment_options()
+    {
+        return $this->hasMany('App\TravelPayments');
+    }
+
+	/**
      * Get the cost for the trip.
      */
     public function costs()
     {
-        return $this->hasMany('App\TripCost');
-    }
-
-	/**
-     * Get the inclusions for the trip.
-     */
-    public function inclusions()
-    {
-        return $this->hasMany('App\TripInclusions');
+        return $this->hasMany('App\TripCosts');
     }
 
 	/**

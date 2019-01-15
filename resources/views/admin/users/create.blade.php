@@ -69,7 +69,7 @@
 								</button>
 							</div>
 
-							<label for="active" class="active" >Active User</label>
+							<label for="active" class="active">Active User</label>
 						</div>
 
 						<div class="newAdminInput">

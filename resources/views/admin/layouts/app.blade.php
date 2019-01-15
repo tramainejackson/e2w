@@ -6,10 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="/images/EW-Logo.ico" type="image/x-icon">
+	<link rel="icon" href="/images/EW-Logo.ico" type="image/x-icon">
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('Title', 'E<>W')</title>
+	<title>@yield('title', 'Eastcoast2Westcoast')</title>
 
 	<!-- Styles -->
 	<link href="https://fonts.googleapis.com/css?family=Felipa" rel="stylesheet">
@@ -29,27 +33,11 @@
 		<link href="/css/myIEcss.css" rel="stylesheet">
 	@endif
 
-	<style>
-		@media only screen and (max-width: 575px) {
-			div#app:after {
-				content: "";
-				position: fixed;
-				background-image: url(/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg);
-				background-size: cover;
-				background-position: center center;
-				background-repeat: no-repeat;
-				top: 0;
-				bottom: 0;
-				left: 0;
-				right: 0;
-				z-index: -1;
-			}
-		}
-	</style>
+	@yield('styles')
 
 </head>
 
-<body class="fixed-sn light-blue-skin">
+<body class="fixed-sn cyan-skin">
 
 	<div id="app">
 
@@ -158,7 +146,7 @@
 				@endsection
 			@endif
 
-			<div class="container-fluid mt-5">
+			<div class="container-fluid">
 
 				@yield('content')
 
@@ -194,6 +182,14 @@
 	<script type="text/javascript" src="/js/eastwest_2.js"></script>
 
 	@yield('scripts')
+
+	<script type="text/javascript">
+		// SideNav Button Initialization
+		$(".button-collapse").sideNav();
+		// SideNav Scrollbar Initialization
+		var sideNavScrollbar = document.querySelector('.custom-scrollbar');
+		Ps.initialize(sideNavScrollbar);
+	</script>
 
 </body>
 </html>

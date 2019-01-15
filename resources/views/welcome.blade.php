@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+	@section('scripts')
+		<script type="text/javascript">
+			if($('#home_carousel').parent().css('display') == 'block') {
+                $('.page-footer').addClass('fixed-bottom');
+            }
+		</script>
+	@endsection
+
 	@section('content')
 
 		<div class="col-12 d-none d-xl-block px-0" id="">
@@ -121,7 +129,7 @@
 							<hr	class="my-5" />
 						@endif
 
-						<div class="row" id="">
+						<div class="row" id=""{{ $loop->last ? ' style=margin-bottom:9em;' : '' }}>
 							<!-- Grid column -->
 							<div class="col-lg-5{{ $loop->iteration % 2 == 0 ? ' order-1' : '' }}">
 

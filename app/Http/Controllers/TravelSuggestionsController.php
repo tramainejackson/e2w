@@ -27,13 +27,14 @@ class TravelSuggestionsController extends Controller
      */
     public function index()
     {
+	    $getSuggestionInfo = TravelSuggestions::all();
 	    $getLocations = TravelSuggestions::distinct()->select('option_suggestion')->get()->pluck('option_suggestion');
 	    $getTotalRows = TravelSuggestions::all()->count();
 	    $date = new Carbon();
 
 	    // Return the admin view if Auth is true
 	    if(Auth::check()) {
-		    return view('admin.suggestions', compact('date', 'getLocations', 'getTotalRows'));
+		    return view('admin.suggestions', compact('date', 'getLocations', 'getTotalRows', 'getSuggestionInfo'));
 	    } else {
 		    return view('suggestions', compact('date', 'getLocations', 'getTotalRows'));
 	    }

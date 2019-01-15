@@ -5,9 +5,16 @@ namespace App\Http\Controllers;
 use App\DistributionList;
 use App\TripLocations;
 use App\TripActivities;
+use App\TripCosts;
+use function GuzzleHttp\Psr7\parse_query;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Http\File;
+use Carbon\Carbon;
+use phpDocumentor\Reflection\DocBlock\Description;
 
 class TripLocationsController extends Controller
 {
@@ -54,15 +61,60 @@ class TripLocationsController extends Controller
     public function store(Request $request)
     {
 		$tripLocation = new TripLocations();
-		
+		$error = '';
+
 		$this->validate($request, [
 			'trip_name' => 'required|max:50|unique:trip_locations,trip_location',
 		]);
-		
-		if($request->hasFile('trip_photo')) {
-			$path = $request->file('trip_photo')->store('public/images');
-			$tripLocation->trip_photo = $path;
-		}
+
+	    if($request->hasFile('trip_photo')) {
+		    $newImage = $request->file('trip_photo');
+
+		    // Check to see if upload is an image
+		    if($newImage->guessExtension() == 'jpeg' || $newImage->guessExtension() == 'png' || $newImage->guessExtension() == 'gif' || $newImage->guessExtension() == 'webp' || $newImage->guessExtension() == 'jpg') {
+
+			    // Check to see if images is too large
+			    if ($newImage->getError() == 1) {
+				    $fileName = $request->file('media')[0]->getClientOriginalName();
+				    $error = "<li class='errorItem'>The file " . $fileName . " is too large and could not be uploaded</li>";
+			    } elseif ($newImage->getError() == 0) {
+				    // Check to see if images is about 25MB
+				    // If it is then resize it
+				    if ($newImage->getClientSize() < 25000000) {
+					    $image = Image::make($newImage->getRealPath())->orientate();
+					    $path = $newImage->store('public/images');
+
+					    if ($image->save(storage_path('app/' . $path))) {
+						    // prevent possible upsizing
+						    // Create a larger version of the image
+						    // and save to large image folder
+						    $image->resize(1920, null, function ($constraint) {
+							    $constraint->aspectRatio();
+							    // $constraint->upsize();
+						    });
+
+
+						    if ($image->save(storage_path('app/' . str_ireplace('images', 'background', $path)))) {
+
+						    }
+					    }
+
+					    $tripLocation->trip_photo = $path;
+
+				    } else {
+					    // Resize the image before storing. Will need to hash the filename first
+					    $path = $newImage->store('public/images');
+					    $image = Image::make($newImage)->orientate()->resize(1920, null, function ($constraint) {
+						    $constraint->aspectRatio();
+						    $constraint->upsize();
+					    });
+					    $image->save(storage_path('app/' . $path));
+				    }
+			    } else {
+				    $error = "<li class='errorItem'>The file " . $newImage->filename . " may be corrupt and could not be uploaded</li>";
+			    }
+		    }
+	    }
 
         $tripLocation->trip_location = $request->trip_name;
 		$tripLocation->trip_month = $request->trip_month;
@@ -82,6 +134,7 @@ class TripLocationsController extends Controller
     public function show(TripLocations $tripLocation, $id)
     {
         $tripLocation = TripLocations::find($id);
+
 		return view('admin.locations.show', compact('tripLocation'));
     }
 
@@ -91,16 +144,19 @@ class TripLocationsController extends Controller
      * @param  \App\Trip_Locations  $trip_Locations
      * @return \Illuminate\Http\Response
      */
-    public function edit(TripLocations $tripLocations, $id)
+    public function edit(TripLocations $trip_Locations, $id)
     {
-		$showLocation = TripLocations::find($id);
-		$getCurrentEvents = TripActivities::where('trip_id', $id)->get();
-		$getEventUsers = DistributionList::where('trip_id', $id)->get();
-		$getLocations = TripLocations::all();
-        $getYear = DB::table('vacation_year')->get();
-		$getMonth = DB::table('vacation_month')->get();
-		
-		return view('admin.locations.edit', compact('getYear', 'getMonth', 'showLocation', 'getLocations', 'getCurrentEvents', 'getEventUsers'));
+		$showLocation       = TripLocations::find($id);
+		$getCurrentEvents   = $showLocation->activities;
+		$getEventUsers      = $showLocation->participants;
+		$getCosts           = $showLocation->costs;
+	    $getPaymentOptions  = $showLocation->payment_options;
+	    $getInclusions      = $showLocation->inclusion;
+	    $getConditions      = $showLocation->conditions;
+	    $getYear            = DB::table('vacation_year')->get();
+	    $getMonth           = DB::table('vacation_month')->get();
+
+		return view('admin.locations.edit', compact('getConditions', 'getInclusions', 'getPaymentOptions', 'getCosts', 'getYear', 'getMonth', 'showLocation', 'getCurrentEvents', 'getEventUsers'));
     }
 
     /**
@@ -112,9 +168,10 @@ class TripLocationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-		$tripLocation = TripLocations::find($id);
-		$events = $tripLocation->activities;
-		$participants = $tripLocation->participants;
+		$tripLocation   = TripLocations::find($id);
+		$events         = $tripLocation->activities;
+		$participants   = $tripLocation->participants;
+
 		$this->validate($request, [
 			'trip_location' => ['required', Rule::unique('trip_locations')->ignore($tripLocation->id), 'max:50']
 		]);
@@ -198,11 +255,11 @@ class TripLocationsController extends Controller
 		// Update active trip participants
 		for($i=0; $i < count($tripPartipantID); $i++) {
 			if($tripPartipantID[$i] == $participants[$i]->id) {
-				$participants[$i]->first_name = $request->first_name[$i];
-				$participants[$i]->last_name = $request->last_name[$i];
-				$participants[$i]->email = $request->email[$i];
-				$participants[$i]->phone = $request->phone[$i];
-				$participants[$i]->notes = $request->notes[$i];
+				$participants[$i]->first_name   = $request->first_name[$i];
+				$participants[$i]->last_name    = $request->last_name[$i];
+				$participants[$i]->email        = $request->email[$i];
+				$participants[$i]->phone        = $request->phone[$i];
+				$participants[$i]->notes        = $request->notes[$i];
 				$participants[$i]->paid_in_full = $request->pif[$i];
 				
 				$participants[$i]->save();
@@ -239,5 +296,111 @@ class TripLocationsController extends Controller
     public function destroy(TripLocations $tripLocations)
     {
         //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Trip_Locations  $trip_Locations
+     * @return \Illuminate\Http\Response
+     */
+    public function ajax_add(Request $request)
+    {
+	    $results = (object) parse_query($request->trip_additions);
+	    $trip = TripLocations::find($results->trip);
+
+	    if(isset($results->trip_includes)) {
+
+		    $create_include = $trip->inclusion()->create([
+		    	'description' => $results->description,
+		    ]);
+
+	    } elseif(isset($results->trip_conditions)) {
+
+		    $create_condition = $trip->conditions()->create([
+			    'description' => $results->description,
+		    ]);
+
+	    } elseif(isset($results->trip_payments)) {
+
+		    $create_payment = $trip->payment_options()->create([
+			    'payment_description'   => $results->description,
+			    'occurrence'            => $results->occurrence,
+		    ]);
+
+	    } elseif(isset($results->trip_activities)) {
+
+		    $create_activity = $trip->activities()->create([
+			    'trip_event'        => $results->trip_event,
+			    'activity_location' => $results->activity_location,
+			    'show_activity'     => $results->show_activity
+		    ]);
+
+	    } else {
+
+		    $create_participant = $trip->participants()->create([
+			    'first_name'    => $results->first_name,
+			    'last_name'     => $results->last_name,
+			    'paid_in_full'  => $results->pif,
+			    'email'         => $results->email,
+			    'phone'         => $results->phone,
+			    'notes'         => $results->notes,
+		    ]);
+
+	    }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Trip_Locations  $trip_Locations
+     * @return \Illuminate\Http\Response
+     */
+    public function ajax_update(Request $request)
+    {
+	    $results = (object) parse_query($request->trip_update);
+	    return dd();
+//	    return dd(str_ireplace('', '', $request->session()->previousUrl()));
+	    $trip = TripLocations::find($results->trip);
+
+	    if(isset($results->trip_includes)) {
+
+		    $create_include = $trip->inclusion()->create([
+		    	'description' => $results->description,
+		    ]);
+
+	    } elseif(isset($results->trip_conditions)) {
+
+		    $create_condition = $trip->conditions()->create([
+			    'description' => $results->description,
+		    ]);
+
+	    } elseif(isset($results->trip_payments)) {
+
+		    $create_payment = $trip->payment_options()->create([
+			    'payment_description'   => $results->description,
+			    'occurrence'            => $results->occurrence,
+		    ]);
+
+	    } elseif(isset($results->trip_activities)) {
+
+		    $create_activity = $trip->activities()->create([
+			    'trip_event'        => $results->trip_event,
+			    'activity_location' => $results->activity_location,
+			    'show_activity'     => $results->show_activity
+		    ]);
+
+	    } else {
+
+		    $create_participant = $trip->participants()->create([
+			    'first_name'    => $results->first_name,
+			    'last_name'     => $results->last_name,
+			    'paid_in_full'  => $results->pif,
+			    'email'         => $results->email,
+			    'phone'         => $results->phone,
+			    'notes'         => $results->notes,
+		    ]);
+
+	    }
     }
 }

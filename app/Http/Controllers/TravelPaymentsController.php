@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Travel_Payments;
+use App\TravelPayments;
 use Illuminate\Http\Request;
 
 class TravelPaymentsController extends Controller
@@ -41,10 +41,10 @@ class TravelPaymentsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Travel_Payments  $travel_Payments
+     * @param  \App\TravelPayments  $travel_payments
      * @return \Illuminate\Http\Response
      */
-    public function show(Travel_Payments $travel_Payments)
+    public function show(TravelPayments $travel_payments)
     {
         //
     }
@@ -52,10 +52,10 @@ class TravelPaymentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Travel_Payments  $travel_Payments
+     * @param  \App\TravelPayments  $travel_payments
      * @return \Illuminate\Http\Response
      */
-    public function edit(Travel_Payments $travel_Payments)
+    public function edit(TravelPayments $travel_payments)
     {
         //
     }
@@ -64,10 +64,10 @@ class TravelPaymentsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Travel_Payments  $travel_Payments
+     * @param  \App\TravelPayments  $travel_payments
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Travel_Payments $travel_Payments)
+    public function update(Request $request, TravelPayments $travel_payments)
     {
         //
     }
@@ -75,10 +75,10 @@ class TravelPaymentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Travel_Payments  $travel_Payments
+     * @param  \App\TravelPayments  $travel_payments
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Travel_Payments $travel_Payments)
+    public function destroy(TravelPayments $travel_payments)
     {
         //
     }

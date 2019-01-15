@@ -2,9 +2,11 @@
 		Eastcoast 2 Westcoast Travel
 ------------------------------------------------
 
-TODO: Carousel is causing a problem on home page
+TODO: Unable to dynamically add a row when date is involved
 TODO: Allow admin to remove users who have signed up
 TODO: If user account is inactive, find a way to allow restore
+Done: Past trips not looking right on mobile
+Done: Carousel is causing a problem on home page
 Done: Fix radio buttons for suggestion form
 Done: Add spinning modal for when someone adds themselves to a trip
 Done: Get mail fixed
