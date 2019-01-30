@@ -31,6 +31,28 @@ class TripLocations extends Model
 	}
 
 	/**
+	 * Set the trip location for the vacation.
+	 *
+	 * @param  string  $value
+	 * @return string
+	 */
+	public function setTripLocationAttribute($value)
+	{
+		$this->attributes['trip_location'] = ucwords(strtolower($value));
+	}
+
+	/**
+	 * Get the trip location for the vacation.
+	 *
+	 * @param  string  $value
+	 * @return string
+	 */
+	public function getTripLocationAttribute($value)
+	{
+		return ucwords(strtolower($value));
+	}
+
+	/**
 	 * Get the conditions for the trip.
 	 */
 	public function conditions()
@@ -83,7 +105,7 @@ class TripLocations extends Model
      */
     public function costs()
     {
-        return $this->hasMany('App\TripCosts');
+        return $this->hasOne('App\TripCosts');
     }
 
 	/**

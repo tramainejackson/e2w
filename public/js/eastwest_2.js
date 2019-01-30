@@ -74,12 +74,7 @@ $(document).ready(function() {
 	$("body").on("click", ".newActivityBtn", function() {
 		var newActivityRow = $(".newActivityRow").clone();
 		$(".blankActivity").remove();
-		// $(newActivityRow)
-		// 	.find(".datetimepicker")
-		// 	.datetimepicker({
-		// 		timepicker:false,
-		// 		format:'m/d/Y'
-		// 	});
+
 		$(newActivityRow)
 			.removeClass("newActivityRow")
 			.appendTo($(".tripEvents table"))
@@ -92,12 +87,7 @@ $(document).ready(function() {
 		var newActivityRow = $(".newActivityRowMobile").clone();
 		var newDivider = ('<div class="divider"></div>');
 		$(".blankActivity").remove();
-		// $(newActivityRow)
-		// 	.find(".datetimepicker")
-		// 	.datetimepicker({
-		// 		timepicker:false,
-		// 		format:'m/d/Y'
-		// 	});
+
 		$(newDivider).insertBefore($(".newActivityRowMobile"));
 		$(newActivityRow)
 			.removeClass("newActivityRowMobile")
@@ -110,12 +100,7 @@ $(document).ready(function() {
 	$("body").on("click", ".newParticipantBtn", function() {
 		var newParticipantRow = $(".newParticipantRow").clone();
 		$(".blankParticipant").remove();
-		// $(newParticipantRow)
-		// 	.find(".datetimepicker")
-		// 	.datetimepicker({
-		// 		timepicker:false,
-		// 		format:'m/d/Y'
-		// 	});
+
 		$(newParticipantRow)
 			.removeClass("newParticipantRow")
 			.appendTo($(".tripUsers table"))
@@ -128,12 +113,7 @@ $(document).ready(function() {
 		var newParticipantList = $(".newParticipantRowMobile").clone();
 		var newDivider = ('<div class="divider"></div>');
 		$(".blankParticipant").slideUp();
-		// $(newParticipantList)
-		// 	.find(".datetimepicker")
-		// 	.datetimepicker({
-		// 		timepicker:false,
-		// 		format:'m/d/Y'
-		// 	});
+
 		$(newDivider).insertBefore($(".newParticipantRowMobile"));
 		$(newParticipantList)
 			.removeClass("newParticipantRowMobile")

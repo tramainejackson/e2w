@@ -6,6 +6,7 @@ use App\DistributionList;
 use App\TripLocations;
 use App\TripActivities;
 use App\TripCosts;
+use App\TripPictures;
 use function GuzzleHttp\Psr7\parse_query;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -120,8 +121,10 @@ class TripLocationsController extends Controller
 		$tripLocation->trip_month = $request->trip_month;
 		$tripLocation->trip_year = $request->trip_year;
 
-		$tripLocation->save();
-		
+		if($tripLocation->save()) {
+			$tripLocation->costs()->create([]);
+		}
+
 		return redirect()->action('TripLocationsController@edit', $tripLocation)->with('status', 'New Trip Added Successfully');
     }
 
@@ -147,16 +150,16 @@ class TripLocationsController extends Controller
     public function edit(TripLocations $trip_Locations, $id)
     {
 		$showLocation       = TripLocations::find($id);
-		$getCurrentEvents   = $showLocation->activities;
-		$getEventUsers      = $showLocation->participants;
-		$getCosts           = $showLocation->costs;
+	    $costs              = $showLocation->costs;
+	    $getCurrentEvents   = $showLocation->activities;
+	    $getEventUsers      = $showLocation->participants;
 	    $getPaymentOptions  = $showLocation->payment_options;
 	    $getInclusions      = $showLocation->inclusion;
 	    $getConditions      = $showLocation->conditions;
 	    $getYear            = DB::table('vacation_year')->get();
 	    $getMonth           = DB::table('vacation_month')->get();
 
-		return view('admin.locations.edit', compact('getConditions', 'getInclusions', 'getPaymentOptions', 'getCosts', 'getYear', 'getMonth', 'showLocation', 'getCurrentEvents', 'getEventUsers'));
+		return view('admin.locations.edit', compact('getConditions', 'getInclusions', 'getPaymentOptions', 'costs', 'getYear', 'getMonth', 'showLocation', 'getCurrentEvents', 'getEventUsers'));
     }
 
     /**
@@ -169,122 +172,77 @@ class TripLocationsController extends Controller
     public function update(Request $request, $id)
     {
 		$tripLocation   = TripLocations::find($id);
-		$events         = $tripLocation->activities;
-		$participants   = $tripLocation->participants;
-
-		$this->validate($request, [
-			'trip_location' => ['required', Rule::unique('trip_locations')->ignore($tripLocation->id), 'max:50']
-		]);
+		$fileUpdated = '';
 		
 		if($request->hasFile('trip_photo')) {
-			$path = $request->file('trip_photo')->store('public/images');
-			$tripLocation->trip_photo = $path;
+			$newImage = $request->file('trip_photo');
+			$fileUpdated = 'Trip Photo';
+			$error = '';
+
+			// Check to see if upload is an image
+			if($newImage->guessExtension() == 'jpeg' || $newImage->guessExtension() == 'png' || $newImage->guessExtension() == 'gif' || $newImage->guessExtension() == 'webp' || $newImage->guessExtension() == 'jpg') {
+
+				// Check to see if images is too large
+				if ($newImage->getError() == 1) {
+					$fileName = $request->file('media')[0]->getClientOriginalName();
+					$error = "<li class='errorItem'>The file " . $fileName . " is too large and could not be uploaded</li>";
+				} elseif ($newImage->getError() == 0) {
+					// Check to see if images is about 25MB
+					// If it is then resize it
+					if ($newImage->getClientSize() < 25000000) {
+						$image = Image::make($newImage->getRealPath())->orientate();
+						$path = $newImage->store('public/images');
+
+						if ($image->save(storage_path('app/' . $path))) {
+							// prevent possible upsizing
+							// Create a larger version of the image
+							// and save to large image folder
+							$image->resize(1920, null, function ($constraint) {
+								$constraint->aspectRatio();
+								// $constraint->upsize();
+							});
+
+
+							if ($image->save(storage_path('app/' . str_ireplace('images', 'background', $path)))) {
+
+							}
+						}
+
+						$tripLocation->trip_photo = $path;
+
+					} else {
+						// Resize the image before storing. Will need to hash the filename first
+						$path = $newImage->store('public/images');
+						$image = Image::make($newImage)->orientate()->resize(1920, null, function ($constraint) {
+							$constraint->aspectRatio();
+							$constraint->upsize();
+						});
+						$image->save(storage_path('app/' . $path));
+					}
+				} else {
+					$error = "<li class='errorItem'>The file " . $newImage->filename . " may be corrupt and could not be uploaded</li>";
+				}
+			}
 		}
 		
 		if($request->hasFile('flyer_name')) {
-		// dd($tripLocation);
-			$path = $request->file('flyer_name')->store('public/flyers');
-			$tripLocation->flyer_name = $path;
-		}
+			$newImage = $request->file('flyer_name');
 
-		// Update trip location information
-		$tripLocation->description = $request->description;
-		$tripLocation->cost = implode("; ", array_filter($request->cost));
-		$tripLocation->payments = implode("; ", array_filter($request->payments));
-		$tripLocation->inclusions = implode("; ", array_filter($request->inclusions));
-		$tripLocation->conditions = implode("; ", array_filter($request->conditions));
-		$tripLocation->trip_complete = $request->trip_completed;
-		$tripLocation->show_trip = $request->show_trip;
-        $tripLocation->trip_location = $request->trip_location;
-		$tripLocation->trip_month = $request->trip_month;
-		$tripLocation->trip_year = $request->trip_year;
-		$tripActivityID = $request->activity_id;
-		$tripActivityCount = count($tripActivityID);
-		$tripPartipantID = $request->participant_id;
-		$tripParticipantCount = count($tripPartipantID);
-		
-		// Rearrange the requested dates
-		if($request->deposit_date != '') {
-			$depositDate = explode('/', $request->deposit_date);
-			$depositDateMonth = array_splice($depositDate, 1, 1);
-			$depositDate = array_reverse($depositDate);
-			array_push($depositDate, $depositDateMonth[0]);
-			$tripLocation->deposit_date = implode('-', $depositDate);
-		}
-		
-		if($request->due_date != '') {
-			$dueDate = explode('/', $request->due_date);
-			$dueDateMonth = array_splice($dueDate, 1, 1);
-			$dueDate = array_reverse($dueDate);
-			array_push($dueDate, $dueDateMonth[0]);
-			$tripLocation->due_date = implode('-', $dueDate);
-		}
-		
-		// Update active trip activities
-		for($i=0; $i < count($tripActivityID); $i++) {
-			if($tripActivityID[$i] == $events[$i]->id) {
-				$events[$i]->trip_event = $request->trip_event[$i];
-				
-				// Rearrange date for db entry
-				$activityDate = explode('/', $request->activity_date[$i]);
-				$activityDateMonth = array_splice($activityDate, 1, 1);
-				$activityDate = array_reverse($activityDate);
-				array_push($activityDate, $activityDateMonth[0]);
-				$events[$i]->activity_date = implode('-', $activityDate);
-				
-				$events[$i]->activity_location = $request->activity_location[$i];
-				$events[$i]->show_activity = $request->show_activity[$i];
-				
-				$events[$i]->save();
+			// Check to see if upload is an image
+			if($newImage->guessExtension() == 'jpeg' || $newImage->guessExtension() == 'png' || $newImage->guessExtension() == 'gif' || $newImage->guessExtension() == 'webp' || $newImage->guessExtension() == 'jpg') {
+				$error = "The file uploaded for the flyer was an image. Please upload a document for the flyer";
+
+				return redirect()->back()->with('error', $error);
+			} else {
+				$path = $request->file('flyer_name')->store('public/flyers');
+				$tripLocation->flyer_name = $path;
+				$fileUpdated = 'Trip Flyer';
 			}
 		}
 		
-		// Add new trip activities
-		while($tripActivityCount < (count($request->trip_event) - 1)) {
-			$newEventCounter = $tripActivityCount + 1;
-			$newEvent = $tripLocation->activities()->create([
-				'trip_event' => $request->trip_event[$newEventCounter],
-				'activity_date' => $request->activity_date[$newEventCounter],
-				'activity_location' => $request->activity_location[$newEventCounter],
-				'show_activity' => $request->show_activity[$newEventCounter],
-			]);
-
-			$tripActivityCount++;
+		if($tripLocation->save()) {
+			return redirect()->back()->with('status', $fileUpdated . ' Updated Successfully');
 		}
-		
-		// Update active trip participants
-		for($i=0; $i < count($tripPartipantID); $i++) {
-			if($tripPartipantID[$i] == $participants[$i]->id) {
-				$participants[$i]->first_name   = $request->first_name[$i];
-				$participants[$i]->last_name    = $request->last_name[$i];
-				$participants[$i]->email        = $request->email[$i];
-				$participants[$i]->phone        = $request->phone[$i];
-				$participants[$i]->notes        = $request->notes[$i];
-				$participants[$i]->paid_in_full = $request->pif[$i];
-				
-				$participants[$i]->save();
-			}
-		}
-		
-		// Add new trip participants
-		while($tripParticipantCount < (count($request->first_name) - 1)) {
-			$newParticipantCounter = $tripParticipantCount + 1;
-			$newParticipant = $tripLocation->participants()->create([
-				'first_name' => $request->first_name[$newParticipantCounter],
-				'last_name' => $request->last_name[$newParticipantCounter],
-				'email' => $request->email[$newParticipantCounter],
-				'phone' => $request->phone[$newParticipantCounter],
-				'notes' => $request->notes[$newParticipantCounter],
-				'paid_in_full' => $request->pif[$newParticipantCounter],
-			]);
-
-			$tripParticipantCount++;
-		}
-		// dd($request);
-		
-		$tripLocation->save();
-		
-		return redirect()->action('TripLocationsController@edit', $tripLocation)->with('status', 'Trip Updated Successfully');
     }
 
     /**
@@ -299,7 +257,7 @@ class TripLocationsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Add the specified resource to storage from Ajax request.
      *
      * @param  \App\Trip_Locations  $trip_Locations
      * @return \Illuminate\Http\Response
@@ -307,13 +265,22 @@ class TripLocationsController extends Controller
     public function ajax_add(Request $request)
     {
 	    $results = (object) parse_query($request->trip_additions);
-	    $trip = TripLocations::find($results->trip);
+	    $trip = $showLocation = TripLocations::find($request->trip_id);
+	    $getCurrentEvents   = $showLocation->activities;
+	    $getEventUsers      = $showLocation->participants;
+	    $getCosts           = $showLocation->costs;
+	    $getPaymentOptions  = $showLocation->payment_options;
+	    $getInclusions      = $showLocation->inclusion;
+	    $getConditions      = $showLocation->conditions;
+	    $getYear            = DB::table('vacation_year')->get();
+	    $getMonth           = DB::table('vacation_month')->get();
 
 	    if(isset($results->trip_includes)) {
 
 		    $create_include = $trip->inclusion()->create([
 		    	'description' => $results->description,
 		    ]);
+
 
 	    } elseif(isset($results->trip_conditions)) {
 
@@ -348,59 +315,110 @@ class TripLocationsController extends Controller
 		    ]);
 
 	    }
+
+	    return view('admin.locations.edit', compact('getConditions', 'getInclusions', 'getPaymentOptions', 'getCosts', 'getYear', 'getMonth', 'showLocation', 'getCurrentEvents', 'getEventUsers'))->with('status', $results);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Update the specified resource from storage.
      *
      * @param  \App\Trip_Locations  $trip_Locations
      * @return \Illuminate\Http\Response
      */
     public function ajax_update(Request $request)
     {
-	    $results = (object) parse_query($request->trip_update);
-	    return dd();
-//	    return dd(str_ireplace('', '', $request->session()->previousUrl()));
-	    $trip = TripLocations::find($results->trip);
+	    $results = (object) parse_query($request->trip_updates);
+	    $trip = TripLocations::find($request->trip_id);
 
 	    if(isset($results->trip_includes)) {
+		    // Get the inclusion
+		    $inclusion = $trip->inclusion()->find($results->inclusion_option);
 
-		    $create_include = $trip->inclusion()->create([
-		    	'description' => $results->description,
-		    ]);
+		    // Update the inclusion fields
+		    $inclusion->description = $results->description;
+
+		    if($inclusion->save()) {
+			    return 'Trip inclusions information updated';
+		    }
 
 	    } elseif(isset($results->trip_conditions)) {
+		    // Get the condition
+		    $condition = $trip->conditions()->find($results->condition_option);
 
-		    $create_condition = $trip->conditions()->create([
-			    'description' => $results->description,
-		    ]);
+		    // Update the condition fields
+		    $condition->description = $results->description;
+
+		    if($condition->save()) {
+			    return 'Terms and conditions information updated';
+		    }
 
 	    } elseif(isset($results->trip_payments)) {
+		    // Get the payment
+		    $payment = $trip->payment_options()->find($results->payment_option);
+		    $occurrence = array_values((array)$results);
 
-		    $create_payment = $trip->payment_options()->create([
-			    'payment_description'   => $results->description,
-			    'occurrence'            => $results->occurrence,
-		    ]);
+		    // Update the payment fields
+		    $payment->payment_description = $results->description;
+		    $payment->occurrence = $occurrence[1];
+
+		    if($payment->save()) {
+			    return 'Trip payment information updated';
+		    }
 
 	    } elseif(isset($results->trip_activities)) {
+		    // Get the activity
+		    $activity = $trip->activities()->find($results->activity_option);
 
-		    $create_activity = $trip->activities()->create([
-			    'trip_event'        => $results->trip_event,
-			    'activity_location' => $results->activity_location,
-			    'show_activity'     => $results->show_activity
-		    ]);
+		    // Update the activity fields
+		    $activity->trip_event = $results->trip_event;
+		    $activity->activity_location = $results->activity_location;
+		    $activity->show_activity = $results->show_activity;
 
+		    if($activity->save()) {
+			    return 'Trip activity information updated';
+		    }
+
+	    } elseif(isset($results->trip_participants)) {
+			// Get the participant
+		    $participant = $trip->participants()->find($results->participant_option);
+
+		    // Update the participant fields
+		    $participant->first_name = $results->first_name;
+		    $participant->last_name = $results->last_name;
+		    $participant->paid_in_full = $results->pif;
+		    $participant->email = $results->email;
+		    $participant->phone = $results->phone;
+		    $participant->notes = $results->notes;
+
+		    if($participant->save()) {
+				return 'Participant information updated';
+		    }
 	    } else {
+			$results = explode('=', $request->trip_updates);
+		    $key = $results[0];
+		    $value = $results[1];
 
-		    $create_participant = $trip->participants()->create([
-			    'first_name'    => $results->first_name,
-			    'last_name'     => $results->last_name,
-			    'paid_in_full'  => $results->pif,
-			    'email'         => $results->email,
-			    'phone'         => $results->phone,
-			    'notes'         => $results->notes,
-		    ]);
+		    if($key == 'deposit_date') {
+		    	$deposit_date = explode('/', $value);
+			    $trip->deposit_date = $deposit_date[2].'-'.$deposit_date[0].'-'.$deposit_date[1];
+		    } elseif($key == 'due_date') {
+			    $due_date = explode('/', $value);
+			    $trip->due_date = $due_date[2].'-'.$due_date[0].'-'.$due_date[1];
+		    } elseif(substr_count($key, 'trip_cost')) {
+			    $key = str_ireplace('trip_cost_', '', $key);
+			    $trip->costs->$key = $value;
 
+			    if($trip->costs->save()) {}
+		    } elseif($key == 'trip_photo') {
+
+		    } else {
+			    $trip->$key = $value;
+		    }
+
+		    if($trip->save()) {
+			    return str_ireplace('_', ' ', ucfirst($key)) . ' updated successfully';
+		    }
 	    }
+
     }
 }

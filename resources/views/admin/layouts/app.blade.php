@@ -126,24 +126,10 @@
 
 			@if(session('status'))
 				<h2 class="flashMessage d-none">{{ session('status') }}</h2>
-
-				@section('scripts')
-					<script>
-						// Display a success toast
-                        toastr.success($('h2.flashMessage').text());
-					</script>
-				@endsection
 			@endif
 
 			@if(session('error'))
 				<h2 class="errorMessage d-none">{{ session('error') }}</h2>
-
-				@section('scripts')
-					<script>
-                        // Display a success toast
-                        toastr.success($('h2.errorMessage').text());
-					</script>
-				@endsection
 			@endif
 
 			<div class="container-fluid">
