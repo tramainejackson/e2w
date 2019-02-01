@@ -266,9 +266,9 @@ class TripLocationsController extends Controller
     {
 	    $results = (object) parse_query($request->trip_additions);
 	    $trip = $showLocation = TripLocations::find($request->trip_id);
+	    $costs              = $showLocation->costs;
 	    $getCurrentEvents   = $showLocation->activities;
 	    $getEventUsers      = $showLocation->participants;
-	    $getCosts           = $showLocation->costs;
 	    $getPaymentOptions  = $showLocation->payment_options;
 	    $getInclusions      = $showLocation->inclusion;
 	    $getConditions      = $showLocation->conditions;
@@ -316,7 +316,7 @@ class TripLocationsController extends Controller
 
 	    }
 
-	    return view('admin.locations.edit', compact('getConditions', 'getInclusions', 'getPaymentOptions', 'getCosts', 'getYear', 'getMonth', 'showLocation', 'getCurrentEvents', 'getEventUsers'))->with('status', $results);
+	    return view('admin.locations.edit', compact('getConditions', 'getInclusions', 'getPaymentOptions', 'costs', 'getYear', 'getMonth', 'showLocation', 'getCurrentEvents', 'getEventUsers'))->with('status', $results);
     }
 
     /**
@@ -421,4 +421,23 @@ class TripLocationsController extends Controller
 	    }
 
     }
+
+	/**
+	 * Update the specified resource from storage.
+	 *
+	 * @param  \App\Trip_Locations  $trip_Locations
+	 * @return \Illuminate\Http\Response
+	 */
+	public function add_contact(Request $request, DistributionList $participant, TripLocations $location)
+	{
+		$location->participants()->create([
+			'first_name'        => $participant->first_name,
+			'last_name'         => $participant->last_name,
+			'email'             => $participant->email,
+			'phone'             => $participant->phone,
+			'parent_acct_id'    => $participant->id
+		]);
+
+		return 'Successful';
+	}
 }

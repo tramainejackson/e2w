@@ -7,15 +7,12 @@
 			<div class="col">
 
 				<div id="users_page_header" class="">
-					<h1 class="pageTopicHeader">Add New Admins</h1>
+					<h1 class="pageTopicHeader">Add New Contact</h1>
 				</div>
 
 				<div class="newUser">
 
-					<form name="new_admin_user" class="" action="/admin" method="POST">
-						
-						{{ method_field('POST') }}
-						{{ csrf_field() }}
+					{!! Form::open(['action' => 'DistributionListController@store', 'method' => 'POST', 'class' => '']) !!}
 						
 						<div class="md-form">
 							<input type="text" name="first_name" class="form-control" value="{{ old('first_name') }}" placeholder="Enter Firstname" />
@@ -48,35 +45,20 @@
 						</div>
 
 						<div class="md-form">
-							<input type="text" name="password" class="form-control" placeholder="Enter Password" />
-							
-							@if ($errors->has('password'))
-								<span class="text-danger">Password cannot be empty</span>
+							<input type="text" name="phone" class="form-control" value="{{ old('phone') }}" placeholder="Enter Phone Number" />
+
+							@if($errors->has('phone'))
+								<span class="text-danger">Phone number doesn't have enough numbers</span>
 							@endif
 
-							<label for="password" class="text-light">Password</label>
-						</div>
-
-						<div class="md-form">
-							
-							<div class="btn-group mt-2">
-								<button type="button" class="btn stylish-color yesBtn">
-									<input type="checkbox" name="active" value="Y" hidden />Yes
-								</button>
-
-								<button type="button" class="btn btn-danger noBtn active">
-									<input type="checkbox" name="active" value="N" checked hidden />No
-								</button>
-							</div>
-
-							<label for="active" class="active">Active User</label>
+							<label for="phone" class="">Email Address</label>
 						</div>
 
 						<div class="newAdminInput">
-							<button type="submit" class="btn btn-info ml-0">Add User</button>
+							<button type="submit" class="btn btn-info ml-0">Add Contact</button>
 						</div>
 
-					</form>
+					{!! Form::close() !!}
 
 				</div>
 

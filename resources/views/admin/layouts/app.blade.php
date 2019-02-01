@@ -19,7 +19,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Felipa" rel="stylesheet">
 
 	<!-- Font Awesome -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
 	<!-- Bootstrap core CSS -->
 	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
@@ -57,27 +57,35 @@
 					<!-- Side navigation links -->
 					<li>
 						<ul class="collapsible collapsible-accordion">
-							<li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-plane" aria-hidden="true"></i> Trip Locations<i class="fa fa-angle-down rotate-icon"></i></a>
+							<li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-plane" aria-hidden="true"></i> Trip Locations<i class="fa fa-angle-down rotate-icon"></i></a>
 								<div class="collapsible-body">
 									<ul>
-										<li><a href="{{ route('location.create') }}" {{ isset($_GET["add_trip"]) ? "style='font-weight:700; color:#8fba82;'" : "" }} >Add Trips</a></li>
-										<li><a href="{{ route('location.index') }}" {{ isset($_GET["trip_activities"]) ? "style='font-weight:700; color:#8fba82;'" : "" }} >Edit Trip Events</a></li>
+										<li><a href="{{ route('location.create') }}">Add Trips</a></li>
+										<li><a href="{{ route('location.index') }}">Edit Trip Events</a></li>
 									</ul>
 								</div>
 							</li>
-							<li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-picture-o" aria-hidden="true"></i> Trip Pictures<i class="fa fa-angle-down rotate-icon"></i></a>
+							<li><a class="collapsible-header waves-effect arrow-r"><i class="far fa-images"></i></i> Trip Pictures<i class="fa fa-angle-down rotate-icon"></i></a>
 								<div class="collapsible-body">
 									<ul>
-										<li><a href="{{ route('pictures.create') }}" {{ isset($_GET["add_pictures"]) ? "style='font-weight:700; color:#8fba82;'" : "" }} >Add Pictures</a></li>
-										<li><a href="{{ route('pictures.index') }}" {{ isset($_GET["add_pictures"]) ? "style='font-weight:700; color:#8fba82;'" : "" }} >Edit Pictures</a></li>
+										<li><a href="{{ route('pictures.create') }}">Add Pictures</a></li>
+										<li><a href="{{ route('pictures.index') }}">Edit Pictures</a></li>
 									</ul>
 								</div>
 							</li>
-							<li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-user" aria-hidden="true"></i> Users<i class="fa fa-angle-down rotate-icon"></i></a>
+							<li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-users"></i> Contacts<i class="fa fa-angle-down rotate-icon"></i></a>
 								<div class="collapsible-body">
 									<ul>
-										<li><a href="{{ route('admin.create') }}" {{ isset($_GET["add_users"]) ? "style='font-weight:700; color:#8fba82;'" : "" }} >Add New Admin</a></li>
-										<li><a href="{{ route('admin.index') }}" {{ isset($_GET["edit_users"]) ? "style='font-weight:700; color:#8fba82;'" : "" }} >Edit Admin</a></li>
+										<li><a href="{{ route('participants.create') }}">Add New Contact</a></li>
+										<li><a href="{{ route('participants.index') }}">Edit Contact</a></li>
+									</ul>
+								</div>
+							</li>
+							<li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-user" aria-hidden="true"></i> Users<i class="fa fa-angle-down rotate-icon"></i></a>
+								<div class="collapsible-body">
+									<ul>
+										<li><a href="{{ route('admin.create') }}">Add New Admin</a></li>
+										<li><a href="{{ route('admin.index') }}">Edit Admin</a></li>
 									</ul>
 								</div>
 							</li>

@@ -187,6 +187,11 @@ return [
 		*/
 		Jenssegers\Agent\AgentServiceProvider::class,
 
+	    /*
+		* HTML Laravel Collective
+		*/
+	    Collective\Html\HtmlServiceProvider::class,
+
     ],
 
     /*
@@ -237,6 +242,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 		'Agent' => Jenssegers\Agent\Facades\Agent::class,
 		'Image' => Intervention\Image\Facades\Image::class,
+	    'Form' => Collective\Html\FormFacade::class,
+	    'Html' => Collective\Html\HtmlFacade::class,
     ],
 
 ];

@@ -281,13 +281,15 @@
 										<button type="submit" class="btn btn-md btn-outline-info m-0 px-3 py-2 z-depth-0 waves-effect saveNewFlyerBtn" style="display: none;">Save New Flyer</button>
 									</div>
 
-									@if($showLocation->flyer_name != null)
-										<a href="{{ asset('storage/' . str_ireplace('public/', '', $showLocation->flyer_name)) }}" class="btn btn-primary addInput" download="{{ str_ireplace(' ', '_', ucwords($showLocation->trip_location)) . '_Flyer' }}">View Current Flyer</a>
-									@endif
-
 									<label class="active">Trip Flyer</label>
 								</div>
 							</div>
+
+							@if($showLocation->flyer_name != null)
+								<div class="" id="">
+									<a href="{{ asset('storage/' . str_ireplace('public/', '', $showLocation->flyer_name)) }}" class="btn btn-primary" download="{{ str_ireplace(' ', '_', ucwords($showLocation->trip_location)) . '_Flyer' }}">View Current Flyer</a>
+								</div>
+							@endif
 
 							{{-- Trip Cost--}}
 							<div class="terms_cost_div trip_edit_div">
@@ -310,6 +312,9 @@
 
 														<input type="number" step="0.01" name="per_adult" class="form-control" value="{{ $costs->per_adult }}" placeholder="Price Per Adult" aria-label="Price Per Adult" aria-describedby="addon1">
 
+														<div class="input-group-append">
+															<span class="input-group-text md-addon">price per adult</span>
+														</div>
 													</div>
 
 													{{-- Cost: Price Per Child--}}

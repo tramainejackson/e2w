@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class DistributionList extends Model
 {
@@ -17,7 +18,8 @@ class DistributionList extends Model
 		'email', 
 		'phone',
 		'notes',
-		'paid_in_full'
+		'paid_in_full',
+		'parent_acct_id'
 	];
 
 	/**
@@ -54,6 +56,17 @@ class DistributionList extends Model
 	}
 
 	/**
+	 * Get the phone number for the participant.
+	 *
+	 * @param  string  $value
+	 * @return string
+	 */
+	public function getPhoneAttribute($value)
+	{
+		return $value != null ? $value : 'No Phone Number Added';
+	}
+
+	/**
 	 * Set the first name for the participant.
 	 *
 	 * @param  string  $value
@@ -84,6 +97,39 @@ class DistributionList extends Model
 	public function setEmailAttribute($value)
 	{
 		$this->attributes['email'] = strtolower($value);
+	}
+
+	/**
+	 * Set the email address for the participant.
+	 *
+	 * @param  string  $value
+	 * @return string
+	 */
+	public function full_name()
+	{
+		return $this->first_name . " " . $this->last_name;
+	}
+
+	/**
+	 * Scope a query to only include unique users.
+	 *
+	 * @param \Illuminate\Database\Eloquent\Builder $query
+	 * @return \Illuminate\Database\Eloquent\Builder
+	 */
+	public function scopeUniqueContacts($query)
+	{
+		return $query->where('trip_id', null)->get();
+	}
+
+	/**
+	 * Scope a query to get all trips user has been added to.
+	 *
+	 * @param \Illuminate\Database\Eloquent\Builder $query
+	 * @return \Illuminate\Database\Eloquent\Builder
+	 */
+	public function scopeAllTrips($query, $parent_id)
+	{
+		return $query->where('parent_acct_id', $parent_id)->get();
 	}
 
 	/**
