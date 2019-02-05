@@ -67,6 +67,17 @@ class DistributionList extends Model
 	}
 
 	/**
+	 * Set the phone number for the participant.
+	 *
+	 * @param  string  $value
+	 * @return string
+	 */
+	public function setPhoneAttribute($value)
+	{
+		return $value == 'No Phone Number Added' ? null : $value;
+	}
+
+	/**
 	 * Set the first name for the participant.
 	 *
 	 * @param  string  $value

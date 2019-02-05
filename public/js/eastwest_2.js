@@ -5,10 +5,6 @@ $(document).ready(function() {
 	});
 	
 	// Commonly user variables
-	var errors;
-	var passwordAttempts = 0;
-	var adminDivs = $(".adminDiv");
-	var counter = 0;
 	var mobileNavHeight = $('.mobileNavBar').outerHeight();
 	var documentHeight = $(document).height();
 	var winHeight = window.innerHeight;

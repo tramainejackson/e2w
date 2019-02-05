@@ -131,12 +131,12 @@ class TripLocationsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Trip_Locations  $trip_Locations
+     * @param  \App\Trip_Locations  $location
      * @return \Illuminate\Http\Response
      */
-    public function show(TripLocations $tripLocation, $id)
+    public function show(TripLocations $location)
     {
-        $tripLocation = TripLocations::find($id);
+        $tripLocation = $location;
 
 		return view('admin.locations.show', compact('tripLocation'));
     }
@@ -144,12 +144,12 @@ class TripLocationsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Trip_Locations  $trip_Locations
+     * @param  \App\Trip_Locations  $location
      * @return \Illuminate\Http\Response
      */
-    public function edit(TripLocations $trip_Locations, $id)
+    public function edit(TripLocations $location)
     {
-		$showLocation       = TripLocations::find($id);
+		$showLocation       = $location;
 	    $costs              = $showLocation->costs;
 	    $getCurrentEvents   = $showLocation->activities;
 	    $getEventUsers      = $showLocation->participants;
@@ -248,10 +248,10 @@ class TripLocationsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Trip_Locations  $trip_Locations
+     * @param  \App\Trip_Locations  $location
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TripLocations $tripLocations)
+    public function destroy(TripLocations $location)
     {
         //
     }
@@ -266,57 +266,58 @@ class TripLocationsController extends Controller
     {
 	    $results = (object) parse_query($request->trip_additions);
 	    $trip = $showLocation = TripLocations::find($request->trip_id);
-	    $costs              = $showLocation->costs;
-	    $getCurrentEvents   = $showLocation->activities;
-	    $getEventUsers      = $showLocation->participants;
-	    $getPaymentOptions  = $showLocation->payment_options;
-	    $getInclusions      = $showLocation->inclusion;
-	    $getConditions      = $showLocation->conditions;
-	    $getYear            = DB::table('vacation_year')->get();
-	    $getMonth           = DB::table('vacation_month')->get();
 
 	    if(isset($results->trip_includes)) {
 
-		    $create_include = $trip->inclusion()->create([
+		    $newValue = $create_include = $trip->inclusion()->create([
 		    	'description' => $results->description,
 		    ]);
 
 
 	    } elseif(isset($results->trip_conditions)) {
 
-		    $create_condition = $trip->conditions()->create([
+		    $newValue = $create_condition = $trip->conditions()->create([
 			    'description' => $results->description,
 		    ]);
 
 	    } elseif(isset($results->trip_payments)) {
 
-		    $create_payment = $trip->payment_options()->create([
+		    $newValue = $create_payment = $trip->payment_options()->create([
 			    'payment_description'   => $results->description,
 			    'occurrence'            => $results->occurrence,
 		    ]);
 
 	    } elseif(isset($results->trip_activities)) {
 
-		    $create_activity = $trip->activities()->create([
+		    $newValue = $create_activity = $trip->activities()->create([
 			    'trip_event'        => $results->trip_event,
 			    'activity_location' => $results->activity_location,
 			    'show_activity'     => $results->show_activity
 		    ]);
 
 	    } else {
+		    $contact = new DistributionList();
 
-		    $create_participant = $trip->participants()->create([
-			    'first_name'    => $results->first_name,
-			    'last_name'     => $results->last_name,
-			    'paid_in_full'  => $results->pif,
-			    'email'         => $results->email,
-			    'phone'         => $results->phone,
-			    'notes'         => $results->notes,
-		    ]);
+		    $contact->first_name    = $results->first_name;
+		    $contact->last_name     = $results->last_name;
+		    $contact->email         = $results->email;
+		    $contact->phone         = $results->phone;
+
+		    if($contact->save()) {
+			    $newValue = $create_participant = $trip->participants()->create([
+				    'first_name'        => $contact->first_name,
+				    'last_name'         => $contact->last_name,
+				    'paid_in_full'      => $results->pif,
+				    'email'             => $contact->email,
+				    'phone'             => $contact->phone,
+				    'notes'             => $results->notes,
+				    'parent_acct_id'    => $contact->id
+			    ]);
+		    }
 
 	    }
 
-	    return view('admin.locations.edit', compact('getConditions', 'getInclusions', 'getPaymentOptions', 'costs', 'getYear', 'getMonth', 'showLocation', 'getCurrentEvents', 'getEventUsers'))->with('status', $results);
+	    return $newValue;
     }
 
     /**
@@ -425,7 +426,8 @@ class TripLocationsController extends Controller
 	/**
 	 * Update the specified resource from storage.
 	 *
-	 * @param  \App\Trip_Locations  $trip_Locations
+	 * @param  \App\Trip_Locations  $location
+	 * @param  \App\DistributionList  $participant
 	 * @return \Illuminate\Http\Response
 	 */
 	public function add_contact(Request $request, DistributionList $participant, TripLocations $location)
@@ -439,5 +441,58 @@ class TripLocationsController extends Controller
 		]);
 
 		return 'Successful';
+	}
+
+	/**
+	 * Delete the specified resource to storage from Ajax request.
+	 *
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function ajax_delete(Request $request)
+	{
+		$results = (object) parse_query($request->trip_deletions);
+		$trip = TripLocations::find($request->trip_id);
+
+		if(isset($results->trip_includes)) {
+			// Get the inclusion
+			$inclusion = $trip->inclusion()->find($results->inclusion_option);
+
+			if($inclusion->delete()) {
+				return 'Trip inclusions information removed';
+			}
+
+		} elseif(isset($results->trip_conditions)) {
+			// Get the condition
+			$condition = $trip->conditions()->find($results->condition_option);
+
+			if($condition->delete()) {
+				return 'Terms and conditions information removed';
+			}
+
+		} elseif(isset($results->trip_payments)) {
+			// Get the payment
+			$payment = $trip->payment_options()->find($results->payment_option);
+
+			if($payment->delete()) {
+				return 'Trip payment information removed';
+			}
+
+		} elseif(isset($results->trip_activities)) {
+			// Get the activity
+			$activity = $trip->activities()->find($results->activity_option);
+
+			if($activity->delete()) {
+				return 'Trip activity information removed';
+			}
+
+		} elseif(isset($results->trip_participants)) {
+			// Get the participant
+			$participant = $trip->participants()->find($results->participant_option);
+
+			if($participant->delete()) {
+				return 'Participant information removed';
+			}
+		}
 	}
 }

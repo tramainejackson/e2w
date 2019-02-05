@@ -21,6 +21,8 @@ Route::post('/locations/ajax_add', 'TripLocationsController@ajax_add');
 
 Route::patch('/locations/ajax_update', 'TripLocationsController@ajax_update');
 
+Route::delete('/locations/ajax_delete', 'TripLocationsController@ajax_delete');
+
 Route::patch('/locations/add_contact/{participant}/{location}', 'TripLocationsController@add_contact');
 
 Route::resource('/pictures', 'TripPicturesController');

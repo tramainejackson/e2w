@@ -2,9 +2,10 @@
 		Eastcoast 2 Westcoast Travel
 ------------------------------------------------
 ISSUE: Unable to dynamically add a row when date is involved
-TODO: Return the section thats being added to on ajax response to have updated information
-TODO: Allow admin to remove users who have signed up
 TODO: If user account is inactive, find a way to allow restore
+Done: Return the section thats being added to on ajax response to have updated information
+Done: When contacts are added directly to location, add a parent account
+Done: Allow admin to remove users who have signed up
 Done: Create a contacts tab
 Done: Figure out ajax for all the option above the trip payments
 Done: Fix where the trip photo button is displaying
@@ -43,6 +44,4 @@ Done: Update flyer on form
 Done: Change date format when already displayed
 Done: Create a relationship for trip locations and trip activities
 Done: Create a relationship for trip locations and trip participants
-Bug: Loading image not working on mobile when adding pictures on mobile
 Not Doing: Add link at the top of the magnific popup modal to allow user to send photos
-export HTTP_PROXY="http://155.247.166.25:8080"

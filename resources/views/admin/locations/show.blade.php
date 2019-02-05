@@ -25,11 +25,9 @@
 
 	@section('content')
 
-		@php $confirmedUsers = false; @endphp
+		<div class="showTrip d-none d-xl-flex col-12 px-0" style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url({{ $tripLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $tripLocation->trip_photo)) : '/images/skyline.jpg' }})">
 
-		<div class="d-none d-xl-flex">
-
-			<div class="showTrip col" style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url({{ $tripLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $tripLocation->trip_photo)) : '/images/skyline.jpg' }})">
+			<div class="col rgba-stylish-strong">
 
 				<div class="container-fluid text-light position-relative" style="z-index:1;">
 
@@ -114,44 +112,50 @@
 					</div>
 
 					<div class="row">
+
 						<div class="col">
+
 							<div class="container">
+
 								<div class="row">
+
 									<div class="col">
 										<div id="page_terms_and_conditions">
-											@php 
-												$depositDate = explode('-', $tripLocation->deposit_date);
-											@endphp
-											<p class="terms depositDate text-center" id="">Deposit is Due No Later Than <span class="text-warning">{{ $tripLocation->deposit_date!= null ? $depositDate[1] . "/" . $depositDate[2] . "/" . $depositDate[0] : 'TBA' }}</span></p>
+											<p class="terms depositDate text-center" id="">Deposit is Due No Later Than <span class="text-warning">{{ $tripLocation->deposit_date != null ? $tripLocation->deposit_date->format('m/d/Y') : 'TBA' }}</span></p>
 										</div>
 									</div>
+
 									<div class="col">
 										<div id="page_terms_and_conditions">
-											@php
-												$dueDate = explode('-', $tripLocation->due_date);
-											@endphp
-											<p class="terms balanceDueDate text-center" id="">Total Balance Must Be Paid In Full <span class="text-warning">{{ $tripLocation->due_date != null ? $dueDate[1] . "/" . $dueDate[2] . "/" . $dueDate[0] : 'TBA' }}</span></p>
+											<p class="terms balanceDueDate text-center" id="">Total Balance Must Be Paid In Full <span class="text-warning">{{ $tripLocation->due_date != null ? $tripLocation->due_date->format('m/d/Y') : 'TBA' }}</span></p>
 										</div>
 									</div>
+
 								</div>
 							</div>
 						</div>
 					</div>
 
 					@if($tripLocation->conditions != null)
-						@php $conditionOption = explode("; ", $tripLocation->conditions); @endphp
-						<div class="row w-75 mx-auto progress-bar progress-bar-striped bg-warning py-5 rounded">
+
+						<div class="row mx-auto progress-bar progress-bar-striped bg-warning py-5 rounded">
+
 							<div class="col-12">
 								<h2 class="text-center">Terms and Conditions</h2>
 							</div>
+
 							<div class="col-12">
-								@for($i=0; $i < count($conditionOption); $i++)
-									@if($conditionOption[$i] != null)
-										<p class="terms">{{ trim($conditionOption[$i]) }}</p>
+
+								@foreach($tripLocation->conditions as $conditionOption)
+									@if($conditionOption->description != null)
+										<p class="terms">{{ $conditionOption->description }}</p>
 									@endif
-								@endfor
+								@endforeach
+
 							</div>
+
 						</div>
+
 					@endif
 
 				</div>
@@ -162,14 +166,18 @@
 				<!-- Sign up for this trip form -->
 				<div class="container-fluid position-relative pt-2 pb-4 mt-5" style="z-index:1;">
 					<div class="row">
+
 						<div class="page_signup_form col-4 py-1 mx-auto">
+
 							<h3 class="text-center text-light">Sign Me Up</h3>
+
 							<form class="signupForm" id="" action="/participants" method="POST" enctype="multipart/form-data">
 							
 								{{ method_field('POST') }}
 								{{ csrf_field() }}
 							
 								<table class="table">
+
 									<tr>
 										<td>
 											<div class="form-group">
@@ -182,6 +190,7 @@
 											</div>
 										</td>
 									</tr>
+
 									<tr>
 										<td>
 											<div class="form-group">
@@ -194,6 +203,7 @@
 											</div>
 										</td>
 									</tr>
+
 									<tr>
 										<td>
 											<div class="form-group">
@@ -206,47 +216,19 @@
 											</div>
 										</td>
 									</tr>
+
 									<tr>
 										<td colspan="2"><input type="submit" name="submit" class="pageSubmit btn btn-success" value="Send Me Info" /></td>
 									</tr>
+
 								</table>
+
 								<input type="text" name="trip_id" class="" value="{{ $tripLocation->id }}" hidden />
 								<div class="paymentInstructions text-light">
 									<p class="m-0 py-3">For everyone who has a PayPal account and would like to pay electronically, please send all payments to jacksond1961@yahoo.com by selecting the option to send money to friends and family. <a href="http://www.paypal.com" target="_blank">Click here</a> to go to the PayPal website.</p>
 								</div>
 							</form>	
 						</div>
-						
-						@if($confirmedUsers)
-							<!-- Removed listing of users because Rhonda thinks its a bad idea -->
-							<div class="pageConfirmationTable col-6 py-1">
-								@php $getEventUsers = $tripLocation->participants; @endphp
-								<div class="">
-									<h3 class="text-center text-light">See Who's Already Going</h3>
-									<table class="table table-striped table-dark table-hover text-center">
-										@if($getEventUsers->count() >= 1)
-											<tr>
-												<th>First</th>
-												<th>Last</th>
-											</tr>
-											@foreach($getEventUsers as $user)
-												<tr>
-													<td>{{ $user->first_name }}</td>
-													<td>{{ $user->last_name }}</td>
-												</tr>
-											@endforeach
-										@else
-											<tr>
-												<td colspan="2" class="text-light">No users have signed up for the trip yet</td>
-											</tr>
-										@endif
-									</table>
-								</div>
-							</div>
-						@endif
-					</div>
-					<div id="loading_image">
-						<img src="/images/ajax-loader (1).gif">
 					</div>
 				</div>
 			</div>
@@ -322,15 +304,20 @@
 							</ul>
 						</div>
 					</div>
+
 					<div class="row full-height align-items-center justify-content-center">
+
 						<div class="col d-flex full-height align-items-center justify-content-center flex-column">
+
 							<h3 class="text-center text-light">Sign Me Up</h3>
+
 							<form class="signupForm w-100" id="" action="/participants" method="POST" enctype="multipart/form-data">
 							
 								{{ method_field('POST') }}
 								{{ csrf_field() }}
 							
 								<table class="table">
+
 									<tr>
 										<td>
 											<div class="form-group">
@@ -343,6 +330,7 @@
 											</div>
 										</td>
 									</tr>
+
 									<tr>
 										<td>
 											<div class="form-group">
@@ -355,6 +343,7 @@
 											</div>
 										</td>
 									</tr>
+
 									<tr>
 										<td>
 											<div class="form-group">
@@ -367,47 +356,28 @@
 											</div>
 										</td>
 									</tr>
+
 									<tr>
 										<td colspan="2"><input type="submit" name="submit" class="pageSubmit btn btn-success" value="Send Me Info" /></td>
 									</tr>
+
 								</table>
+
 								<input type="text" name="trip_id" class="" value="{{ $tripLocation->id }}" hidden />
-							</form>	
+
+							</form>
+
 							<div class="paymentInstructions text-light">
 								<p class="m-0 py-3">For everyone who has a PayPal account and would like to pay electronically, please send all payments to jacksond1961@yahoo.com by selecting the option to send money to friends and family. <a href="http://www.paypal.com" target="_blank">Click here</a> to go to the PayPal website.</p>
 							</div>
+
 						</div>
+
 					</div>
-					
-					@if($confirmedUsers)
-						<div class="row">
-							<div class="col">
-								<button class="btn btn-info btn-lg round mb-3 mx-auto d-block" type="button" data-toggle="collapse" data-target="#signed_up" aria-expanded="false" aria-controls="signed_up">See Who's Already Going</button>
-								
-								<div class="collapse" id="signed_up">
-									<table class="table table-striped table-dark table-hover text-center">
-										@if($getEventUsers->count() >= 1)
-											<tr>
-												<th>First</th>
-												<th>Last</th>
-											</tr>
-											@foreach($getEventUsers as $user)
-												<tr>
-													<td>{{ $user->first_name }}</td>
-													<td>{{ $user->last_name }}</td>
-												</tr>
-											@endforeach
-										@else
-											<tr>
-												<td colspan="2" class="text-light">No users have signed up for the trip yet</td>
-											</tr>
-										@endif
-									</table>
-								</div>
-							</div>
-						</div>
-					@endif
+
 				</div>
+
 			</div>
+
 		</div>
 	@endsection

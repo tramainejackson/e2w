@@ -53,32 +53,6 @@
 
 										</div>
 
-										@if($trip->activities->count())
-
-											<table class="west_calendar">
-
-												<tr>
-													<th class="header_data" id="date_data">Date</th>
-													<th class="header_data" id="middle_th_data">Location</th>
-													<th class="header_data" id="event_data">Event</th>
-												</tr>
-
-												@foreach($trip->activities as $activity)
-
-													@if($activity->show_activity == "Y")
-														<tr>
-															<td>{{ $activity->activity_date }}</td>
-															<td class="middle_data">{{ $activity->activity_location }}</td>
-															<td>{{ $activity->trip_event }}</td>
-														</tr>
-													@endif
-
-												@endforeach
-
-											</table>
-
-										@endif
-
 									</div>
 
 								</div>
