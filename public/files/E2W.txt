@@ -4,7 +4,7 @@
 ISSUE: Unable to dynamically add a row when date is involved
 Check: Responsiveness
 TODO: If user account is inactive, find a way to allow restore
-TODO: Make the suggestions page look more appeasing
+Done: Make the suggestions page look more appeasing (Removed)
 Done: Return the section thats being added to on ajax response to have updated information
 Done: When contacts are added directly to location, add a parent account
 Done: Allow admin to remove users who have signed up

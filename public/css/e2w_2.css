@@ -1243,13 +1243,13 @@ div#loading_image img {
         z-index: -1;
     }
 
-    div#app {
-        background-attachment: fixed;
-        background-image: url("/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg");
-        background-size: cover;
-        background-position: center center;
-        background-repeat:no-repeat;
-    }
+    /*div#app {*/
+        /*background-attachment: fixed;*/
+        /*background-image: url("/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg");*/
+        /*background-size: cover;*/
+        /*background-position: center center;*/
+        /*background-repeat:no-repeat;*/
+    /*}*/
 
     .pictures_east_and_west_btns, #action_btns {
         display:none;
