@@ -61,20 +61,22 @@
 
                                 <ul class="termsCost list-unstyled text-center">
 
-                                    @if($tripLocation->costs->package != null)
-                                        <li>{{ $tripLocation->costs->package }}</li>
-                                    @elseif($tripLocation->costs->per_adult != null ||
-                                        $tripLocation->costs->per_child != null ||
-                                        $tripLocation->costs->single_occupancy != null ||
-                                        $tripLocation->costs->double_occupancy != null ||
-                                        $tripLocation->costs->triple_occupancy != null)
-                                        <li>{{ $tripLocation->costs->per_adult != null ? '$' . $tripLocation->costs->per_adult . ' /per adult' : 'Adult prices not added yet' }}</li>
-                                        <li>{{ $tripLocation->costs->per_child != null ? '$' . $tripLocation->costs->per_child . '  /per child' : 'Children prices not added yet' }}</li>
-                                        <li>{{ $tripLocation->costs->single_occupancy != null ? '$' . $tripLocation->costs->single_occupancy . ' /single occupancy' : 'Price not added yet' }}</li>
-                                        <li>{{ $tripLocation->costs->double_occupancy != null ? '$' . $tripLocation->costs->double_occupancy . ' /double occupancy' : 'Price not added yet' }}</li>
-                                        <li>{{ $tripLocation->costs->triple_occupancy != null ? '$' . $tripLocation->costs->triple_occupancy . ' /triple occupancy' : 'Price not added yet' }}</li>
-                                    @else
-                                        <li>Trip costs not added yet</li>
+                                    @if($tripLocation->costs != null)
+										@if($tripLocation->costs->package != null)
+											<li>{{ $tripLocation->costs->package }}</li>
+										@elseif($tripLocation->costs->per_adult != null ||
+											$tripLocation->costs->per_child != null ||
+											$tripLocation->costs->single_occupancy != null ||
+											$tripLocation->costs->double_occupancy != null ||
+											$tripLocation->costs->triple_occupancy != null)
+											<li>{{ $tripLocation->costs->per_adult != null ? '$' . $tripLocation->costs->per_adult . ' /per adult' : 'Adult prices not added yet' }}</li>
+											<li>{{ $tripLocation->costs->per_child != null ? '$' . $tripLocation->costs->per_child . '  /per child' : 'Children prices not added yet' }}</li>
+											<li>{{ $tripLocation->costs->single_occupancy != null ? '$' . $tripLocation->costs->single_occupancy . ' /single occupancy' : 'Price not added yet' }}</li>
+											<li>{{ $tripLocation->costs->double_occupancy != null ? '$' . $tripLocation->costs->double_occupancy . ' /double occupancy' : 'Price not added yet' }}</li>
+											<li>{{ $tripLocation->costs->triple_occupancy != null ? '$' . $tripLocation->costs->triple_occupancy . ' /triple occupancy' : 'Price not added yet' }}</li>
+										@else
+											<li>Trip costs not added yet</li>
+										@endif
                                     @endif
 
                                 </ul>
