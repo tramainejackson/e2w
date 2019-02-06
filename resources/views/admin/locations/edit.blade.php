@@ -64,7 +64,7 @@
             $('body').on('click', '.table-delete', function() {
                 var row = $(this).parents('tr');
                 var $values = $(row).find('input, textarea').serialize();
-console.log($values);
+
                 $.ajax({
                     method: "DELETE",
                     url: "/locations/ajax_delete",
