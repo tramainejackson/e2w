@@ -140,15 +140,9 @@
 
 							<div class="col-12">
 
-								@if($tripLocation->conditions->isNotEmpty())
-
-									@foreach($tripLocation->conditions as $conditionOption)
-										<p class="terms">{{ $conditionOption->description }}</p>
-									@endforeach
-
-								@else
-									<p class="terms">Terms and Conditions not added yet</p>
-								@endif
+								@foreach($tripLocation->conditions as $conditionOption)
+									<p class="terms">{{ $conditionOption->description }}</p>
+								@endforeach
 
 							</div>
 
