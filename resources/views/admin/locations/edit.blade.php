@@ -224,7 +224,7 @@
 						<div class="trip_edit_div">
 
 							{{--Trip Image--}}
-							<img src="{{ $showLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $showLocation->trip_photo)) : '/images/skyline.jpg' }}" class="rounded newTripPhoto" height="300" width="41.5%" />
+							<img src="{{ $showLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $showLocation->trip_photo)) : '/images/skyline.jpg' }}" class="rounded newTripPhoto" height="300" />
 
 							{{--Change trip image--}}
 							<div class="md-form input-group">
@@ -359,7 +359,7 @@
 								<div class="card-body">
 									<div id="table" class="table-editable">
 
-										<table class="table table-bordered table-responsive-md text-center">
+										<table class="table table-bordered text-center">
 
 											<tr>
 
@@ -369,7 +369,7 @@
 														<span class="input-group-text md-addon" id="addon1">$</span>
 													</div>
 
-													<input type="number" step="0.01" name="per_adult" class="form-control" value="{{ $costs->per_adult }}" placeholder="Price Per Adult" aria-label="Price Per Adult" aria-describedby="addon1">
+													<input type="number" step="0.01" name="per_adult" class="form-control" value="{{ $costs->per_adult }}" placeholder="Price Per Adult" aria-label="Price Per Adult" aria-describedby="addon1" />
 
 													<div class="input-group-append">
 														<span class="input-group-text md-addon">price per adult</span>
@@ -382,7 +382,7 @@
 														<span class="input-group-text md-addon" id="addon2">$</span>
 													</div>
 
-													<input type="number" step="0.01" name="per_child" class="form-control" value="{{ $costs->per_child }}" placeholder="Price Per Child" aria-label="Price Per Child" aria-describedby="addon2">
+													<input type="number" step="0.01" name="per_child" class="form-control" value="{{ $costs->per_child }}" placeholder="Price Per Child" aria-label="Price Per Child" aria-describedby="addon2" />
 
 													<div class="input-group-append">
 														<span class="input-group-text md-addon">price per child</span>
@@ -395,7 +395,7 @@
 														<span class="input-group-text md-addon" id="addon3">$</span>
 													</div>
 
-													<input type="number" step="0.01" name="single_occupancy" class="form-control" value="{{ $costs->single_occupancy }}" placeholder="Price For Single Occupancy" aria-label="Price For Single Occupancy" aria-describedby="addon3">
+													<input type="number" step="0.01" name="single_occupancy" class="form-control" value="{{ $costs->single_occupancy }}" placeholder="Price For Single Occupancy" aria-label="Price For Single Occupancy" aria-describedby="addon3" />
 
 													<div class="input-group-append">
 														<span class="input-group-text md-addon">single occupancy</span>
@@ -408,7 +408,7 @@
 														<span class="input-group-text md-addon" id="addon4">$</span>
 													</div>
 
-													<input type="number" step="0.01" name="double_occupancy" class="form-control" value="{{ $costs->double_occupancy }}" placeholder="Price For Double Occupancy" aria-label="Price For Double Occupancy" aria-describedby="addon4">
+													<input type="number" step="0.01" name="double_occupancy" class="form-control" value="{{ $costs->double_occupancy }}" placeholder="Price For Double Occupancy" aria-label="Price For Double Occupancy" aria-describedby="addon4" />
 
 													<div class="input-group-append">
 														<span class="input-group-text md-addon">double occupancy</span>
@@ -421,10 +421,23 @@
 														<span class="input-group-text md-addon" id="addon5">$</span>
 													</div>
 
-													<input type="number" step="0.01" name="triple_occupancy" class="form-control" value="{{ $costs->triple_occupancy }}" placeholder="Price For Triple Occupancy" aria-label="Price For Triple Occupancy" aria-describedby="addon5">
+													<input type="number" step="0.01" name="triple_occupancy" class="form-control" value="{{ $costs->triple_occupancy }}" placeholder="Price For Triple Occupancy" aria-label="Price For Triple Occupancy" aria-describedby="addon5" />
 
 													<div class="input-group-append">
 														<span class="input-group-text md-addon">triple occupancy</span>
+													</div>
+												</div>
+
+												{{-- Cost: Trip Packages --}}
+												<div class="md-form input-group mb-3">
+													<div class="input-group-prepend">
+														<span class="input-group-text md-addon" id="addon5"><i class="fas fa-suitcase-rolling"></i></span>
+													</div>
+
+													<textarea name="package" class="form-control md-textarea" placeholder="Enter Trip Packages" aria-label="Package Descriptions" aria-describedby="addon5">{{ $costs->package }}</textarea>
+
+													<div class="input-group-append">
+														<span class="input-group-text md-addon">Package Descriptions</span>
 													</div>
 												</div>
 
@@ -451,7 +464,7 @@
 											<a href="#!" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
 										</span>
 
-										<table class="table table-bordered table-responsive-md text-center">
+										<table class="table table-bordered text-center">
 
 											<tr>
 												<th class="text-center">Description</th>
@@ -544,7 +557,7 @@
 											<a href="#!" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
 										</span>
 
-										<table class="table table-bordered table-responsive-md text-center">
+										<table class="table table-bordered text-center">
 
 											<tr>
 												<th class="text-center">Description</th>
@@ -608,7 +621,7 @@
 											<a href="#!" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
 										</span>
 
-										<table class="table table-bordered table-responsive-md text-center">
+										<table class="table table-bordered text-center">
 
 											<tr>
 												<th class="text-center">Description</th>
@@ -671,7 +684,7 @@
 											<a href="#!" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
 										</span>
 
-										<table class="table table-bordered table-responsive-md text-center">
+										<table class="table table-bordered text-center">
 
 											<tr class="">
 												<th scope="col">Activity Name</th>
@@ -763,7 +776,7 @@
 											<a href="#!" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
 										</span>
 
-										<table class="table table-bordered table-responsive-md text-center">
+										<table class="table table-bordered text-center">
 
 											<tr class="firstTableRow">
 												<th colspan="2">Name</th>

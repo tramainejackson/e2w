@@ -92,9 +92,9 @@
 							<li>
 								<a href="{{ route('questions.index') }}" class="navi_option" {{ $_SERVER["SCRIPT_NAME"] == "/e2w/admin/questions.php" ? "style='font-weight:700; color:#8fba82;'" : "" }} >Questions</a>
 							</li>
-							<li>
-								<a href="{{ route('suggestions.index') }}" id="" class="navi_option" {{ $_SERVER["SCRIPT_NAME"] == "/e2w/admin/suggestions.php" ? "style='font-weight:700; color:#8fba82;'" : "" }} >Suggestions</a>
-							</li>
+							{{--<li>--}}
+								{{--<a href="{{ route('suggestions.index') }}" id="" class="navi_option" {{ $_SERVER["SCRIPT_NAME"] == "/e2w/admin/suggestions.php" ? "style='font-weight:700; color:#8fba82;'" : "" }} >Suggestions</a>--}}
+							{{--</li>--}}
 							<li>
 								<a href="{{ route('logout') }}" class="navi_option" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
 

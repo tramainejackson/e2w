@@ -10,6 +10,10 @@
 					<h1 class="pageTopicHeader">Add New Contact</h1>
 				</div>
 
+				<div class="py-4">
+					<a href="{{ route('participants.index') }}" class="btn btn-success ml-0">Edit Contacts</a>
+				</div>
+
 				<div class="newUser">
 
 					{!! Form::open(['action' => 'DistributionListController@store', 'method' => 'POST', 'class' => '']) !!}

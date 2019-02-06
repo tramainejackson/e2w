@@ -10,6 +10,10 @@
 					<h1 class="pageTopicHeader">Add New Admins</h1>
 				</div>
 
+				<div class="col py-4 pl-0">
+					<a href="{{ route('admin.index') }}" class="btn btn-success ml-0">Edit Users</a>
+				</div>
+
 				<div class="newUser">
 
 					<form name="new_admin_user" class="" action="/admin" method="POST">

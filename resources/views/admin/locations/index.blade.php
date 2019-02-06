@@ -10,9 +10,9 @@
 				<h1 class="pageTopicHeader">Select A Trip</h1>
 			</div>
 
-			<div class="row d-xl-none">
-				<div class="col text-center py-4">
-					<a href="/location/create" class="btn btn-success">Create New Trip</a>
+			<div class="row" id="">
+				<div class="col-12 py-4 pl-0">
+					<a href="{{ route('location.create') }}" class="btn btn-success">Add New Trip</a>
 				</div>
 			</div>
 

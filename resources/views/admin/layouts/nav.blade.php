@@ -31,9 +31,9 @@
 		<li>
 			<a href="{{ route('questions.index') }}" class="navi_option">Questions</a>
 		</li>
-		<li>
-			<a href="{{ route('suggestions.index') }}" id="" class="navi_option">Suggestions</a>
-		</li>
+		{{--<li>--}}
+			{{--<a href="{{ route('suggestions.index') }}" id="" class="navi_option">Suggestions</a>--}}
+		{{--</li>--}}
 		<li>
 			<a href="{{ route('logout') }}" class="navi_option" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
 			

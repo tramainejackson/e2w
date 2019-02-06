@@ -41,6 +41,12 @@
 			<h1 class="pageTopicHeader">Trip Pictures</h1>
 		</div>
 
+		<div class="row" id="">
+			<div class="col-12 py-4 pl-0">
+				<a href="{{ route('admin.create') }}" class="btn btn-success ml-0">Add New Pictures</a>
+			</div>
+		</div>
+
 		<div class="row d-xl-none">
 			<div class="col-12">
 				<div class="container-fluid">

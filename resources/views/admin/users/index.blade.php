@@ -12,10 +12,10 @@
 
 		</div>
 
-		<div class="row d-xl-none">
+		<div class="row">
 
-			<div class="col text-center py-4">
-				<a href="/admin/create" class="btn btn-success">Create New User</a>
+			<div class="col py-4">
+				<a href="{{ route('admin.create') }}" class="btn btn-success">Create New User</a>
 			</div>
 
 		</div>

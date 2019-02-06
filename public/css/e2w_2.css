@@ -350,6 +350,10 @@ input#other_location2 {
     margin: 0%;
 }
 
+.side-nav .logo-wrapper, .side-nav .logo-wrapper a {
+    height: 150px;
+}
+
 .allPicturesDiv {
     display: inline-block;
     position: relative;
@@ -567,9 +571,7 @@ div#suggestion_form ul {
 
 .terms {
 	text-align: center;
-	font-size: 150%;
-	margin: 0%;
-	padding: 0.1% 0%;
+    white-space: initial;
 }
 
 .red {
@@ -1142,18 +1144,22 @@ div#loading_image img {
 /*Smartphones portrait*/
 @media only screen and (max-width:575px) {
 
-    div#app:after {
-        content: "";
-        position: fixed;
-        background-image: url(/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg);
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: -1;
+    /*div#app:after {*/
+        /*content: "";*/
+        /*position: fixed;*/
+        /*background-image: url(/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg);*/
+        /*background-size: cover;*/
+        /*background-position: center center;*/
+        /*background-repeat: no-repeat;*/
+        /*top: 0;*/
+        /*bottom: 0;*/
+        /*left: 0;*/
+        /*right: 0;*/
+        /*z-index: -1;*/
+    /*}*/
+
+    .display-2 {
+        font-size: 4.0rem;
     }
 
     .showTripMobile::after {
@@ -1222,7 +1228,7 @@ div#loading_image img {
     }
 }
 /*Coverage between iPad and Smartphone*/
-@media only screen and (min-width:576) {
+@media only screen and (min-width:576px) {
     div#app::after {
         content: "";
         position: initial;
@@ -1567,14 +1573,14 @@ div#loading_image img {
 		background: linear-gradient(transparent, whitesmoke, white, whitesmoke, transparent);
 	}
 
-	div#app {
-		background-attachment: fixed;
-		background-image: url("/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg");
-		background-size: cover;
-		background-position: center center;
-		background-repeat:no-repeat;
-		min-height: 100vh;
-	}
+	/*div#app {*/
+		/*background-attachment: fixed;*/
+		/*background-image: url("/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg");*/
+		/*background-size: cover;*/
+		/*background-position: center center;*/
+		/*background-repeat:no-repeat;*/
+		/*min-height: 100vh;*/
+	/*}*/
 
 	.mobileNavBar {
 		background: #f2f2f2;
@@ -1635,10 +1641,6 @@ div#loading_image img {
 
 /*Larger screens*/
 @media only screen and (min-width:1200px) {
-
-    .side-nav .logo-wrapper, .side-nav .logo-wrapper a {
-        height: 150px;
-    }
 
     .panel-body {
         background: midnightblue;

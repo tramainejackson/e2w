@@ -4,8 +4,12 @@
 
 		<div class="row" id="">
 
-			<div id="pictures_page_header" class="col">
+			<div id="pictures_page_header" class="col-12">
 				<h1 class="pageTopicHeader">Add Pictures</h1>
+			</div>
+
+			<div class="col-12 py-4 pl-0">
+				<a href="{{ route('pictures.index') }}" class="btn btn-success ml-0">Edit Pictures</a>
 			</div>
 
 			<div class="col-12" id="">
@@ -22,7 +26,7 @@
 
 					<div class="addPictures form-row">
 
-						<div class="md-form col-4" id="">
+						<div class="md-form col-12 col-md-8 col-xl-6" id="">
 							<select name="trip_id" class="pictureSelect mdb-select" id="">
 
 								<option value="blank" selected disabled>---- Select A Trip ----</option>
@@ -37,7 +41,7 @@
 						{{-- Spacer --}}
 						<div class="col-12" id=""></div>
 
-						<div class="md-form col-4">
+						<div class="md-form col-12">
 							<div class="file-field">
 								<div class="btn btn-primary btn-sm float-left">
 									<span>Choose file</span>

@@ -39,9 +39,9 @@
 					<a class="nav-link" href="/about_us">About Us</a>
 				</li>
 
-				<li class="nav-item">
-					<a class="nav-link" href="/suggestions">Suggestions</a>
-				</li>
+				{{--<li class="nav-item">--}}
+					{{--<a class="nav-link" href="/suggestions">Suggestions</a>--}}
+				{{--</li>--}}
 
 				<li class="nav-item">
 					<a class="nav-link" href="/login">Login</a>
@@ -69,9 +69,9 @@
 					<a href="{{ route('questions.index') }}" class="nav-link">Questions</a>
 				</li>
 
-				<li class="nav-item">
-					<a href="{{ route('suggestions.index') }}" id="" class="nav-link">Suggestions</a>
-				</li>
+				{{--<li class="nav-item">--}}
+					{{--<a href="{{ route('suggestions.index') }}" id="" class="nav-link">Suggestions</a>--}}
+				{{--</li>--}}
 
 				<li class="nav-item">
 					<a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>

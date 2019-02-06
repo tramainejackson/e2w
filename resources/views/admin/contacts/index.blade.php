@@ -33,7 +33,7 @@
 
 		<div class="row">
 
-			<div class="col">
+			<div class="col-12">
 				<div id="users_page_header" class="">
 					<h1 class="pageTopicHeader">All Contacts</h1>
 				</div>
@@ -41,10 +41,10 @@
 
 		</div>
 
-		<div class="row d-xl-none">
+		<div class="row">
 
-			<div class="col text-center py-4">
-				<a href="/admin/create" class="btn btn-success">Create New Contact</a>
+			<div class="col py-4">
+				<a href="{{ route('participants.create') }}" class="btn btn-success">Create New Contact</a>
 			</div>
 
 		</div>
