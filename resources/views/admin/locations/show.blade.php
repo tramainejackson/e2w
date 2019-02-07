@@ -35,22 +35,41 @@
 
 						<div class="col-12 col-md-6 col-lg-4 mb-3">
 
-                            <div class="vacationItenerary">
-                                <h2 class="vacationIteneraryHeader text-center">Events For The Trip</h2>
-                                <ul class="termsItenery list-unstyled text-center">
+                            <div class="align-items-center d-flex flex-column vacationItenerary">
 
-                                    @if($tripLocation->activities->count() > 0)
+                                <h2 class="text-center vacationIteneraryHeader w-100">Events For The Trip</h2>
 
-                                        @foreach($tripLocation->activities as $showActivity)
-                                            @if($showActivity->show_activity == "Y")
-                                                <li>{{ $showActivity->trip_event . " " . $showActivity->activity_date }}</li>
-                                            @endif
-                                        @endforeach
+								<table class="table table-responsive table-sm termsItenery w-auto">
+
+									@if($tripLocation->activities->count() > 0)
+
+										@foreach($tripLocation->activities as $showActivity)
+
+											<tr>
+												@if($showActivity->show_activity == "Y")
+
+													<td><i class="fas fa-map-marker-alt"></i> {{ $showActivity->trip_event }}</td>
+
+													@if($showActivity->show_activity == "Y")
+
+														<td><i class='fas fa-calendar-day'></i> {{ $showActivity->activity_date->format('m/d/Y') }}</td>
+
+													@endif
+
+												@endif
+											</tr>
+
+										@endforeach
 
                                     @else
-                                        <li>Trip Itenerary not added yet</li>
-                                    @endif
-                                </ul>
+
+										<tr>
+											<td>Trip Itenerary not added yet</td>
+										</tr>
+
+									@endif
+
+								</table>
                             </div>
                         </div>
 
@@ -130,25 +149,28 @@
 						</div>
 					</div>
 
-					@if($tripLocation->conditions != null)
 
-						<div class="row mx-auto progress-bar progress-bar-striped bg-light black-text py-5 rounded">
+					<div class="row mx-auto progress-bar progress-bar-striped bg-light black-text py-5 rounded">
 
-							<div class="col-12">
-								<h2 class="text-center">Terms and Conditions</h2>
-							</div>
+						<div class="col-12">
+							<h2 class="text-center">Terms and Conditions</h2>
+						</div>
 
-							<div class="col-12">
+						<div class="col-12">
+
+							@if($tripLocation->conditions->isNotEmpty())
 
 								@foreach($tripLocation->conditions as $conditionOption)
 									<p class="terms">{{ $conditionOption->description }}</p>
 								@endforeach
 
-							</div>
+							@else
+								<p class="terms">No Terms and Conditions Added Yet</p>
+							@endif
 
 						</div>
 
-					@endif
+					</div>
 
 				</div>
 				
