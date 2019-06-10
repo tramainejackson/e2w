@@ -61,28 +61,30 @@
 								<div id="collapse{{ $loop->iteration }}" class="collapse multi-collapse">
 
 									<div class="card-body">
+
 										<div class="row location_photos">
-											<div id="mdb-lightbox-ui"></div>
 
-											<div class="mdb-lightbox no-margin">
+											<div class="col-auto" id="">
 
-												@foreach($getPictures as $picture)
-													@php $content = Storage::disk('local')->has($picture->picture_name); @endphp
+												<div id="mdb-lightbox-ui"></div>
 
-													<figure class="col-md-4">
-														<!--Large image-->
-														<a href="{{ $content == true ? asset('storage/' . str_ireplace('public/', '', $picture->picture_name)) : '/images/no_image_lg.png' }}" class="col-6" title="{{ $picture->picture_caption }}" data-size="1600x1067">
-															<!-- Thumbnail-->
-															<img src="{{ $content == true ? asset('storage/' . str_ireplace('public/', '', $picture->picture_name)) : '/images/no_image_lg.png' }}" class="img-thumbnail" />
-														</a>
-													</figure>
+												<div class="mdb-lightbox no-margin">
 
-												@endforeach
+													@foreach($getPictures as $picture)
+														@php $content = Storage::disk('local')->has($picture->picture_name); @endphp
 
+														<figure class="col-md-4">
+															<!--Large image-->
+															<a href="{{ $content == true ? asset('storage/' . str_ireplace('public/images/', 'images/lg/', $picture->picture_name)) : '/images/no_image_lg.png' }}" class="col-6" title="{{ $picture->picture_caption }}" data-size="1600x{{ $picture->lg_height }}">
+																<!-- Thumbnail-->
+																<img src="{{ $content == true ? asset('storage/' . str_ireplace('public/', '', $picture->picture_name)) : '/images/no_image_lg.png' }}" class="img-thumbnail" />
+															</a>
+														</figure>
+
+													@endforeach
+												</div>
 											</div>
-
 										</div>
-
 									</div>
 
 									<div class="card-footer">
