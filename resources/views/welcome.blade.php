@@ -1,5 +1,30 @@
 @extends('layouts.app')
 
+	@section('styles')
+		<style>
+			/*Smartphones portrait*/
+			@media only screen and (max-width:575px) {
+				div#app {
+					background: initial;
+				}
+
+				div#app:after {
+					content: "";
+					position: fixed;
+					background-image: url(/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg);
+					background-size: cover;
+					background-position: center center;
+					background-repeat: no-repeat;
+					top: 0;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					z-index: -1;
+				}
+			}
+		</style>
+	@endsection
+
 	@section('scripts')
 		<script type="text/javascript">
 			if($('#home_carousel').parent().css('display') == 'block') {
@@ -141,57 +166,80 @@
 
 		<div class="col-12 px-0 d-xl-none">
 
-			<div id="carousel_controls" class="mobileCarousel carousel slide w-100" data-ride="carousel">
+			@if($activeTrips->count() > 1)
 
-				<div class="carousel-inner">
+				<div id="carousel_controls" class="mobileCarousel carousel slide w-100" data-ride="carousel">
 
-					@foreach($activeTrips as $trip)
+					<div class="carousel-inner">
 
-						@php $content = Storage::disk('local')->has($trip->trip_photo); @endphp
-						@php $tripsActivities = $trip->activities; @endphp
-						@php
-							$tripMonth = DB::table('vacation_month')->select('month_name')->where('month_id', $trip->trip_month)->first();
-						@endphp
+						@foreach($activeTrips as $trip)
 
-						<div id="" class="carousel-item{{ $loop->first ? ' active' : ''}}">
+							@php $content = Storage::disk('local')->has($trip->trip_photo); @endphp
+							@php $tripsActivities = $trip->activities; @endphp
+							@php
+								$tripMonth = DB::table('vacation_month')->select('month_name')->where('month_id', $trip->trip_month)->first();
+							@endphp
 
-							<div class="carouselImage" id="{{ str_ireplace(' ', '_', strtolower($trip->trip_location)) . '_event' }}" style="background:linear-gradient(#f2f2f2, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url({{ $content == true ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }});">
+							<div id="" class="carousel-item{{ $loop->first ? ' active' : ''}}">
 
-								<div class="d-flex align-items-center justify-content-center flex-column">
+								<div class="carouselImage" id="{{ str_ireplace(' ', '_', strtolower($trip->trip_location)) . '_event' }}" style="background:linear-gradient(#f2f2f2, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url({{ $content == true ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }});">
 
-									<h1 class="text-center" style="margin-top: 0; padding-top: 50px;">{{ ucwords($trip->trip_location) }}</h1>
-									<h3 class="text-center">{{ $tripMonth->month_name . " ". $trip->trip_year }}</h3>
+									<div class="d-flex align-items-center justify-content-center flex-column">
 
-									<p class="text-justify carouselTripDescription">{{ $trip->description }}</p>
+										<h1 class="text-center" style="margin-top: 0; padding-top: 50px;">{{ ucwords($trip->trip_location) }}</h1>
+										<h3 class="text-center">{{ $tripMonth->month_name . " ". $trip->trip_year }}</h3>
 
-									<div class="carousel-fixed-item mx-auto d-block pb-2">
-										<a href="/location/{{ $trip->id }}" class="btn btn-secondary">Click For More Information</a>
+										<p class="text-justify carouselTripDescription">{{ $trip->description }}</p>
+
+										<div class="carousel-fixed-item mx-auto d-block pb-2">
+											<a href="/location/{{ $trip->id }}" class="btn btn-secondary">Click For More Information</a>
+										</div>
+
 									</div>
 
 								</div>
 
 							</div>
 
-						</div>
+						@endforeach
 
-					@endforeach
+					</div>
+
+					@if($activeTrips->count() > 1)
+
+						<a class="carousel-control-next" href="#carousel_controls" role="button" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
+						<a class="carousel-control-prev" href="#carousel_controls" role="button" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+
+					@endif
 
 				</div>
 
-				@if($activeTrips->count() > 1)
+			@else
 
-					<a class="carousel-control-next" href="#carousel_controls" role="button" data-slide="next">
-						<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						<span class="sr-only">Next</span>
-					</a>
-					<a class="carousel-control-prev" href="#carousel_controls" role="button" data-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						<span class="sr-only">Previous</span>
-					</a>
+				<div class="white text-black p-3 m-3 rounded">
 
-				@endif
+					<h2 class="container p-2">Thanks for checking in with us. We don't currently have any upcoming vacations but continue
+						to check back because we can't sit still and will have something soon. In the meantime, feel free to check
+						out where we've been, our photos, or contact us with anything you want to share with us.
+					</h2>
+				</div>
 
-			</div>
+				<div class="row justify-content-around my-3" id="">
+
+					<a href="/past" class="btn default-color col-5">Past Vacations</a>
+					<a href="/photos" class="btn default-color col-5">Photos</a>
+					<a href="/about_us" class="btn default-color col-5">About Us</a>
+					<a href="/contact_us" class="btn default-color col-5">Contact Us</a>
+
+				</div>
+
+			@endif
 
 		</div>
 
