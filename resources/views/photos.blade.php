@@ -50,7 +50,7 @@
 
 							<div class="card my-2">
 
-								<img src="{{ $content1 == true ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }}" class="card-img-top" />
+								<img src="{{ $content1 == true ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }}" class="card-img-top" data-toggle="collapse" href="#collapse{{ $loop->iteration }}" aria-expanded="false" aria-controls="collapse{{ $loop->iteration }}" />
 
 								<div class="card-header" role="tab" id="heading{{ $loop->iteration }}">
 									<h5 class="mb-0">

@@ -224,10 +224,10 @@
 
 				<div class="white text-black p-3 m-3 rounded">
 
-					<h2 class="container p-2">Thanks for checking in with us. We don't currently have any upcoming vacations but continue
+					<h4 class="container p-2 h4">Thanks for checking in with us. We don't currently have any upcoming vacations but continue
 						to check back because we can't sit still and will have something soon. In the meantime, feel free to check
 						out where we've been, our photos, or contact us with anything you want to share with us.
-					</h2>
+					</h4>
 				</div>
 
 				<div class="row justify-content-around my-3" id="">
