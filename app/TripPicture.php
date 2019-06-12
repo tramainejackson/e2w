@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TripPictures extends Model
+class TripPicture extends Model
 {
     /**
      * Get the trip for the picture.

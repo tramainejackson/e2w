@@ -46,51 +46,42 @@
 						@php $content1 = Storage::disk('local')->has($trip->trip_photo); @endphp
 						@php $getPictures = $trip->pictures; @endphp
 
-						<div class="col-12 col-sm-6">
+						<div class="col-12 col-sm-6 col-lg-3">
 
 							<div class="card my-2">
 
-								<img src="{{ $content1 == true ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }}" class="card-img-top" data-toggle="collapse" href="#collapse{{ $loop->iteration }}" aria-expanded="false" aria-controls="collapse{{ $loop->iteration }}" />
+								<img src="{{ $content1 == true ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }}" class="card-img-top" href="" aria-expanded="false" />
 
-								<div class="card-header" role="tab" id="heading{{ $loop->iteration }}">
+								<div class="card-header" role="tab" id="">
 									<h5 class="mb-0">
-										<a class="" data-toggle="collapse" href="#collapse{{ $loop->iteration }}" aria-expanded="false" aria-controls="collapse{{ $loop->iteration }}">{{ $trip->trip_location }}</a>
+										<a class="" href="/pictures/{{ $trip->id }}" aria-expanded="false">{{ $trip->trip_location }}</a>
 									</h5>
 								</div>
 
-								<div id="collapse{{ $loop->iteration }}" class="collapse multi-collapse">
+								{{--<div class="card-body">--}}
 
-									<div class="card-body">
+									{{--<div class="row location_photos">--}}
 
-										<div class="row location_photos">
+										{{--<div class="col-auto" id="">--}}
 
-											<div class="col-auto" id="">
+											{{--@foreach($getPictures as $picture)--}}
+												{{--@php $content = Storage::disk('local')->has($picture->picture_name); @endphp--}}
 
-												<div id="mdb-lightbox-ui"></div>
+												{{--<figure class="col-md-4">--}}
+													{{--<!--Large image-->--}}
+													{{--<a href="{{ $content == true ? asset('storage/' . str_ireplace('public/', '', $picture->picture_name)) : '/images/no_image_lg.png' }}" class="col-6" title="{{ $picture->picture_caption }}" data-size="1600x{{ $picture->lg_height }}">--}}
+														{{--<!-- Thumbnail-->--}}
+														{{--<img src="{{ $content == true ? asset('storage/' . str_ireplace('public/', '', $picture->picture_name)) : '/images/no_image_lg.png' }}" class="img-thumbnail" />--}}
+													{{--</a>--}}
+												{{--</figure>--}}
 
-												<div class="mdb-lightbox no-margin">
+											{{--@endforeach--}}
+										{{--</div>--}}
+									{{--</div>--}}
+								{{--</div>--}}
 
-													@foreach($getPictures as $picture)
-														@php $content = Storage::disk('local')->has($picture->picture_name); @endphp
-
-														<figure class="col-md-4">
-															<!--Large image-->
-															<a href="{{ $content == true ? asset('storage/' . str_ireplace('public/images/', 'images/lg/', $picture->picture_name)) : '/images/no_image_lg.png' }}" class="col-6" title="{{ $picture->picture_caption }}" data-size="1600x{{ $picture->lg_height }}">
-																<!-- Thumbnail-->
-																<img src="{{ $content == true ? asset('storage/' . str_ireplace('public/', '', $picture->picture_name)) : '/images/no_image_lg.png' }}" class="img-thumbnail" />
-															</a>
-														</figure>
-
-													@endforeach
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="card-footer">
-										<p class="text-muted">{{ $trip->trip_location }} Total Pictures: <i>{{ $getPictures->count() }}</i></p>
-									</div>
-
+								<div class="card-footer">
+									<p class="text-muted"> Total Pictures: <i>{{ $getPictures->count() }}</i></p>
 								</div>
 
 							</div>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\TripLocations;
-use App\TripPictures;
+use App\TripPicture;
 use App\TripActivities;
 use Illuminate\Support\Facades\DB;
 use Jenssegers\Agent\Agent;
@@ -31,7 +31,7 @@ class HomeController extends Controller
 		$trips = TripLocations::all();
 		$activeTrips = TripLocations::active();
 		$inactiveTrips = TripLocations::inactive();
-		$tripsPics = TripPictures::all();
+		$tripsPics = TripPicture::all();
 		
 		return view('welcome', compact('trips', 'inactiveTrips', 'tripsPics', 'activeTrips'));
     }
@@ -46,7 +46,7 @@ class HomeController extends Controller
 		$trips = TripLocations::all();
 		$activeTrips = TripLocations::active();
 		$inactiveTrips = TripLocations::inactive();
-		$tripsPics = TripPictures::all();
+		$tripsPics = TripPicture::all();
 		
 		return view('past', compact('trips', 'inactiveTrips', 'tripsPics', 'activeTrips'));
     }

@@ -89,7 +89,7 @@ class TripLocations extends Model
      */
     public function pictures()
     {
-        return $this->hasMany('App\TripPictures', 'trip_id');
+        return $this->hasMany('App\TripPicture', 'trip_id');
     }
 
 	/**

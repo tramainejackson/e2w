@@ -109,9 +109,11 @@ body {
     margin: 0% 5%;
     overflow-y: auto;
 }
+
 .videos_modal_content {
     position: relative;
 }
+
 .indVideo {
     position: relative;
     display: -webkit-inline-box;
@@ -166,6 +168,7 @@ body {
 #location_page_header h1 {
     margin: 2% 1%;
 }
+
 #navi {
 	position: fixed;
 	max-height: 100%;
@@ -179,12 +182,14 @@ body {
 	background-size: cover;
 	background-position: center center;
 }
+
 ul#navi_list {
     font-size: 150%;
     position: relative;
     margin: 0% 5%;
     padding: 10% 0% 10% 5%;
 }
+
 ul#navi_list::after {content: "";background: rgba(0, 0, 0, 0.5);position: absolute;top: 0;left: 0;bottom: 0;right: 0;z-index: -1;border-radius: 10px;}
 ul#navi_list > li {
     list-style: none;

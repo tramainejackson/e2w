@@ -15,27 +15,27 @@
 
 			<ul class="navbar-nav w-100 mt-2 mt-xl-0 text-center align-items-center justify-content-around">
 
-				<li class="nav-item active">
+				<li class="nav-item{{ strlen(request()->getPathInfo()) < 2 ? ' active' : '' }}">
 					<a class="nav-link" href="/">Home</a>
 				</li>
 
-				<li class="nav-item active d-xl-none">
+				<li class="nav-item d-xl-none{{ strlen(request()->getPathInfo()) < 2 ? ' active' : '' }}">
 					<a class="nav-link" href="/">Upcoming Trips <span class="sr-only">(current)</span></a>
 				</li>
 
-				<li class="nav-item d-xl-none">
+				<li class="nav-item d-xl-none{{ substr_count(request()->getPathInfo(), 'past') > 0 ? ' active' : '' }}">
 					<a class="nav-link" href="/past">Past Trips</a>
 				</li>
 
-				<li class="nav-item">
+				<li class="nav-item{{ substr_count(request()->getPathInfo(), 'picture') > 0 || substr_count(request()->getPathInfo(), 'photo') > 0 ? ' active' : '' }}">
 					<a class="nav-link" href="/photos">Photos</a>
 				</li>
 
-				<li class="nav-item">
+				<li class="nav-item{{ substr_count(request()->getPathInfo(), 'contact_us') > 0 ? ' active' : '' }}">
 					<a class="nav-link" href="/contact_us">Contact Us</a>
 				</li>
 
-				<li class="nav-item">
+				<li class="nav-item{{ substr_count(request()->getPathInfo(), 'about_us') > 0 ? ' active' : '' }}">
 					<a class="nav-link" href="/about_us">About Us</a>
 				</li>
 
@@ -43,7 +43,7 @@
 					{{--<a class="nav-link" href="/suggestions">Suggestions</a>--}}
 				{{--</li>--}}
 
-				<li class="nav-item">
+				<li class="nav-item{{ substr_count(request()->getPathInfo(), 'login') > 0 ? ' active' : '' }}">
 					<a class="nav-link" href="/login">Login</a>
 				</li>
 

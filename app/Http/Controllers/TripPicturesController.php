@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\TripPictures;
+use App\TripPicture;
 use App\TripLocations;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -29,7 +29,7 @@ class TripPicturesController extends Controller
      */
     public function index()
     {
-		$pictures = TripPictures::all();
+		$pictures = TripPicture::all();
 		$getLocations = TripLocations::all();
 		
 		return view('admin.pictures.index', compact('pictures', 'getLocations'));
@@ -42,7 +42,7 @@ class TripPicturesController extends Controller
      */
     public function create()
     {
-        $pictures = TripPictures::all();
+        $pictures = TripPicture::all();
 		$getLocations = TripLocations::all();
 		
 		return view('admin.pictures.create', compact('pictures', 'getLocations'));
@@ -147,15 +147,16 @@ class TripPicturesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Trip_Pictures  $trip_Pictures
+     * @param  \App\Trip_Picture  $picture
      * @return \Illuminate\Http\Response
      */
-    public function show(TripPictures $tripPictures, $id)
+    public function show(TripLocations $picture)
     {
-		$trip = TripLocations::find($id);
-		$getPictures = $trip->pictures;
-		// dd($id);
-        return view('admin.pictures.show', compact('trip', 'getPictures'));
+	    $trip = $picture;
+	    $trips = TripLocations::all();
+	    $getPictures = $trip->pictures;
+
+	    return view('admin.pictures.show', compact('trip', 'trips', 'getPictures'));
     }
 
     /**
@@ -164,7 +165,7 @@ class TripPicturesController extends Controller
      * @param  \App\Trip_Pictures  $trip_Pictures
      * @return \Illuminate\Http\Response
      */
-    public function edit(TripPictures $tripPictures, $id)
+    public function edit(TripPicture $tripPictures, $id)
     {
         $trip = TripLocations::find($id);
 		$getPictures = $trip->pictures;

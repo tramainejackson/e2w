@@ -217,51 +217,6 @@ $(document).ready(function() {
 	});
 });
 
-// Ajax request for photos of selected trip
-function getPictures(id) {
-	$.ajax({
-	  method: "GET",
-	  url: "/pictures/" + id
-	})
-	
-	.fail(function() {
-		alert( "Error: nothing returned");		
-	})
-	.done(function(data) {
-		$(data).appendTo($("#app"));
-
-		if($('.tripPictures').length > 0) {
-			$('.tripPictures').magnificPopup({
-				callbacks: {
-					open: function() {
-					  // Will fire when this exact popup is opened
-					  // this - is Magnific Popup object
-					},
-					close: function() {
-					  $('.picture_modal_content').remove();
-					}
-				},
-				gallery: {
-				  enabled: true
-				},
-				image: {
-					tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
-					titleSrc: function(item) {
-						return item.el.attr('title');
-					}
-				},
-				type: 'image'
-			}).magnificPopup('open');
-		} else if($('.noContentReturned').length > 0) {
-			$('.noContentReturned').modal('show');
-			
-			$('.noContentReturned').on('hidden.bs.modal', function (e) {
-			  $(this).remove();
-			});
-		}
-	});
-}
-
 // Send question form
 function sendQuestion() {
 	var errors = 0;
@@ -442,5 +397,5 @@ $(function () {
 
 // MDB Lightbox Init
 $(function () {
-    $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
+    $("#mdb-lightbox-ui").load("/mdb-addons/mdb-lightbox-ui.html");
 });
