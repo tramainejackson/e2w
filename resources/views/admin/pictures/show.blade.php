@@ -72,113 +72,70 @@
 			</div>
 		</div>
 
-		<hr>
-
-		<div class="col-12 mt-5 mb-2">
-			<h2 class="h2 text-center"">Photos From Other Vacations</h2>
-		</div>
-
-		<div class="col-12">
-
-			<div class="container-fluid">
-
-				<div class="row">
-
-					@foreach($trips as $trip)
-
-						@php $content1 = Storage::disk('local')->has($trip->trip_photo); @endphp
-						@php $getPictures = $trip->pictures; @endphp
-
-						<div class="col-12 col-sm-6 col-lg-3">
-
-							<div class="card my-2">
-
-								<img src="{{ $content1 == true ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }}" class="card-img-top" href="" aria-expanded="false" />
-
-								<div class="card-header" role="tab" id="">
-									<h5 class="mb-0">
-										<a class="" href="/pictures/{{ $trip->id }}" aria-expanded="false">{{ $trip->trip_location }}</a>
-									</h5>
-								</div>
-
-								<div class="card-footer">
-									<p class="text-muted"> Total Pictures: <i>{{ $getPictures->count() }}</i></p>
-								</div>
-
-							</div>
-
-						</div>
-
-					@endforeach
-
-				</div>
-
-			</div>
-
-		</div>
-
 	@else
 
-		<div class="modal fade noContentReturned" tabindex="-1" role="dialog">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">{{ $trip->trip_location }}</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div id="trip_location_pictures">
-							<h2>No pictures have been added yet for this trip</h2>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<p class="additionalPictures">If you have any pictures or videos that you want posted, please send them to <a class="mailToLink" href="mailto:jacksond1961@yahoo.com?cc=rhonda.lambert@sbcglobal.com&subject=Trip%20Pictures">jacksond1961@yahoo.com</a></p>
-					</div>
-				</div>
-			</div>
-		</div>
-
 		<div class="col-12">
 
-			<div class="container-fluid">
+			<div class="mt-5 mb-2 pl-3">
 
-				<div class="row">
-
-					@foreach($trips as $trip)
-
-						@php $content1 = Storage::disk('local')->has($trip->trip_photo); @endphp
-						@php $getPictures = $trip->pictures; @endphp
-
-						<div class="col-12 col-sm-6 col-lg-3">
-
-							<div class="card my-2">
-
-								<img src="{{ $content1 == true ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }}" class="card-img-top" href="" aria-expanded="false" />
-
-								<div class="card-header" role="tab" id="">
-									<h5 class="mb-0">
-										<a class="" href="/pictures/{{ $trip->id }}" aria-expanded="false">{{ $trip->trip_location }}</a>
-									</h5>
-								</div>
-
-								<div class="card-footer">
-									<p class="text-muted"> Total Pictures: <i>{{ $getPictures->count() }}</i></p>
-								</div>
-
-							</div>
-
-						</div>
-
-					@endforeach
-
-				</div>
-
+				<h1 class="h1 display-2 d-inline-block pr-3" style="border-right: solid; border-bottom: solid; font-family: 'Playfair Display', serif;">{{ $trip->trip_location }} Photos</h1>
 			</div>
 
+			<div class="pl-3">
+
+				<h2>No pictures have been added yet for this trip</h2>
+			</div>
+
+			<div class="pl-3">
+
+				<p class="additionalPictures">If you have any pictures or videos that you want posted, please send them to <a class="mailToLink" href="mailto:jacksond1961@yahoo.com?cc=rhonda.lambert@sbcglobal.com&subject=Trip%20Pictures">jacksond1961@yahoo.com</a></p>
+			</div>
 		</div>
 
 	@endif
+
+	<div class="col-12 mt-5 mb-2">
+		<h2 class="h2 text-center">Photos From Other Vacations</h2>
+	</div>
+
+	<div class="col-12">
+
+		<div class="container-fluid">
+
+			<div class="row">
+
+				@foreach($trips as $next_trip)
+
+					@php $content1 = Storage::disk('local')->has($next_trip->trip_photo); @endphp
+					@php $getPictures = $next_trip->pictures; @endphp
+
+					@if($trip->id != $next_trip->id)
+
+						<div class="col-12 col-sm-6 col-lg-3">
+
+							<div class="card my-2">
+
+								<a href="/pictures/{{ $trip->id }}"><img src="{{ $content1 == true ? asset('storage/' . str_ireplace('public/', '', $next_trip->trip_photo)) : '/images/skyline.jpg' }}" class="card-img-top" href="" aria-expanded="false" /></a>
+
+								<div class="card-header" role="tab" id="">
+
+									<h5 class="mb-0">
+										<a class="" href="/pictures/{{ $next_trip->id }}" aria-expanded="false">{{ $next_trip->trip_location }}</a>
+									</h5>
+
+								</div>
+
+								<div class="card-footer">
+
+									<p class="text-muted"> Total Pictures: <i>{{ $getPictures->count() }}</i></p>
+
+								</div>
+							</div>
+						</div>
+					@endif
+				@endforeach
+			</div>
+		</div>
+	</div>
 
 @endsection

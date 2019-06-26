@@ -50,7 +50,7 @@
 
 							<div class="card my-2">
 
-								<img src="{{ $content1 == true ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }}" class="card-img-top" href="" aria-expanded="false" />
+								<a href="/pictures/{{ $trip->id }}"><img src="{{ $content1 == true ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }}" class="card-img-top" href="" aria-expanded="false" /></a>
 
 								<div class="card-header" role="tab" id="">
 									<h5 class="mb-0">
@@ -58,29 +58,8 @@
 									</h5>
 								</div>
 
-								{{--<div class="card-body">--}}
-
-									{{--<div class="row location_photos">--}}
-
-										{{--<div class="col-auto" id="">--}}
-
-											{{--@foreach($getPictures as $picture)--}}
-												{{--@php $content = Storage::disk('local')->has($picture->picture_name); @endphp--}}
-
-												{{--<figure class="col-md-4">--}}
-													{{--<!--Large image-->--}}
-													{{--<a href="{{ $content == true ? asset('storage/' . str_ireplace('public/', '', $picture->picture_name)) : '/images/no_image_lg.png' }}" class="col-6" title="{{ $picture->picture_caption }}" data-size="1600x{{ $picture->lg_height }}">--}}
-														{{--<!-- Thumbnail-->--}}
-														{{--<img src="{{ $content == true ? asset('storage/' . str_ireplace('public/', '', $picture->picture_name)) : '/images/no_image_lg.png' }}" class="img-thumbnail" />--}}
-													{{--</a>--}}
-												{{--</figure>--}}
-
-											{{--@endforeach--}}
-										{{--</div>--}}
-									{{--</div>--}}
-								{{--</div>--}}
-
 								<div class="card-footer">
+
 									<p class="text-muted"> Total Pictures: <i>{{ $getPictures->count() }}</i></p>
 								</div>
 

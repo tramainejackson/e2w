@@ -62,7 +62,7 @@ class TripPicturesController extends Controller
 
 		if($request->hasFile('upload_photo')) {
 			foreach($request->file('upload_photo') as $newImage) {
-				$addImage = new TripPictures();
+				$addImage = new TripPicture();
 				$fileName = $newImage->getClientOriginalName();
 				
 				// Check to see if images is too large
@@ -208,7 +208,7 @@ class TripPicturesController extends Controller
     public function destroy($id)
     {
         // Get picture to remove
-		$remove = TripPictures::find($id);
+		$remove = TripPicture::find($id);
 		$trip = $remove->trip;
 		$status = "You have removed all of the photos for this trip";
 		$getLocations = TripLocations::all();
