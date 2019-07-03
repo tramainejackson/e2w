@@ -9,12 +9,16 @@ $(document).ready(function() {
 	var documentHeight = $(document).height();
 	var winHeight = window.innerHeight;
 	var winWidth = window.innerWidth;
-	var screenHeight = screen.availHeight;
-	var screenWidth = screen.availWidth;
+	var screenHeight = screen.height;
+	var screenWidth = screen.width;
+
+    if($('body').height() < screenHeight) {
+        $('#main_content').css({'minHeight' : '100vh'});
+        $('.page-footer').css({'position' : 'fixed', 'right' : 0, 'left' : 0, 'bottom' : 0});
+    }
 
     // Material Select Initialization
 	$('.mdb-select').materialSelect();
-
 
 	// Data Picker Initialization
     $('.datepicker').pickadate({

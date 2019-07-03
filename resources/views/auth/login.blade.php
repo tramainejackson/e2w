@@ -1,17 +1,5 @@
 @extends('layouts.app')
 
-	@section('styles')
-		<style type="text/css">
-			.page-footer {
-				position: fixed;
-				right: 0;
-				bottom: 0;
-				left: 0;
-				z-index: 1030;
-			}
-		</style>
-	@endsection
-
 	@section('content')
 
 		<div class="col-12 white-text text-center m-0 p-5 d-xl-none">

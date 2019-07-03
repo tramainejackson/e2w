@@ -2,13 +2,6 @@
 
 	@section('styles')
 		<style type="text/css">
-			.page-footer {
-				position: fixed;
-				right: 0;
-				bottom: 0;
-				left: 0;
-				z-index: 1030;
-			}
 
 			/*Smartphones portrait*/
 			@media only screen and (max-width:575px) {

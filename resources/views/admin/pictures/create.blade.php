@@ -2,15 +2,18 @@
 
 	@section('content')
 
-		<div class="row" id="">
+		<div class="row mb-5" id="">
 
-			<div id="pictures_page_header" class="col-12">
+			<div id="pictures_page_header" class="col-auto mr-4">
 				<h1 class="pageTopicHeader">Add Pictures</h1>
 			</div>
 
-			<div class="col-12 py-4 pl-0">
+			<div class="col-auto">
 				<a href="{{ route('pictures.index') }}" class="btn btn-success ml-0">Edit Pictures</a>
 			</div>
+		</div>
+
+		<div class="row" id="">
 
 			<div class="col-12" id="">
 

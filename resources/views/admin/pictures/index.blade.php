@@ -37,16 +37,15 @@
 	@endsection
 
 	@section('content')
-		<div id="pictures_page_header" class="">
+		<div class="row mb-5" id="">
+			<div id="pictures_page_header" class="col-auto mr-4">
 
-			<h1 class="pageTopicHeader">Trip Pictures</h1>
-		</div>
+				<h1 class="pageTopicHeader">Trip Pictures</h1>
+			</div>
 
-		<div class="row" id="">
+			<div class="col-auto">
 
-			<div class="col-12 py-4 pl-0">
-
-				<a href="{{ route('admin.create') }}" class="btn btn-success ml-0">Add New Pictures</a>
+				<a href="{{ route('pictures.create') }}" class="btn btn-success ml-0">Add New Pictures</a>
 			</div>
 		</div>
 
