@@ -226,9 +226,8 @@ h1#admin_page_header {
 }
 
 #about_us_div, .panel-body {
-    background: cadetblue;
+    background: midnightblue;
 	color: whitesmoke;
-    padding: 15% 10%;
 	font-size: 115%;
 }
 
@@ -1226,10 +1225,6 @@ div#loading_image img {
 
     .mobileLocationFlexShow {
         background: linear-gradient(transparent, whitesmoke, white, whitesmoke, transparent);
-    }
-
-    .panel-body {
-        background: rgba(95, 158, 160, 0.25);
     }
 
     .custom-file {

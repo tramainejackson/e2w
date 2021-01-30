@@ -39,7 +39,7 @@
 
                                 <h2 class="text-center vacationIteneraryHeader w-100">Events For The Trip</h2>
 
-								<table class="table table-responsive table-sm termsItenery w-auto">
+								<table class="table table-responsive table-sm termsItenery w-auto white-text">
 
 									@if($tripLocation->activities->count() > 0)
 

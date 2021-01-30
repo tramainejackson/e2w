@@ -2,17 +2,13 @@
 
 	@section('content')
 
-		<div class="col-12 white-text text-center m-0 p-5 d-xl-none">
-			<h2 class="" style="font-family: 'Felipa', cursive; text-shadow: 2px 1px 5px #304e4e;"><b>Login</b></h2>
-		</div>
-
-		<div class="col-12 underline d-none d-xl-block p-5 text-center">
+		<div class="col-12 p-5 text-center">
 			<h2 class="display-3">Login</h2>
 		</div>
 
-		<div class="col-12 col-sm-auto mx-auto">
+		<div class="col-12 col-md-6 mx-auto">
 
-			<div class="panel-body rounded">
+			<div class="panel-body rounded p-3">
 
 				<form class="form-horizontal" method="POST" action="{{ route('login') }}">
 
@@ -29,7 +25,6 @@
 								<strong>{{ $errors->first('email') }}</strong>
 							</span>
 						@endif
-
 					</div>
 
 					<div class="md-form{{ $errors->has('password') ? ' has-error' : '' }}">
@@ -40,35 +35,19 @@
 
 						@if ($errors->has('password'))
 							<span class="help-block">
-									<strong>{{ $errors->first('password') }}</strong>
-								</span>
+								<strong>{{ $errors->first('password') }}</strong>
+							</span>
 						@endif
-
 					</div>
-
-					<!-- Need to fix remember me link -->
-					<!-- <div class="form-group">
-						<div class="col-md-6 col-md-offset-4">
-							<div class="checkbox">
-								<label>
-									<input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-								</label>
-							</div>
-						</div>
-					</div> -->
 
 					<div class="md-form">
 
 						<button type="submit" class="btn btn-primary mx-0">Login</button>
 
 						<a class="btn btn-link white mx-0" href="{{ route('password.request') }}">Forgot Your Password?</a>
-
 					</div>
-
 				</form>
-
 			</div>
-
 		</div>
 
 	@endsection

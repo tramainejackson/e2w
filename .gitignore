@@ -18,6 +18,7 @@
 /public/music/*
 /public/videos/*
 /public/storage
+/public/src
 /public/music/*
 /storage/*.key
 /vendor

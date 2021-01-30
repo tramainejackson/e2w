@@ -49,15 +49,7 @@
 			<h2 class="errorMessage text-center">{{ session('error') }}</h2>
 		@endif
 
-		<div class="modal fade loadingSpinner">
-
-			<div class="loader"></div>
-
-			<div class="">
-				<p class="text-white d-table mx-auto"></p>
-			</div>
-
-		</div>
+		@include('modals.loading')
 
 		<div id="main_content" class="container-fluid">
 
@@ -65,32 +57,21 @@
 
 				<div class="col-12 px-0">
 
-					@include('layouts.mobile_nav')
-
+					@include('content_parts.mobile_nav')
 				</div>
 
 				{{-- Page Content--}}
 				@yield('content')
 
 			</div>
-
 		</div>
-
 	</div>
 
-	<footer class="page-footer">
-
-		<!-- Copyright -->
-		<div class="footer-copyright text-center py-3">© 2014 Copyright:
-			<a href="https://tramaine.atstmpllc.com"> ATSTMPLLC.com</a>
-		</div>
-		<!-- Copyright -->
-
-	</footer>
+	@include('content_parts.footer')
 
 	<!-- SCRIPTS -->
 	<!-- JQuery -->
-	<script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
 
 	<!-- Bootstrap tooltips -->
 	<script type="text/javascript" src="/js/popper.min.js"></script>

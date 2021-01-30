@@ -401,5 +401,5 @@ $(function () {
 
 // MDB Lightbox Init
 $(function () {
-    $("#mdb-lightbox-ui").load("/mdb-addons/mdb-lightbox-ui.html");
+    $("#mdb-lightbox-ui").load("/addons/mdb-lightbox-ui.html");
 });
