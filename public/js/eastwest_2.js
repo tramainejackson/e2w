@@ -4,11 +4,13 @@ $(document).ready(function() {
 		cache: false
 	});
 
-    // SideNav Button Initialization
-    $(".button-collapse").sideNav();
-	// SideNav Scrollbar Initialization
-    var sideNavScrollbar = document.querySelector('.custom-scrollbar');
-    var ps = new PerfectScrollbar(sideNavScrollbar);
+    if($('.button-collapse').length > 0) {
+        // SideNav Button Initialization
+        $(".button-collapse").sideNav();
+        // SideNav Scrollbar Initialization
+        var sideNavScrollbar = document.querySelector('.custom-scrollbar');
+        var ps = new PerfectScrollbar(sideNavScrollbar);
+    }
 	
 	// Commonly user variables
 	var mobileNavHeight = $('.mobileNavBar').outerHeight();
