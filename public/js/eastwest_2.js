@@ -4,14 +4,6 @@ $(document).ready(function() {
 		cache: false
 	});
 
-    if($('.button-collapse').length > 0) {
-        // SideNav Button Initialization
-        $(".button-collapse").sideNav();
-        // SideNav Scrollbar Initialization
-        var sideNavScrollbar = document.querySelector('.custom-scrollbar');
-        var ps = new PerfectScrollbar(sideNavScrollbar);
-    }
-	
 	// Commonly user variables
 	var mobileNavHeight = $('.mobileNavBar').outerHeight();
 	var documentHeight = $(document).height();
@@ -19,6 +11,34 @@ $(document).ready(function() {
 	var winWidth = window.innerWidth;
 	var screenHeight = screen.height;
 	var screenWidth = screen.width;
+
+    if($('.button-collapse').length > 0) {
+        // SideNav Button Initialization
+        $(".button-collapse").sideNav();
+        // SideNav Scrollbar Initialization
+        var sideNavScrollbar = document.querySelector('.custom-scrollbar');
+        var ps = new PerfectScrollbar(sideNavScrollbar);
+    }
+
+	if($('.adminNav').length > 0) {
+        if (window.location.pathname.includes('location')) {
+            $('.collapsible-header').first().parent().addClass('active');
+            $('.collapsible-header').first().siblings().css('display', 'block');
+            $('.collapsible-header').first().addClass('active');
+        } else if (window.location.pathname.includes('picture')) {
+            $('.collapsible-header').eq(1).parent().addClass('active');
+            $('.collapsible-header').eq(1).siblings().css('display', 'block');
+            $('.collapsible-header').eq(1).addClass('active');
+        } else if (window.location.pathname.includes('participants')) {
+            $('.collapsible-header').eq(2).parent().addClass('active');
+            $('.collapsible-header').eq(2).siblings().css('display', 'block');
+            $('.collapsible-header').eq(2).addClass('active');
+        } else if (window.location.pathname.includes('admin')) {
+            $('.collapsible-header').last().parent().addClass('active');
+            $('.collapsible-header').last().siblings().css('display', 'block');
+            $('.collapsible-header').last().addClass('active');
+        }
+    }
 
     if($('body').height() < screenHeight) {
         $('#main_content').css({'minHeight' : '100vh'});

@@ -14,7 +14,7 @@
 	@if(session('error'))
 		@section('scripts')
 			<script type="text/javascript">
-				// Display a success toast
+				// Display a error toast
 				toastr.error($('h2.errorMessage').text());
 			</script>
 		@endsection
@@ -199,7 +199,6 @@
                 });
 			});
 
-
 		</script>
 
 	@endsection
@@ -347,7 +346,6 @@
 									<a href="{{ asset('storage/' . str_ireplace('public/', '', $showLocation->flyer_name)) }}" class="btn btn-primary" download="{{ str_ireplace(' ', '_', ucwords($showLocation->trip_location)) . '_Flyer' }}">View Current Flyer</a>
 								</div>
 							@endif
-
 						</div>
 
 						<!--- Trip Cost --->
@@ -369,7 +367,7 @@
 														<span class="input-group-text md-addon" id="addon1">$</span>
 													</div>
 
-													<input type="number" step="0.01" name="per_adult" class="form-control" value="{{ $costs->per_adult }}" placeholder="Price Per Adult" aria-label="Price Per Adult" aria-describedby="addon1" />
+													<input type="number" step="0.01" name="per_adult" class="form-control" value="{{ $costs !== null ? $costs->per_adult : '' }}" placeholder="Price Per Adult" aria-label="Price Per Adult" aria-describedby="addon1" />
 
 													<div class="input-group-append">
 														<span class="input-group-text md-addon">price per adult</span>
@@ -382,7 +380,7 @@
 														<span class="input-group-text md-addon" id="addon2">$</span>
 													</div>
 
-													<input type="number" step="0.01" name="per_child" class="form-control" value="{{ $costs->per_child }}" placeholder="Price Per Child" aria-label="Price Per Child" aria-describedby="addon2" />
+													<input type="number" step="0.01" name="per_child" class="form-control" value="{{ $costs !== null ? $costs->per_child : '' }}" placeholder="Price Per Child" aria-label="Price Per Child" aria-describedby="addon2" />
 
 													<div class="input-group-append">
 														<span class="input-group-text md-addon">price per child</span>
@@ -395,7 +393,7 @@
 														<span class="input-group-text md-addon" id="addon3">$</span>
 													</div>
 
-													<input type="number" step="0.01" name="single_occupancy" class="form-control" value="{{ $costs->single_occupancy }}" placeholder="Price For Single Occupancy" aria-label="Price For Single Occupancy" aria-describedby="addon3" />
+													<input type="number" step="0.01" name="single_occupancy" class="form-control" value="{{ $costs !== null ? $costs->single_occupancy : '' }}" placeholder="Price For Single Occupancy" aria-label="Price For Single Occupancy" aria-describedby="addon3" />
 
 													<div class="input-group-append">
 														<span class="input-group-text md-addon">single occupancy</span>
@@ -408,7 +406,7 @@
 														<span class="input-group-text md-addon" id="addon4">$</span>
 													</div>
 
-													<input type="number" step="0.01" name="double_occupancy" class="form-control" value="{{ $costs->double_occupancy }}" placeholder="Price For Double Occupancy" aria-label="Price For Double Occupancy" aria-describedby="addon4" />
+													<input type="number" step="0.01" name="double_occupancy" class="form-control" value="{{ $costs !== null ? $costs->double_occupancy : '' }}" placeholder="Price For Double Occupancy" aria-label="Price For Double Occupancy" aria-describedby="addon4" />
 
 													<div class="input-group-append">
 														<span class="input-group-text md-addon">double occupancy</span>
@@ -421,7 +419,7 @@
 														<span class="input-group-text md-addon" id="addon5">$</span>
 													</div>
 
-													<input type="number" step="0.01" name="triple_occupancy" class="form-control" value="{{ $costs->triple_occupancy }}" placeholder="Price For Triple Occupancy" aria-label="Price For Triple Occupancy" aria-describedby="addon5" />
+													<input type="number" step="0.01" name="triple_occupancy" class="form-control" value="{{ $costs !== null ? $costs->triple_occupancy : '' }}" placeholder="Price For Triple Occupancy" aria-label="Price For Triple Occupancy" aria-describedby="addon5" />
 
 													<div class="input-group-append">
 														<span class="input-group-text md-addon">triple occupancy</span>
@@ -434,7 +432,7 @@
 														<span class="input-group-text md-addon" id="addon5"><i class="fas fa-suitcase-rolling"></i></span>
 													</div>
 
-													<textarea name="package" class="form-control md-textarea" placeholder="Enter Trip Packages" aria-label="Package Descriptions" aria-describedby="addon5">{{ $costs->package }}</textarea>
+													<textarea name="package" class="form-control md-textarea" placeholder="Enter Trip Packages" aria-label="Package Descriptions" aria-describedby="addon5">{{ $costs !== null ? $costs->package : '' }}</textarea>
 
 													<div class="input-group-append">
 														<span class="input-group-text md-addon">Package Descriptions</span>
@@ -448,7 +446,6 @@
 								</div>
 							</div>
 							<!-- Editable table -->
-
 						</div>
 
 						<!--- Trip Payments --->
@@ -541,7 +538,6 @@
 								</div>
 							</div>
 							<!-- Editable table -->
-
 						</div>
 
 						<!--- Trip Inclusions --->
@@ -605,7 +601,6 @@
 								</div>
 							</div>
 							<!-- Editable table -->
-
 						</div>
 
 						<!--- Terms and Conditions --->
@@ -668,7 +663,6 @@
 								</div>
 							</div>
 							<!-- Editable table -->
-
 						</div>
 
 						<!-- Trip Events -->
@@ -760,7 +754,6 @@
 								</div>
 							</div>
 							<!-- Editable table -->
-
 						</div>
 
 						<!-- Trip Participants -->
@@ -861,15 +854,10 @@
 								</div>
 							</div>
 							<!-- Editable table -->
-
 						</div>
-
 					</div>
-
 				</form>
-
 			</div>
-
 		</div>
 
 	@endsection
