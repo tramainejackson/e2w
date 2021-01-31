@@ -19,7 +19,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Felipa" rel="stylesheet">
 
 	<!-- Font Awesome -->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
 
 	<!-- Bootstrap core CSS -->
 	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
@@ -163,7 +163,7 @@
 
 	<!-- SCRIPTS -->
 	<!-- JQuery -->
-	<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
 
 	<!-- Bootstrap tooltips -->
 	<script type="text/javascript" src="/js/popper.min.js"></script>
@@ -176,14 +176,6 @@
 	<script type="text/javascript" src="/js/eastwest_2.js"></script>
 
 	@yield('scripts')
-
-	<script type="text/javascript">
-		// SideNav Button Initialization
-		$(".button-collapse").sideNav();
-		// SideNav Scrollbar Initialization
-		var sideNavScrollbar = document.querySelector('.custom-scrollbar');
-		Ps.initialize(sideNavScrollbar);
-	</script>
 
 </body>
 </html>

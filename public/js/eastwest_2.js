@@ -3,6 +3,12 @@ $(document).ready(function() {
 		headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')	},
 		cache: false
 	});
+
+    // SideNav Button Initialization
+    $(".button-collapse").sideNav();
+	// SideNav Scrollbar Initialization
+    var sideNavScrollbar = document.querySelector('.custom-scrollbar');
+    var ps = new PerfectScrollbar(sideNavScrollbar);
 	
 	// Commonly user variables
 	var mobileNavHeight = $('.mobileNavBar').outerHeight();
