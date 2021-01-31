@@ -36,10 +36,10 @@ class TripLocations extends Model
 	 * @param  string  $value
 	 * @return string
 	 */
-	public function setTripLocationAttribute($value)
-	{
-		$this->attributes['trip_location'] = ucwords(strtolower($value));
-	}
+//	public function setTripLocationAttribute($value)
+//	{
+//		$this->attributes['trip_location'] = ucwords(strtolower($value));
+//	}
 
 	/**
 	 * Get the trip location for the vacation.
@@ -47,10 +47,10 @@ class TripLocations extends Model
 	 * @param  string  $value
 	 * @return string
 	 */
-	public function getTripLocationAttribute($value)
-	{
-		return ucwords(strtolower($value));
-	}
+//	public function getTripLocationAttribute($value)
+//	{
+//		return ucwords(strtolower($value));
+//	}
 
 	/**
 	 * Get the conditions for the trip.
