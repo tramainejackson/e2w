@@ -13,6 +13,10 @@
 
 Auth::routes();
 
+/* Overwrite the default login controller */
+Route::post('/login', 'Auth\LoginController@authenticate');
+/* Overwrite the default login controller */
+
 Route::resource('/admin', 'UsersController');
 
 Route::resource('/location', 'TripLocationsController');

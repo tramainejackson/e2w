@@ -17,7 +17,7 @@
 
     <!-- Styles -->
 	<!-- Font Awesome -->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
 
 	<!-- Bootstrap core CSS -->
 	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
@@ -34,40 +34,75 @@
 	@yield('styles')
 </head>
 
-<body>
+<body class="{{ Auth::check() ? 'fixed-sn cyan-skin' : '' }}">
 
-    <div id="app">
+	@if(session('status'))
+		<h2 class="flashMessage d-none">{{ session('status') }}</h2>
 
-		{{--@include('modals.questions')--}}
-		{{--@include('modals.suggestions')--}}
+		@section('scripts')
+			<script type="text/javascript">
+				// Display a success toast
+				toastr.success($('h2.flashMessage').text());
+			</script>
+		@endsection
+	@endif
 
-		@if(session('status'))
-			<h2 class="flashMessage text-center">{{ session('status') }}</h2>
-		@endif
+	@if(session('error'))
+		<h2 class="errorMessage d-none">{{ session('error') }}</h2>
 
-		@if(session('error'))
-			<h2 class="errorMessage text-center">{{ session('error') }}</h2>
-		@endif
+		@section('scripts')
+			<script type="text/javascript">
+				// Display a error toast
+				toastr.error($('h2.errorMessage').text());
+			</script>
+		@endsection
+	@endif
 
-		@include('modals.loading')
+	@include('modals.loading')
 
-		<div id="main_content" class="container-fluid">
+	<div id="app">
 
-			<div class="row">
+		@if(Auth::check())
 
-				<div class="col-12 px-0">
+			<!--Navigation-->
+			@include('content_parts.admin_nav')
 
-					@include('content_parts.mobile_nav')
+			<!--Main Layout-->
+			<main id="admin_page">
+
+				<div class="container-fluid">
+
+					{{-- Page Content--}}
+					@yield('content')
+
 				</div>
+			</main>
 
-				{{-- Page Content--}}
-				@yield('content')
+		@else
 
+			<div id="main_content" class="container-fluid">
+
+				<div class="row">
+
+					<div class="col-12 px-0">
+
+						<!--Navigation-->
+						@include('content_parts.nav')
+					</div>
+
+					{{-- Page Content--}}
+					@yield('content')
+
+				</div>
 			</div>
-		</div>
+
+		@endif
+
 	</div>
 
-	@include('content_parts.footer')
+	@if(!Auth::check())
+		@include('content_parts.footer')
+	@endif
 
 	<!-- SCRIPTS -->
 	<!-- JQuery -->

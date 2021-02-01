@@ -13,8 +13,7 @@ class UsersController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->middleware('auth');
     }
 	
@@ -23,8 +22,7 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
 		$getAllusers = User::all();
 
         return view('admin.users.index', compact('getAllusers'));
@@ -47,8 +45,7 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
 		$this->validate($request, [
 			'first_name' => 'required|max:30',
 			'last_name' => 'required|max:30',
@@ -74,22 +71,20 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Trip_Pictures  $trip_Pictures
+     * @param  \App\Users  $user
      * @return \Illuminate\Http\Response
      */
-    public function show()
-    {
+    public function show() {
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Trip_Pictures  $trip_Pictures
+     * @param  \App\Users  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user, $id)
-    {
+    public function edit(User $user, $id) {
 		$user = User::find($id);
 
         return view('admin.users.edit', compact('user'));
@@ -99,11 +94,10 @@ class UsersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Trip_Pictures  $trip_Pictures
+     * @param  \App\Users  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
 		$this->validate($request, [
 			'first_name' => 'required|max:30',
 			'last_name' => 'required|max:30',
@@ -126,11 +120,6 @@ class UsersController extends Controller
 		$user->active = $request->active;
 		
 		$user->save();
-
-		if($user->active == 'N') {
-			User::where('id', $user->id)->delete();
-			return redirect()->action('UsersController@index')->with('status', 'User Made Inactive Successfully');
-		}
 		
 		return redirect()->action('UsersController@edit', $user)->with('status', 'User Updated Successfully');
     }
@@ -138,11 +127,10 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Trip_Pictures  $trip_Pictures
+     * @param  \App\Users  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
-    {
+    public function destroy() {
         //
     }
 }

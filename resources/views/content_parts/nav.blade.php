@@ -1,41 +1,91 @@
-<div class="actionBtnDiv d-flex flex-column justify-content-center">
+<nav class="navbar navbar-expand-xl navbar-dark primary-color mobileNavBar">
 
-	<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
-		<a href="#" id="home_btn" class="btn btn-lg actionBtns text-dark py-3" disabled>Home</a>
+	<div class="d-flex flex-fill" id="">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+			<i class="fa fa-bars" aria-hidden="true"></i>
+		</button>
+
+		<a class="navbar-brand d-none d-xl-block" href="/"><img src="/images/EW-Logo-White.png" class="img-fluid mx-auto" width="50px" /></a>
+		<a class="navbar-brand d-xl-none" href="/"><img src="/images/E2W_Header.png" class="img-fluid mx-auto" /></a>
 	</div>
 
-	<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
-		<button id="question_btn" class="btn btn-lg actionBtns py-3" data-toggle="modal" data-target=".questionModal">Ask A Question</button>
+	<div class="collapse multi-collapse navbar-collapse" id="navbarToggler">
+
+		@if(!Auth::check())
+
+			<ul class="navbar-nav w-100 mt-2 mt-xl-0 text-center align-items-center justify-content-around">
+
+				<li class="nav-item{{ strlen(request()->getPathInfo()) < 2 ? ' active' : '' }}">
+					<a class="nav-link" href="/">Home</a>
+				</li>
+
+				<li class="nav-item d-xl-none{{ strlen(request()->getPathInfo()) < 2 ? ' active' : '' }}">
+					<a class="nav-link" href="/">Upcoming Trips <span class="sr-only">(current)</span></a>
+				</li>
+
+				<li class="nav-item d-xl-none{{ substr_count(request()->getPathInfo(), 'past') > 0 ? ' active' : '' }}">
+					<a class="nav-link" href="/past">Past Trips</a>
+				</li>
+
+				<li class="nav-item{{ substr_count(request()->getPathInfo(), 'picture') > 0 || substr_count(request()->getPathInfo(), 'photo') > 0 ? ' active' : '' }}">
+					<a class="nav-link" href="/photos">Photos</a>
+				</li>
+
+				<li class="nav-item{{ substr_count(request()->getPathInfo(), 'contact_us') > 0 ? ' active' : '' }}">
+					<a class="nav-link" href="/contact_us">Contact Us</a>
+				</li>
+
+				<li class="nav-item{{ substr_count(request()->getPathInfo(), 'about_us') > 0 ? ' active' : '' }}">
+					<a class="nav-link" href="/about_us">About Us</a>
+				</li>
+
+				{{--<li class="nav-item">--}}
+					{{--<a class="nav-link" href="/suggestions">Suggestions</a>--}}
+				{{--</li>--}}
+
+				<li class="nav-item{{ substr_count(request()->getPathInfo(), 'login') > 0 ? ' active' : '' }}">
+					<a class="nav-link" href="/login">Login</a>
+				</li>
+
+			</ul>
+
+		@else
+
+			<ul class="navbar-nav w-100 mt-2 mt-xl-0 text-center align-items-center justify-content-around">
+
+				<li class="nav-item">
+					<a href="{{ route('location.index') }}" id="" class="nav-link">Trip Locations</a>
+				</li>
+
+				<li class="nav-item">
+					<a href="{{ route('pictures.index') }}" id="" class="nav-link">Trip Pictures</a>
+				</li>
+
+				<li class="nav-item">
+					<a href="{{ route('admin.index') }}" id="" class="nav-link">Users</a>
+				</li>
+
+				<li class="nav-item">
+					<a href="{{ route('questions.index') }}" class="nav-link">Questions</a>
+				</li>
+
+				{{--<li class="nav-item">--}}
+					{{--<a href="{{ route('suggestions.index') }}" id="" class="nav-link">Suggestions</a>--}}
+				{{--</li>--}}
+
+				<li class="nav-item">
+					<a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
+					
+					<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+						{{ csrf_field() }}
+					</form>
+
+				</li>
+
+			</ul>
+
+		@endif
+
 	</div>
 
-	{{--<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">--}}
-		{{--<a id="suggestion_btn" class="btn btn-lg actionBtns py-3" data-toggle="modal" data-target=".suggestionModal">Suggestions</a>--}}
-	{{--</div>--}}
-
-	<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
-		<a href="{{ route('contact_us') }}" id="contact_us_btn" class="btn btn-lg actionBtns text-dark py-3">Contact Us</a>
-	</div>
-
-	<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
-		<a href="{{ route('about_us') }}" id="about_us_btn" class="btn btn-lg actionBtns text-dark py-3">About Us</a>
-	</div>
-
-	<div class="col-12 col-sm-12 mx-sm-auto my-sm-3">
-		<a href="{{ route('login') }}" id="admin_page_btn" class="btn btn-lg actionBtns text-dark py-3">Admin</a>
-	</div>
-</div>
-
-<div id="mobile_action_btns">
-	<div class="mobileMenuBtn">
-		<a href="#" class="mobileMenuLink">Menu</a>
-		<img src="images/menu.png" class="menuImg" />
-	</div>
-	<div class="mobileBtns">
-		<button id="home_btn_mobile" class="">Home</button>
-		<button id="question_btn_mobile" class="">Ask A Question</button>
-		<button id="suggestion_btn_mobile" class="">Suggestion</button>
-		<button id="contact_us_btn_mobile" class="">Contact Us</button>
-		<button id="about_us_btn_mobile" class="">About Us</button>
-		<button id="photos_btn_mobile" class="">Photos</button>
-	</div>
-</div>
+</nav>

@@ -204,13 +204,16 @@ ul#navi_list > li {
     color: white;
     margin: 3% 0%;
 }
+
 ul#navi_list > li > ul {
     color: white;
 }
+
 ul#navi_list li a {
     color: inherit;
     text-shadow: 0px 2px 3px black;
 }
+
 h1#admin_page_header {
 	position: fixed;
 	top:0px;
@@ -1569,6 +1572,11 @@ div#loading_image img {
 
     .navbar.navbar-dark .navbar-toggler, .navbar.navbar-dark .navbar-nav .nav-item .nav-link {
         color: black;
+    }
+
+    .navbar.navbar-dark .navbar-nav .nav-item:hover {
+        background: rgba(135, 190, 222, 0.75);
+        border-radius: 10px;
     }
 
 	div#app::after {

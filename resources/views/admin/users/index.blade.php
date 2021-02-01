@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('layouts.app')
 
 	@section('content')
 
@@ -28,8 +28,15 @@
 
 					@foreach($getAllusers as $user)
 
+                        @php $user->active == 'Y' ? $user->active = 'Active' : $user->active = 'Inactive'; @endphp
+
 						<div class="">
-							<h2 class="{{ Auth::id() == $user->id ? 'blue text-light' : '' }}"><a href="/admin/{{ $user->id }}/edit" class="btn btn-primary mr-2">Edit</a>&nbsp;{{ $user->first_name . " " . $user->last_name }}{{ Auth::id() == $user->id ? ' - currently logged in' : '' }}</h2>
+							<h2 class="">
+                                <a href="/admin/{{ $user->id }}/edit" class="btn btn-primary mr-2">Edit</a>&nbsp;
+                                <span class="">{{ $user->first_name . " " . $user->last_name }}</span>
+                                <button class='btn {{ $user->active == 'Active' ? 'btn-success' : 'btn-danger' }}' type='button'>{{ $user->active }}</button>
+                                <span class="grey-text font-italic font-small">{{ Auth::id() == $user->id ? ' - Currently Logged In' : '' }}</span>
+                            </h2>
 						</div>
 
 					@endforeach

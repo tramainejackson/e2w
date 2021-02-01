@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 	@section('content')
-
+{{--{{dd($errors)}}--}}
 		<div class="col-12 p-5 text-center">
 			<h2 class="display-3">Login</h2>
 		</div>
@@ -14,30 +14,25 @@
 
 					{{ csrf_field() }}
 
-					<div class="md-form{{ $errors->has('email') ? ' has-error' : '' }}">
+					<div class="md-form">
 
 						<input id="email" type="email" class="form-control white-text" name="email" value="{{ old('email') }}" required autofocus>
 
 						<label for="email" class="">E-Mail Address</label>
 
-						@if ($errors->has('email'))
-							<span class="help-block">
-								<strong>{{ $errors->first('email') }}</strong>
-							</span>
+						@if(session('errors'))
+							<!--Username/Password Combination error message-->
+							<div class="m-3">
+								<span class="red-text">{{ session('errors') }}</span>
+							</div>
 						@endif
 					</div>
 
-					<div class="md-form{{ $errors->has('password') ? ' has-error' : '' }}">
+					<div class="md-form">
 
 						<input id="password" type="password" class="form-control white-text" name="password" required>
 
 						<label for="password" class="col-md-4 control-label">Password</label>
-
-						@if ($errors->has('password'))
-							<span class="help-block">
-								<strong>{{ $errors->first('password') }}</strong>
-							</span>
-						@endif
 					</div>
 
 					<div class="md-form">

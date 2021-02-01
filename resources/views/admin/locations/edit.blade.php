@@ -1,24 +1,6 @@
-@extends('admin.layouts.app')
+@extends('layouts.app')
 
 	@section('title', 'Edit Trip - Eastcoast2Westcoast')
-
-	@if(session('status'))
-		@section('scripts')
-			<script type="text/javascript">
-				// Display a success toast
-				toastr.success($('h2.flashMessage').text());
-			</script>
-		@endsection
-	@endif
-
-	@if(session('error'))
-		@section('scripts')
-			<script type="text/javascript">
-				// Display a error toast
-				toastr.error($('h2.errorMessage').text());
-			</script>
-		@endsection
-	@endif
 
 	@section('scripts')
 		<script type="text/javascript">
