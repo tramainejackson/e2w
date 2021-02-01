@@ -32,7 +32,7 @@
 				<div class="col s12">
 					<div class="card" id="">
 						<div class="card-image">
-							<img class="card-img-top" src="/images/RhondaLambert2.png" />
+							<img class="card-img-top" src="/images/RhondaLambert3.png" />
 							<span class="card-title">Rhonda Lambert</span>
 						</div>
 						<!-- <div class="card-content">

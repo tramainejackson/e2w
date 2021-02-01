@@ -60,7 +60,7 @@
 
 					<div class="card mx-auto" id="">
 
-						<img class="card-img-top" src="/images/RhondaLambert2.png" />
+						<img class="card-img-top" src="/images/RhondaLambert3.png" />
 
 						<div class="card-body">
 							<h4 class="card-title">Rhonda Lambert</h4>
