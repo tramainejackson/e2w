@@ -166,7 +166,7 @@
 
 		<div class="col-12 px-0 d-xl-none">
 
-			@if($activeTrips->count() > 1)
+			@if($activeTrips->count() > 0)
 
 				<div id="carousel_controls" class="mobileCarousel carousel slide w-100" data-ride="carousel">
 
