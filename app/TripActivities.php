@@ -25,9 +25,10 @@ class TripActivities extends Model
 	 * @param  string  $value
 	 * @return string
 	 */
-	public function getActivityDateAttribute($value)
-	{
-		return $value == null ? $value : new Carbon($value);
+	public function setActivityDateAttribute($value) {
+		$newDate = new Carbon($value);
+
+		$this->attributes['activity_date'] = $value == null ? null : $newDate->toDateString();
 	}
 
 	/**
@@ -36,8 +37,7 @@ class TripActivities extends Model
 	 * @param  string  $value
 	 * @return string
 	 */
-	public function getDescriptionAttribute($value)
-	{
+	public function getDescriptionAttribute($value) {
 		return ucfirst($value);
 	}
 
@@ -47,8 +47,7 @@ class TripActivities extends Model
 	 * @param  string  $value
 	 * @return string
 	 */
-	public function setDescriptionAttribute($value)
-	{
+	public function setDescriptionAttribute($value) {
 		$this->attributes['description'] = ucfirst($value);
 	}
 

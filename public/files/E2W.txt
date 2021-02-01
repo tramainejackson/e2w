@@ -3,7 +3,7 @@
 ------------------------------------------------
 ISSUE: Unable to dynamically add a row when date is involved
 Check: Responsiveness
-TODO: Add destroy/delete to users
+TODO: Add destroy/delete to users, questions, trips, contacts
 TODO: Add date back into trip activity option on admin side
 DONE: When adding a person to a trip from web, it didn't properly give alert
 Done: Mobile needs something on home page when 0 upcoming events showing

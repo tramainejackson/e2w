@@ -124,7 +124,7 @@
             // Update current rows
             $('tr input, tr textarea').on('change', function() {
                 var $values = $(this).parents('tr').find('input, textarea').serialize();
-
+				console.log($values);
                 $.ajax({
                     method: "PATCH",
                     url: "/locations/ajax_update",
@@ -665,7 +665,7 @@
 											<tr class="">
 												<th scope="col">Activity Name</th>
 												<th scope="col">Activity Location</th>
-												{{--<th scope="col">Activity Date</th>--}}
+												<th scope="col">Activity Date</th>
 												<th scope="col">Show Activity</th>
 												<th scope="col" class="text-center">Remove</th>
 												<th class="" hidden>trip</th>
@@ -677,9 +677,9 @@
 												@foreach($getCurrentEvents as $activity)
 													<tr>
 
-														<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="trip_event" value="{{ $activity->trip_event }}" /></td>
-														<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="activity_location" value="{{ $activity->activity_location }}" /></td>
-														{{--<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100 datepicker" data-value="{{ $activity->activity_date->format('Y/m/d') }}" name="activity_date" /></td>--}}
+														<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="trip_event" value="{{ $activity->trip_event }}" placeholder="Enter Activity/Event" /></td>
+														<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="activity_location" value="{{ $activity->activity_location }}" placeholder="Enter Activity Location" /></td>
+														<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100 datepicker" data-value="{{ $activity->activity_date }}" name="activity_date" placeholder="Select A Date" /></td>
 														<td>
 															<div class="btn-group">
 																<button type="button" class="btn yesBtn{{ $activity->show_activity == 'Y' ? ' btn-success active' : ' stylish-color' }}">
@@ -712,7 +712,7 @@
 
 												<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="trip_event" placeholder="Enter Activity Name" /></td>
 												<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="activity_location" placeholder="Enter Activity Location" /></td>
-												{{--<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100 new_activity_date" id="" name="activity_date" placeholder="Select A Date" /></td>--}}
+												<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100 new_activity_date" id="" name="activity_date" placeholder="Select A Date" /></td>
 												<td>
 													<div class="btn-group">
 														<button type="button" class="btn yesBtn stylish-color" style="">

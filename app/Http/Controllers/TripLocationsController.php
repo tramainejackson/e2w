@@ -147,8 +147,7 @@ class TripLocationsController extends Controller
      * @param  \App\Trip_Locations  $location
      * @return \Illuminate\Http\Response
      */
-    public function edit(TripLocations $location)
-    {
+    public function edit(TripLocations $location) {
 		$showLocation       = $location;
 	    $costs              = $showLocation->costs;
 	    $getCurrentEvents   = $showLocation->activities;
@@ -292,7 +291,8 @@ class TripLocationsController extends Controller
 		    $newValue = $create_activity = $trip->activities()->create([
 			    'trip_event'        => $results->trip_event,
 			    'activity_location' => $results->activity_location,
-			    'show_activity'     => $results->show_activity
+			    'show_activity'     => $results->show_activity,
+			    'activity_date'     => $results->activity_date,
 		    ]);
 
 	    } else {
@@ -367,6 +367,7 @@ class TripLocationsController extends Controller
 		    }
 
 	    } elseif(isset($results->trip_activities)) {
+//	    	dd(new Carbon($results->activity_date));
 		    // Get the activity
 		    $activity = $trip->activities()->find($results->activity_option);
 
@@ -374,6 +375,7 @@ class TripLocationsController extends Controller
 		    $activity->trip_event = $results->trip_event;
 		    $activity->activity_location = $results->activity_location;
 		    $activity->show_activity = $results->show_activity;
+		    $activity->activity_date = $results->activity_date;
 
 		    if($activity->save()) {
 			    return 'Trip activity information updated';
