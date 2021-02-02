@@ -250,9 +250,11 @@ class TripLocationsController extends Controller
      * @param  \App\Trip_Locations  $location
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TripLocations $location)
-    {
-        //
+    public function destroy(TripLocations $location) {
+	    //Remove trip
+	    if($location->delete()) {
+		    return redirect()->action('TripLocationsController@index')->with('status', 'Trip Removed Successfully');
+	    }
     }
 
     /**
@@ -261,8 +263,7 @@ class TripLocationsController extends Controller
      * @param  \App\Trip_Locations  $trip_Locations
      * @return \Illuminate\Http\Response
      */
-    public function ajax_add(Request $request)
-    {
+    public function ajax_add(Request $request) {
 	    $results = (object) parse_query($request->trip_additions);
 	    $trip = $showLocation = TripLocations::find($request->trip_id);
 

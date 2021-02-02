@@ -17,25 +17,15 @@ Auth::routes();
 Route::post('/login', 'Auth\LoginController@authenticate');
 /* Overwrite the default login controller */
 
+/* Resource Controllers */
 Route::resource('/admin', 'UsersController');
-
 Route::resource('/location', 'TripLocationsController');
-
-Route::post('/locations/ajax_add', 'TripLocationsController@ajax_add');
-
-Route::patch('/locations/ajax_update', 'TripLocationsController@ajax_update');
-
-Route::delete('/locations/ajax_delete', 'TripLocationsController@ajax_delete');
-
-Route::patch('/locations/add_contact/{participant}/{location}', 'TripLocationsController@add_contact');
-
 Route::resource('/pictures', 'TripPicturesController');
-
 Route::resource('/suggestions', 'TravelSuggestionsController');
-
 Route::resource('/questions', 'TravelQuestionsController');
-
 Route::resource('/participants', 'DistributionListController');
+Route::resource('/contacts', 'ContactController');
+/* Resource Controllers */
 
 Route::get('/', 'HomeController@index')->name('welcome');
 
@@ -50,3 +40,11 @@ Route::get('/about_us', function() {
 Route::get('/contact_us', function() {
 	return view('contact_us');
 })->name('contact_us');
+
+Route::post('/locations/ajax_add', 'TripLocationsController@ajax_add');
+
+Route::patch('/locations/ajax_update', 'TripLocationsController@ajax_update');
+
+Route::patch('/locations/add_contact/{participant}/{location}', 'TripLocationsController@add_contact');
+
+Route::delete('/locations/ajax_delete', 'TripLocationsController@ajax_delete');

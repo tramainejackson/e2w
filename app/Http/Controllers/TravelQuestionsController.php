@@ -22,8 +22,7 @@ class TravelQuestionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
 	    $getQuestionInfo = TravelQuestions::all();
 
         return view('admin.questions', compact('getQuestionInfo'));
@@ -34,8 +33,7 @@ class TravelQuestionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         return view('modals.questions');
     }
 
@@ -45,8 +43,7 @@ class TravelQuestionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $question = new TravelQuestions();
 		
 		$question->first_name = $request->first_name;
@@ -77,7 +74,7 @@ class TravelQuestionsController extends Controller
      * @param  \App\Travel_Questions  $travel_Questions
      * @return \Illuminate\Http\Response
      */
-    public function edit(Travel_Questions $travel_Questions)
+    public function edit(TravelQuestions $travel_Questions)
     {
         //
     }
@@ -89,7 +86,7 @@ class TravelQuestionsController extends Controller
      * @param  \App\Travel_Questions  $travel_Questions
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Travel_Questions $travel_Questions)
+    public function update(Request $request, TravelQuestions $travel_Questions)
     {
         //
     }
@@ -100,8 +97,10 @@ class TravelQuestionsController extends Controller
      * @param  \App\Travel_Questions  $travel_Questions
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Travel_Questions $travel_Questions)
-    {
-        //
+    public function destroy(TravelQuestions $question) {
+	    //Remove admin question
+	    if($question->delete()) {
+		    return redirect()->action('TravelQuestionsController@index')->with('status', 'Question Removed Successfully');
+	    }
     }
 }

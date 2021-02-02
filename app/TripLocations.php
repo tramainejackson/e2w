@@ -4,10 +4,21 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
-use App\TripCosts;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TripLocations extends Model
 {
+	use Notifiable;
+	use SoftDeletes;
+
+	/**
+	 * The attributes that should be mutated to dates.
+	 *
+	 * @var array
+	 */
+	protected $dates = ['deleted_at'];
+
 	/**
 	 * Get the deposit date for the vacation.
 	 *

@@ -28,8 +28,7 @@ class DistributionListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
     	$contacts = DistributionList::uniqueContacts();
 
 	    return view('admin.contacts.index', compact('contacts'));
@@ -40,8 +39,7 @@ class DistributionListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         return view('admin.contacts.create');
     }
 
@@ -51,8 +49,7 @@ class DistributionListController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
        $this->validate($request, [
 			'first_name'    => 'required|max:50',
 			'last_name'     => 'required|max:50',
@@ -93,11 +90,8 @@ class DistributionListController extends Controller
      * @param  \App\Distribution_List  $participant
      * @return \Illuminate\Http\Response
      */
-    public function show(DistributionList $participant)
-    {
+    public function show(DistributionList $participant) {
         $contact = $participant;
-
-        dd($contact);
     }
 
     /**
@@ -106,8 +100,7 @@ class DistributionListController extends Controller
      * @param  \App\Distribution_List  $participant
      * @return \Illuminate\Http\Response
      */
-    public function edit(DistributionList $participant)
-    {
+    public function edit(DistributionList $participant) {
 	    $contact = $participant;
 	    $trips = $contact->allTrips($contact->id);
 	    $missing_trips = collect();

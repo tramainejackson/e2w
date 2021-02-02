@@ -12,12 +12,19 @@ $(document).ready(function() {
 	var screenHeight = screen.height;
 	var screenWidth = screen.width;
 
+	//Initialize sidenav if available
     if($('.button-collapse').length > 0) {
         // SideNav Button Initialization
         $(".button-collapse").sideNav();
         // SideNav Scrollbar Initialization
         var sideNavScrollbar = document.querySelector('.custom-scrollbar');
         var ps = new PerfectScrollbar(sideNavScrollbar);
+    }
+
+    //Initialize DataTable if available
+    if($('.button-collapse').length > 0) {
+        $('#questions_table_admin').DataTable();
+        $('.dataTables_length').addClass('bs-select');
     }
 
 	if($('.adminNav').length > 0) {
@@ -69,6 +76,14 @@ $(document).ready(function() {
 	// ScrollSpy
     $('body').scrollspy({
         target: '.dotted-scrollspy'
+    });
+
+    // Delete the player from the team
+    $('body').on('click', '.deleteQuestionBtn', function() {
+        var questionID = $(this).next().val();
+        var deleteURL = window.location.protocol + '//' + window.location.hostname  + ':' + window.location.port + '/questions/' + questionID;
+
+        $('#delete_question form').attr('action', deleteURL);
     });
 
 	// Change input button when input has been changed

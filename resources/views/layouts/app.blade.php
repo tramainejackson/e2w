@@ -17,18 +17,22 @@
 
     <!-- Styles -->
 	<!-- Font Awesome -->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
 
 	<!-- Bootstrap core CSS -->
-	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+	<link type="text/css" href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 	<!-- Material Design Bootstrap -->
-	<link href="{{ asset('css/mdb.min.css') }}" rel="stylesheet">
+	<link type="text/css" href="{{ asset('css/mdb.min.css') }}" rel="stylesheet">
+
+	@if(substr_count(request()->getPathInfo(), 'question') > 0)
+		<link type="text/css" src="/css/addons/datatables.min.css" rel="stylesheet">
+	@endif
 
 	<!-- Custom CSS -->
-	<link href="/css/e2w_2.css" rel="stylesheet">
+	<link type="text/css" href="/css/e2w_2.css" rel="stylesheet">
 
 	@if(substr_count(request()->server('HTTP_USER_AGENT'), 'rv:') > 0)
-		<link href="/css/myIEcss.css" rel="stylesheet">
+		<link type="text/css" href="/css/myIEcss.css" rel="stylesheet">
 	@endif
 
 	@yield('styles')
@@ -38,24 +42,10 @@
 
 	@if(session('status'))
 		<h2 class="flashMessage d-none">{{ session('status') }}</h2>
-
-		@section('scripts')
-			<script type="text/javascript">
-				// Display a success toast
-				toastr.success($('h2.flashMessage').text());
-			</script>
-		@endsection
 	@endif
 
 	@if(session('error'))
 		<h2 class="errorMessage d-none">{{ session('error') }}</h2>
-
-		@section('scripts')
-			<script type="text/javascript">
-				// Display a error toast
-				toastr.error($('h2.errorMessage').text());
-			</script>
-		@endsection
 	@endif
 
 	@include('modals.loading')
@@ -117,6 +107,24 @@
 	<!-- MDB core JavaScript -->
 	<script type="text/javascript" src="/js/mdb.min.js"></script>
 	<script type="text/javascript" src="/js/eastwest_2.js"></script>
+
+	@if(substr_count(request()->getPathInfo(), 'question') > 0)
+		<script type="text/javascript" src="/js/addons/datatables.min.js"></script>
+	@endif
+
+	@if(session('status'))
+		<script type="text/javascript">
+            // Display a success toast
+            toastr.success($('h2.flashMessage').text());
+		</script>
+	@endif
+
+	@if(session('error'))
+		<script type="text/javascript">
+            // Display a error toast
+            toastr.error($('h2.errorMessage').text());
+		</script>
+	@endif
 
 	@yield('scripts')
 

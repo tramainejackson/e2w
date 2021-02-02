@@ -130,8 +130,11 @@ class UsersController extends Controller
      * @param  \App\Users  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy() {
-        //
+    public function destroy(User $admin) {
+    	//Remove admin user
+    	if($admin->delete()) {
+		    return redirect()->action('UsersController@index')->with('status', 'User Removed Successfully');
+	    }
     }
 }
 

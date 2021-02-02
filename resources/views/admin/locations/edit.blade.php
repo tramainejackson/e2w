@@ -187,6 +187,8 @@
 
 	@section('content')
 
+		@include('modals.delete_trip')
+
 		<div class="row">
 
 			<div class="col" id="">
@@ -199,7 +201,12 @@
 					<div class="tripLocationContent">
 
 						<div class="">
-							<h3 class="display-2">{{ $showLocation->trip_location }}</h3>
+							<h3 class="display-2">{{ $showLocation->trip_location }}
+
+								<div class="d-inline-block ml-5">
+									<button data-target="#delete_trip" data-toggle="modal" type="button" class="btn btn-danger ml-0">Remove Trip</button>
+								</div>
+							</h3>
 						</div>
 
 						<div class="trip_edit_div">

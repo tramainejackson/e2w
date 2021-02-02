@@ -134,10 +134,11 @@
 
 							<label for="phone">Phone Number</label>
 						</div>
-
+{{ dd($trips) }}
 						@if($trips->count() > 0)
 							<div class="contactsTrips" id="">
 								<h3>Contacts Trips</h3>
+
 								@foreach($trips as $contact_trip)
 									<a class='btn btn-default{{ $loop->first ? ' ml-0' : '' }}' href="/location{{ $contact_trip->trip_id }}/edit" type='button'>{{ $contact_trip->trip->trip_location }}</a>
 								@endforeach
@@ -146,6 +147,7 @@
 
 						@if($missing_trips->count() > 0)
 							<div class="mt-5" id="">
+
 								<h3>Select A Trip To Add Contact To</h3>
 								@foreach($missing_trips as $trip)
 									<span id="trip_chip_{{ $trip->id }}" class='chip chip-md indigo lighten-4 indigo-text'>{{ $trip->trip_location }}<i class="close fas fa-check"></i></span>
