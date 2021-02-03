@@ -13,9 +13,10 @@
 
 Auth::routes();
 
-/* Overwrite the default login controller */
+/* Overwrite the default login/register controller */
 Route::post('/login', 'Auth\LoginController@authenticate');
-/* Overwrite the default login controller */
+Route::get('/register', 'Auth\RegisterController@index');
+/* Overwrite the default login/register controller */
 
 /* Resource Controllers */
 Route::resource('/admin', 'UsersController');

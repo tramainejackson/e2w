@@ -35,10 +35,6 @@
 					<h2 class="display-3">Contact Us</h2>
 				</div>
 
-				<div class="col-12 white-text text-center m-0 p-5 d-xl-none">
-					<h2 class="" style=" font-family: 'Felipa', cursive; text-shadow: 2px 1px 5px #304e4e; font-size: 275%;"><b>Contact Us</b></</h2>
-				</div>
-
 			</div>
 
 			<div class="row justify-content-center mb-3">
@@ -84,22 +80,42 @@
 						{{ csrf_field() }}
 
 						<div class="md-form">
-							<input class="form-control" type="text" id="first_name" name="first_name" required />
+							<input class="form-control" type="text" id="first_name" name="first_name" value="{{ old('first_name') }}" required  {{ $errors->first('email_address') ? 'first_name' : '' }}/>
+
+							@if($errors->has('first_name'))
+								<span class="text-danger">{{ $errors->first('first_name') }}</span>
+							@endif
+
 							<label for="first_name">First Name:</label>
 						</div>
 						
 						<div class="md-form">
-							<input class="form-control" type="text" id="last_name" name="last_name" required />
+							<input class="form-control" type="text" id="last_name" name="last_name" value="{{ old('last_name') }}" required  {{ $errors->first('email_address') ? 'last_name' : '' }}/>
+
+							@if($errors->has('last_name'))
+								<span class="text-danger">{{ $errors->first('last_name') }}</span>
+							@endif
+
 							<label for="last_name">Last Name:</label>
 						</div>
 						
 						<div class="md-form">
-							<input class="form-control" type="email" id="email_address" name="email_address" required />
+							<input class="form-control" type="email" id="email_address" name="email_address" value="{{ old('email_address') }}" required  {{ $errors->first('email_address') ? 'autofocus' : '' }}/>
+
+							@if($errors->has('email_address'))
+								<span class="text-danger">{{ $errors->first('email_address') }}</span>
+							@endif
+
 							<label for="email_address">Email Address:</label>
 						</div>
 						
 						<div class="md-form">
-							<textarea class="form-control md-textarea" id="question_text" name="question_text" rows="5" cols="15"required></textarea>
+							<textarea class="form-control md-textarea" id="question_text" name="question_text" rows="5" cols="15" required {{ $errors->first('question_text') ? 'autofocus' : '' }}>{{ old('question_text') }}</textarea>
+
+							@if($errors->has('question_text'))
+								<span class="text-danger">{{ $errors->first('question_text') }}</span>
+							@endif
+
 							<label for="question_text">Question:</label>
 						</div>
 						

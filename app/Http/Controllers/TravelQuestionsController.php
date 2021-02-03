@@ -44,11 +44,18 @@ class TravelQuestionsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
+	    $this->validate($request, [
+		    'first_name'    => 'required|max:50',
+		    'last_name'     => 'required|max:50',
+		    'email_address' => 'required|email|max:100',
+		    'question_text' => 'required',
+	    ]);
+
         $question = new TravelQuestions();
 		
 		$question->first_name = $request->first_name;
 		$question->last_name = $request->last_name;
-		$question->user_email = $request->question_text;
+		$question->user_email = $request->email_address;
 		$question->user_question = $request->question_text;
 		
 		if($question->save()) {
@@ -64,8 +71,8 @@ class TravelQuestionsController extends Controller
      * @param  \App\Travel_Questions  $travel_Questions
      * @return \Illuminate\Http\Response
      */
-    public function show(TravelQuestions $travelQuestions)
-    {
+    public function show(TravelQuestions $travelQuestions) {
+    	//
     }
 
     /**
@@ -74,8 +81,7 @@ class TravelQuestionsController extends Controller
      * @param  \App\Travel_Questions  $travel_Questions
      * @return \Illuminate\Http\Response
      */
-    public function edit(TravelQuestions $travel_Questions)
-    {
+    public function edit(TravelQuestions $travel_Questions) {
         //
     }
 
@@ -86,8 +92,7 @@ class TravelQuestionsController extends Controller
      * @param  \App\Travel_Questions  $travel_Questions
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TravelQuestions $travel_Questions)
-    {
+    public function update(Request $request, TravelQuestions $travel_Questions) {
         //
     }
 
