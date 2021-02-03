@@ -2,9 +2,10 @@
 		Eastcoast 2 Westcoast Travel
 ------------------------------------------------
 Maybe: Add image to contacts
+TODO: Check Responsiveness
+TODO: Fix nav (spacing is off and maybe add a trip locations index page)
 TODO: Send email to somebody contacts the site
 TODO: Allow admin to send out an email from the trip with updates to all the participants
-TODO: Check Responsiveness
 Done: Add a 404 page
 Done: When removing a location, be sure to remove distrutionlist as well
 Done: Updating not working properly on the trip locations (mainly trip activities)

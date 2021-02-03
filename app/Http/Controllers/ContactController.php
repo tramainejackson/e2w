@@ -72,6 +72,7 @@ class ContactController extends Controller
 
 			//See if contact already exist by email
 			$contactExist = Contact::query()->where('email', $request->email)->get();
+			$contact = null;
 
 			if($contactExist->isEmpty()) {
 				$contact = new Contact();
@@ -79,9 +80,7 @@ class ContactController extends Controller
 				$contact->last_name = $request->last_name;
 				$contact->email = $request->email;
 
-				if($contact->save()) {
-					\Mail::to($contact->email)->send(new Update($contact));
-				}
+				if($contact->save()) {}
 			} else {
 				$contact = $contactExist->first();
 			}
@@ -99,7 +98,8 @@ class ContactController extends Controller
 				$participant->last_name     = $contact->last_name;
 
 				if($participant->save()) {
-
+					//Send mail to somebody
+					\Mail::to($contact->email)->send(new Update($contact, $participant));
 				}
 			} else {}
 
