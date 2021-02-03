@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Felipa|Playfair+Display|Playfair+Display+SC&display=swap');
+@import url(https://fonts.googleapis.com/css?family=Felipa|Playfair+Display|Allerta+Stencil|Artifika|Sacramento|Cinzel+Decorative|Fanwood+Text|Fredericka+the+Great|Fugaz+One|Germania+One|Graduate|Grand+Hotel|IM+Fell+Double+Pica|Montserrat|Slabo+27px|Source+Sans+Pro);
 
 body {
 	position: relative;
@@ -36,6 +36,38 @@ body {
 
 .position-bottom {
     bottom: 0px;
+}
+
+.coolText1 {
+    font-family: 'Fredericka the Great', cursive;
+}
+
+.coolText2{
+    font-family: 'Cinzel Decorative', cursive;
+}
+
+.coolText3{
+    font-family: 'Allerta Stencil', cursive;
+}
+
+.coolText4{
+    font-family: 'Fanwood Text', cursive;
+}
+
+.coolText5{
+    font-family: 'Germania One', cursive;
+}
+
+.coolText6{
+    font-family: 'Sacramento', cursive;
+}
+
+.coolText7{
+    font-family: 'Felipa', cursive;
+}
+
+.coolText8{
+    font-family: 'Playfair Display', cursive;
 }
 
 .showTrip {

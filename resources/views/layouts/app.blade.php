@@ -24,7 +24,7 @@
 	<!-- Material Design Bootstrap -->
 	<link type="text/css" href="{{ asset('css/mdb.min.css') }}" rel="stylesheet">
 
-	@if(substr_count(request()->getPathInfo(), 'question') > 0)
+	@if(substr_count(request()->getPathInfo(), 'question') > 0 || substr_count(request()->getPathInfo(), 'contacts') > 0)
 		<link type="text/css" src="/css/addons/datatables.min.css" rel="stylesheet">
 	@endif
 
@@ -108,7 +108,7 @@
 	<script type="text/javascript" src="/js/mdb.min.js"></script>
 	<script type="text/javascript" src="/js/eastwest_2.js"></script>
 
-	@if(substr_count(request()->getPathInfo(), 'question') > 0)
+	@if(substr_count(request()->getPathInfo(), 'question') > 0 || substr_count(request()->getPathInfo(), 'contacts') > 0)
 		<script type="text/javascript" src="/js/addons/datatables.min.js"></script>
 	@endif
 

@@ -4,9 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DistributionList extends Model
 {
+	use Notifiable;
+	use SoftDeletes;
+
 	/**
      * The attributes that are mass assignable.
      *
@@ -14,12 +20,10 @@ class DistributionList extends Model
      */
     protected $fillable = [
 		'first_name', 
-		'last_name', 
-		'email', 
-		'phone',
+		'last_name',
+		'contact_id',
 		'notes',
 		'paid_in_full',
-		'parent_acct_id'
 	];
 
 	/**
@@ -28,8 +32,7 @@ class DistributionList extends Model
 	 * @param  string  $value
 	 * @return string
 	 */
-	public function getFirstNameAttribute($value)
-	{
+	public function getFirstNameAttribute($value) {
 		return mb_convert_case(mb_strtolower($value, "UTF-8"), MB_CASE_TITLE, "UTF-8");
 	}
 
@@ -39,8 +42,7 @@ class DistributionList extends Model
 	 * @param  string  $value
 	 * @return string
 	 */
-	public function getLastNameAttribute($value)
-	{
+	public function getLastNameAttribute($value) {
 		return mb_convert_case(mb_strtolower($value, "UTF-8"), MB_CASE_TITLE, "UTF-8");
 	}
 
@@ -50,8 +52,7 @@ class DistributionList extends Model
 	 * @param  string  $value
 	 * @return string
 	 */
-	public function getEmailAttribute($value)
-	{
+	public function getEmailAttribute($value) {
 		return strtolower($value);
 	}
 
@@ -61,8 +62,7 @@ class DistributionList extends Model
 	 * @param  string  $value
 	 * @return string
 	 */
-	public function getPhoneAttribute($value)
-	{
+	public function getPhoneAttribute($value) {
 		return $value != null ? $value : 'No Phone Number Added';
 	}
 
@@ -72,8 +72,7 @@ class DistributionList extends Model
 	 * @param  string  $value
 	 * @return string
 	 */
-	public function setPhoneAttribute($value)
-	{
+	public function setPhoneAttribute($value) {
 		return $value == 'No Phone Number Added' ? null : $value;
 	}
 
@@ -83,8 +82,7 @@ class DistributionList extends Model
 	 * @param  string  $value
 	 * @return string
 	 */
-	public function setFirstNameAttribute($value)
-	{
+	public function setFirstNameAttribute($value) {
 		$this->attributes['first_name'] = mb_convert_case(mb_strtolower($value, "UTF-8"), MB_CASE_TITLE, "UTF-8");
 	}
 
@@ -94,8 +92,7 @@ class DistributionList extends Model
 	 * @param  string  $value
 	 * @return string
 	 */
-	public function setLastNameAttribute($value)
-	{
+	public function setLastNameAttribute($value) {
 		$this->attributes['last_name'] = mb_convert_case(mb_strtolower($value, "UTF-8"), MB_CASE_TITLE, "UTF-8");
 	}
 
@@ -105,9 +102,22 @@ class DistributionList extends Model
 	 * @param  string  $value
 	 * @return string
 	 */
-	public function setEmailAttribute($value)
-	{
+	public function setEmailAttribute($value) {
 		$this->attributes['email'] = strtolower($value);
+	}
+
+	/**
+	 * Get the contact for the participant.
+	 */
+	public function contact() {
+		return $this->belongsTo('App\Contact');
+	}
+
+	/**
+	 * Get the trip for the participant.
+	 */
+	public function trip() {
+		return $this->belongsTo('App\TripLocations');
 	}
 
 	/**
@@ -116,38 +126,7 @@ class DistributionList extends Model
 	 * @param  string  $value
 	 * @return string
 	 */
-	public function full_name()
-	{
+	public function full_name() {
 		return $this->first_name . " " . $this->last_name;
 	}
-
-	/**
-	 * Scope a query to only include unique users.
-	 *
-	 * @param \Illuminate\Database\Eloquent\Builder $query
-	 * @return \Illuminate\Database\Eloquent\Builder
-	 */
-	public function scopeUniqueContacts($query)
-	{
-		return $query->where('trip_id', null)->get();
-	}
-
-	/**
-	 * Scope a query to get all trips user has been added to.
-	 *
-	 * @param \Illuminate\Database\Eloquent\Builder $query
-	 * @return \Illuminate\Database\Eloquent\Builder
-	 */
-	public function scopeAllTrips($query, $parent_id)
-	{
-		return $query->where('parent_acct_id', $parent_id)->get();
-	}
-
-	/**
-     * Get the trip for the participant.
-     */
-    public function trip()
-    {
-        return $this->belongsTo('App\TripLocations');
-    }
 }

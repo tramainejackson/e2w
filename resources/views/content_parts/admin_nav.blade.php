@@ -33,8 +33,8 @@
 					<li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-users"></i> Contacts<i class="fa fa-angle-down rotate-icon"></i></a>
 						<div class="collapsible-body">
 							<ul>
-								<li><a href="{{ route('participants.create') }}">Add New Contact</a></li>
-								<li><a href="{{ route('participants.index') }}">Edit Contact</a></li>
+								<li><a href="{{ route('contacts.create') }}">Add New Contact</a></li>
+								<li><a href="{{ route('contacts.index') }}">Edit Contact</a></li>
 							</ul>
 						</div>
 					</li>

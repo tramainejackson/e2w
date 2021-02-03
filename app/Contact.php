@@ -32,8 +32,7 @@ class Contact extends Model
 	 * @param  string  $value
 	 * @return void
 	 */
-	public function setLastNameAttribute($value)
-	{
+	public function setLastNameAttribute($value) {
 		$this->attributes['last_name'] = ucwords(strtolower($value));
 	}
 
@@ -43,8 +42,7 @@ class Contact extends Model
 	 * @param  string  $value
 	 * @return void
 	 */
-	public function setFirstNameAttribute($value)
-	{
+	public function setFirstNameAttribute($value) {
 		$this->attributes['first_name'] = ucwords(strtolower($value));
 	}
 
@@ -54,72 +52,39 @@ class Contact extends Model
 	 * @param  string  $value
 	 * @return void
 	 */
-	public function setEmailAttribute($value)
-	{
+	public function setEmailAttribute($value) {
 		$this->attributes['email'] = strtolower($value);
-	}
-
-	/**
-	 * Get the property for the current tenant.
-	 */
-	public function property()
-	{
-		return $this->belongsTo('App\Property');
 	}
 
 	/**
 	 * Get the documents for the contact.
 	 */
-	public function documents()
-	{
-		return $this->hasMany('App\Files');
+	public function trips() {
+		return $this->hasMany('App\DistributionList');
 	}
 
 	/**
 	 * Get the contact/tenant for the property.
 	 */
-	public function image()
-	{
+	public function image() {
 		return $this->hasOne('App\ContactImages');
 	}
 
 	/**
 	 * Concat first and last name
 	 */
-	public function full_name()
-	{
+	public function full_name() {
 		return $this->first_name . ' ' . $this->last_name;
 	}
 
 	/**
 	 * Search contacts with criteria
 	 */
-	public function scopeSearch($query, $search)
-	{
+	public function scopeSearch($query, $search) {
 		return $query->where('first_name', 'like', '%' . $search . '%')
 			->orWhere('last_name', 'like', '%' . $search . '%')
 			->orWhere('email', 'like', '%' . $search . '%')
 			->orWhere('phone', 'like', '%' . $search . '%')
 			->get();
 	}
-
-	/**
-	 * Check for duplicated
-	 */
-	public function scopeDuplicates($query)
-	{
-		return $query->selectRaw('*, COUNT(email) as email_count')
-			->where('duplicate', null)
-			->groupBy('email')
-			->havingRaw('COUNT(email) > 1');
-	}
-
-	/**
-	 * Check for non-duplicates
-	 */
-	public function scopeNonDuplicates($query)
-	{
-		return $query->where('duplicate', '<>', 'Y');
-	}
-
 }

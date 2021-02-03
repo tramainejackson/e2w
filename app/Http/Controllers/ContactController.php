@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Contact;
+use App\DistributionList;
 use App\Property;
 use App\Settings;
 use App\ContactImages;
 use App\Files;
+use App\TripLocations;
 use App\Mail\Update;
 use App\Mail\UpdateWithAttach;
 use App\Mail\NewContact;
@@ -29,8 +31,7 @@ class ContactController extends Controller
 	 *
 	 * @return void
 	 */
-	public function __construct()
-	{
+	public function __construct() {
 		$this->middleware('auth')->except('store');
 	}
 
@@ -39,19 +40,11 @@ class ContactController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index()
-	{
-		$contacts = Contact::orderBy('last_name')->paginate(20);
-		$allContacts = Contact::all();
-		$deletedContacts = Contact::onlyTrashed()->nonDuplicates()->get();
+	public function index() {
+		$contacts = Contact::all();
 		$contactsCount = Contact::all()->count();
 
-		$dupe_check = Settings::first()->dupe_contacts_check;
-		$now = Carbon::now();
-
-		$dupe_check < $now ? $dupe_check = true : $dupe_check = false;
-
-		return view('contacts.index', compact('contacts', 'deletedContacts', 'contactsCount', 'allContacts', 'dupe_check'));
+		return view('admin.contacts.index', compact('contacts', 'contactsCount'));
 	}
 
 	/**
@@ -59,11 +52,8 @@ class ContactController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function create()
-	{
-		$properties = Property::all();
-
-		return view('contacts.create', compact('properties'));
+	public function create() {
+		return view('admin.contacts.create');
 	}
 
 	/**
@@ -72,44 +62,62 @@ class ContactController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store(Request $request)
-	{
+	public function store(Request $request) {
 		if(Auth::guest()) {
 			$this->validate($request, [
 				'first_name' => 'required|max:30',
 				'last_name' => 'required|max:30',
 				'email' => 'required|max:50',
-				'phone' => 'required|max:10',
 			]);
 
-			$contact = new Contact();
-			$contact->first_name = $request->first_name;
-			$contact->last_name = $request->last_name;
-			$contact->email = $request->email;
-			$contact->phone = $request->phone;
-			$contact->family_size = $request->family_size == '' ? '1' : $request->family_size;
-			$contact->tenant = 'N';
+			//See if contact already exist by email
+			$contactExist = Contact::query()->where('email', $request->email)->get();
 
-			if($contact->save()) {
-				\Mail::to($contact->email)->send(new Update($contact));
+			if($contactExist->isEmpty()) {
+				$contact = new Contact();
+				$contact->first_name = $request->first_name;
+				$contact->last_name = $request->last_name;
+				$contact->email = $request->email;
 
-				return redirect('/')->with('status', 'You Have Been Added To Our Contact Successfully');
+				if($contact->save()) {
+					\Mail::to($contact->email)->send(new Update($contact));
+				}
+			} else {
+				$contact = $contactExist->first();
 			}
+
+			//See if contact already exist for this trip
+			$trip = TripLocations::find($request->trip_id);
+			$tripParticipant = $contact->trips()->where('trip_id', $request->trip_id)->get();
+
+			if($tripParticipant->isEmpty()) {
+				$participant = new DistributionList();
+
+				$participant->trip_id       = $trip->trip_id;
+				$participant->contact_id    = $contact->id;
+				$participant->first_name    = $contact->first_name;
+				$participant->last_name     = $contact->last_name;
+
+				if($participant->save()) {
+
+				}
+			} else {}
+
+			if($tripParticipant->isNotEmpty()) {
+				return redirect()->action('HomeController@index')->with('status', 'You Have Been Added To Our Contact And Will Be Updated With This Trip Information');
+			} else {
+				return redirect()->action('HomeController@index')->with('status', 'An User With This Email Address Has Already Been Added to Our Contacts and This Trip ' . $contact->email);
+			}
+
 		} else {
 			$this->validate($request, [
-				'first_name' => 'required|max:30',
-				'last_name' => 'required|max:30',
+				'first_name'    => 'required|max:50',
+				'last_name'     => 'required|max:50',
+				'email'         => 'unique:contacts,email',
+				'family_size'   => 'nullable|numeric',
 			]);
 
 			$contact = new Contact();
-
-			if($request->tenant == 'Y') {
-				if(isset($request->property_id)) {
-					$contact->property_id = $request->property_id;
-				}
-			} elseif($request->tenant == 'N') {
-				$contact->property_id = NULL;
-			}
 
 			$contact->first_name = $request->first_name;
 			$contact->last_name = $request->last_name;
@@ -117,10 +125,10 @@ class ContactController extends Controller
 			$contact->phone = $request->phone;
 			$contact->family_size = $request->family_size;
 			$contact->dob = new Carbon($request->dob);
-			$contact->tenant = $request->tenant;
-			$contact->save();
 
-			return redirect('contacts')->with('status', 'Contact Added Successfully');
+			if($contact->save()) {
+				return redirect()->action('ContactController@edit', $contact->id)->with('status', 'Contact Added Successfully');
+			}
 		}
 	}
 
@@ -130,9 +138,8 @@ class ContactController extends Controller
 	 * @param  \App\Contact  $contact
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show(Contact $contact)
-	{
-		return view('contacts.show', compact('contact'));
+	public function show(Contact $contact) {
+//		return abort(404);
 	}
 
 	/**
@@ -141,13 +148,19 @@ class ContactController extends Controller
 	 * @param  \App\Contact  $contact
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit(Contact $contact)
-	{
-		$properties = Property::all();
-		$documents = $contact->documents;
-		$tenant = $contact->property;
+	public function edit(Contact $contact) {
+		$trips = $contact->trips;
+		$missing_trips = collect();
 
-		return view('contacts.edit', compact('contact', 'tenant', 'properties', 'documents'));
+		// Find all of the trips the user is not apart of
+		// and add them into a collection instance
+		foreach(TripLocations::all() as $trip) {
+			if($trip->participants()->where('contact_id', $contact->id)->get()->isEmpty()) {
+				$missing_trips->push($trip);
+			}
+		}
+
+		return view('admin.contacts.edit', compact('contact', 'trips', 'missing_trips'));
 	}
 
 	/**
@@ -157,23 +170,14 @@ class ContactController extends Controller
 	 * @param  \App\Contact  $contact
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, Contact $contact)
-	{
-		// dd($request);
+	public function update(Request $request, Contact $contact) {
 		$this->validate($request, [
 			'first_name' => 'required|max:30',
 			'last_name' => 'required|max:30',
-			'contact_image' => 'image',
-			'contact_document' => 'file',
+			'contact_image' => 'nullable|image',
+			'family_size' => 'nullable|numeric',
+			'dob' => 'date',
 		]);
-
-		if($request->tenant == 'Y') {
-			if(isset($request->property_id)) {
-				$contact->property_id = $request->property_id;
-			}
-		} elseif($request->tenant == 'N') {
-			$contact->property_id = NULL;
-		}
 
 		$contact->first_name = $request->first_name;
 		$contact->last_name = $request->last_name;
@@ -181,9 +185,18 @@ class ContactController extends Controller
 		$contact->phone = $request->phone;
 		$contact->family_size = $request->family_size;
 		$contact->dob = new Carbon($request->dob);
-		$contact->tenant = $request->tenant;
 
 		if($contact->save()) {
+			//Check of there are any more trips
+			//this contact is added too
+			foreach($contact->trips as $trip_participant) {
+				$trip_participant->first_name = $contact->first_name;
+				$trip_participant->last_name = $contact->last_name;
+
+				$trip_participant->save();
+			}
+
+			//Check of there an image added for the contact
 			if($request->hasFile('contact_image')) {
 				$newImage = $request->file('contact_image');
 
@@ -239,27 +252,8 @@ class ContactController extends Controller
 				}
 			}
 
-			if($request->hasFile('document')) {
-				$parentID = Files::max('id');
-				foreach($request->file('document') as $document) {
-					$files = new Files();
-					$files->title = $request->document_title;
-					$files->contact_id = $contact->id;
-					$files->parent_doc = $parentID + 1;
-					$files->name = $path = $document->store('public/files');
-
-					if($document->guessExtension() == 'png' || $document->guessExtension() == 'jpg' || $document->guessExtension() == 'jpeg' || $document->guessExtension() == 'gif' || $document->guessExtension() == 'bmp') {
-						// Document is an image
-						$image = Image::make($document->getRealPath())->orientate();
-						$image->save(storage_path('app/'. $path));
-					}
-
-					if($files->save()) {}
-				}
-			}
+			return redirect()->back()->with('status', 'Contact Updated Successfully');
 		}
-
-		return redirect()->back()->with('status', 'Contact Updated Successfully');
 	}
 
 	/**
@@ -268,11 +262,20 @@ class ContactController extends Controller
 	 * @param  \App\Contact  $contact
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Contact $contact)
-	{
-		$contact->delete();
+	public function destroy(Contact $contact) {
+		//Remove email address before deleting contact
+		$contact->email = NULL;
 
-		return redirect()->action('ContactController@index', $contact)->with('status', 'Contact Deleted Successfully');
+		if($contact->save()) {
+			//Get trips user is added to and remove them
+			foreach($contact->trips as $contactTrip) {
+				if($contactTrip->delete()) {}
+			}
+
+			if($contact->delete()) {
+				return redirect()->action('ContactController@index')->with('status', 'Contact Deleted Successfully');
+			}
+		}
 	}
 
 	/**
@@ -281,8 +284,7 @@ class ContactController extends Controller
 	 * @param  \App\Contact  $contact
 	 * @return \Illuminate\Http\Response
 	 */
-	public function restore($id)
-	{
+	public function restore($id) {
 		$contact = Contact::onlyTrashed()->where('id', $id)->first();
 
 		if($contact != null) {
@@ -298,8 +300,7 @@ class ContactController extends Controller
 	 * @param  \App\Contact  $contact
 	 * @return \Illuminate\Http\Response
 	 */
-	public function send_mail(Request $request, Contact $contact)
-	{
+	public function send_mail(Request $request, Contact $contact) {
 		if($contact->email == null) {
 			return redirect()->back()->with('status', 'The user doesn\'t have an email address listed. Please add an email address and try again');
 		} else {
@@ -318,49 +319,12 @@ class ContactController extends Controller
 	}
 
 	/**
-	 * Send an email to the contact
-	 *
-	 * @param  \App\Contact  $contact
-	 * @return \Illuminate\Http\Response
-	 */
-	public function rent_reminder(Request $request, Contact $contact)
-	{
-		// dd($request);
-		if($contact->email == null) {
-			return redirect()->back()->with('status', 'The user doesn\'t have an email address listed. Please add an email address and try again');
-		} else {
-
-			\Mail::to($contact->email)->send(new RentReminder($contact, $request->rent_amount, $request->email_subject, $request->email_body));
-
-			return redirect()->back()->with('status', 'Rent reminder sent successfully');
-		}
-	}
-
-	/**
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  \App\Property  $property
 	 * @return \Illuminate\Http\Response
 	 */
-	public function remove_as_tenant(Request $request, Contact $contact)
-	{
-		$contact->property_id = null;
-		$contact->tenant = 'N';
-
-		if($contact->save()) {
-			return redirect()->back()->with('status', 'Contact removed as tenant');
-		}
-
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  \App\Property  $property
-	 * @return \Illuminate\Http\Response
-	 */
-	public function mass_email(Request $request)
-	{
+	public function mass_email(Request $request) {
 		$sendToContacts = isset($request->send_to) ? $request->send_to : [];
 		$sendBody       = $request->send_body;
 		$sendSubject    = $request->send_subject;
@@ -411,88 +375,12 @@ class ContactController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function search(Request $request)
-	{
+	public function search(Request $request) {
 		$contacts = Contact::search($request->search);
 		$deletedContacts = Contact::onlyTrashed()->get();
 		$contactsCount = Contact::all()->count();
 		$searchCriteria = $request->search;
 
 		return view('contacts.search', compact('contacts', 'deletedContacts', 'contactsCount', 'searchCriteria'));
-	}
-
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function duplicates()
-	{
-
-		$contacts = Contact::duplicates()->paginate(15);
-
-		return view('contacts.duplicates', compact('contacts'));
-	}
-
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function duplicate_link(Request $request, Contact $contact)
-	{
-		$orginalContact = Contact::find($request->original);
-
-		if($contact) {
-			if($orginalContact->id == $contact->id) {
-
-			} else {
-				$contact->duplicate = $request->link == 'link' ? 'Y' : 'N';
-
-				if($contact->duplicate == 'Y') {
-					// Check to see if parent account has a phone number
-					if(($orginalContact->phone == null || $orginalContact->phone == '') && $contact->phone != '') {
-						$orginalContact->phone = $contact->phone;
-					}
-
-					if($contact->documents) {
-						foreach($contact->documents as $doc) {
-							$doc->contact_id = $orginalContact->id;
-
-							if($doc->save()) {}
-						}
-					}
-
-					if($contact->property) {
-						$orginalContact->property_id = $contact->property->id;
-
-						if($orginalContact->save()) {}
-					}
-
-					if($contact->save()) {
-						if($contact->delete()) {}
-					}
-				} else {
-					// Not a Duplicate
-					if($contact->save()) {}
-				}
-			}
-		}
-
-		return '';
-	}
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function duplicate_check(Request $request)
-	{
-		$settings = Settings::first();
-		$date = new Carbon();
-
-		$settings->dupe_contacts_check = $date->nextWeekendDay();
-
-		if($settings->save()) {}
 	}
 }

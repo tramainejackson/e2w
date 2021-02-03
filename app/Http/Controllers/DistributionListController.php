@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contact;
 use App\DistributionList;
 use App\TripLocations;
 use App\Mail\Confirmation;
@@ -29,7 +30,7 @@ class DistributionListController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index() {
-    	$contacts = DistributionList::uniqueContacts();
+    	$contacts = Contact::all();
 
 	    return view('admin.contacts.index', compact('contacts'));
     }

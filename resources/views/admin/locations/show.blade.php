@@ -48,13 +48,14 @@
 											<tr>
 												@if($showActivity->show_activity == "Y")
 
+													@php
+														//Format date
+                                                        $activityDate = null;
+                                                        $showActivity->activity_date !== null ? $activityDate = new Carbon\Carbon($showActivity->activity_date) : null;
+													@endphp
+
 													<td><i class="fas fa-map-marker-alt"></i> {{ $showActivity->trip_event }}</td>
-
-													@if($showActivity->show_activity == "Y")
-
-														<td><i class='fas fa-calendar-day'></i> {{ $showActivity->activity_date->format('m/d/Y') }}</td>
-
-													@endif
+													<td><i class='fas fa-calendar-day'></i> {{ $activityDate == null ? 'TBA' : $activityDate->format('m/d/Y') }}</td>
 
 												@endif
 											</tr>
@@ -186,7 +187,7 @@
 
 							<h3 class="text-center text-light">Sign Me Up</h3>
 
-							<form class="signupForm" id="" action="/participants" method="POST" enctype="multipart/form-data">
+							<form class="signupForm" id="" action="{{ action('ContactController@store') }}" method="POST" enctype="multipart/form-data">
 							
 								{{ method_field('POST') }}
 								{{ csrf_field() }}
@@ -197,7 +198,7 @@
 										<td>
 											<div class="form-group">
 												<label for="first_name" class="text-light">First Name:</label>
-												<input class="form-control" type="text" name="first_name" value="{{ old('first_name') }}" placeholder="Enter First Name" />
+												<input class="form-control" type="text" name="first_name" value="{{ old('first_name') }}" placeholder="Enter First Name" {{ $errors->has('first_name') ? 'autofocus' : '' }} />
 												
 												@if($errors->has('first_name'))
 													<span class="text-danger">First name cannot empty or more than 50 characters</span>
@@ -210,7 +211,7 @@
 										<td>
 											<div class="form-group">
 												<label for="last_name" class="text-light">Last Name:</label>
-												<input class="form-control" type="text" name="last_name" value="{{ old('last_name') }}" placeholder="Enter Last Name" />
+												<input class="form-control" type="text" name="last_name" value="{{ old('last_name') }}" placeholder="Enter Last Name" {{ $errors->has('last_name') ? 'autofocus' : '' }} />
 												
 												@if ($errors->has('last_name'))
 													<span class="text-danger">Last name cannot empty or more than 50 characters</span>
@@ -223,7 +224,7 @@
 										<td>
 											<div class="form-group">
 												<label for="email" class="text-light">Email:</label>
-												<input class="form-control" type="email" name="email" value="{{ old('email') }}" placeholder="Enter Email Address" />
+												<input class="form-control" type="email" name="email" value="{{ old('email') }}" placeholder="Enter Email Address" {{ $errors->has('email') ? 'autofocus' : '' }} />
 												
 												@if($errors->has('email'))
 													<span class="text-danger">Email address cannot empty or more than 100 characters</span>
@@ -238,7 +239,8 @@
 
 								</table>
 
-								<input type="text" name="trip_id" class="" value="{{ $tripLocation->id }}" hidden />
+								<input type="number" name="trip_id" class="hidden" value="{{ $tripLocation->id }}" hidden />
+
 								<div class="paymentInstructions text-light">
 									<p class="m-0 py-3">For everyone who has a PayPal account and would like to pay electronically, please send all payments to jacksond1961@yahoo.com by selecting the option to send money to friends and family. <a href="http://www.paypal.com" target="_blank">Click here</a> to go to the PayPal website.</p>
 								</div>

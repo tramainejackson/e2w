@@ -1,12 +1,15 @@
 ------------------------------------------------
 		Eastcoast 2 Westcoast Travel
 ------------------------------------------------
-ISSUE: Unable to dynamically add a row when date is involved
-Check: Responsiveness
-TODO: Add destroy/delete to users, questions, trips, contacts
-TODO: Updating not working properly on the trip locations (mainly trip activities)
-DONE: Add date back into trip activity option on admin side
-DONE: When adding a person to a trip from web, it didn't properly give alert
+Maybe: Add image to contacts
+TODO: Add a 404 page
+TODO: Check Responsiveness
+Done: When removing a location, be sure to remove distrutionlist as well
+Done: Updating not working properly on the trip locations (mainly trip activities)
+Done: Check the adding of contacts through web
+Done: Add destroy/delete to users, questions, trips, contacts
+Done: Add date back into trip activity option on admin side
+Done: When adding a person to a trip from web, it didn't properly give alert
 Done: Mobile needs something on home page when 0 upcoming events showing
 Done: Make the suggestions page look more appeasing (Removed)
 Done: Return the section thats being added to on ajax response to have updated information
@@ -15,7 +18,7 @@ Done: Allow admin to remove users who have signed up
 Done: Create a contacts tab
 Done: Figure out ajax for all the option above the trip payments
 Done: Fix where the trip photo button is displaying
-DONE: Only allow one checkbox for trip payment occurrence
+Done: Only allow one checkbox for trip payment occurrence
 Done: Past trips not looking right on mobile
 Done: Carousel is causing a problem on home page
 Done: Fix radio buttons for suggestion form
@@ -36,7 +39,7 @@ Done: When new images being uploaded, change current picture to new picture
 Done: If last picture is removed. Add a redirect back to picutres index or add an add new link
 Done: Add more checks and sessions messages for images that aren't uploaded
 Done: Rotate uploaded images if needed
-Done: Update email addresses 
+Done: Update email addresses
 Done: Figure out what to do when 0 picutres are returned from ajax call
 Done: Update admin questions pages
 Done: Update admin suggestions pages
@@ -51,3 +54,4 @@ Done: Change date format when already displayed
 Done: Create a relationship for trip locations and trip activities
 Done: Create a relationship for trip locations and trip participants
 Not Doing: Add link at the top of the magnific popup modal to allow user to send photos
+FIXED: Unable to dynamically add a row when date is involved

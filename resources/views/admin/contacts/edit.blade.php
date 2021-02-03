@@ -35,24 +35,6 @@
 		</style>
 	@endsection
 
-	@if(session('status'))
-		@section('scripts')
-			<script type="text/javascript">
-				// Display a success toast
-				toastr.success($('h2.flashMessage').text());
-			</script>
-		@endsection
-	@endif
-
-	@if(session('error'))
-		@section('scripts')
-			<script type="text/javascript">
-				// Display a success toast
-				toastr.error($('h2.errorMessage').text());
-			</script>
-		@endsection
-	@endif
-
 	@section('scripts')
 		<script type="text/javascript">
 
@@ -67,6 +49,11 @@
                 }).done(function(data) {
 
                     if(data == 'Successful') {
+                        //Remove no trips message if there
+						if($('.emtpyTrips').length > 0) {
+                            $('.emtpyTrips').addClass('fadeOutUp');
+						}
+
                         // Create new button for the contacts trip
                     	var newButton = '<a class="btn btn-default animated fadeInDown" href="/location/' + trip + '/edit" type="button">' + trip_name + '</a>';
 
@@ -83,14 +70,24 @@
 
 	@section('content')
 
+		@include('modals.delete_contact')
+
 		<div class="row">
 
 			<div class="col" id="all_users">
 
-				{!! Form::open(['action' => ['DistributionListController@update', $contact->id], 'method' => 'PATCH', 'class' => '']) !!}
+				<form method="POST" action="{{ action('ContactController@update', $contact->id) }}" name="">
+
+					{{ method_field('PATCH') }}
+					{{ csrf_field() }}
 
 					<div id="pictures_page_header" class="">
-						<h1 class="pageTopicHeader">Edit Contact</h1>
+						<h1 class="pageTopicHeader">Edit Contact
+
+							<div class="d-inline-block ml-5">
+								<button data-target="#delete_contact" data-toggle="modal" type="button" class="btn btn-danger ml-0">Remove Contact</button>
+							</div>
+						</h1>
 					</div>
 					
 					<div class="newUser">
@@ -134,16 +131,35 @@
 
 							<label for="phone">Phone Number</label>
 						</div>
-{{ dd($trips) }}
-						@if($trips->count() > 0)
-							<div class="contactsTrips" id="">
-								<h3>Contacts Trips</h3>
 
+						<div class="md-form">
+							<input type="text" name="family_size" class="form-control" value="{{ $contact->family_size }}" placeholder="Enter A Family Size" />
+
+							@if ($errors->has('family_size'))
+								<span class="text-danger">Family size must be numeric</span>
+							@endif
+
+							<label for="family_size">Family Size</label>
+						</div>
+
+						<div class="md-form input-with-post-icon datepicker">
+							<input type="text" name="dob" class="form-control" data-value="{{ $contact->dob }}" placeholder="Select a DOB" />
+
+							<label for="dob" class="">Date of Birth</label>
+							<i class="fas fa-calendar input-prefix" tabindex=0></i>
+						</div>
+
+						<div class="contactsTrips" id="">
+							<h3>Contacts Trips</h3>
+
+							@if($trips->count() > 0)
 								@foreach($trips as $contact_trip)
-									<a class='btn btn-default{{ $loop->first ? ' ml-0' : '' }}' href="/location{{ $contact_trip->trip_id }}/edit" type='button'>{{ $contact_trip->trip->trip_location }}</a>
+									<a class='btn btn-default{{ $loop->first ? ' ml-0' : '' }}' href="{{ route('location.edit', $contact_trip->trip_id) }}" type='button'>{{ $contact_trip->trip->trip_location }}</a>
 								@endforeach
-							</div>
-						@endif
+							@else
+								<h4 class="h4 h4-responsive text-center emtpyTrips animated">This contact hasn't been added to any trips yet</h4>
+							@endif
+						</div>
 
 						@if($missing_trips->count() > 0)
 							<div class="mt-5" id="">
@@ -159,13 +175,9 @@
 							<button class="btn btn-info ml-0" type="submit">Update Contact</button>
 							<input class="d-none hidden contactID" type="number" value="{{ $contact->id }}" hidden />
 						</div>
-
 					</div>
-
-				{!! Form::close() !!}
-
+				</form>
 			</div>
-
 		</div>
 
 	@endsection

@@ -22,8 +22,12 @@ $(document).ready(function() {
     }
 
     //Initialize DataTable if available
-    if($('.button-collapse').length > 0) {
+    if($('#questions_table_admin').length > 0) {
         $('#questions_table_admin').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+    }
+    if($('#contacts_table_admin').length > 0) {
+        $('#contacts_table_admin').DataTable();
         $('.dataTables_length').addClass('bs-select');
     }
 
@@ -36,7 +40,7 @@ $(document).ready(function() {
             $('.collapsible-header').eq(1).parent().addClass('active');
             $('.collapsible-header').eq(1).siblings().css('display', 'block');
             $('.collapsible-header').eq(1).addClass('active');
-        } else if (window.location.pathname.includes('participants')) {
+        } else if (window.location.pathname.includes('contacts')) {
             $('.collapsible-header').eq(2).parent().addClass('active');
             $('.collapsible-header').eq(2).siblings().css('display', 'block');
             $('.collapsible-header').eq(2).addClass('active');
@@ -56,9 +60,11 @@ $(document).ready(function() {
 	$('.mdb-select').materialSelect();
 
 	// Data Picker Initialization
-    $('.datepicker').pickadate({
+    $('.datepicker').datepicker({
         format: 'mm/dd/yyyy',
         formatSubmit: 'yyyy/mm/dd',
+        selectMonths: true,
+        selectYears: true
     });
 
 	// Make carousel items a minimum height of the document window
@@ -212,6 +218,11 @@ $(document).ready(function() {
 	$('body').on("click", "button", function(e) {
 		if($(this).hasClass('yesBtn') || $(this).hasClass('noBtn')) {
 			if($(this).hasClass('yesBtn')) {
+                if($(this).hasClass('stylish-color')) {
+					//Add a change event to the input when the button is changed
+                    $(this).children('input').change();
+                }
+
 				// Yes Button
 				$(this).addClass('active btn-success')
                     .removeClass('stylish-color active')
@@ -224,7 +235,13 @@ $(document).ready(function() {
 					.addClass('stylish-color')
 					.children()
 					.removeAttr("checked");
+
 			} else if($(this).hasClass('noBtn')) {
+                if($(this).hasClass('stylish-color')) {
+                    //Add a change event to the input when the button is changed
+                    $(this).children('input').change();
+                }
+
                 // Yes Button
                 $(this).siblings()
 					.removeClass('active btn-success')

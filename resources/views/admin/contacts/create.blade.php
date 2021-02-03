@@ -16,8 +16,11 @@
 
 				<div class="newUser">
 
-					{!! Form::open(['action' => 'DistributionListController@store', 'method' => 'POST', 'class' => '']) !!}
-						
+					<form method="POST" action="{{ action('ContactController@store') }}" name="">
+
+						{{ method_field('POST') }}
+						{{ csrf_field() }}
+
 						<div class="md-form">
 							<input type="text" name="first_name" class="form-control" value="{{ old('first_name') }}" placeholder="Enter Firstname" />
 							
@@ -42,7 +45,7 @@
 							<input type="text" name="email" class="form-control" value="{{ old('email') }}" placeholder="Enter Email Address" />
 							
 							@if ($errors->has('email'))
-								<span class="text-danger">Email Address cannot be empty</span>
+								<span class="text-danger">{{ $errors->first('email') }}</span>
 							@endif
 
 							<label for="email" class="">Email Address</label>
@@ -55,19 +58,32 @@
 								<span class="text-danger">Phone number doesn't have enough numbers</span>
 							@endif
 
-							<label for="phone" class="">Email Address</label>
+							<label for="phone" class="">Phone Number</label>
+						</div>
+
+						<div class="md-form">
+							<input type="number" name="family_size" class="form-control" value="{{ old('family_size') }}" placeholder="Enter Family Size" />
+
+							@if($errors->has('family_size'))
+								<span class="text-danger">Family Size Must Be Numeric</span>
+							@endif
+
+							<label for="family_size" class="">Family Size</label>
+						</div>
+
+						<div class="md-form input-with-post-icon datepicker">
+							<input type="text" name="dob" class="form-control" id="input_dob" value="{{ old('dob') }}" placeholder="Select DOB" />
+
+							<label for="dob" class="">Date of Birth</label>
+							<i class="fas fa-calendar input-prefix" tabindex=0></i>
 						</div>
 
 						<div class="newAdminInput">
 							<button type="submit" class="btn btn-info ml-0">Add Contact</button>
 						</div>
-
-					{!! Form::close() !!}
-
+					</form>
 				</div>
-
 			</div>
-
 		</div>
 
 	@endsection

@@ -15,26 +15,36 @@
 			});
 
             $('.table-add').click(function () {
+                var indContentDiv = $(this).parent().parent().parent().parent();
                 var table = $(this).parent().parent();
                 var $clone = table.find('tr.hide').clone(true).removeClass('hide table-line');
 
                 // Remove blank placeholder row if one available
                 table.find('table tr[class^="blank"]').remove();
 
-                // Add id attribute to input checkboxes and for attribute to label if trip payment table
-                $clone.find('.reoccuringCheckBox').attr('id', 'materialInline' + (table.find('tr').length * 2));
-                $clone.find('.reoccuringCheckBox').next().attr('for', 'materialInline' + (table.find('tr').length * 2));
-                $clone.find('.oneTimeCheckBox').attr('id', 'materialInline' + ((table.find('tr').length * 2) + 1));
-                $clone.find('.oneTimeCheckBox').next().attr('for', 'materialInline' + ((table.find('tr').length * 2) +1));
+                if($(indContentDiv).attr('id') == 'trip_payments') {
+                    // Add id attribute to input checkboxes and for attribute to label if trip payment table
+                    $clone.find('.reoccuringCheckBox').attr('id', 'materialInline' + (table.find('tr').length * 2));
+                    $clone.find('.reoccuringCheckBox').next().attr('for', 'materialInline' + (table.find('tr').length * 2));
+                    $clone.find('.oneTimeCheckBox').attr('id', 'materialInline' + ((table.find('tr').length * 2) + 1));
+                    $clone.find('.oneTimeCheckBox').next().attr('for', 'materialInline' + ((table.find('tr').length * 2) + 1));
+                }
 
-                // Initialize the new date field
-				$clone.removeClass('newActivityRow').find('.new_activity_date').addClass('date_picker_1');
+                if($(indContentDiv).attr('id') == 'trip_activities') {
+                    // Initialize the new date field
+                    $clone.removeClass('newActivityRow').find('.new_activity_date').addClass('md-form input-with-post-icon datepicker');
 
-                // Append the cloned row to the table
-                table.find('table').append($clone).find('.date_picker_1').pickadate({
-                    format: 'mm/dd/yyyy',
-                    formatSubmit: 'yyyy/mm/dd',
-                });
+                    // Append the cloned row to the table
+                    table.find('table').append($clone).find('.datepicker').datepicker({
+                        format: 'mm/dd/yyyy',
+                        formatSubmit: 'yyyy/mm/dd',
+                        selectMonths: true,
+                        selectYears: true
+                    });
+				} else {
+                    // Append the cloned row to the table
+                    table.find('table').append($clone);
+				}
             });
 
             // Remove unsaved row
@@ -97,9 +107,8 @@
                             } else if(parseValue[0].replace('trip_', '') == 'conditions') {
                                 updateOption = 'condition_option';
                             } else if(parseValue[0].replace('trip_', '') == 'activities') {
+                                updateRow = $('#trip_activities').find('#trip_activities_table tr:last');
                                 updateOption = 'activity_option';
-                            } else if(parseValue[0].replace('trip_', '') == 'participants') {
-                                updateOption = 'participant_option';
                             }
 
                             $('<td class="pt-3-half" hidden=""><input type="text" name="' + updateOption + '" value="' + data.id + '"></td>').appendTo(updateRow);
@@ -124,14 +133,26 @@
             // Update current rows
             $('tr input, tr textarea').on('change', function() {
                 var $values = $(this).parents('tr').find('input, textarea').serialize();
-				console.log($values);
-                $.ajax({
-                    method: "PATCH",
-                    url: "/locations/ajax_update",
-                    data: {trip_id:trip_id, trip_updates:$values}
-                }).done(function(data) {
-                    toastr.success(data);
-                });
+                var $optionCheck = $(this).parents('tr').find('input, textarea').serializeArray();
+                var isOption = false;
+
+                $($optionCheck).each(function() {
+                    if($(this)[0]['name'].search('option') > 0) {
+                        isOption = true;
+                    }
+				});
+
+                //Only update if the option is part of the query string
+				//Will determine if this is a new row or a row to be updated
+				if(isOption) {
+                    $.ajax({
+                        method: "PATCH",
+                        url: "/locations/ajax_update",
+                        data: {trip_id:trip_id, trip_updates:$values}
+                    }).done(function(data) {
+                        toastr.success(data);
+                    });
+				}
 			});
 
             // Update current rows
@@ -270,16 +291,18 @@
 
                             <div class="form-row" id="">
 
-                                <div class="md-form col-6">
-                                    <input type="text" name="deposit_date" class="form-control datepicker" id="deposit_date" data-value="{{ $showLocation->deposit_date != null ? $showLocation->deposit_date->format('Y/m/d') : '' }}" placeholder="Enter Deposit Date" />
+                                <div class="md-form input-with-post-icon datepicker col-6">
+                                    <input type="text" name="deposit_date" class="form-control" id="deposit_date" data-value="{{ $showLocation->deposit_date != null ? $showLocation->deposit_date->format('Y/m/d') : '' }}" placeholder="Enter Deposit Date" />
 
                                     <label for="deposit_date">First Deposit Date</label>
+									<i class="fas fa-calendar input-prefix" tabindex=0></i>
                                 </div>
 
-                                <div class="md-form col-6">
-                                    <input type="text" name="due_date" class="form-control datepicker" id="due_date" data-value="{{ $showLocation->due_date != null ? $showLocation->due_date->format('Y/m/d') : '' }}" placeholder="Enter Due Date" />
+                                <div class="md-form input-with-post-icon datepicker col-6">
+                                    <input type="text" name="due_date" class="form-control" id="due_date" data-value="{{ $showLocation->due_date != null ? $showLocation->due_date->format('Y/m/d') : '' }}" placeholder="Enter Due Date" />
 
                                     <label for="due_date">Total Balance Due</label>
+									<i class="fas fa-calendar input-prefix" tabindex=0></i>
                                 </div>
 
                             </div>
@@ -463,8 +486,8 @@
 												@foreach($getPaymentOptions as $payment)
 
 													<tr>
-														<td class="pt-3-half"><textarea class="bg-transparent border-0 h-auto md-textarea text-center w-100" name="description" placeholder="Enter Description">{{ $payment->payment_description }}</textarea></td>
-														<td class="pt-3-half">
+														<td class="pt-3-half align-middle"><textarea class="bg-transparent border-0 h-auto md-textarea text-center w-100" name="description" placeholder="Enter Description">{{ $payment->payment_description }}</textarea></td>
+														<td class="pt-3-half align-middle">
 															<div class="" id="">
 																<!-- Material inline 1 -->
 																<div class="form-check form-check-inline col-auto">
@@ -480,7 +503,7 @@
 															</div>
 														</td>
 
-														<td>
+														<td class="align-middle">
 															<span class="table-delete"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
 														</td>
 														<td class="pt-3-half" hidden><input type="text" name="trip" value="{{ $showLocation->id }}" /></td>
@@ -493,15 +516,15 @@
 											@else
 
 												<tr class="blankActivity">
-													<td colspan="3" rowspan="1" class="">No Payment Options Added Yet</td>
+													<td colspan="3" rowspan="1" class="align-middle">No Payment Options Added Yet</td>
 												</tr>
 
 											@endif
 
 											<!-- This is our clonable table line -->
 											<tr class="hide">
-												<td class="pt-3-half"><textarea class="bg-transparent border-0 h-auto md-textarea text-center w-100" name="description" placeholder="Enter Description"></textarea></td>
-												<td class="pt-3-half">
+												<td class="pt-3-half align-middle"><textarea class="bg-transparent border-0 h-auto md-textarea text-center w-100" name="description" placeholder="Enter Description"></textarea></td>
+												<td class="pt-3-half align-middle">
 													<!-- Material inline 1 -->
 													<div class="form-check form-check-inline col-auto">
 														<input type="radio" class="form-check-input reoccuringCheckBox" name="occurrence" value="reoccurring" id="">
@@ -514,7 +537,7 @@
 														<label class="form-check-label" for="">One Time</label>
 													</div>
 												</td>
-												<td>
+												<td class="align-middle">
 													<span class="table-save"><button type="button" class="btn btn-info btn-rounded btn-sm my-0">Save</button></span>
 													<span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
 												</td>
@@ -554,8 +577,8 @@
 												@foreach($getInclusions as $inclusion)
 
 													<tr>
-														<td class="pt-3-half"><textarea class="bg-transparent border-0 h-auto md-textarea text-center w-100" name="description" placeholder="Enter Description">{{ $inclusion->description }}</textarea></td>
-														<td>
+														<td class="pt-3-half align-middle"><textarea class="bg-transparent border-0 h-auto md-textarea text-center w-100" name="description" placeholder="Enter Description">{{ $inclusion->description }}</textarea></td>
+														<td class="align-middle">
 															<span class="table-delete"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
 														</td>
 
@@ -569,15 +592,15 @@
 											@else
 
 												<tr class="blankActivity">
-													<td colspan="2" rowspan="1" class="">No Inclusions Added Yet</td>
+													<td colspan="2" rowspan="1" class="align-middle">No Inclusions Added Yet</td>
 												</tr>
 
 											@endif
 
 											<!-- This is our clonable table line -->
 											<tr class="hide">
-												<td class="pt-3-half"><textarea class="bg-transparent border-0 h-auto md-textarea text-center w-100" name="description" placeholder="Enter Description"></textarea></td>
-												<td>
+												<td class="pt-3-half align-middle"><textarea class="bg-transparent border-0 h-auto md-textarea text-center w-100" name="description" placeholder="Enter Description"></textarea></td>
+												<td class="align-middle">
 													<span class="table-save"><button type="button" class="btn btn-info btn-rounded btn-sm my-0">Save</button></span>
 													<span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
 												</td>
@@ -617,13 +640,13 @@
 												@foreach($getConditions as $condition)
 
 													<tr>
-														<td class="pt-3-half"><textarea class="bg-transparent border-0 h-auto md-textarea text-center w-100" name="description" placeholder="Enter Description">{{ $condition->description }}</textarea></td>
-														<td>
+														<td class="pt-3-half align-middle"><textarea class="bg-transparent border-0 h-auto md-textarea text-center w-100" name="description" placeholder="Enter Description">{{ $condition->description }}</textarea></td>
+														<td class="align-middle">
 															<span class="table-delete"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
 														</td>
-														<td class="pt-3-half" hidden><input type="text" name="trip" value="{{ $showLocation->id }}" /></td>
-														<td class="pt-3-half" hidden><input type="text" name="trip_conditions" value="true"></td>
-														<td class="pt-3-half" hidden><input type="text" name="condition_option" value="{{ $condition->id }}"></td>
+														<td class="pt-3-half align-middle" hidden><input type="text" name="trip" value="{{ $showLocation->id }}" /></td>
+														<td class="pt-3-half align-middle" hidden><input type="text" name="trip_conditions" value="true"></td>
+														<td class="pt-3-half align-middle" hidden><input type="text" name="condition_option" value="{{ $condition->id }}"></td>
 													</tr>
 
 												@endforeach
@@ -631,15 +654,15 @@
 											@else
 
 												<tr class="blankActivity">
-													<td colspan="2" rowspan="1" class="">No Conditions Added Yet</td>
+													<td colspan="2" rowspan="1" class=" align-middle">No Conditions Added Yet</td>
 												</tr>
 
 											@endif
 
 											<!-- This is our clonable table line -->
 											<tr class="hide">
-												<td class="pt-3-half"><textarea class="bg-transparent border-0 h-auto md-textarea text-center w-100" name="description" placeholder="Enter Description"></textarea></td>
-												<td>
+												<td class="pt-3-half align-middle"><textarea class="bg-transparent border-0 h-auto md-textarea text-center w-100" name="description" placeholder="Enter Description"></textarea></td>
+												<td class="align-middle">
 													<span class="table-save"><button type="button" class="btn btn-info btn-rounded btn-sm my-0">Save</button></span>
 													<span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
 												</td>
@@ -667,7 +690,7 @@
 											<a href="#!" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
 										</span>
 
-										<table class="table table-bordered text-center">
+										<table class="table table-bordered text-center" id="trip_activities_table">
 
 											<tr class="">
 												<th scope="col">Activity Name</th>
@@ -684,10 +707,10 @@
 												@foreach($getCurrentEvents as $activity)
 													<tr>
 
-														<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="trip_event" value="{{ $activity->trip_event }}" placeholder="Enter Activity/Event" /></td>
-														<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="activity_location" value="{{ $activity->activity_location }}" placeholder="Enter Activity Location" /></td>
-														<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100 datepicker" data-value="{{ $activity->activity_date }}" name="activity_date" placeholder="Select A Date" /></td>
-														<td>
+														<td class="align-middle"><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="activity_event" value="{{ $activity->trip_event }}" placeholder="Enter Activity/Event" /></td>
+														<td class="align-middle"><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="activity_location" value="{{ $activity->activity_location }}" placeholder="Enter Activity Location" /></td>
+														<td class="align-middle"><div class="md-form input-with-post-icon datepicker"><input type="text" class="bg-transparent border-0 h-auto text-center w-100 form-control" data-value="{{ $activity->activity_date }}" name="activity_date" placeholder="Select A Date" /><i class="fas fa-calendar input-prefix" tabindex=0></i></div></td>
+														<td class="align-middle">
 															<div class="btn-group">
 																<button type="button" class="btn yesBtn{{ $activity->show_activity == 'Y' ? ' btn-success active' : ' stylish-color' }}">
 																	<input type="checkbox" name="show_activity" value="Y" {{ $activity->show_activity == 'Y' ? 'checked' : '' }} hidden />Yes
@@ -697,7 +720,7 @@
 																</button>
 															</div>
 														</td>
-														<td>
+														<td class="align-middle">
 															<span class="table-delete"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
 														</td>
 														<td class="pt-3-half" hidden><input type="text" name="trip" value="{{ $showLocation->id }}" /></td>
@@ -709,7 +732,7 @@
 											@else
 
 												<tr class="blankActivity">
-													<td colspan="5" rowspan="1" class="">No Activities Added Yet</td>
+													<td colspan="5" rowspan="1" class="align-middle">No Activities Added Yet</td>
 												</tr>
 
 											@endif
@@ -717,10 +740,10 @@
 											<!-- This is our clonable table line -->
 											<tr class="newActivityRow hide">
 
-												<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="trip_event" placeholder="Enter Activity Name" /></td>
-												<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="activity_location" placeholder="Enter Activity Location" /></td>
-												<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100 new_activity_date" id="" name="activity_date" placeholder="Select A Date" /></td>
-												<td>
+												<td class="align-middle"><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="activity_event" placeholder="Enter Activity Name" /></td>
+												<td class="align-middle"><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="activity_location" placeholder="Enter Activity Location" /></td>
+												<td class="align-middle"><div class="new_activity_date"><input type="text" class="bg-transparent border-0 h-auto text-center w-100 form-control" id="" name="activity_date" placeholder="Select A Date" /><i class="fas fa-calendar input-prefix" tabindex=0></i></div></td>
+												<td class="align-middle">
 													<div class="btn-group">
 														<button type="button" class="btn yesBtn stylish-color" style="">
 															<input type="checkbox" name="show_activity" value="Y" hidden />Yes
@@ -730,7 +753,7 @@
 														</button>
 													</div>
 												</td>
-												<td>
+												<td class="align-middle">
 													<span class="table-save"><button type="button" class="btn btn-info btn-rounded btn-sm my-0">Save</button></span>
 													<span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
 												</td>
@@ -751,12 +774,16 @@
 							<!-- Editable table -->
 							<div class="card">
 								<h3 class="card-header text-center font-weight-bold text-uppercase py-4 yellow lighten-1">Trip Participants</h3>
+
 								<div class="card-body">
+
+									<h4 class="h4 h4-responsive text-center coolText8 dark-grey-text">To add a particpant, go to their contact profile <a href="{{ route('contacts.index') }}">here</a> and select the trip you would like to add them to.</h4>
+
 									<div id="table_wrapper_5" class="table-editable">
 
-										<span class="table-add float-right mb-3 mr-2">
-											<a href="#!" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
-										</span>
+										{{--<span class="table-add float-right mb-3 mr-2">--}}
+											{{--<a href="#!" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>--}}
+										{{--</span>--}}
 
 										<table class="table table-bordered text-center">
 
@@ -768,10 +795,9 @@
 											<tr class="">
 												<th>First</th>
 												<th>Last</th>
-												<th>Email</th>
-												<th>Phone</th>
 												<th>Notes</th>
 												<th>PIF</th>
+												<th>View</th>
 												<th>Remove</th>
 											</tr>
 
@@ -779,12 +805,10 @@
 
 												@foreach($getEventUsers as $user)
 													<tr>
-														<td><input type="text" name="first_name" class="bg-transparent border-0 h-auto text-center w-100" value="{{ $user->first_name }}" /></td>
-														<td><input type="text" name="last_name" class="bg-transparent border-0 h-auto text-center w-100" value="{{ $user->last_name }}" /></td>
-														<td><input type="text" name="email" class="bg-transparent border-0 h-auto text-center w-100" value="{{ $user->email }}" /></td>
-														<td><input type="text" name="phone" class="bg-transparent border-0 h-auto text-center w-100" value="{{ $user->phone }}" /></td>
-														<td><input type="text" name="notes" class="bg-transparent border-0 h-auto text-center w-100" value="{{ $user->notes }}" /></td>
-														<td>
+														<td class="align-middle"><input type="text" name="first_name" class="bg-transparent border-0 h-auto text-center w-100" value="{{ $user->first_name }}" /></td>
+														<td class="align-middle"><input type="text" name="last_name" class="bg-transparent border-0 h-auto text-center w-100" value="{{ $user->last_name }}" /></td>
+														<td class="align-middle"><textarea name="notes" class="bg-transparent border-0 h-auto text-center w-100" placeholder="Enter Notes for Particpant">{{ $user->notes }}</textarea></td>
+														<td class="align-middle">
 															<div class="btn-group">
 																<button type="button" class="btn yesBtn{{ $user->paid_in_full == 'Y' ? ' btn-success active' : ' stylish-color' }}" style="">
 																	<input type="checkbox" name="pif" value="Y" {{ $user->paid_in_full == 'Y' ? 'checked' : '' }} hidden />Yes
@@ -793,7 +817,14 @@
 																	<input type="checkbox" name="pif" value="N" {{ $user->paid_in_full == 'N' ? 'checked' : '' }} hidden />No
 																</button>
 															</div>
-														<td>
+														<td class="align-middle">
+															@if($user->contact != null)
+																<span class="table-view"><a href="{{ route('contacts.edit', $user->contact->id) }}" type="button" class="btn btn-info btn-rounded btn-sm my-0">View</a></span>
+															@else
+																<span class="table-view"><a href="#" type="button" class="btn btn-info btn-rounded btn-sm my-0 disabled">View</a></span>
+															@endif
+														</td>
+														<td class="align-middle">
 															<span class="table-delete"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
 														</td>
 														<td class="pt-3-half" hidden><input type="text" name="trip" value="{{ $showLocation->id }}" /></td>
@@ -812,32 +843,31 @@
 											@endif
 
 											<!-- This is our clonable table line -->
-											<tr class="newParticipantRow hide">
+											{{--<tr class="newParticipantRow hide">--}}
 
-												<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="first_name" placeholder="Enter First Name" /></td>
-												<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="last_name" placeholder="Enter Last Name" /></td>
-												<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="email" placeholder="Enter Email" /></td>
-												<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="phone" placeholder="Enter Phone Number" /></td>
-												<td><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="notes" placeholder="Enter Notes" /></td>
+												{{--<td class="align-middle"><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="first_name" placeholder="Enter First Name" /></td>--}}
+												{{--<td class="align-middle"><input type="text" class="bg-transparent border-0 h-auto text-center w-100" name="last_name" placeholder="Enter Last Name" /></td>--}}
+												{{--<td class="align-middle"><textarea class="bg-transparent border-0 h-auto text-center w-100" name="notes" placeholder="Enter Notes for Particpant"></textarea></td>--}}
 
-												<td>
-													<div class="btn-group">
-														<button type="button" class="btn stylish-color yesBtn" style="">
-															<input type="checkbox" name="pif" value="Y" hidden />Yes
-														</button>
-														<button type="button" class="btn btn-danger active noBtn" style="">
-															<input type="checkbox" name="pif" value="N" checked hidden />No
-														</button>
-													</div>
-												</td>
-												<td>
-													<span class="table-save"><button type="button" class="btn btn-info btn-rounded btn-sm my-0">Save</button></span>
-													<span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-												</td>
-												<td class="pt-3-half" hidden><input type="text" name="trip" value="{{ $showLocation->id }}" /></td>
-												<td class="pt-3-half" hidden><input type="text" name="trip_participants" value="true"></td>
-											</tr>
-
+												{{--<td class="align-middle">--}}
+													{{--<div class="btn-group">--}}
+														{{--<button type="button" class="btn stylish-color yesBtn" style="">--}}
+															{{--<input type="checkbox" name="pif" value="Y" hidden />Yes--}}
+														{{--</button>--}}
+														{{--<button type="button" class="btn btn-danger active noBtn" style="">--}}
+															{{--<input type="checkbox" name="pif" value="N" checked hidden />No--}}
+														{{--</button>--}}
+													{{--</div>--}}
+												{{--</td>--}}
+												{{--<td class="align-middle">--}}
+													{{--<span class="table-save"><button type="button" class="btn btn-info btn-rounded btn-sm my-0">Save</button></span>--}}
+												{{--</td>--}}
+												{{--<td class="align-middle">--}}
+													{{--<span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>--}}
+												{{--</td>--}}
+												{{--<td class="pt-3-half" hidden><input type="text" name="trip" value="{{ $showLocation->id }}" /></td>--}}
+												{{--<td class="pt-3-half" hidden><input type="text" name="trip_participants" value="true"></td>--}}
+											{{--</tr>--}}
 										</table>
 									</div>
 								</div>

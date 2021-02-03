@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Contact;
 use App\DistributionList;
 use App\TripLocations;
 use App\TripActivities;
 use App\TripCosts;
 use App\TripPictures;
-use function GuzzleHttp\Psr7\parse_query;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
-use Illuminate\Http\File;
-use Carbon\Carbon;
-use phpDocumentor\Reflection\DocBlock\Description;
 
 class TripLocationsController extends Controller
 {
@@ -168,8 +164,7 @@ class TripLocationsController extends Controller
      * @param  \App\Trip_Locations  $trip_Locations
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
 		$tripLocation   = TripLocations::find($id);
 		$fileUpdated = '';
 		
@@ -253,6 +248,11 @@ class TripLocationsController extends Controller
     public function destroy(TripLocations $location) {
 	    //Remove trip
 	    if($location->delete()) {
+
+		    foreach($location->participants as $trip_participant) {
+			    $trip_participant->delete();
+		    }
+
 		    return redirect()->action('TripLocationsController@index')->with('status', 'Trip Removed Successfully');
 	    }
     }
@@ -264,7 +264,11 @@ class TripLocationsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function ajax_add(Request $request) {
-	    $results = (object) parse_query($request->trip_additions);
+    	//Parse the query string
+	    parse_str($request->trip_additions, $results);
+	    //Covert array into object
+	    $results = (object) $results;
+	    //Find the trip to update
 	    $trip = $showLocation = TripLocations::find($request->trip_id);
 
 	    if(isset($results->trip_includes)) {
@@ -290,31 +294,13 @@ class TripLocationsController extends Controller
 	    } elseif(isset($results->trip_activities)) {
 
 		    $newValue = $create_activity = $trip->activities()->create([
-			    'trip_event'        => $results->trip_event,
+			    'trip_event'        => $results->activity_event,
 			    'activity_location' => $results->activity_location,
 			    'show_activity'     => $results->show_activity,
 			    'activity_date'     => $results->activity_date,
 		    ]);
 
 	    } else {
-		    $contact = new DistributionList();
-
-		    $contact->first_name    = $results->first_name;
-		    $contact->last_name     = $results->last_name;
-		    $contact->email         = $results->email;
-		    $contact->phone         = $results->phone;
-
-		    if($contact->save()) {
-			    $newValue = $create_participant = $trip->participants()->create([
-				    'first_name'        => $contact->first_name,
-				    'last_name'         => $contact->last_name,
-				    'paid_in_full'      => $results->pif,
-				    'email'             => $contact->email,
-				    'phone'             => $contact->phone,
-				    'notes'             => $results->notes,
-				    'parent_acct_id'    => $contact->id
-			    ]);
-		    }
 
 	    }
 
@@ -327,9 +313,12 @@ class TripLocationsController extends Controller
      * @param  \App\Trip_Locations  $trip_Locations
      * @return \Illuminate\Http\Response
      */
-    public function ajax_update(Request $request)
-    {
-	    $results = (object) parse_query($request->trip_updates);
+    public function ajax_update(Request $request) {
+    	//Parse the query string
+	    parse_str($request->trip_updates, $results);
+	    //Covert array into object
+	    $results = (object) $results;
+    	//Find the trip to update
 	    $trip = TripLocations::find($request->trip_id);
 
 	    if(isset($results->trip_includes)) {
@@ -368,14 +357,13 @@ class TripLocationsController extends Controller
 		    }
 
 	    } elseif(isset($results->trip_activities)) {
-//	    	dd(new Carbon($results->activity_date));
 		    // Get the activity
 		    $activity = $trip->activities()->find($results->activity_option);
 
 		    // Update the activity fields
-		    $activity->trip_event = $results->trip_event;
+		    $activity->trip_event = $results->activity_event;
 		    $activity->activity_location = $results->activity_location;
-		    $activity->show_activity = $results->show_activity;
+		    $activity->show_activity = $results->show_activity == 'N' ? 'Y' : 'N';
 		    $activity->activity_date = $results->activity_date;
 
 		    if($activity->save()) {
@@ -389,10 +377,25 @@ class TripLocationsController extends Controller
 		    // Update the participant fields
 		    $participant->first_name = $results->first_name;
 		    $participant->last_name = $results->last_name;
-		    $participant->paid_in_full = $results->pif;
-		    $participant->email = $results->email;
-		    $participant->phone = $results->phone;
+		    $participant->paid_in_full = $results->pif == 'N' ? 'Y' : 'N';
 		    $participant->notes = $results->notes;
+
+		    //Update the parent contact if name changes
+		    if($participant->contact != null) {
+			    $participant->contact->first_name = $results->first_name;
+			    $participant->contact->last_name = $results->last_name;
+
+			    if($participant->contact->save()) {
+			        //Check of there are any more trips
+				    //this contact is added too
+				    foreach($participant->contact->trips as $trip_participant) {
+					    $trip_participant->first_name = $results->first_name;
+					    $trip_participant->last_name = $results->last_name;
+
+					    $trip_participant->save();
+				    }
+			    }
+		    }
 
 		    if($participant->save()) {
 				return 'Participant information updated';
@@ -427,34 +430,17 @@ class TripLocationsController extends Controller
     }
 
 	/**
-	 * Update the specified resource from storage.
-	 *
-	 * @param  \App\Trip_Locations  $location
-	 * @param  \App\DistributionList  $participant
-	 * @return \Illuminate\Http\Response
-	 */
-	public function add_contact(Request $request, DistributionList $participant, TripLocations $location)
-	{
-		$location->participants()->create([
-			'first_name'        => $participant->first_name,
-			'last_name'         => $participant->last_name,
-			'email'             => $participant->email,
-			'phone'             => $participant->phone,
-			'parent_acct_id'    => $participant->id
-		]);
-
-		return 'Successful';
-	}
-
-	/**
 	 * Delete the specified resource to storage from Ajax request.
 	 *
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function ajax_delete(Request $request)
-	{
-		$results = (object) parse_query($request->trip_deletions);
+	public function ajax_delete(Request $request) {
+		//Parse the query string
+		parse_str($request->trip_deletions, $results);
+		//Covert array into object
+		$results = (object) $results;
+		//Find the trip to update
 		$trip = TripLocations::find($request->trip_id);
 
 		if(isset($results->trip_includes)) {
@@ -497,5 +483,24 @@ class TripLocationsController extends Controller
 				return 'Participant information removed';
 			}
 		}
+	}
+
+	/**
+	 * Update the specified resource from storage.
+	 *
+	 * @param  \App\Trip_Locations  $location
+	 * @param  \App\DistributionList  $participant
+	 * @return \Illuminate\Http\Response
+	 */
+	public function add_contact(Request $request, Contact $participant, TripLocations $location) {
+		$location->participants()->create([
+			'contact_id'    => $participant->id,
+			'first_name'    => $participant->first_name,
+			'last_name'     => $participant->last_name,
+			'email'         => $participant->email,
+			'phone'         => $participant->phone,
+		]);
+
+		return 'Successful';
 	}
 }
