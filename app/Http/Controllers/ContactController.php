@@ -92,7 +92,7 @@ class ContactController extends Controller
 			if($tripParticipant->isEmpty()) {
 				$participant = new DistributionList();
 
-				$participant->trip_id       = $trip->trip_id;
+				$participant->trip_id       = $trip->id;
 				$participant->contact_id    = $contact->id;
 				$participant->first_name    = $contact->first_name;
 				$participant->last_name     = $contact->last_name;

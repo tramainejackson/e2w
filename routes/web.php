@@ -13,12 +13,12 @@
 
 Auth::routes();
 
-Route::get('/test', function() {
-	$contact = App\Contact::find(2);
-	$participant = $contact->trips->first();
-
-	return view('emails.new_message', compact('contact', 'participant'));
-})->name('test');
+//Route::get('/test', function() {
+//	$contact = App\Contact::find(2);
+//	$participant = $contact->trips->first();
+//
+//	return view('emails.new_message', compact('contact', 'participant'));
+//})->name('test');
 
 /* Overwrite the default login/register controller */
 Route::post('/login', 'Auth\LoginController@authenticate');
