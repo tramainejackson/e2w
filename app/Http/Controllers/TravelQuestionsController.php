@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\TravelQuestions;
+use App\Mail\Question;
 use Illuminate\Http\Request;
 
 class TravelQuestionsController extends Controller
@@ -59,6 +60,9 @@ class TravelQuestionsController extends Controller
 		$question->user_question = $request->question_text;
 		
 		if($question->save()) {
+			//Send mail to somebody
+			\Mail::to('jackson521961@gmail.com')->send(new Question($question));
+
 			return redirect()->back()->with('status', 'Question received. We will get back to you as soon as possible.');
 		} else {
 			return redirect()->back()->with('status', 'Question not received. Please try sending again.');
