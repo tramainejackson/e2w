@@ -17,7 +17,7 @@
 						@php $tripMonth = DB::table('vacation_month')->select('month_name')->where('month_id', $trip->trip_month)->first(); @endphp
 
 						<!-- Card -->
-						<div class="card card-cascade wider reverse">
+						<div class="card card-cascade wider reverse mb-5">
 
 							<!-- Card image -->
 							<div class="view view-cascade overlay">
@@ -36,7 +36,7 @@
 								<!-- Subtitle -->
 								<h6 class="font-weight-bold indigo-text py-2">{{ $tripMonth->month_name . " ". $trip->trip_year }}</h6>
 								<!-- Text -->
-								<p class="card-text">{{ $trip->description == null ? '' : $trip->description }}</p>
+								<p class="card-text">{{ $trip->description == null ? 'No futher information at this time' : $trip->description }}</p>
 
 								<a href="{{ route('location.show', $trip->id) }}" class="btn btn-primary btn-rounded btn-lg">Click for more information</a>
 
@@ -102,8 +102,7 @@
 								<h5 class="card-title">{{ ucwords($tripMonth->month_name) . ' ' . $trip->trip_year }}</h5>
 
 								<!--Text-->
-								<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-									content.</p>
+								<p class="card-text">{{ ucwords($trip->description) }}</p>
 
 								<!-- Read more button -->
 								<a class="btn btn-success btn-md" href="{{ route('location.show', $trip->id) }}">View More</a>
