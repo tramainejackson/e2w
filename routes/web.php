@@ -30,8 +30,6 @@ Route::resource('/contacts', 'ContactController');
 
 Route::get('/', 'HomeController@index')->name('welcome');
 
-Route::get('/past', 'HomeController@past')->name('past');
-
 Route::get('/photos', 'TripPicturesController@mobile_index')->name('photos');
 
 Route::get('/about_us', function() {
