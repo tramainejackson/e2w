@@ -5,7 +5,6 @@ $(document).ready(function() {
 	});
 
 	// Commonly user variables
-	var mobileNavHeight = $('.mobileNavBar').outerHeight();
 	var documentHeight = $(document).height();
 	var winHeight = window.innerHeight;
 	var winWidth = window.innerWidth;
@@ -51,11 +50,6 @@ $(document).ready(function() {
         }
     }
 
-    if($('body').height() < screenHeight) {
-        $('#main_content').css({'minHeight' : '100vh'});
-        $('.page-footer').css({'position' : 'fixed', 'right' : 0, 'left' : 0, 'bottom' : 0});
-    }
-
     // Material Select Initialization
 	$('.mdb-select').materialSelect();
 
@@ -66,9 +60,6 @@ $(document).ready(function() {
         selectMonths: true,
         selectYears: true
     });
-
-	// Make carousel items a minimum height of the document window
-	$('.mobileCarousel .carousel-item > div').css({'minHeight': (documentHeight - mobileNavHeight)});
 
 	// Make carousel items a minimum height of the document window
 	$('.carousel').css({'maxHeight': (winHeight)});

@@ -122,28 +122,48 @@ class TripLocations extends Model
 	/**
      * Get the the active trips.
      */
-    public function scopeActive($query)
-    {
-        return $query->where([
-	        ['show_trip', 'Y'],
-	        ['trip_complete', 'N'],
-        ])
-        ->orderBy('trip_year', 'desc')
-        ->orderBy('trip_month', 'desc')
-        ->get();
+    public function scopeActive($query, $limit=0) {
+	    if($limit > 0) {
+		    return $query->where([
+			    ['show_trip', 'Y'],
+			    ['trip_complete', 'N'],
+		    ])
+			    ->orderBy('trip_year', 'desc')
+			    ->orderBy('trip_month', 'desc')
+			    ->limit($limit)
+			    ->get();
+	    } else {
+		    return $query->where([
+			    ['show_trip', 'Y'],
+			    ['trip_complete', 'N'],
+		    ])
+		    ->orderBy('trip_year', 'desc')
+		    ->orderBy('trip_month', 'desc')
+		    ->get();
+	    }
     }
 
 	/**
      * Get the the inactive trips.
      */
-    public function scopeInactive($query)
-    {
-        return $query->where([
-	        ['show_trip', 'Y'],
-	        ['trip_complete', 'Y'],
-        ])
-        ->orderBy('trip_year', 'desc')
-        ->orderBy('trip_month', 'desc')
-        ->get();
+    public function scopeInactive($query, $limit=0) {
+    	if($limit > 0) {
+		    return $query->where([
+			    ['show_trip', 'Y'],
+			    ['trip_complete', 'Y'],
+		    ])
+		    ->orderBy('trip_year', 'desc')
+		    ->orderBy('trip_month', 'desc')
+		    ->limit($limit)
+		    ->get();
+	    } else {
+		    return $query->where([
+			    ['show_trip', 'Y'],
+			    ['trip_complete', 'Y'],
+		    ])
+		    ->orderBy('trip_year', 'desc')
+		    ->orderBy('trip_month', 'desc')
+		    ->get();
+	    }
     }
 }

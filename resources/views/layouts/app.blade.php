@@ -35,6 +35,14 @@
 		<link type="text/css" href="/css/myIEcss.css" rel="stylesheet">
 	@endif
 
+	@if(strlen(request()->getPathInfo()) > 1)
+		<style type="text/css">
+			 .navbar, .top-nav-collapse {
+				background-color: #4285f4;
+			}
+		</style>
+	@endif
+
 	@yield('styles')
 </head>
 
@@ -52,42 +60,19 @@
 
 	<div id="app">
 
-		@if(Auth::check())
+		<!--Navigation-->
+		@include('content_parts.nav')
 
-			<!--Navigation-->
-			@include('content_parts.admin_nav')
+		<!--Main Layout-->
+		<main id="main_content" class="container-fluid">
 
-			<!--Main Layout-->
-			<main id="admin_page">
+			<div class="row">
 
-				<div class="container-fluid">
+				{{-- Page Content--}}
+				@yield('content')
 
-					{{-- Page Content--}}
-					@yield('content')
-
-				</div>
-			</main>
-
-		@else
-
-			<div id="main_content" class="container-fluid">
-
-				<div class="row">
-
-					<div class="col-12 px-0">
-
-						<!--Navigation-->
-						@include('content_parts.nav')
-					</div>
-
-					{{-- Page Content--}}
-					@yield('content')
-
-				</div>
 			</div>
-
-		@endif
-
+		</main>
 	</div>
 
 	@if(!Auth::check())

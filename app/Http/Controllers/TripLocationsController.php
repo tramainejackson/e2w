@@ -20,9 +20,8 @@ class TripLocationsController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth')->except('show');
+    public function __construct() {
+        $this->middleware('auth')->except(['show', 'web_index']);
     }
 	
     /**
@@ -30,10 +29,23 @@ class TripLocationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         $getLocations = TripLocations::all();
+
 		return view('admin.locations.index', compact('getLocations'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function web_index() {
+	    $trips = TripLocations::all();
+	    $activeTrips = TripLocations::active();
+	    $inactiveTrips = TripLocations::inactive();
+
+	    return view('trips', compact('trips', 'inactiveTrips', 'activeTrips'));
     }
 
     /**
@@ -41,8 +53,7 @@ class TripLocationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         $getYear = DB::table('vacation_year')->get();
 		$getMonth = DB::table('vacation_month')->get();
 		
@@ -129,8 +140,7 @@ class TripLocationsController extends Controller
      * @param  \App\Trip_Locations  $location
      * @return \Illuminate\Http\Response
      */
-    public function show(TripLocations $location)
-    {
+    public function show(TripLocations $location) {
         $tripLocation = $location;
 
 		return view('admin.locations.show', compact('tripLocation'));

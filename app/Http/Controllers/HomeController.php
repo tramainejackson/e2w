@@ -28,10 +28,17 @@ class HomeController extends Controller
     public function index() {
 		$trips = TripLocations::all();
 		$activeTrips = TripLocations::active();
-		$inactiveTrips = TripLocations::inactive();
-		$tripsPics = TripPicture::all();
-		
-		return view('welcome', compact('trips', 'inactiveTrips', 'tripsPics', 'activeTrips'));
+	    $tripsPics = TripPicture::all();
+	    $getInactiveTrips = TripLocations::inactive(7);
+	    $inactiveTrips = collect();
+
+	    foreach($getInactiveTrips as $trip) {
+	    	if($trip->description != null) {
+			    $inactiveTrips->push($trip);
+		    }
+	    }
+
+	    return view('welcome', compact('trips', 'inactiveTrips', 'tripsPics', 'activeTrips'));
     }
 	
 	 /**

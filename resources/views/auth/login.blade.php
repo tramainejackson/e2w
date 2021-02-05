@@ -1,47 +1,50 @@
 @extends('layouts.app')
 
 	@section('content')
-{{--{{dd($errors)}}--}}
-		<div class="col-12 p-5 text-center">
-			<h2 class="display-3">Login</h2>
-		</div>
 
-		<div class="col-12 col-md-6 mx-auto">
+		<div class="col-12 col-md-8 full-height d-flex align-items-center flex-column justify-content-center mb-md-n5 mx-auto" id="">
 
-			<div class="panel-body rounded p-3">
+			<div class="col-12 p-5 text-center">
+				<h2 class="display-3">Login</h2>
+			</div>
 
-				<form class="form-horizontal" method="POST" action="{{ route('login') }}">
+			<div class="col-12 col-md-10 col-lg-8 mx-auto">
 
-					{{ csrf_field() }}
+				<div class="panel-body rounded p-3">
 
-					<div class="md-form">
+					<form class="form-horizontal" method="POST" action="{{ route('login') }}">
 
-						<input id="email" type="email" class="form-control white-text" name="email" value="{{ old('email') }}" required autofocus>
+						{{ csrf_field() }}
 
-						<label for="email" class="">E-Mail Address</label>
+						<div class="md-form">
 
-						@if(session('errors'))
-							<!--Username/Password Combination error message-->
-							<div class="m-3">
-								<span class="red-text">{{ session('errors') }}</span>
-							</div>
-						@endif
-					</div>
+							<input id="email" type="email" class="form-control white-text" name="email" value="{{ old('email') }}" required autofocus>
 
-					<div class="md-form">
+							<label for="email" class="">E-Mail Address</label>
 
-						<input id="password" type="password" class="form-control white-text" name="password" required>
+							@if(session('errors'))
+								<!--Username/Password Combination error message-->
+								<div class="m-3">
+									<span class="red-text">{{ session('errors') }}</span>
+								</div>
+							@endif
+						</div>
 
-						<label for="password" class="col-md-4 control-label">Password</label>
-					</div>
+						<div class="md-form">
 
-					<div class="md-form">
+							<input id="password" type="password" class="form-control white-text" name="password" required>
 
-						<button type="submit" class="btn btn-primary mx-0">Login</button>
+							<label for="password" class="col-md-4 control-label">Password</label>
+						</div>
 
-						<a class="btn btn-link white mx-0" href="{{ route('password.request') }}">Forgot Your Password?</a>
-					</div>
-				</form>
+						<div class="md-form">
+
+							<button type="submit" class="btn btn-primary mx-0">Login</button>
+
+							<a class="btn btn-link white mx-0" href="{{ route('password.request') }}">Forgot Your Password?</a>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 

@@ -1,8 +1,32 @@
 @extends('layouts.app')
 
+	@section('styles')
+		<style type="text/css">
+			.card-img-top {
+				max-height: 350px;
+			}
+
+			@media only screen and (max-width:575px) {
+
+				.card-img-top {
+					height: 250px;
+					max-height: 250px;
+				}
+			}
+
+			@media only screen and (min-width: 576px) {
+
+				.card-img-top {
+					height: 325px;
+					max-height: 325px;
+				}
+			}
+		</style>
+	@endsection
+
 	@section('content')
 
-		<div id="" class="row">
+		<div id="" class="col-12">
 
 			<div class="col-12">
 				<div class="">

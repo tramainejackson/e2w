@@ -4,14 +4,14 @@
 
 	@section('content')
 
-		<div id="" class="">
+		<div id="" class="col-12">
 
 			<div class="newUserHeader">
 				<h1 class="pageTopicHeader">Select A Trip</h1>
 			</div>
 
 			<div class="row" id="">
-				<div class="col-12 py-4 pl-0">
+				<div class="col-12 py-4">
 					<a href="{{ route('location.create') }}" class="btn btn-success">Add New Trip</a>
 				</div>
 			</div>

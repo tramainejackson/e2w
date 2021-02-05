@@ -14,12 +14,17 @@ body {
     visibility: hidden;
     display: none;
 }
-.container {
-	position: relative;
+
+.navbar {
+    background-color: transparent;
 }
 
-.carousel, .carousel-inner, .carousel-item, .carousel-item.active {
-    height: 100%;
+.scrolling-navbar {
+    transition: background .5s ease-in-out, padding .5s ease-in-out;
+}
+
+.top-nav-collapse {
+    background-color: #4285f4;
 }
 
 .position-right {
@@ -107,10 +112,6 @@ body {
 	-webkit-animation: spin 2s linear infinite; /* Safari */
 	animation: spin 2s linear infinite;
 	margin: 100px auto;
-}
-
-#main_content {
-    background-color: #DEE9FC;
 }
 
 .loadingSpinner p {
@@ -260,7 +261,7 @@ h1#admin_page_header {
 	z-index: 2;
 }
 
-#about_us_div, .panel-body {
+.panel-body {
     background: midnightblue;
 	color: whitesmoke;
 	font-size: 115%;
@@ -272,10 +273,6 @@ p.noValueMessage {
 
 footer {
 	font-family: 'Lobster', cursive;
-}
-
-.card-img-top {
-	max-height: 350px;
 }
 
 a {
@@ -303,10 +300,6 @@ button:hover {
     left:54px;
 }
 
-#main_content {
-	display: inline-block;
-}
-
 #header {
 	font-family: 'Lobster', cursive;
 	text-align: center;
@@ -319,20 +312,16 @@ button:hover {
 	margin: 2% 0% 0% 0%;
 }
 
-.main_content_class {
-	background-color: white;
-	overflow:hidden;
-	opacity: 0.95;
-	padding: 0% 0% 1% 0%;
-}
 .payPalBtnDiv {
     width: 30%;
     margin: 0% 35%;
     font-size: 125%;
 }
+
 .payPalBtnDiv select {
     color: black;
 }
+
 .payPalDiv .signedUpContent {
     background: rgba(64, 60, 56, 0.5);
     padding: 2%;
@@ -629,40 +618,6 @@ div#suggestion_form ul {
     white-space: initial;
 }
 
-.red {
-	border: solid 2px red;
-}
-#home_page #home_btn {
-	background: linear-gradient(whitesmoke, gray); 
-	border:solid 1px gray;
-}
-
-p.event_header {
-	text-align: center;
-	font-size: 500%;
-	color: white;
-	margin: 1% 0%;
-	position: relative;
-	z-index: 1;
-}
-	
-p.event_date {
-	text-align: center;
-	font-size: 300%;
-	margin: 0% 0% 0% 0%;
-	color: white;
-	position: relative;
-	z-index: 1;
-}
-	
-p.more_info {
-	text-align: center;
-	font-size: 125%;
-	color: white;
-	margin: 5% 0% 2% 0%;
-	position: relative;
-	z-index: 1;
-}
 #contact {
 	padding: 1%;
 	position: relative;
@@ -1198,40 +1153,8 @@ div#loading_image img {
 
 /*Smartphones portrait*/
 @media only screen and (max-width:575px) {
-
-    /*div#app:after {*/
-        /*content: "";*/
-        /*position: fixed;*/
-        /*background-image: url(/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg);*/
-        /*background-size: cover;*/
-        /*background-position: center center;*/
-        /*background-repeat: no-repeat;*/
-        /*top: 0;*/
-        /*bottom: 0;*/
-        /*left: 0;*/
-        /*right: 0;*/
-        /*z-index: -1;*/
-    /*}*/
-
     .display-2 {
         font-size: 4.0rem;
-    }
-
-    .showTripMobile::after {
-        content: "";
-        background-image: inherit;
-        background-attachment: fixed;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: -1;
-    }
-
-    .card-img-top {
-        height: 250px;
-        max-height: 250px;
     }
 
     .suggestionResultsPercent {
@@ -1279,84 +1202,11 @@ div#loading_image img {
     }
 }
 /*Coverage between iPad and Smartphone*/
-@media only screen and (min-width:576px) {
-    div#app::after {
-        content: "";
-        position: initial;
-        background-image: initial;
-        background-size: initial;
-        background-position: initial;
-        background-repeat: initial;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: -1;
-    }
+@media only screen and (min-width: 576px) {
 
-    /*div#app {*/
-        /*background-attachment: fixed;*/
-        /*background-image: url("/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg");*/
-        /*background-size: cover;*/
-        /*background-position: center center;*/
-        /*background-repeat:no-repeat;*/
-    /*}*/
-
-    .pictures_east_and_west_btns, #action_btns {
-        display:none;
-    }
-
-    #mobile_action_btns {
-        display: block;
-    }
-
-    .mobileBtns {
-        text-align: -webkit-center;
-        text-align: center;
-        display: none;
-    }
-
-    .mobileBtns button {
-        display: -webkit-inline-box;
-        display: block;
-        width: 100%;
-        /* margin: 0 auto; */
-        border: none;
-        background-color: transparent;
-    }
-
-    .mobileBtns button:not(:last-of-type) {
-        border-bottom: solid 1px;
-    }
-
-    img.menuImg {
-        max-width: 20px;
-        vertical-align: middle;
-    }
-
-    div.mobileMenuBtn {
-        margin: 0% 25% 1%;
-        padding: 2% 0% 0%;
-        font-size: 25px;
-        text-align: -webkit-center;
-        text-align: center;
-    }
-
-    #main_content {
-        width: initial;
-        margin: 0% auto;
-        display: block;
-    }
-
-    button#see_contacts_btn {
-        width: 100%;
-        opacity: 0.9;
-        font-size: 125px;
-    }
-
-    .card-img-top {
-        height: 325px;
-        max-height: 325px;
+    .card-deck .card {
+        -ms-flex: initial;
+        flex: initial;
     }
 
     .mobileLocationFlexShow {
@@ -1470,7 +1320,12 @@ div#loading_image img {
 }
 
 /*Coverage between iPad and Smartphone*/
-@media only screen and (min-width:992px) {
+@media only screen and (min-width: 992px) {
+
+    .card-deck .card {
+        -ms-flex: 1 0 0%;
+        flex: 1 0 0%;
+    }
 
     input.adminPin {
         right: 5%;
@@ -1598,18 +1453,6 @@ div#loading_image img {
 }
 
 @media only screen and (max-width:1199px) {
-    .mobileNavBar {
-        background-color: #f4f4f4 !important;
-    }
-
-    .navbar.navbar-dark .navbar-toggler, .navbar.navbar-dark .navbar-nav .nav-item .nav-link {
-        color: black;
-    }
-
-    .navbar.navbar-dark .navbar-nav .nav-item:hover {
-        background: rgba(135, 190, 222, 0.75);
-        border-radius: 10px;
-    }
 
 	div#app::after {
 		content: "";
@@ -1627,33 +1470,6 @@ div#loading_image img {
 	
 	.mobileLocationFlexShow {
 		background: linear-gradient(transparent, whitesmoke, white, whitesmoke, transparent);
-	}
-
-	/*div#app {*/
-		/*background-attachment: fixed;*/
-		/*background-image: url("/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg");*/
-		/*background-size: cover;*/
-		/*background-position: center center;*/
-		/*background-repeat:no-repeat;*/
-		/*min-height: 100vh;*/
-	/*}*/
-
-	.mobileNavBar {
-		background: #f2f2f2;
-	}
-	
-	.carouselImage {
-		background-size: cover !important;
-		background-position: center center !important;
-		background-repeat:no-repeat !important;
-	}
-	
-	.carousel-caption {
-		z-index: 1;
-	}
-	
-	.carouselTripDescription {
-		margin: 20px 15%;
 	}
 	
 	#headingOne {

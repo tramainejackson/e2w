@@ -42,6 +42,8 @@ Route::get('/contact_us', function() {
 	return view('contact_us');
 })->name('contact_us');
 
+Route::get('/trips', 'TripLocationsController@web_index')->name('web_index');
+
 Route::post('/locations/ajax_add', 'TripLocationsController@ajax_add');
 
 Route::patch('/locations/ajax_update', 'TripLocationsController@ajax_update');

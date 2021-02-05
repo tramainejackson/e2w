@@ -2,9 +2,9 @@
 
 	@section('content')
 
-		<div class="showTrip col-12 px-0" style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url({{ $tripLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $tripLocation->trip_photo)) : '/images/skyline.jpg' }})">
+		<div class="showTrip col-12 px-0 mt-5" style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url({{ $tripLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $tripLocation->trip_photo)) : '/images/skyline.jpg' }})">
 
-			<div class="col rgba-stylish-strong">
+			<div class="col pt-4 rgba-stylish-strong">
 
 				<div class="container-fluid text-light position-relative" style="z-index:1;">
 

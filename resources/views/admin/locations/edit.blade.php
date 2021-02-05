@@ -210,7 +210,7 @@
 
 		@include('modals.delete_trip')
 
-		<div class="row">
+		<div class="col-12">
 
 			<div class="col" id="">
 
@@ -224,7 +224,7 @@
 						<div class="">
 							<h3 class="display-2">{{ $showLocation->trip_location }}
 
-								<div class="d-inline-block ml-5">
+								<div class="d-inline-block ml-md-5">
 									<button data-target="#delete_trip" data-toggle="modal" type="button" class="btn btn-danger ml-0">Remove Trip</button>
 								</div>
 							</h3>
@@ -369,7 +369,7 @@
 								<div class="card-body">
 									<div id="table" class="table-editable">
 
-										<table class="table table-bordered text-center">
+										<table class="table table-bordered text-center table-responsive-sm">
 
 											<tr>
 
@@ -473,7 +473,7 @@
 											<a href="#!" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
 										</span>
 
-										<table class="table table-bordered text-center">
+										<table class="table table-bordered text-center table-responsive-sm">
 
 											<tr>
 												<th class="text-center">Description</th>
@@ -565,7 +565,7 @@
 											<a href="#!" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
 										</span>
 
-										<table class="table table-bordered text-center">
+										<table class="table table-bordered text-center table-responsive-sm">
 
 											<tr>
 												<th class="text-center">Description</th>
@@ -628,7 +628,7 @@
 											<a href="#!" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
 										</span>
 
-										<table class="table table-bordered text-center">
+										<table class="table table-bordered text-center table-responsive-sm">
 
 											<tr>
 												<th class="text-center">Description</th>
@@ -690,7 +690,7 @@
 											<a href="#!" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
 										</span>
 
-										<table class="table table-bordered text-center" id="trip_activities_table">
+										<table class="table table-bordered text-center table-responsive-sm" id="trip_activities_table">
 
 											<tr class="">
 												<th scope="col">Activity Name</th>
@@ -785,7 +785,7 @@
 											{{--<a href="#!" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>--}}
 										{{--</span>--}}
 
-										<table class="table table-bordered text-center">
+										<table class="table table-bordered text-center table-responsive-md">
 
 											<tr class="firstTableRow">
 												<th colspan="2">Name</th>

@@ -1,38 +1,34 @@
 @extends('layouts.app')
 
+
 	@section('styles')
-		<style>
-			/*Smartphones portrait*/
-			@media only screen and (max-width:575px) {
-				div#app {
-					background: initial;
+		<style type="text/css">
+			.card-img-top {
+				max-height: 350px;
 				}
-				
-				div#app:after {
-					content: "";
-					position: fixed;
-					background-image: url(/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg);
-					background-size: cover;
-					background-position: center center;
-					background-repeat: no-repeat;
-					top: 0;
-					bottom: 0;
-					left: 0;
-					right: 0;
-					z-index: -1;
+
+			@media only screen and (max-width:575px) {
+
+				.card-img-top {
+					height: 250px;
+					max-height: 250px;
+				}
+			}
+
+			@media only screen and (min-width: 576px) {
+
+				.card-img-top {
+					height: 325px;
+					max-height: 325px;
 				}
 			}
 		</style>
 	@endsection
 
 	@section('content')
-			
-		<div class="col-12 white-text text-center m-0 p-5 d-xl-none">
-			<h2 class="" style=" font-family: 'Felipa', cursive; text-shadow: 2px 1px 5px #304e4e; font-size: 275%;"><b>Trip Photos</b></h2>
-		</div>
 
-		<div class="col-12 underline d-none d-xl-block p-5 text-center">
-			<h2 class="display-3">Trip Photos</h2>
+		<div class="col-12 p-5 mt-5 text-center">
+			<h2 class="display-3 font-weight-bold">Trip Photos</h2>
 		</div>
 
 		<div class="col-12">

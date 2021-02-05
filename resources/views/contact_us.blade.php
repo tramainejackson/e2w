@@ -1,45 +1,16 @@
 @extends('layouts.app')
 
-	@section('styles')
-		<style>
-			/*Smartphones portrait*/
-			@media only screen and (max-width:575px) {
-				div#app {
-					background: initial;
-				}
-
-				div#app:after {
-					content: "";
-					position: fixed;
-					background-image: url(/images/Jacksonville_Skyline_Night_Panorama_Digon3.jpg);
-					background-size: cover;
-					background-position: center center;
-					background-repeat: no-repeat;
-					top: 0;
-					bottom: 0;
-					left: 0;
-					right: 0;
-					z-index: -1;
-				}
-			}
-		</style>
-	@endsection
-
 	@section('content')
+
+		<div class="col-12 p-5 mt-5 text-center">
+			<h2 class="display-3 font-weight-bold">Contact Us</h2>
+		</div>
 
 		<div class="col-12 mx-auto">
 
-			<div class="row">
-
-				<div class="col-12 underline d-none d-xl-block p-5 text-center" class="">
-					<h2 class="display-3">Contact Us</h2>
-				</div>
-
-			</div>
-
 			<div class="row justify-content-center mb-3">
 
-				<div class="col-11 col-sm-6 col-xl-4 mb-2 mx-auto mx-sm-0">
+				<div class="col-11 col-sm-6 col-lg-4 col-xl-4 mb-2 mx-auto mx-sm-0">
 					<div class="card mx-auto h-100" id="">
 
 						<img class="card-img-top" src="/images/holly13.jpg" />
@@ -52,7 +23,7 @@
 					</div>
 				</div>
 
-				<div class="col-11 col-sm-6 col-xl-4 mb-2 mx-auto mx-sm-0">
+				<div class="col-11 col-sm-6 col-lg-4 col-xl-4 mb-2 mx-auto mx-sm-0">
 
 					<div class="card mx-auto" id="">
 

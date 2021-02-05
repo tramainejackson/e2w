@@ -2,49 +2,31 @@
 
 	@section('content')
 
-		<div class="row">
+		<div class="col-12" id="">
 
-			<div class="col">
-				<div id="users_page_header" class="">
-					<h1 class="pageTopicHeader">All Admins</h1>
-				</div>
+			<div id="users_page_header" class="">
+				<h1 class="pageTopicHeader">All Admins</h1>
 			</div>
 
-		</div>
+			<a href="{{ route('admin.create') }}" class="btn btn-success">Create New User</a>
 
-		<div class="row">
+			<div class="row mt-4">
 
-			<div class="col py-4">
-				<a href="{{ route('admin.create') }}" class="btn btn-success">Create New User</a>
-			</div>
-
-		</div>
-
-		<div class="row">
-
-			<div class="col">
-
-				<div id="all_users">
+				<div id="all_users" class="" style="margin-left: 1.2em;">
 
 					@foreach($getAllusers as $user)
 
-                        @php $user->active == 'Y' ? $user->active = 'Active' : $user->active = 'Inactive'; @endphp
+						@php $user->active == 'Y' ? $user->active = 'Active' : $user->active = 'Inactive'; @endphp
 
-						<div class="">
-							<h2 class="">
-                                <a href="/admin/{{ $user->id }}/edit" class="btn btn-primary mr-2">Edit</a>&nbsp;
-                                <span class="">{{ $user->first_name . " " . $user->last_name }}</span>
-                                <button class='btn {{ $user->active == 'Active' ? 'btn-success' : 'btn-danger' }}' type='button'>{{ $user->active }}</button>
-                                <span class="grey-text font-italic font-small">{{ Auth::id() == $user->id ? ' - Currently Logged In' : '' }}</span>
-                            </h2>
+						<div class="d-flex flex-column justify-content-center align-items-center card z-depth-2 mb-4 py-3 px-2">
+							<a href="/admin/{{ $user->id }}/edit" class="btn btn-primary">Edit</a>
+							<h2 class="order-first text-center">{{ $user->first_name . " " . $user->last_name }}</h2>
+							<button class='btn {{ $user->active == 'Active' ? 'btn-success' : 'btn-danger' }}' type='button'>{{ $user->active }}</button>
+							<span class="grey-text font-italic font-small">{{ Auth::id() == $user->id ? ' - Currently Logged In' : '' }}</span>
 						</div>
-
 					@endforeach
-
 				</div>
-
 			</div>
-
 		</div>
 
 	@endsection
