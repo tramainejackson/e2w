@@ -10,22 +10,22 @@
 
 					<div class="row">
 
-						<div class="col">
+						<div class="col-12 col-xl-2 d-flex align-items-center justify-content-center" id="">
+							{{--Display is absolute--}}
+							@if($tripLocation->flyer_name != "")
+								<a href="{{ asset('storage/' . str_ireplace('public/', '', $tripLocation->flyer_name)) }}" class="btn btn-white btn-lg btn-rounded locationFlyer" download="{{ str_ireplace(' ', '_', ucwords($tripLocation->trip_location)) . '_Flyer' }}">Download Flyer</a>
+							@endif
+						</div>
 
-							<div class="d-flex justify-content-between align-items-center" id="">
-								{{--Display is absolute--}}
-								@if($tripLocation->flyer_name != "")
-									<a href="{{ asset('storage/' . str_ireplace('public/', '', $tripLocation->flyer_name)) }}" class="btn btn-white btn-lg btn-rounded locationFlyer col-2" download="{{ str_ireplace(' ', '_', ucwords($tripLocation->trip_location)) . '_Flyer' }}">Download Flyer</a>
-								@endif
+						<div class="col-12 col-xl-8" id="">
+							<h1 class="text-center display-2 locationName">{{ $tripLocation->trip_location }}</h1>
+						</div>
 
-								<h1 class="text-center display-2 locationName">{{ $tripLocation->trip_location }}</h1>
-
-								{{--Display is absolute--}}
-								@if(Auth::check())
-									<a href="{{ route('location.edit', $tripLocation->id) }}" class="btn btn-primary btn-lg btn-rounded col-2">Back</a>
-								@endif
-
-							</div>
+						<div class="col-12 col-xl-2 d-flex align-items-center justify-content-center" id="">
+							{{--Display is absolute--}}
+							@if(Auth::check())
+								<a href="{{ route('location.edit', $tripLocation->id) }}" class="btn btn-primary btn-lg btn-rounded">Back</a>
+							@endif
 						</div>
 					</div>
 
