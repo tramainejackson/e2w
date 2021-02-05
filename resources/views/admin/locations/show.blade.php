@@ -2,7 +2,7 @@
 
 	@section('content')
 
-		<div class="showTrip col-12 px-0 mt-5" style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url({{ $tripLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $tripLocation->trip_photo)) : '/images/skyline.jpg' }})">
+		<div class="showTrip col-12 px-0 {{ Auth::check() ? 'mt-n5' : 'mt-5' }}" style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url({{ $tripLocation->trip_photo != null ? asset('storage/' . str_ireplace('public/', '', $tripLocation->trip_photo)) : '/images/skyline.jpg' }})">
 
 			<div class="col pt-4 rgba-stylish-strong">
 
@@ -12,15 +12,21 @@
 
 						<div class="col">
 
-                            <h1 class="text-center display-2 locationName">{{ $tripLocation->trip_location }}</h1>
+							<div class="d-flex justify-content-between align-items-center" id="">
+								{{--Display is absolute--}}
+								@if($tripLocation->flyer_name != "")
+									<a href="{{ asset('storage/' . str_ireplace('public/', '', $tripLocation->flyer_name)) }}" class="btn btn-white btn-lg btn-rounded locationFlyer col-2" download="{{ str_ireplace(' ', '_', ucwords($tripLocation->trip_location)) . '_Flyer' }}">Download Flyer</a>
+								@endif
 
-                            {{--Display is absolute--}}
-							@if($tripLocation->flyer_name != "")
-								<a href="{{ asset('storage/' . str_ireplace('public/', '', $tripLocation->flyer_name)) }}" class="btn btn-primary locationFlyer position-absolute d-none d-xl-block" download="{{ str_ireplace(' ', '_', ucwords($tripLocation->trip_location)) . '_Flyer' }}" style="top:20px;">Download Flyer</a>
-							@endif
+								<h1 class="text-center display-2 locationName">{{ $tripLocation->trip_location }}</h1>
 
+								{{--Display is absolute--}}
+								@if(Auth::check())
+									<a href="{{ route('location.edit', $tripLocation->id) }}" class="btn btn-primary btn-lg btn-rounded col-2">Back</a>
+								@endif
+
+							</div>
 						</div>
-
 					</div>
 
 					<div class="row">

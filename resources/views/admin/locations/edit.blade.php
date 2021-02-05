@@ -223,6 +223,9 @@
 						<h3 class="display-2">{{ $showLocation->trip_location }}
 
 							<div class="d-inline-block ml-md-5">
+								<a href="{{ route('location.show', $showLocation->id) }}" type="button" class="btn btn-info ml-0">Review Trip</a>
+							</div>
+							<div class="d-inline-block ml-md-1">
 								<button data-target="#delete_trip" data-toggle="modal" type="button" class="btn btn-danger ml-0">Remove Trip</button>
 							</div>
 						</h3>

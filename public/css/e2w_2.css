@@ -1094,26 +1094,17 @@ div#loading_image img {
 	color: white;
 	z-index: 1;
 }
+
 .vacationDescription {
     margin: 0% 13%;
 }
+
 .content_info h2.tripDescription {
     text-align: -webkit-center;
     text-align: center;
     font-size: 175%;
 }
-.showTrip::after {
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: black;
-	opacity: 0.4;
-	z-index: -2;
-	border-radius: inherit;
-}
+
 .content_info h1.vacation_header {
 	margin: 0% 0%;
 	padding: 1% 1%;
