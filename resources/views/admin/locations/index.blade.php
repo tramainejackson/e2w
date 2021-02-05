@@ -4,7 +4,7 @@
 
 	@section('content')
 
-		<div id="" class="col-12">
+		<div id="" class="col-12 px-5">
 
 			<div class="newUserHeader">
 				<h1 class="pageTopicHeader">Select A Trip</h1>

@@ -4,7 +4,7 @@
 
 	@include('modals.delete_user')
 
-	<div class="col-12" id="all_users">
+	<div class="col-12 px-5" id="all_users">
 
 		<form name="update_user" class="" action="/admin/{{ $user->id }}" method="POST">
 

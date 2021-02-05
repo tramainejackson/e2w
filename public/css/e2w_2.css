@@ -1512,7 +1512,12 @@ div#loading_image img {
 }
 
 /*Larger screens*/
-@media only screen and (min-width:1200px) {
+@media only screen and (min-width: 1200px) {
+
+    .fixed-sn main, .fixed-sn .page-footer .container-fluid {
+        margin-right: 0%;
+        margin-left: 0%;
+    }
 
     .panel-body {
         background: midnightblue;
@@ -1647,7 +1652,7 @@ div#loading_image img {
 }
 
 /*Even Larger Screens*/
-@media only screen and (min-width:1400px) {
+@media only screen and (min-width: 1400px) {
     .maine_modal {
         font-size: 120%;
     }
