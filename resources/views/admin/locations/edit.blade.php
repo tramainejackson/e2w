@@ -683,7 +683,7 @@
 
 						<!-- Editable table -->
 						<div class="card">
-							<h3 class="card-header text-center font-weight-bold text-uppercase py-4 yellow">Trip Activities</h3>
+							<h3 class="card-header text-center font-weight-bold text-uppercase py-4 yellow">Trip Events</h3>
 							<div class="card-body">
 								<div id="table_wrapper_4" class="table-editable">
 

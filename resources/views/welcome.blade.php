@@ -135,7 +135,7 @@
 					<!-- See All Trips Button -->
 					<div class="row">
 						<div class="col-12 col-md-6 mx-auto mb-5" id="">
-							<a href="#" class="btn btn-lg btn-rounded btn-pink btn-block">See All Trips</a>
+							<a href="{{ route('web_index') }}" class="btn btn-lg btn-rounded btn-pink btn-block">See All Trips</a>
 						</div>
 					</div>
 					<!-- See All Trips Button -->
