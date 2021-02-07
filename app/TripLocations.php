@@ -128,8 +128,8 @@ class TripLocations extends Model
 			    ['show_trip', 'Y'],
 			    ['trip_complete', 'N'],
 		    ])
-			    ->orderBy('trip_year', 'desc')
-			    ->orderBy('trip_month', 'desc')
+			    ->orderBy('trip_year', 'asc')
+			    ->orderBy('trip_month', 'asc')
 			    ->limit($limit)
 			    ->get();
 	    } else {
@@ -137,8 +137,8 @@ class TripLocations extends Model
 			    ['show_trip', 'Y'],
 			    ['trip_complete', 'N'],
 		    ])
-		    ->orderBy('trip_year', 'desc')
-		    ->orderBy('trip_month', 'desc')
+		    ->orderBy('trip_year', 'asc')
+		    ->orderBy('trip_month', 'asc')
 		    ->get();
 	    }
     }
