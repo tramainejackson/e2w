@@ -68,6 +68,12 @@
 
 			<div class="row">
 
+				@if(Auth::guest())
+					<div class="col-12 mt-5 mb-n2" id="">
+						<h1 class="font-weight-bold text-uppercase h1 text-center mt-5 coolText4 webHeader">Eastcoast Westcoast Travel</h1>
+					</div>
+				@endif
+
 				{{-- Page Content--}}
 				@yield('content')
 

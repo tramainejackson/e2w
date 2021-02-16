@@ -118,6 +118,13 @@ body {
 	font-size: 300%;
 }
 
+.webHeader {
+    text-shadow: 2px 2px #4f4f4f;
+    background: -webkit-linear-gradient(#eee, #33130a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 @-webkit-keyframes spin {
 	0% { -webkit-transform: rotate(0deg); }
 	100% { -webkit-transform: rotate(360deg); }
