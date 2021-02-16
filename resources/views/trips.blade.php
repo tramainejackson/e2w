@@ -23,7 +23,8 @@
 							<div class="view view-cascade overlay">
 								<img class="card-img-top" src="{{ Storage::disk('local')->has($trip->trip_photo) ? asset('storage/' . str_ireplace('public/', '', $trip->trip_photo)) : '/images/skyline.jpg' }}"
 									 alt="Card image cap">
-								<a href="{{ route('location.show', $trip->id) }}">
+
+								<a href="{{ route('location.show', $trip->id) }}" style="display:initial;">
 									<div class="mask rgba-white-slight"></div>
 								</a>
 							</div>
