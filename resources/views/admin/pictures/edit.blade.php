@@ -52,7 +52,7 @@
 
 									@php $content = Storage::disk('local')->has($picture->picture_name); @endphp
 
-									<div class="col-4 animated">
+									<div class="col-12 col-md-6 col-lg-4 animated">
 
 										<div class="card my-2">
 

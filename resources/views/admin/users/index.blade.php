@@ -19,7 +19,7 @@
 
 							@php $user->active == 'Y' ? $user->active = 'Active' : $user->active = 'Inactive'; @endphp
 
-							<div class="col-4">
+							<div class="col-12 col-md-6 col-lg-4">
 								<div class="d-flex flex-column justify-content-center align-items-center card z-depth-2 mb-4 py-3 px-2">
 									<a href="/admin/{{ $user->id }}/edit" class="btn btn-primary">Edit</a>
 									<h2 class="order-first text-center">{{ $user->first_name . " " . $user->last_name }}</h2>

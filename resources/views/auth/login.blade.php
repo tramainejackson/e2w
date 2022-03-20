@@ -2,9 +2,9 @@
 
 	@section('content')
 
-		<div class="col-12 col-md-8 full-height d-flex align-items-center flex-column justify-content-center mb-md-n5 mx-auto" id="">
+		<div class="col-12 col-md-8 align-items-center flex-column mb-md-n5 mx-auto" id="">
 
-			<div class="col-12 p-5 text-center">
+			<div class="col-12 p-2 p-sm-4 p-md-5 text-center">
 				<h2 class="display-3">Login</h2>
 			</div>
 
@@ -48,4 +48,10 @@
 			</div>
 		</div>
 
+	@endsection
+
+	@section('scripts')
+		<script type="text/javascript">
+			$('footer').addClass('position-fixed w-100');
+		</script>
 	@endsection
