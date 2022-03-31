@@ -240,7 +240,7 @@
 						<div class="md-form input-group">
 							<div class="file-field" id="">
 								<div class="btn btn-primary btn-sm float-left ml-0">
-									<span class="">Change Image</span>
+									<span class="">Change Picture</span>
 									<input type="file" name="trip_photo" class="tripPhotoChange custom-file-input" />
 								</div>
 

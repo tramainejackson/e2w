@@ -90,7 +90,7 @@
 
 			@else
 				<div class="col-12 col-md-6 col-lg-4 py-4 animated">
-					<h2 class="h2">There are no picturs added for this trip yet. Click <a href="{{ route('pictures.create') }}">here</a> to add pictures.</h2>
+					<h2 class="h2">There are no pictures added for this trip yet. Click <a href="{{ route('pictures.create') }}">here</a> to add pictures.</h2>
 				</div>
 			@endif
 

@@ -49,11 +49,11 @@
 							<div class="md-form col-12">
 								<div class="file-field">
 									<div class="btn btn-primary btn-sm float-left">
-										<span>Choose file</span>
+										<span>Choose Pictures To Add</span>
 										<input id="upload_photo_input" type="file" name="upload_photo[]" multiple />
 									</div>
 									<div class="file-path-wrapper">
-										<input class="file-path validate" type="text" placeholder="Upload your file">
+										<input class="file-path validate" type="text" placeholder="Upload your pictures">
 									</div>
 								</div>
 							</div>
