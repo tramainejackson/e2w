@@ -31,10 +31,6 @@
 	<!-- Custom CSS -->
 	<link type="text/css" href="/css/e2w_2.css" rel="stylesheet">
 
-	@if(substr_count(request()->server('HTTP_USER_AGENT'), 'rv:') > 0)
-		<link type="text/css" href="/css/myIEcss.css" rel="stylesheet">
-	@endif
-
 	@if(strlen(request()->getPathInfo()) > 1)
 		<style type="text/css">
 			 .navbar, .top-nav-collapse {
