@@ -13,11 +13,12 @@
 				<div class="col-11 col-sm-6 col-lg-4 col-xl-4 mb-2 mx-auto mx-sm-0">
 					<div class="card mx-auto h-100" id="">
 
-						<img class="card-img-top" src="/images/holly13.jpg" />
+						<img class="card-img-top" src="{{ asset('images/dj1.png') }}" />
 
 						<div class="card-body">
 							<h4 class="card-title">Deborah Jackson</h4>
-							<p class="contact_email">Email: <a href="mailto:jacksond1961@yahoo.com" class="">jacksond1961@yahoo.com</a></p>
+							<p class="contact_email mb-1"><span class="font-weight-bold font-italic">Email:</span>&nbsp;<span><a href="mailto:jacksond1961@yahoo.com" class="">jacksond1961@yahoo.com</a></span></p>
+							<p class="contact_email"><span class="font-weight-bold font-italic">Phone:</span>&nbsp;<span>215-472-6036</span></p>
 						</div>
 
 					</div>
@@ -27,11 +28,12 @@
 
 					<div class="card mx-auto" id="">
 
-						<img class="card-img-top" src="/images/RhondaLambert3.png" />
+						<img class="card-img-top" src="{{ asset('/images/RhondaLambert4.png') }}" />
 
 						<div class="card-body">
 							<h4 class="card-title">Rhonda Lambert</h4>
-							<p class="contact_email">Email: <a href="mailto:rhonda.lambert@sbcglobal.com" class="">rhonda.lambert@sbcglobal.com</a></p>
+							<p class="contact_email mb-1"><span class="font-weight-bold font-italic">Email:</span>&nbsp;<span><a href="mailto:rhonda.lambert@sbcglobal.com" class="">rhonda.lambert@sbcglobal.com</a></span></p>
+							<p class="contact_email"><span class="font-weight-bold font-italic">Phone:</span>&nbsp;<span>707-208-7290</span></p>
 						</div>
 					</div>
 
