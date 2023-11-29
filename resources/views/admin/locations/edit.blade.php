@@ -958,7 +958,7 @@
                         <div class="card-body">
 
                             <h4 class="h4 h4-responsive text-center coolText8 dark-grey-text">To add a particpant, go to
-                                their contact profile <a href="{{ route('contacts.index') }}">here</a> and select the
+                                their contact profile <a href="{{ route('contacts.index') }}" target="_blank">here</a> and select the
                                 trip you would like to add them to.</h4>
 
                             <div id="table_wrapper_5" class="table-editable">
