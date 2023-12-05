@@ -30,7 +30,9 @@ class TripLocationsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $getLocations = TripLocations::all();
+        $getLocations = TripLocations::orderBy('trip_year', 'desc')
+            ->orderBy('trip_month', 'desc')
+            ->get();
 
 		return view('admin.locations.index', compact('getLocations'));
     }

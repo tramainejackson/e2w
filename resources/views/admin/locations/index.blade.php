@@ -1,34 +1,38 @@
 @extends('layouts.app')
 
-	@section('title', 'Edit Trip - Eastcoast2Westcoast')
+@section('title', 'Edit Trip - Eastcoast2Westcoast')
 
-	@section('content')
+@section('content')
 
-		<div id="" class="col-12 px-5">
+    <div id="" class="col-12 px-5">
 
-			<div class="newUserHeader">
-				<h1 class="pageTopicHeader">Select A Trip</h1>
-			</div>
+        <div class="newUserHeader">
+            <h1 class="pageTopicHeader">Select A Trip</h1>
+        </div>
 
-			<div class="row" id="">
-				<div class="col-12 py-4">
-					<a href="{{ route('location.create') }}" class="btn btn-success">Add New Trip</a>
-				</div>
-			</div>
+        <div class="row" id="">
+            <div class="col-12 py-4">
+                <a href="{{ route('location.create') }}" class="btn btn-success">Add New Trip</a>
+            </div>
+        </div>
 
-			<div class="">
-				<ul class="list-unstyled">
-					@foreach($getLocations as $showLocations)
-						<li>
-							<div class="">
-								<h2 class=""><a href="/location/{{ $showLocations->id }}/edit" class="btn btn-primary mr-2">Edit</a>{{ $showLocations->trip_location }}</h2>
-							</div>
-						</li>
-					@endforeach
-				</ul>
+        <div class="">
+            <ul class="list-unstyled">
+                @foreach($getLocations as $showLocations)
+                    <li>
+                        <div class="">
+                            <div class="d-flex align-items-center justify-content-start">
+								<a href="/location/{{ $showLocations->id }}/edit" class="btn btn-primary mr-2">Edit</a>
+								<h2 class="font-weight-bold">{{ $showLocations->trip_location }}</h2>
+								<h2 class="pl-3">{{ $showLocations->trip_month }}/{{ $showLocations->trip_year }}</h2>
+                            </div>
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
 
-			</div>
+        </div>
 
-		</div>
+    </div>
 
-	@endsection
+@endsection
