@@ -99,7 +99,7 @@ class ContactController extends Controller
 
 				if($participant->save()) {
 					//Send mail to somebody
-					\Mail::to($contact->email)->send(new Update($contact, $participant));
+//					\Mail::to($contact->email)->send(new Update($contact, $participant));
 				}
 			} else {}
 
@@ -307,11 +307,11 @@ class ContactController extends Controller
 			if($request->hasFile('attachment')) {
 
 				$path = $request->file('attachment');
-				\Mail::to($contact->email)->send(new UpdateWithAttach($contact, $path, $request->email_subject, $request->email_body));
+//				\Mail::to($contact->email)->send(new UpdateWithAttach($contact, $path, $request->email_subject, $request->email_body));
 
 			} else {
 
-				\Mail::to($contact->email)->send(new UpdateWithAttach($contact, '', $request->email_subject, $request->email_body));
+//				\Mail::to($contact->email)->send(new UpdateWithAttach($contact, '', $request->email_subject, $request->email_body));
 
 			}
 			return redirect()->back()->with('status', 'Email sent successfully');
@@ -350,18 +350,18 @@ class ContactController extends Controller
 
 			if($request->hasFile('attachment')) {
 				$path = $request->file('attachment');
-
-				\Mail::to('lorenzo@jacksonrentalhomesllc.com')
-					->bcc($sendToArray)
-					->send(new Mass($sendBody, $sendSubject)
-					);
+//
+//				\Mail::to('lorenzo@jacksonrentalhomesllc.com')
+//					->bcc($sendToArray)
+//					->send(new Mass($sendBody, $sendSubject)
+//					);
 
 			} else {
-
-				\Mail::to('lorenzo@jacksonrentalhomesllc.com')
-					->bcc($sendToArray)
-					->send(new Mass($sendBody, $sendSubject)
-					);
+//
+//				\Mail::to('lorenzo@jacksonrentalhomesllc.com')
+//					->bcc($sendToArray)
+//					->send(new Mass($sendBody, $sendSubject)
+//					);
 
 			}
 

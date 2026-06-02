@@ -23,7 +23,8 @@ Route::resource('/admin', 'UsersController');
 Route::resource('/location', 'TripLocationsController');
 Route::resource('/pictures', 'TripPicturesController');
 Route::resource('/suggestions', 'TravelSuggestionsController');
-Route::resource('/questions', 'TravelQuestionsController');
+//Route::resource('/questions', 'TravelQuestionsController');
+Route::resource('/settings', 'SettingsController');
 Route::resource('/participants', 'DistributionListController');
 Route::resource('/contacts', 'ContactController');
 /* Resource Controllers */
